@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -65,5 +66,10 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Speed magnitutde: " + rb.velocity.magnitude);
         //Debug.Log("Speed X: " + rb.velocity.x);
         //Debug.Log("Speed Y: " + rb.velocity.y);
+    }
+
+    public void ChangeScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 }
