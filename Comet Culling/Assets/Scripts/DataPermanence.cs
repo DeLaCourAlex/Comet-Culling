@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDataManager : MonoBehaviour
+public class DataPermanence : MonoBehaviour
 {
     // Create an instance of the class to store all relevant player data
-    public static PlayerDataManager Instance;
+    public static DataPermanence Instance;
+
+    public int testVariablePlayer;
 
     // Called when the script object is initialized
     private void Awake()
     {
         // Ensures that only one instance of the class is created
-        if(Instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;

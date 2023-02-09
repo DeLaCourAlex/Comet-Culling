@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,11 +17,22 @@ public class PlayerController : MonoBehaviour
     // Read the movement direction from player input
     Vector2 direction;
 
+    // A variable to test data permanence
+    int testVariable;
+    string testVariableText;
+    [SerializeField] TextMeshProUGUI testVariableUI;
+
     // Start is called before the first frame update
     void Start()
     {
         // Initialize member objects
         rb = GetComponent<Rigidbody2D>();
+
+        if (DataPermanence.Instance != null)
+            testVariable = DataPermanence.Instance.testVariablePlayer;
+        else
+            testVariable = 0;
+
     }
 
     // Update is called once per frame
@@ -30,7 +42,9 @@ public class PlayerController : MonoBehaviour
         // Read directional input and set the movement vector
         // Normalize to reduce increased speed when moving diagonally
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        Debug.Log("Input Direction: " + direction);
+
+        // Increment and display the test variable for data permanence
+        DebugDisplayTestVariable();
     }
 
     // Use for all movement of physics bodies
@@ -71,5 +85,20 @@ public class PlayerController : MonoBehaviour
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    // Used to display the test variable when running a build of the game to check for data permanence between scenes
+    void DebugDisplayTestVariable()
+    {
+        // Increment test variable 
+        if (Input.GetButtonDown("Debug Increment"))
+            testVariable++;
+
+        // Save the test variable to the data permanence instance
+        DataPermanence.Instance.testVariablePlayer = testVariable;
+
+        // Display the test variable as UI
+        testVariableText = testVariable.ToString();
+        testVariableUI.text = testVariableText;
     }
 }
