@@ -7,8 +7,9 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    // Member objects
+    // Member objects and components
     Rigidbody2D rb;
+    Animator animator;
 
     // MOVEMENT VARIABLES
     [Header("Movement Variables")]
@@ -17,6 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maximumSpeed = 15f;
     // Read the movement direction from player input
     Vector2 direction;
+    // Used to flip certain animations depending on the player's direction
+    bool facingRight = true;
+    // Used in the animator blend tree to determine the direction the player faces
+    float directionAnimatorParameter;
     // Restrict player movement in certain situations
     public bool canMove { set; private get; } = true;
 
@@ -30,8 +35,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Initialize member objects
+        // Initialize member objects and components
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         // Initialize variables
         if (DataPermanence.Instance != null)
@@ -54,9 +60,24 @@ public class PlayerController : MonoBehaviour
         // Normalize to reduce increased speed when moving diagonally
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
+        // Set the direction parameter based on the directional input
+        // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
+        // will keep the player facing in the current direction
+        if (direction.y == 1)
+            directionAnimatorParameter = 1;
+        else if (direction.y == -1)
+            directionAnimatorParameter = -1;
+        else if (Mathf.Abs(direction.x) == 1)
+            directionAnimatorParameter = 0;
+
+        // Set the movement animation parameter to detect any movement of the rigidbody
+        animator.SetFloat("Movement", rb.velocity.magnitude);
+        // Set the player direction parameter
+        animator.SetFloat("Vertical Direction", directionAnimatorParameter);
+
         // Increment and display the test variable for data permanence
         DebugDisplayTestVariable();
-        Debug.Log("Can move: " + canMove);
+        Debug.Log("Direction Vector: " + direction);
     }
 
     // Use for all movement of physics bodies
@@ -88,9 +109,17 @@ public class PlayerController : MonoBehaviour
         if (inputDirection.y == 0)
             rb.velocity = new Vector2(rb.velocity.x, 0f);
 
-        // TODO:
-        // Animation for walk
-        // Flip sprite direction between left and right
+
+        if ((inputDirection.x < 0 && facingRight) || (inputDirection.x > 0 && !facingRight))
+            FlipPlayer();
+    }
+
+    // Flip player on x axis to face left or right
+    // Used to avoid duplicating sideways animations
+    void FlipPlayer()
+    {
+        facingRight = !facingRight;
+        transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
     }
 
     // Used to display the test variable when running a build of the game to check for data permanence between scenes
