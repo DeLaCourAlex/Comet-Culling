@@ -12,11 +12,29 @@ public class DataPermanence : MonoBehaviour
 
     // ALL VARIABLES TO SET IN THE PLAYER CONTROLLER
 
-    // A test variable to make sure data permanence works
-    public int testVariablePlayer;
-
     // Set the player position when entering a new scene
     public Vector2 playerStartPosition;
+
+    // Set the test variable for crops in player inventory
+    public int testCropsHarvested;
+
+    // ALL VARIABLES FOR CROPS AND CROP MANAGEMENT
+
+    // Store the position of each crop and its time alive in a list
+    public class CropData
+    {
+        public Vector2 position;
+        public float timeAlive;
+
+        // Constructor for when adding items to the crop list
+        public CropData(Vector2 pos, float time)
+        {
+            position = pos;
+            timeAlive = time;
+        }
+    }
+
+    public List<CropData> allCrops = new List<CropData>();
 
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
 
@@ -36,5 +54,17 @@ public class DataPermanence : MonoBehaviour
 
         // Keeps the instance alive moving between scenes
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        // The list of crops is deleted once they're instantiated back into the scene and able to update themselves,
+        // so the list will only have any elements if the player is in a non-crop containing scene
+        // If the list is empty, nothing needs to be done. If it has any elements, update their time alive to use when returning to the crop containing scene
+        if (allCrops.Count != 0)
+            for(int i = 0; i < allCrops.Count; i++)
+            {
+                allCrops[i].timeAlive += Time.deltaTime;
+            }
     }
 }

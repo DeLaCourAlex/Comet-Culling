@@ -359,6 +359,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455690765}
   m_CullTransparentMesh: 1
+--- !u!1001 &533986479
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2489384
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.7687037
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.982189
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895667, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199553062900895669, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
+      propertyPath: m_Name
+      value: Crop Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2471d1e9d56455e459d859dea127eba0, type: 3}
 --- !u!1 &1601312430
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,10 +496,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 629160721041187821, guid: 9b6d6548ee72c5e419be48390e698b83, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 629160721041187822, guid: 9b6d6548ee72c5e419be48390e698b83, type: 3}
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 7527863383091862403}
+    - target: {fileID: 629160721543965011, guid: 9b6d6548ee72c5e419be48390e698b83, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 629160722269223568, guid: 9b6d6548ee72c5e419be48390e698b83, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -667,9 +732,17 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: testUI
+      value: 
+      objectReference: {fileID: 455690767}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
       propertyPath: testVariableUI
       value: 
       objectReference: {fileID: 455690767}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: cropLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
 --- !u!4 &7527863383091862403 stripped

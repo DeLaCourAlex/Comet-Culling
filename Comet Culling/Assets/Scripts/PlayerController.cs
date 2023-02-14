@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     // Member objects and components
     Rigidbody2D rb;
     Animator animator;
+    BoxCollider2D box;
 
     // MOVEMENT VARIABLES
     [Header("Movement Variables")]
@@ -25,12 +26,15 @@ public class PlayerController : MonoBehaviour
     // Restrict player movement in certain situations
     public bool canMove { set; private get; } = true;
 
-    // SOME DEBUGGING/TEST VARIABLES
-    // A variable to test data permanence
-    int testVariable;
-    // String and text UI to display the test variable in build
-    string testVariableText;
-    [SerializeField] TextMeshProUGUI testVariableUI;
+    // CROP RELATED VARIABLES
+    [Header("Crop Variables")]
+    [SerializeField] GameObject crop;
+    int testCropsHarvested = 0;
+
+    // BASIC TEST UI
+    // Mostly for debugging/checking things are working
+    string testUIText;
+    [SerializeField] TextMeshProUGUI testUI;
 
     // Start is called before the first frame update
     void Start()
@@ -38,18 +42,16 @@ public class PlayerController : MonoBehaviour
         // Initialize member objects and components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        box = GetComponent<BoxCollider2D>();
 
-        // Initialize variables
+        // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
-            // Set the test variable
-            testVariable = DataPermanence.Instance.testVariablePlayer;
             // Set the player position when entering a new scene
             rb.MovePosition(DataPermanence.Instance.playerStartPosition);
+            // Set the player crops harvested
+            testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
         }
-        else
-            testVariable = 0;
-
     }
 
     // Update is called once per frame
@@ -70,14 +72,20 @@ public class PlayerController : MonoBehaviour
         else if (Mathf.Abs(direction.x) == 1)
             directionAnimatorParameter = 0;
 
+        // Plant a new crop at the player current location
+        if (Input.GetButtonDown("Plant Crop"))
+            Instantiate(crop, transform.position, Quaternion.identity);
+
+        if (Input.GetButtonDown("Harvest Crop"))
+            HarvestCrop();
+
         // Set the movement animation parameter to detect any movement of the rigidbody
         animator.SetFloat("Movement", rb.velocity.magnitude);
         // Set the player direction parameter
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
 
-        // Increment and display the test variable for data permanence
-        DebugDisplayTestVariable();
-        Debug.Log("Direction Vector: " + direction);
+        // Set the variables for the test UI
+        TestUI();
     }
 
     // Use for all movement of physics bodies
@@ -122,19 +130,31 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
     }
 
-    // Used to display the test variable when running a build of the game to check for data permanence between scenes
-    // Debugging/test function - will delete eventually 
-    void DebugDisplayTestVariable()
+    // Harvest a crop if the player is in contact with it
+    void HarvestCrop()
     {
-        // Increment test variable 
-        if (Input.GetButtonDown("Debug Increment"))
-            testVariable++;
+        // A boxcast that returns all objects the player is touching
+        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
+        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 2, 0.0f, Vector2.zero);
 
-        // Save the test variable to the data permanence instance
-        DataPermanence.Instance.testVariablePlayer = testVariable;
+        // Cycle through all hits from the boxcast
+        // check to see if any have a crop tag
+        foreach (RaycastHit2D hit in boxCast)
+            if (hit.collider.tag.Equals("Crop"))
+            {
+                // If the raycast hits a crop, delete that crop
+                Destroy(hit.transform.gameObject);
+                testCropsHarvested++;
+                DataPermanence.Instance.testCropsHarvested++;
+            }
+    }
 
+    // Used to display any variables to the screen in place of UI for now
+    // Can add more variables to this as/when we need them and delete it when we have something better
+    void TestUI()
+    {
         // Display the test variable as UI
-        testVariableText = testVariable.ToString();
-        testVariableUI.text = testVariableText;
+        testUIText = "Crops Held: " + testCropsHarvested.ToString();
+        testUI.text = testUIText;
     }
 }

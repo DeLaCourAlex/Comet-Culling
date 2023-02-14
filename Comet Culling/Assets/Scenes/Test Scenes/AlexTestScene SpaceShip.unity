@@ -660,6 +660,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: testUI
+      value: 
+      objectReference: {fileID: 1111109614}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
       propertyPath: testVariableUI
       value: 
       objectReference: {fileID: 1111109614}

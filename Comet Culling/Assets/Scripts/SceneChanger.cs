@@ -30,6 +30,19 @@ public class SceneChanger : MonoBehaviour
 
         // Start coroutine to play the fadeout and load the new scene
         StartCoroutine(ChangeLevel(scene));
+
+        // Check for any game objects with the "crop" tag
+        // This means this is a crop containing area
+        // If any are found, add their location and time alive to the data permanence object
+        GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+        if(crops.Length != 0)
+        {
+            for(int i = 0; i < crops.Length; i++)
+            {
+                CropController cropController = crops[i].GetComponent<CropController>();
+                DataPermanence.Instance.allCrops.Add(new DataPermanence.CropData(crops[i].transform.position, cropController.timeAlive));
+            }
+        }
     }
 
     // Use a coroutine to start the fade out and then change the scene after a brief delay
