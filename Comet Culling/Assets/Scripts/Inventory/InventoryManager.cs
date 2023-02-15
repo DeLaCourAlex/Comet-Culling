@@ -16,7 +16,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryItem;
     private void Awake()
     {
-        Instance = this;
+        Instance = this; 
+        
     }
     /// <summary>
     /// adding items to the list
@@ -25,6 +26,7 @@ public class InventoryManager : MonoBehaviour
     public void Add(Item item)
     {
         Items.Add(item);
+       
     }
     /// <summary>
     /// removes items from list
@@ -32,25 +34,32 @@ public class InventoryManager : MonoBehaviour
     /// <param name="item"></param>
     public void Remove(Item item)
     {
-        Items.Remove(item);
+        Items.Remove(item); 
+         
     }
 
     public void ListItems()
     {
-        foreach(Transform item in ItemContent) 
+      
+        foreach (Transform item in ItemContent) 
         {
-            Destroy(item.gameObject);
+            Destroy(item.gameObject);  
+           
         }
 
 
         foreach (Item item in Items)
-        {
+        { 
+           Debug.Log("item name and icon is not null");
             GameObject obj = Instantiate(InventoryItem, ItemContent);
             var itemName = obj.transform.Find("ItemName").GetComponent<TMPro.TextMeshProUGUI>();
             var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-
             itemName.text = item.itemName;
             itemIcon.sprite= item.icon;
+           
+               
+            
+            
         }
 
     }
