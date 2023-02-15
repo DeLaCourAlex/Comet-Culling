@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
     // Can add more variables to this as/when we need them and delete it when we have something better
     void TestUI()
     {
-        // Display the test variable as UI
+       // Display the test variable as UI
         testUIText = "Crops Held: " + testCropsHarvested.ToString();
         testUI.text = testUIText;
     }
