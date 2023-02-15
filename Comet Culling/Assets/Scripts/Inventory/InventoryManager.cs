@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// creating a list to hold items
     /// </summary>
-    public List<Item> items = new List<Item>();
+    public List<Item> Items = new List<Item>();
 
     public Transform ItemContent;
     public GameObject InventoryItem;
@@ -24,7 +24,7 @@ public class InventoryManager : MonoBehaviour
     /// <param name="item"></param>
     public void Add(Item item)
     {
-        items.Add(item);
+        Items.Add(item);
     }
     /// <summary>
     /// removes items from list
@@ -32,15 +32,21 @@ public class InventoryManager : MonoBehaviour
     /// <param name="item"></param>
     public void Remove(Item item)
     {
-        items.Remove(item);
+        Items.Remove(item);
     }
 
     public void ListItems()
     {
-        foreach (Item item in items)
+        foreach(Transform item in ItemContent) 
+        {
+            Destroy(item.gameObject);
+        }
+
+
+        foreach (Item item in Items)
         {
             GameObject obj = Instantiate(InventoryItem, ItemContent);
-            var itemName = obj.transform.Find("ItemName").GetComponent<Text>();
+            var itemName = obj.transform.Find("ItemName").GetComponent<TMPro.TextMeshProUGUI>();
             var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
 
             itemName.text = item.itemName;
