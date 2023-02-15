@@ -76,8 +76,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Plant Crop"))
             Instantiate(crop, transform.position, Quaternion.identity);
 
+        // Water a crop
+        if (Input.GetButtonDown("Use Item"))
+            WaterCrop();
+
+        // Harvest a crop
         if (Input.GetButtonDown("Harvest Crop"))
             HarvestCrop();
+
+        // Animator parameters
 
         // Set the movement animation parameter to detect any movement of the rigidbody
         animator.SetFloat("Movement", rb.velocity.magnitude);
@@ -117,7 +124,6 @@ public class PlayerController : MonoBehaviour
         if (inputDirection.y == 0)
             rb.velocity = new Vector2(rb.velocity.x, 0f);
 
-
         if ((inputDirection.x < 0 && facingRight) || (inputDirection.x > 0 && !facingRight))
             FlipPlayer();
     }
@@ -142,10 +148,36 @@ public class PlayerController : MonoBehaviour
         foreach (RaycastHit2D hit in boxCast)
             if (hit.collider.tag.Equals("Crop"))
             {
-                // If the raycast hits a crop, delete that crop
-                Destroy(hit.transform.gameObject);
-                testCropsHarvested++;
-                DataPermanence.Instance.testCropsHarvested++;
+                // If the raycast hits a crop, check if it is fully grown
+                CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
+                if(cropController.isGrown)
+                {
+                    // If it's fully grown, destroy the game object and harvest the crop
+                    Destroy(hit.transform.gameObject);
+                    testCropsHarvested++;
+                    DataPermanence.Instance.testCropsHarvested++;
+                }
+            }
+    }
+
+    // Water a crop if the player is in contact with it
+    void WaterCrop()
+    {
+        // A boxcast that returns all objects the player is touching
+        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
+        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 2, 0.0f, Vector2.zero);
+
+        // Cycle through all hits from the boxcast
+        // check to see if any have a crop tag
+        foreach (RaycastHit2D hit in boxCast)
+            if (hit.collider.tag.Equals("Crop"))
+            {
+                // If the raycast hits a crop, water it
+                CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
+                cropController.isWatered = true;
+
+                // Trigger the watering animation
+                animator.SetTrigger("Watering");
             }
     }
 
