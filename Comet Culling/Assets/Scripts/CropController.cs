@@ -20,7 +20,10 @@ public class CropController : MonoBehaviour
     public bool isWatered { get; set; }
 
     public bool isGrown { get; private set; }
+
+    // The age at which  a crop is grown
     float grownAge = 15;
+    public float wateredMultiplier { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +35,7 @@ public class CropController : MonoBehaviour
     void Update()
     {
         // Multiplier to increase the speed that a crop grows if watered
-        float wateredMultiplier = isWatered ? 2f : 1f;
+        wateredMultiplier = isWatered ? 2f : 1f;
 
         // Increase time alive
         timeAlive += Time.deltaTime * wateredMultiplier;

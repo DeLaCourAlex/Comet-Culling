@@ -25,12 +25,16 @@ public class DataPermanence : MonoBehaviour
     {
         public Vector2 position;
         public float timeAlive;
+        public float wateredMultiplier;
+        public bool isWatered;
 
         // Constructor for when adding items to the crop list
-        public CropData(Vector2 pos, float time)
+        public CropData(Vector2 pos, float time, float wMultiplier, bool watered)
         {
             position = pos;
             timeAlive = time;
+            wateredMultiplier = wMultiplier;
+            isWatered = watered;
         }
     }
 
@@ -64,7 +68,7 @@ public class DataPermanence : MonoBehaviour
         if (allCrops.Count != 0)
             for(int i = 0; i < allCrops.Count; i++)
             {
-                allCrops[i].timeAlive += Time.deltaTime;
+                allCrops[i].timeAlive += Time.deltaTime * allCrops[i].wateredMultiplier;
             }
     }
 }
