@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Crop
   - Generator
+  - Dirt Tile
   layers:
   - Default
   - TransparentFX

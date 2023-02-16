@@ -74,7 +74,8 @@ public class PlayerController : MonoBehaviour
 
         // Plant a new crop at the player current location
         if (Input.GetButtonDown("Plant Crop"))
-            Instantiate(crop, transform.position, Quaternion.identity);
+            PlantCrop();
+            //Instantiate(crop, transform.position, Quaternion.identity);
 
         // Water a crop
         if (Input.GetButtonDown("Use Item"))
@@ -83,6 +84,9 @@ public class PlayerController : MonoBehaviour
         // Harvest a crop
         if (Input.GetButtonDown("Harvest Crop"))
             HarvestCrop();
+
+        if (Input.GetButtonDown("Till Dirt"))
+            TillDirt();
 
         // Animator parameters
 
@@ -141,7 +145,7 @@ public class PlayerController : MonoBehaviour
     {
         // A boxcast that returns all objects the player is touching
         // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 2, 0.0f, Vector2.zero);
+        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size, 0.0f, Vector2.zero);
 
         // Cycle through all hits from the boxcast
         // check to see if any have a crop tag
@@ -156,6 +160,9 @@ public class PlayerController : MonoBehaviour
                     Destroy(hit.transform.gameObject);
                     testCropsHarvested++;
                     DataPermanence.Instance.testCropsHarvested++;
+
+                    // Reset the crop's tile to untilled dirt
+                    TilemapManager.Instance.ResetTile(transform.position);
                 }
             }
     }
@@ -178,6 +185,38 @@ public class PlayerController : MonoBehaviour
 
                 // Trigger the watering animation
                 animator.SetTrigger("Watering");
+            }
+    }
+
+    void TillDirt()
+    {
+        // A boxcast that returns all objects the player is touching
+        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
+        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
+
+        // Cycle through all hits from the boxcast
+        // check to see if any have a dirt tile tag
+        foreach (RaycastHit2D hit in boxCast)
+            if (hit.collider.tag.Equals("Dirt Tile"))
+            {
+                Debug.Log("Tilling that dirt!");
+                Debug.Log("Player position: " + transform.position);
+                TilemapManager.Instance.TillDirt(transform.position);
+            }
+    }
+
+    void PlantCrop()
+    {
+        // A boxcast that returns all objects the player is touching
+        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
+        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
+
+        // Cycle through all hits from the boxcast
+        // check to see if any have a dirt tile tag
+        foreach (RaycastHit2D hit in boxCast)
+            if (hit.collider.tag.Equals("Dirt Tile"))
+            {
+                TilemapManager.Instance.PlantCrop(transform.position);
             }
     }
 
