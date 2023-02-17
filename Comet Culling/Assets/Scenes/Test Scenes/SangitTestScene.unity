@@ -268,6 +268,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 793864020}
     m_Modifications:
+    - target: {fileID: 7052317143720147163, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 261527062}
     - target: {fileID: 7052317143720147169, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
       propertyPath: m_Name
       value: Red Potion (1)
@@ -478,6 +482,134 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170709284}
   m_CullTransparentMesh: 1
+--- !u!1 &261527060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 261527061}
+  - component: {fileID: 261527062}
+  m_Layer: 0
+  m_Name: Click
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &261527061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261527060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1463826526}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &261527062
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261527060}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4704796739c902b4ca34a78b99b06873, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &305685875
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +852,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4461692121036000174, guid: ec65778811e1f5b47a747a58330e75f1, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 261527062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec65778811e1f5b47a747a58330e75f1, type: 3}
 --- !u!4 &443918629 stripped
@@ -1475,6 +1611,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4461692121036000174, guid: ec65778811e1f5b47a747a58330e75f1, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 261527062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec65778811e1f5b47a747a58330e75f1, type: 3}
 --- !u!4 &1184855075 stripped
@@ -1557,6 +1697,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 793864020}
     m_Modifications:
+    - target: {fileID: 7052317143720147163, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 261527062}
     - target: {fileID: 7052317143720147169, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
       propertyPath: m_Name
       value: Red Potion (2)
@@ -1692,6 +1836,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 0
+--- !u!1 &1463826525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1463826526}
+  m_Layer: 0
+  m_Name: Sounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1463826526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463826525}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.536926, y: 6.201723, z: -14.377441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 261527061}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1468811837
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,6 +2619,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4461692121036000174, guid: ec65778811e1f5b47a747a58330e75f1, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 261527062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec65778811e1f5b47a747a58330e75f1, type: 3}
 --- !u!1001 &7052317144117763898
@@ -2452,6 +2632,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 793864020}
     m_Modifications:
+    - target: {fileID: 7052317143720147163, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 261527062}
     - target: {fileID: 7052317143720147169, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
       propertyPath: m_Name
       value: Red Potion
@@ -2499,10 +2683,6 @@ PrefabInstance:
     - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7052317143720147175, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}

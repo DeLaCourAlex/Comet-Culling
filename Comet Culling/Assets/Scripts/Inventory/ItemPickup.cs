@@ -6,10 +6,11 @@ public class ItemPickup : MonoBehaviour
 {
 
     public Item item;
-
+    public AudioSource clickSound;
     void Pickup()
     {
         InventoryManager.Instance.Add(item);
+        clickSound.Play();
         Destroy(gameObject);
 
     }
