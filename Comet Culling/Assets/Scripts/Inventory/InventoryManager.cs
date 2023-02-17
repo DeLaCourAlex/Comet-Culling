@@ -51,7 +51,6 @@ public class InventoryManager : MonoBehaviour
 
         }
 
-
         foreach (Item item in Items)
         {
             //Debug.Log("item name and icon is not null");

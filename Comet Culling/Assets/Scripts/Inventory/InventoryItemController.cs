@@ -33,19 +33,10 @@ public class InventoryItemController : MonoBehaviour
             case Item.ItemType.Other:
                 Player.Instance.IncreaseExp(item.value);
                 break;
-
-
-        
-        
-        
-        
+            default:
+                break;
         }
 
         RemoveItem();
-
     }
-
-
-
-
 }

@@ -256,7 +256,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 810267419}
         m_TargetAssemblyTypeName: InventoryItemController, Assembly-CSharp
         m_MethodName: RemoveItem
         m_Mode: 1
