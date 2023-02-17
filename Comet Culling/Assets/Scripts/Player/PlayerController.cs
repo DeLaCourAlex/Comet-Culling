@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
     {
         // A boxcast that returns all objects the player is touching
         // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size, 0.0f, Vector2.zero);
+        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
 
         // Cycle through all hits from the boxcast
         // check to see if any have a crop tag
@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
     {
         // A boxcast that returns all objects the player is touching
         // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 2, 0.0f, Vector2.zero);
+        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
 
         // Cycle through all hits from the boxcast
         // check to see if any have a crop tag

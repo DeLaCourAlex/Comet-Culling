@@ -9,7 +9,7 @@ public class TilemapManager : MonoBehaviour
     public static TilemapManager Instance;
 
     // A reference to the tilemap
-    [SerializeField] Tilemap tilemap;
+    public Tilemap tilemap;
     // References to the untilled and tilled tile
     [SerializeField] Tile untilledTile;
     [SerializeField] Tile tilledTile;
@@ -32,6 +32,10 @@ public class TilemapManager : MonoBehaviour
         // This allows to access the data stored at each tile
         foreach (ScriptableTile data in scriptableTiles)
             tileData.Add(data.tile, data);
+
+        // If entering the farming scene, check if any dirt tiles have previously been tilled and set them
+        foreach (Vector3Int position in DataPermanence.Instance.tilledTilePositions)
+            tilemap.SetTile(position, tilledTile);
     }
 
     // Till a tile, allowing it to have crops planted
@@ -54,6 +58,7 @@ public class TilemapManager : MonoBehaviour
         {
             Debug.Log("int position: " + positionInt);
             tilemap.SetTile(positionInt, tilledTile);
+            DataPermanence.Instance.tilledTilePositions.Add(positionInt);
         }
     }
 
@@ -107,6 +112,12 @@ public class TilemapManager : MonoBehaviour
 
         // If there is a tilled dirt tile at the players position, set the tile to untilled
         if (tileToPlant != null)
+        {
             tilemap.SetTile(positionInt, untilledTile);
+
+            // Remove the tilled tile from data permanence
+            if (DataPermanence.Instance.tilledTilePositions.Contains(positionInt))
+                DataPermanence.Instance.tilledTilePositions.Remove(positionInt);
+        }
     }
 }
