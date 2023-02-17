@@ -22,7 +22,28 @@ public class InventoryItemController : MonoBehaviour
         item = newItem;
     }
 
+    public void UseItem()
+    {
+        
+        switch (item.itemType) 
+        {
+            case Item.ItemType.Potion:
+                Player.Instance.IncreaseHealth(item.value);
+                break;
+            case Item.ItemType.Other:
+                Player.Instance.IncreaseExp(item.value);
+                break;
 
+
+        
+        
+        
+        
+        }
+
+        RemoveItem();
+
+    }
 
 
 
