@@ -95,6 +95,25 @@ public class TilemapManager : MonoBehaviour
             Instantiate(tileData[tileToPlant].crop, cropPosition, Quaternion.identity);
     }
 
+    // Check if the current tile is tilled
+    // Used to control player animations
+    public bool IsTilled(Vector2 position)
+    {
+        // Used to correct for rounding down when converting position to ints
+        // We want to round down, but setting a float to an int only removes after the decimal place
+        // This causes the number to round up if the float value is negative
+        int yCorrector = position.y < 0 ? -1 : 0;
+        int xCorrector = position.x < 0 ? -1 : 0;
+
+        // Set the player position to ints because that's what the SetTile function uses
+        Vector3Int positionInt = new Vector3Int((int)position.x + xCorrector, (int)position.y + yCorrector, 0);
+
+        // Get the tile at the player's current position
+        TileBase tileToCheck = tilemap.GetTile(positionInt);
+
+        return tileToCheck != null && tileData[tileToCheck].isTilled;
+    }
+
     // Reset a tile to untilled after its crop has been harvested
     public void ResetTile(Vector2 position)
     {
