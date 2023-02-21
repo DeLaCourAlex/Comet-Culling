@@ -51,6 +51,6 @@ public class CropController : MonoBehaviour
         animator.SetBool("Watered", isWatered);
 
         // Display time alive for debugging purposes
-        Debug.Log("Crop time alive: " + timeAlive);
+       // Debug.Log("Crop time alive: " + timeAlive);
     }
 }

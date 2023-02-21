@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DataPermanence : MonoBehaviour
 {
@@ -38,7 +39,11 @@ public class DataPermanence : MonoBehaviour
         }
     }
 
+    // A list of all crops in the farm scene
     public List<CropData> allCrops = new List<CropData>();
+
+    // A reference to the tilemap in the farm scene
+    public List<Vector3Int> tilledTilePositions = new List<Vector3Int>();
 
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
 
