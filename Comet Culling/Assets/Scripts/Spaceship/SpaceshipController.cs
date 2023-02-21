@@ -42,7 +42,7 @@ public class SpaceshipController : MonoBehaviour
 
     }
 
-    public void ChargePlayer(int botStamina) //Pass these variables into this function from the player's controls
+    public void ChargePlayer(ref int botStamina) //Pass these variables into this function from the player's controls
     {
         //Placeholder logic: charging 100% of the robot's stamina takes 25% of the spaceship. Will be replaced for a more optimised value in the future if needed.
         int rechargingStamina = MAX_STAMINA - botStamina; //Value needed to recharge to 100% stamina

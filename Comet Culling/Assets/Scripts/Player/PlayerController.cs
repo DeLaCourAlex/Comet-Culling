@@ -31,6 +31,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject crop;
     int testCropsHarvested = 0;
 
+    // STAMINA RELATED VARIABLES
+    public int stamina;
+    int MAX_STAMINA = 10; 
+
     // INTERRACTION/ACTION VARIABLES
     [SerializeField] Transform raycastEnd;
 
@@ -62,6 +66,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
 
+        stamina = MAX_STAMINA; 
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
@@ -125,7 +130,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
 
         // Set the variables for the test UI
-        TestUI();
+        //TestUI();
     }
 
     // Use for all movement of physics bodies
@@ -174,7 +179,7 @@ public class PlayerController : MonoBehaviour
     void PerformAction()
     {
         Vector2 raycastDirection = raycastEnd.transform.position - transform.position;
-        RaycastHit2D[] rayCast = Physics2D.RaycastAll(transform.position, raycastDirection, 0.5f);
+        RaycastHit2D[] rayCast = Physics2D.RaycastAll(transform.position, raycastDirection, 0.6f);
 
         // Cycle through all hits from the boxcast
         // check to see if any the object hit has any tag
@@ -257,21 +262,39 @@ public class PlayerController : MonoBehaviour
                     }
 
                     break;
+                case "Generator":
+                    
+                    //You can initialize staminarecharge (or any object belonging to a specific class) by calling this statement
+                    //Which essentially makes this instance be able to access the scripts attached to that object
+                    //Think of it like a pointer 
+                    //Tldr if i hit the generator and it has the staminarecharge component, this statement will be valid
+                    SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
+                    Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
+                    Debug.Log("Stamina value: " + stamina);
+                    spaceshipController.ChargePlayer(ref stamina);
+                   
+                    Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
+                    Debug.Log("Stamina value: " + stamina);
+
+
+                    break;
                 // TODO: Add engine/spaceship stuff for codependency system
             }
         }
     }
 
+   
+
     // Used to display any variables to the screen in place of UI for now
     // Can add more variables to this as/when we need them and delete it when we have something better
-    void TestUI()
-    {
-        // Display the test variable as UI
-        testUIText = "Crops Held: " + testCropsHarvested.ToString();
-        testUI.text = testUIText;
+    //void TestUI()
+    //{
+    //    // Display the test variable as UI
+    //    testUIText = "Crops Held: " + testCropsHarvested.ToString();
+    //    testUI.text = testUIText;
 
-        currentToolString = "Tool Equipped: " + currentTool.ToString();
-        currentToolUI.text = currentToolString;
-    }
+    //    currentToolString = "Tool Equipped: " + currentTool.ToString();
+    //    currentToolUI.text = currentToolString;
+    //}
 }
