@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class PlayerController : MonoBehaviour
 {
     // Member objects and components
@@ -24,7 +25,20 @@ public class PlayerController : MonoBehaviour
     // Used in the animator blend tree to determine the direction the player faces
     float directionAnimatorParameter;
     // Restrict player movement in certain situations
+
+    // COLLISIONS
+    // A boxcast that returns all objects the player is touching
+    // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
+    //RaycastHit2D[] boxCast;
     public bool canMove { set; private get; } = true;
+
+    //STAMINA & ENERGY RELATED VARIABLES & FUNCTIONS
+    public const int MAX_STAMINA = 100;
+    public int stamina
+    {set;get;}
+
+    
+
 
     // CROP RELATED VARIABLES
     [Header("Crop Variables")]
@@ -34,7 +48,7 @@ public class PlayerController : MonoBehaviour
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
     string testUIText;
-    [SerializeField] TextMeshProUGUI testUI;
+    //[SerializeField] TextMeshProUGUI testUI;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +66,8 @@ public class PlayerController : MonoBehaviour
             // Set the player crops harvested
             testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
         }
+        //Debugging
+        stamina = 0; 
     }
 
     // Update is called once per frame
@@ -84,6 +100,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Harvest Crop"))
             HarvestCrop();
 
+        
         // Animator parameters
 
         // Set the movement animation parameter to detect any movement of the rigidbody
@@ -92,7 +109,9 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
 
         // Set the variables for the test UI
-        TestUI();
+        //TestUI();
+
+       
     }
 
     // Use for all movement of physics bodies
@@ -139,54 +158,52 @@ public class PlayerController : MonoBehaviour
     // Harvest a crop if the player is in contact with it
     void HarvestCrop()
     {
-        // A boxcast that returns all objects the player is touching
-        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 2, 0.0f, Vector2.zero);
-
-        // Cycle through all hits from the boxcast
-        // check to see if any have a crop tag
-        foreach (RaycastHit2D hit in boxCast)
-            if (hit.collider.tag.Equals("Crop"))
-            {
-                // If the raycast hits a crop, check if it is fully grown
-                CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
-                if(cropController.isGrown)
-                {
-                    // If it's fully grown, destroy the game object and harvest the crop
-                    Destroy(hit.transform.gameObject);
-                    testCropsHarvested++;
-                    DataPermanence.Instance.testCropsHarvested++;
-                }
-            }
+   
+        //// Cycle through all hits from the boxcast
+        //// check to see if any have a crop tag
+        //foreach (RaycastHit2D hit in boxCast)
+        //    if (hit.collider.tag.Equals("Crop"))
+        //    {
+        //        // If the raycast hits a crop, check if it is fully grown
+        //        CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
+        //        if(cropController.isGrown)
+        //        {
+        //            // If it's fully grown, destroy the game object and harvest the crop
+        //            Destroy(hit.transform.gameObject);
+        //            testCropsHarvested++;
+        //            DataPermanence.Instance.testCropsHarvested++;
+        //        }
+        //    }
     }
 
     // Water a crop if the player is in contact with it
     void WaterCrop()
     {
-        // A boxcast that returns all objects the player is touching
-        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 2, 0.0f, Vector2.zero);
 
-        // Cycle through all hits from the boxcast
-        // check to see if any have a crop tag
-        foreach (RaycastHit2D hit in boxCast)
-            if (hit.collider.tag.Equals("Crop"))
-            {
-                // If the raycast hits a crop, water it
-                CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
-                cropController.isWatered = true;
+        //// Cycle through all hits from the boxcast
+        //// check to see if any have a crop tag
+        //foreach (RaycastHit2D hit in boxCast)
+        //    if (hit.collider.tag.Equals("Crop"))
+        //    {
+        //        // If the raycast hits a crop, water it
+        //        CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
+        //        cropController.isWatered = true;
 
-                // Trigger the watering animation
-                animator.SetTrigger("Watering");
-            }
+        //        // Trigger the watering animation
+        //        animator.SetTrigger("Watering");
+        //    }
     }
+
+    //######################################################### SPACESHIP RECHARGE INTERACTION #######################################
+    
+
 
     // Used to display any variables to the screen in place of UI for now
-    // Can add more variables to this as/when we need them and delete it when we have something better
-    void TestUI()
-    {
-        // Display the test variable as UI
-        testUIText = "Crops Held: " + testCropsHarvested.ToString();
-        testUI.text = testUIText;
-    }
+    //// Can add more variables to this as/when we need them and delete it when we have something better
+    //void TestUI()
+    //{
+    //    // Display the test variable as UI
+    //    testUIText = "Crops Held: " + testCropsHarvested.ToString();
+    //    testUI.text = testUIText;
+    //}
 }
