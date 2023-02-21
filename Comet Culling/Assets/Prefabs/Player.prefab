@@ -182,6 +182,7 @@ MonoBehaviour:
   movementSpeed: 20
   maximumSpeed: 15
   crop: {fileID: 4737909255717466027, guid: 0873f08d38d227546b3314a961d98047, type: 3}
+  raycastEnd: {fileID: 2111812885905076054}
   testUI: {fileID: 0}
   currentToolUI: {fileID: 0}
 --- !u!95 &7527863383091862404

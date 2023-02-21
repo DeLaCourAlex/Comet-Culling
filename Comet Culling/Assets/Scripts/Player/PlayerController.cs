@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject crop;
     int testCropsHarvested = 0;
 
+    // INTERRACTION/ACTION VARIABLES
+    [SerializeField] Transform raycastEnd;
+
     // Store the tools as an enum to know which one to use
     enum Tools
     {
@@ -170,14 +173,13 @@ public class PlayerController : MonoBehaviour
     // the type of object interracted with
     void PerformAction()
     {
-        // A boxcast that returns all objects the player is touching
-        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
+        Vector2 raycastDirection = raycastEnd.transform.position - transform.position;
+        RaycastHit2D[] rayCast = Physics2D.RaycastAll(transform.position, raycastDirection, 0.5f);
 
         // Cycle through all hits from the boxcast
         // check to see if any the object hit has any tag
         // Use this to determine what actions to perform depending on what tool the player has activated
-        foreach (RaycastHit2D hit in boxCast)
+        foreach (RaycastHit2D hit in rayCast)
         {
             string tag = hit.transform.gameObject.tag;
 
@@ -256,7 +258,7 @@ public class PlayerController : MonoBehaviour
 
                     break;
 
-                // TODO: Add engine/spaceship for codependency system
+                // TODO: Add engine/spaceship stuff for codependency system
             }
         }
     }
@@ -272,84 +274,4 @@ public class PlayerController : MonoBehaviour
         currentToolString = "Tool Equipped: " + currentTool.ToString();
         currentToolUI.text = currentToolString;
     }
-
-    /*// Harvest a crop if the player is in contact with it
-    void HarvestCrop()
-    {
-        // A boxcast that returns all objects the player is touching
-        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
-    
-        // Cycle through all hits from the boxcast
-        // check to see if any have a crop tag
-        foreach (RaycastHit2D hit in boxCast)
-            if (hit.collider.tag.Equals("Crop"))
-            {
-                // If the raycast hits a crop, check if it is fully grown
-                CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
-                if(cropController.isGrown)
-                {
-                    // If it's fully grown, destroy the game object and harvest the crop
-                    Destroy(hit.transform.gameObject);
-                    testCropsHarvested++;
-                    DataPermanence.Instance.testCropsHarvested++;
-    
-                    // Reset the crop's tile to untilled dirt
-                    TilemapManager.Instance.ResetTile(transform.position);
-                }
-            }
-    }
-    
-    // Water a crop if the player is in contact with it
-    void WaterCrop()
-    {
-        // A boxcast that returns all objects the player is touching
-        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
-    
-        // Cycle through all hits from the boxcast
-        // check to see if any have a crop tag
-        foreach (RaycastHit2D hit in boxCast)
-            if (hit.collider.tag.Equals("Crop"))
-            {
-                // If the raycast hits a crop, water it
-                CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
-                cropController.isWatered = true;
-    
-                // Trigger the watering animation
-                animator.SetTrigger("Watering");
-            }
-    }
-    
-    void TillDirt()
-    {
-        // A boxcast that returns all objects the player is touching
-        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
-    
-        // Cycle through all hits from the boxcast
-        // check to see if any have a dirt tile tag
-        foreach (RaycastHit2D hit in boxCast)
-            if (hit.collider.tag.Equals("Dirt Tile"))
-            {
-                Debug.Log("Tilling that dirt!");
-                Debug.Log("Player position: " + transform.position);
-                TilemapManager.Instance.TillDirt(transform.position);
-            }
-    }
-    
-    void PlantCrop()
-    {
-        // A boxcast that returns all objects the player is touching
-        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
-    
-        // Cycle through all hits from the boxcast
-        // check to see if any have a dirt tile tag
-        foreach (RaycastHit2D hit in boxCast)
-            if (hit.collider.tag.Equals("Dirt Tile"))
-            {
-                TilemapManager.Instance.PlantCrop(transform.position);
-            }
-    }*/
 }
