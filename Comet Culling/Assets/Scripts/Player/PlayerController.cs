@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class PlayerController : MonoBehaviour
 {
     // Member objects and components
@@ -24,7 +25,20 @@ public class PlayerController : MonoBehaviour
     // Used in the animator blend tree to determine the direction the player faces
     float directionAnimatorParameter;
     // Restrict player movement in certain situations
+
+    // COLLISIONS
+    // A boxcast that returns all objects the player is touching
+    // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
+    //RaycastHit2D[] boxCast;
     public bool canMove { set; private get; } = true;
+
+    //STAMINA & ENERGY RELATED VARIABLES & FUNCTIONS
+    public const int MAX_STAMINA = 100;
+    public int stamina
+    {set;get;}
+
+    
+
 
     // CROP RELATED VARIABLES
     [Header("Crop Variables")]
@@ -50,9 +64,11 @@ public class PlayerController : MonoBehaviour
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
     string testUIText;
+
     [SerializeField] TextMeshProUGUI testUI;
     string currentToolString;
     [SerializeField] TextMeshProUGUI currentToolUI;
+
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +86,8 @@ public class PlayerController : MonoBehaviour
             // Set the player crops harvested
             testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
         }
+        //Debugging
+        stamina = 0; 
     }
 
     // Update is called once per frame
@@ -117,6 +135,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Action"))
             PerformAction();
 
+        
         // Animator parameters
 
         // Set the movement animation parameter to detect any movement of the rigidbody
@@ -125,7 +144,9 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
 
         // Set the variables for the test UI
-        TestUI();
+        //TestUI();
+
+       
     }
 
     // Use for all movement of physics bodies
@@ -173,6 +194,7 @@ public class PlayerController : MonoBehaviour
     // the type of object interracted with
     void PerformAction()
     {
+
         Vector2 raycastDirection = raycastEnd.transform.position - transform.position;
         RaycastHit2D[] rayCast = Physics2D.RaycastAll(transform.position, raycastDirection, 0.5f);
 
@@ -263,7 +285,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //######################################################### SPACESHIP RECHARGE INTERACTION #######################################
+    
+
+
     // Used to display any variables to the screen in place of UI for now
+
     // Can add more variables to this as/when we need them and delete it when we have something better
     void TestUI()
     {
@@ -274,4 +301,5 @@ public class PlayerController : MonoBehaviour
         currentToolString = "Tool Equipped: " + currentTool.ToString();
         currentToolUI.text = currentToolString;
     }
+
 }
