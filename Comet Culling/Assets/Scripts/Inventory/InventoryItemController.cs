@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class InventoryItemController : MonoBehaviour
 {
+    [SerializeField] GameObject Player;
+    PlayerController playerController;
 
     Item item;
 
     public Button RemoveButton;
+    void Start()
+    {
+        playerController = Player.GetComponent<PlayerController>();
+    }
+
     public void RemoveItem()
     {
         InventoryManager.Instance.Remove(item);
@@ -28,10 +37,10 @@ public class InventoryItemController : MonoBehaviour
         switch (item.itemType) 
         {
             case Item.ItemType.Potion:
-                Player.Instance.IncreaseHealth(item.value);
+                playerController.IncreaseHealth(item.value);
                 break;
             case Item.ItemType.Other:
-                Player.Instance.IncreaseExp(item.value);
+                playerController.IncreaseExp(item.value);
                 break;
             default:
                 break;
