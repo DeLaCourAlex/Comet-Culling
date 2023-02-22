@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InventoryItemController : MonoBehaviour
 {
-    [SerializeField] GameObject Player;
+    public GameObject Player;
     PlayerController playerController;
 
     Item item;

@@ -149,6 +149,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 20
   maximumSpeed: 15
+  Health: 100
+  Exp: 0
+  HealthText: {fileID: 0}
+  ExpText: {fileID: 0}
   crop: {fileID: 4737909255717466027, guid: 0873f08d38d227546b3314a961d98047, type: 3}
   testUI: {fileID: 0}
 --- !u!95 &7527863383091862404

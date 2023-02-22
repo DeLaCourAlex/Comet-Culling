@@ -417,6 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d89630431887a74b86746ac00fc442c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 7527863383363309030, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
   RemoveButton: {fileID: 6675065879217025312}
 --- !u!1 &6675065880376207417
 GameObject:

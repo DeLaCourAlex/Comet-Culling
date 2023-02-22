@@ -7,8 +7,6 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-
-    
     // Member objects and components
     Rigidbody2D rb;
     Animator animator;
@@ -28,6 +26,7 @@ public class PlayerController : MonoBehaviour
     // Restrict player movement in certain situations
     public bool canMove { set; private get; } = true;
 
+
     // Player stats VARIABLES
     [Header("Player Stats")]
     [SerializeField] public int Health;
@@ -35,8 +34,6 @@ public class PlayerController : MonoBehaviour
     //UI
     [SerializeField] public TextMeshProUGUI HealthText;
     [SerializeField] public TextMeshProUGUI ExpText;
-
-
 
 
 
@@ -50,13 +47,6 @@ public class PlayerController : MonoBehaviour
     // Mostly for debugging/checking things are working
     string testUIText;
     [SerializeField] TextMeshProUGUI testUI;
-
-
-
-    
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -158,130 +148,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
     }
 
-<<<<<<< Updated upstream
     // Harvest a crop if the player is in contact with it
-=======
-    // Perform an action depending on the tool equipped and 
-    // the type of object interracted with
-    void PerformAction()
-    {
-        // A boxcast that returns all objects the player is touching
-        // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-        RaycastHit2D[] boxCast = Physics2D.BoxCastAll(box.bounds.center, box.bounds.size * 0.5f, 0.0f, Vector2.zero);
-
-        // Cycle through all hits from the boxcast
-        // check to see if any the object hit has any tag
-        // Use this to determine what actions to perform depending on what tool the player has activated
-        foreach (RaycastHit2D hit in boxCast)
-        {
-            string tag = hit.transform.gameObject.tag;
-
-            switch(tag)
-            {
-                case "Crop":
-                    // If the raycast hits a crop, access its crop controller
-                    CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
-
-                    // Performs an action on the crop depending on what tool is equipped
-                    switch(currentTool)
-                    {
-                        // If the watering can is equipped, water the crop
-                        case Tools.wateringCan:
-
-                            // Set the crop status to watereds
-                            cropController.isWatered = true;
-
-                            // Trigger the watering animation
-                            animator.SetTrigger("Watering");
-                            break;
-
-                        // If the scythe is equipped, harvest the crop
-                        case Tools.scythe:
-
-                            // If the crop is fully  grown, harvest it
-                            if (cropController.isGrown)
-                            {
-                                // Destroy the game object
-                                Destroy(hit.transform.gameObject);
-                                // Increase the amount of harvested crops
-                                testCropsHarvested++;
-                                DataPermanence.Instance.testCropsHarvested++;
-
-                                // Reset the crop's tile to untilled dirt
-                                TilemapManager.Instance.ResetTile(transform.position);
-
-                                // Trigger the harvesting animation
-                                animator.SetTrigger("Harvesting");
-                            }
-                            break;
-                    }
-
-                    break;
-                case "Dirt Tile":
-
-                    switch(currentTool)
-                    {
-                        // If the hoe is equipped, till the ground
-                        case Tools.hoe:
-
-                            // Check that the tile isn't already tilled
-                            if (!TilemapManager.Instance.IsTilled(transform.position))
-                            {
-                                // Set the dirt tile to tilled
-                                TilemapManager.Instance.TillDirt(transform.position);
-
-                                // Trigged the tilling animation
-                                animator.SetTrigger("Tilling");
-                            }
-                                
-                            break;
-                        
-                        // If seeds are equipped, plant a crop
-                        case Tools.seed:
-                            
-                            // Plant a crop on the tile at the location of the player
-                            TilemapManager.Instance.PlantCrop(transform.position);
-
-                            // Check that the tile is tilled, then trigger the planting animation
-                            if (TilemapManager.Instance.IsTilled(transform.position))
-                                animator.SetTrigger("Planting");
-
-                            break;
-                    }
-
-                    break;
-
-                // TODO: Add engine/spaceship for codependency system
-            }
-        }
-    }
-    public void IncreaseHealth(int value)
-    {
-        Health += value;
-        HealthText.text += $"HP:{Health}";
-    }
-
-
-    public void IncreaseExp(int value)
-    {
-        Exp += value;
-        ExpText.text += $"HP:{Exp}";
-    }
-
-    // Used to display any variables to the screen in place of UI for now
-    // Can add more variables to this as/when we need them and delete it when we have something better
-    void TestUI()
-    {
-        // Display the test variable as UI
-        testUIText = "Crops Held: " + testCropsHarvested.ToString();
-        testUI.text = testUIText;
-
-        currentToolString = "Tool Equipped: " + currentTool.ToString();
-        currentToolUI.text = currentToolString;
-    }
-
-    /*// Harvest a crop if the player is in contact with it
->>>>>>> Stashed changes
     void HarvestCrop()
     {
         // A boxcast that returns all objects the player is touching
@@ -295,7 +162,7 @@ public class PlayerController : MonoBehaviour
             {
                 // If the raycast hits a crop, check if it is fully grown
                 CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
-                if(cropController.isGrown)
+                if (cropController.isGrown)
                 {
                     // If it's fully grown, destroy the game object and harvest the crop
                     Destroy(hit.transform.gameObject);
@@ -325,12 +192,24 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Watering");
             }
     }
+    public void IncreaseHealth(int value)
+    {
+        Health += value;
+        HealthText.text += $"HP:{Health}";
+    }
+
+
+    public void IncreaseExp(int value)
+    {
+        Exp += value;
+        ExpText.text += $"HP:{Exp}";
+    }
 
     // Used to display any variables to the screen in place of UI for now
     // Can add more variables to this as/when we need them and delete it when we have something better
     void TestUI()
     {
-       // Display the test variable as UI
+        // Display the test variable as UI
         testUIText = "Crops Held: " + testCropsHarvested.ToString();
         testUI.text = testUIText;
     }
