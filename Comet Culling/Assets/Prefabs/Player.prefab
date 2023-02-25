@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7527863383363309030
+--- !u!1 &2745768249668147383
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7527863383363309028}
-  - component: {fileID: 7527863383363309031}
-  - component: {fileID: 7527863383363309034}
-  - component: {fileID: 7527863383363309029}
-  - component: {fileID: 7527863383363309035}
-  - component: {fileID: 7527863383091862404}
+  - component: {fileID: 6200465555282284965}
+  - component: {fileID: 1936972241422263973}
+  - component: {fileID: 4954744899137614771}
+  - component: {fileID: 1674833421380864339}
+  - component: {fileID: 5844089218853575317}
+  - component: {fileID: 219907723762930827}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7527863383363309028
+--- !u!4 &6200465555282284965
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7527863383363309030}
+  m_GameObject: {fileID: 2745768249668147383}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.7254276, y: 1.3545169, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7527863383363309031
+--- !u!212 &1936972241422263973
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7527863383363309030}
+  m_GameObject: {fileID: 2745768249668147383}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -88,14 +88,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &7527863383363309034
+--- !u!50 &4954744899137614771
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7527863383363309030}
+  m_GameObject: {fileID: 2745768249668147383}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -109,13 +109,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &7527863383363309029
+--- !u!61 &1674833421380864339
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7527863383363309030}
+  m_GameObject: {fileID: 2745768249668147383}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -135,13 +135,13 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7527863383363309035
+--- !u!114 &5844089218853575317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7527863383363309030}
+  m_GameObject: {fileID: 2745768249668147383}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8790edfb8e4cb914887150b8b556d719, type: 3}
@@ -150,19 +150,19 @@ MonoBehaviour:
   movementSpeed: 20
   maximumSpeed: 15
   Health: 100
-  Exp: 0
+  Exp: 100
   HealthText: {fileID: 0}
   ExpText: {fileID: 0}
   crop: {fileID: 4737909255717466027, guid: 0873f08d38d227546b3314a961d98047, type: 3}
   testUI: {fileID: 0}
---- !u!95 &7527863383091862404
+--- !u!95 &219907723762930827
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7527863383363309030}
+  m_GameObject: {fileID: 2745768249668147383}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a86bf7786cf11e54dbc9314224db4db0, type: 2}

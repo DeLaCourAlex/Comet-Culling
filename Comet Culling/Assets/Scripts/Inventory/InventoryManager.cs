@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -29,6 +30,15 @@ public class InventoryManager : MonoBehaviour
     /// <param name="item"></param>
     public void Add(Item item)
     {
+        for (int i = 0; i < Items.Count; i++)
+        {
+            if (Items[i].name == item.name)
+            {
+                ++Items[i].itemAmount;
+                //return true;
+            }
+        }
+
         Items.Add(item);
 
     }

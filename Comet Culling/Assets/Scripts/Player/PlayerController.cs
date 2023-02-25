@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
@@ -29,11 +30,11 @@ public class PlayerController : MonoBehaviour
 
     // Player stats VARIABLES
     [Header("Player Stats")]
-    [SerializeField] public int Health;
-    [SerializeField] public int Exp;
+     public int Health;
+     public int Exp;
     //UI
-    [SerializeField] public TextMeshProUGUI HealthText;
-    [SerializeField] public TextMeshProUGUI ExpText;
+     public TextMeshProUGUI HealthText;
+     public TextMeshProUGUI ExpText;
 
 
 
@@ -194,15 +195,22 @@ public class PlayerController : MonoBehaviour
     }
     public void IncreaseHealth(int value)
     {
-        Health += value;
-        HealthText.text += $"HP:{Health}";
-    }
+      
+        
+            Health += value;
+            HealthText.text = $"HP:{Health}";
+            Debug.Log(HealthText.text);
+        
+
+        
+    } 
+    
 
 
     public void IncreaseExp(int value)
     {
         Exp += value;
-        ExpText.text += $"HP:{Exp}";
+        ExpText.text = $"Exp:{Exp}";
     }
 
     // Used to display any variables to the screen in place of UI for now
@@ -210,7 +218,7 @@ public class PlayerController : MonoBehaviour
     void TestUI()
     {
         // Display the test variable as UI
-        testUIText = "Crops Held: " + testCropsHarvested.ToString();
-        testUI.text = testUIText;
+        //testUIText = "Crops Held: " + testCropsHarvested.ToString();
+        //testUI.text = testUIText;
     }
 }
