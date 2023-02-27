@@ -45,6 +45,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject crop;
     int testCropsHarvested = 0;
 
+<<<<<<< Updated upstream
+=======
+    // STAMINA RELATED VARIABLES
+    public int stamina;
+    int MAX_STAMINA = 100; 
+
+>>>>>>> Stashed changes
     // INTERRACTION/ACTION VARIABLES
     [SerializeField] Transform raycastEnd;
 

@@ -10,6 +10,8 @@ public class CropController : MonoBehaviour
 {
     // MEMBER OBJECTS AND COMPONENTS
     Animator animator;
+    
+
 
     // The time since the crop was planted
     // Used to determine if it can be harvested or not
