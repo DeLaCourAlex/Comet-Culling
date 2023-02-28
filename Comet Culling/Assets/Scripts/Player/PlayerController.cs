@@ -57,6 +57,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TextMeshProUGUI testUI;
     string currentToolString;
     [SerializeField] TextMeshProUGUI currentToolUI;
+    string staminaText;
+    [SerializeField] TextMeshProUGUI staminaTextUI;
+    string spaceshipEnergyText;
+    [SerializeField] TextMeshProUGUI spaceshipEnergyUI;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +79,9 @@ public class PlayerController : MonoBehaviour
             // Set the player crops harvested
             testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
         }
+
+        // Can delete this once figured out a way to access spaceship from the start
+        spaceshipEnergyText = "Spaceship Energy: " + 100;
     }
 
     // Update is called once per frame
@@ -130,7 +137,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
 
         // Set the variables for the test UI
-        //TestUI();
+        TestUI();
     }
 
     // Use for all movement of physics bodies
@@ -205,6 +212,10 @@ public class PlayerController : MonoBehaviour
 
                             // Trigger the watering animation
                             animator.SetTrigger("Watering");
+
+                            // Lower the stamina from the action
+                            stamina -= 10;
+
                             break;
 
                         // If the scythe is equipped, harvest the crop
@@ -224,6 +235,10 @@ public class PlayerController : MonoBehaviour
 
                                 // Trigger the harvesting animation
                                 animator.SetTrigger("Harvesting");
+
+                                // Lower the stamina from the action
+                                stamina -= 10;
+
                             }
                             break;
                     }
@@ -244,8 +259,11 @@ public class PlayerController : MonoBehaviour
 
                                 // Trigged the tilling animation
                                 animator.SetTrigger("Tilling");
+
+                                // Lower the stamina from the action
+                                stamina -= 10;
                             }
-                                
+
                             break;
                         
                         // If seeds are equipped, plant a crop
@@ -257,6 +275,9 @@ public class PlayerController : MonoBehaviour
                             // Check that the tile is tilled, then trigger the planting animation
                             if (TilemapManager.Instance.IsTilled(transform.position))
                                 animator.SetTrigger("Planting");
+
+                            // Lower the stamina from the action
+                            stamina -= 10;
 
                             break;
                     }
@@ -277,6 +298,8 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
                     Debug.Log("Stamina value: " + stamina);
 
+                    // Set the spaceship energy to a string
+                    spaceshipEnergyText = "Spaceship Energy: " + spaceshipController.spaceshipEnergy.ToString();
 
                     break;
                 // TODO: Add engine/spaceship stuff for codependency system
@@ -284,17 +307,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
+
 
     // Used to display any variables to the screen in place of UI for now
     // Can add more variables to this as/when we need them and delete it when we have something better
-    //void TestUI()
-    //{
-    //    // Display the test variable as UI
-    //    testUIText = "Crops Held: " + testCropsHarvested.ToString();
-    //    testUI.text = testUIText;
+    void TestUI()
+    {
+        // Display the test variable as UI
+        testUIText = "Crops Held: " + testCropsHarvested.ToString();
+        testUI.text = testUIText;
 
-    //    currentToolString = "Tool Equipped: " + currentTool.ToString();
-    //    currentToolUI.text = currentToolString;
-    //}
+        currentToolString = "Tool Equipped: " + currentTool.ToString();
+        currentToolUI.text = currentToolString;
+
+        staminaText = "Player Stamina: " + stamina.ToString();
+        staminaTextUI.text = staminaText;
+
+        spaceshipEnergyUI.text = spaceshipEnergyText;
+    }
 }

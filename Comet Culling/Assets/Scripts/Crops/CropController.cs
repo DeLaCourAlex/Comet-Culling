@@ -11,6 +11,9 @@ public class CropController : MonoBehaviour
     // MEMBER OBJECTS AND COMPONENTS
     Animator animator;
 
+    [SerializeField] float timeToGrow;
+    [SerializeField] float energyGiven;
+
     // The time since the crop was planted
     // Used to determine if it can be harvested or not
     public float timeAlive { get; set; } = 0;
