@@ -15,6 +15,7 @@ public class InventoryManager : MonoBehaviour
 
     public Transform ItemContent;
     public GameObject InventoryItem;
+    private const int maxInventorySize = 20; // maximum number of stacks in the inventory
 
     public int id; // unique item id
     public string name; // item name
@@ -30,6 +31,27 @@ public class InventoryManager : MonoBehaviour
 
     }
 
+    private bool AddNewStack(Item item, int id, string name, int maxStack, int quantity)
+    {
+      
+        // check if there is space in the inventory for a new stack
+        if (item.quantity < maxInventorySize)
+        {
+            // add a new stack for the item
+            item.id = id;
+            item.name = name;
+            item.maxStack = maxStack;
+            item.quantity = quantity;
+            Items.Add(item);
+            return true;
+        }
+        else
+        {
+            // inventory is full, cannot add a new stack
+            return false;
+        }
+    }
+
     /// <summary>
     /// adding items to the list
     /// </summary>
@@ -41,16 +63,18 @@ public class InventoryManager : MonoBehaviour
         if (item != null)
         {
             // add to the stack if it hasn't reached the maximum stack size
-            if (item.quantity + quantity <= item.maxStack)
+            if (item.quantity <= item.maxStack)
             {
-                item.quantity += quantity;
+
+                item.quantity += quantity; 
                 return true;
             }
             else
             {
                 // if the stack is full, add a new stack if possible
-                if (AddNewStack(id, name, maxStack, quantity))
+                if (AddNewStack(item,id, name, maxStack, quantity))
                 {
+                    
                     return true;
                 }
                 else
@@ -62,47 +86,61 @@ public class InventoryManager : MonoBehaviour
         else
         {
             // add a new stack for the item
-            return AddNewStack(id, name, maxStack, quantity);
+            return AddNewStack(item,id, name, maxStack, quantity);
         }
 
-
-
-        Items.Add(item);
-
     }
-    private bool AddNewStack(int id, string name, int maxStack, int quantity)
+
+
+
+    public bool RemoveItem(int id, int quantity)
     {
-        // check if there is space in the inventory for a new stack
-        if (items.Count < maxInventorySize)
+        Item item = GetItem(id);
+        if (item != null)
         {
-            // add a new stack for the item
-            InventoryItemController[] InventoryItems newItem = new InventoryItems();
-            newItem.id = id;
-            newItem.name = name;
-            newItem.maxStack = maxStack;
-            newItem.quantity = quantity;
-            Items.Add(newItem);
-            return true;
+            // remove from the stack
+            if (item.quantity >= quantity)
+            {
+                item.quantity -= quantity;
+                if (item.quantity == 0)
+                {
+                    Items.Remove(item);
+
+                }
+                return true;
+            }
+            else
+            {
+                // not enough quantity in the stack
+                return false;
+            }
         }
         else
         {
-            // inventory is full, cannot add a new stack
+            // item not found
             return false;
         }
     }
 
-
-
-
-    /// <summary>
-    /// removes items from list
-    /// </summary>
-    /// <param name="item"></param>
-    public void Remove(Item item)
+    public item GetItemId(int id)
     {
-        Items.Remove(item);
+        // search for an item in the inventory
+        GameObject obj = Instantiate(InventoryItem, ItemContent);
 
+        foreach (Item item in Items)
+        {
+            if (item.id == id)
+            {
+                return item;
+            }
+        }
+        // item not found
+        return null;
     }
+
+    
+
+
 
     public void ListItems()
     {
@@ -127,6 +165,7 @@ public class InventoryManager : MonoBehaviour
             {
                 removeButton.gameObject.SetActive(true);
             }
+
 
 
 
@@ -159,7 +198,6 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-
     public void SetInventoryItems()
     {
         InventoryItems = ItemContent.GetComponentsInChildren<InventoryItemController>();
@@ -169,18 +207,7 @@ public class InventoryManager : MonoBehaviour
 
             InventoryItems[i].AddItem(Items[i]);
 
-        
-        
         }
 
     }
-
-
-
-
-
-
-
-
-
 }
