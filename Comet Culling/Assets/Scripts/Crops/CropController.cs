@@ -10,39 +10,44 @@ public class CropController : MonoBehaviour
 {
     // MEMBER OBJECTS AND COMPONENTS
     Animator animator;
-    
-
-
-    // The time since the crop was planted
-    // Used to determine if it can be harvested or not
+    [SerializeField] int growthRate; //This needs to be serialized in order to cookie cutter it
+    [SerializeField] float energyYield;
+    [SerializeField] int growthRateWatered;
+    [SerializeField] int growthRateDry;
+  
     public float timeAlive { get; set; } = 0;
-    
+
     // If the crop is watered
     // If so, if grows faster
     public bool isWatered { get; set; }
-
+    // The time since the crop was planted
+    // Used to determine if it can be harvested or not
     public bool isGrown { get; private set; }
-
-    // The age at which  a crop is grown
-    float grownAge = 15;
-    public float wateredMultiplier { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        growthRate = growthRateDry;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Multiplier to increase the speed that a crop grows if watered
-        wateredMultiplier = isWatered ? 2f : 1f;
+        if (isWatered)
+        {
+            growthRate = growthRateWatered;
+        }
+        else
+        {
+            growthRate = growthRateDry;
+        }
 
         // Increase time alive
-        timeAlive += Time.deltaTime * wateredMultiplier;
+        timeAlive += Time.deltaTime;
 
-        if (timeAlive >= grownAge)
+        if (timeAlive >= growthRate)
             isGrown = true;
 
         // Animator parameters
