@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
 public class PlayerController : MonoBehaviour
 {
     // Member objects and components
@@ -25,24 +24,16 @@ public class PlayerController : MonoBehaviour
     // Used in the animator blend tree to determine the direction the player faces
     float directionAnimatorParameter;
     // Restrict player movement in certain situations
-
-    // COLLISIONS
-    // A boxcast that returns all objects the player is touching
-    // Boxcast is twice the size of the player. Will almost certainly change this to a raycast in the direction the player is facing
-    //RaycastHit2D[] boxCast;
     public bool canMove { set; private get; } = true;
-
-    //STAMINA & ENERGY RELATED VARIABLES & FUNCTIONS
-    public const int MAX_STAMINA = 100;
-    public int stamina
-    {set;get;}
 
     // CROP RELATED VARIABLES
     [Header("Crop Variables")]
     [SerializeField] GameObject crop;
     int testCropsHarvested = 0;
 
-
+    // STAMINA RELATED VARIABLES
+    public int stamina;
+    int MAX_STAMINA = 10; 
 
     // INTERRACTION/ACTION VARIABLES
     [SerializeField] Transform raycastEnd;
@@ -63,11 +54,13 @@ public class PlayerController : MonoBehaviour
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
     string testUIText;
-
     [SerializeField] TextMeshProUGUI testUI;
     string currentToolString;
     [SerializeField] TextMeshProUGUI currentToolUI;
-
+    string staminaText;
+    [SerializeField] TextMeshProUGUI staminaTextUI;
+    string spaceshipEnergyText;
+    [SerializeField] TextMeshProUGUI spaceshipEnergyUI;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +70,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
 
+        stamina = MAX_STAMINA; 
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
@@ -85,8 +79,9 @@ public class PlayerController : MonoBehaviour
             // Set the player crops harvested
             testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
         }
-        //Debugging
-        stamina = 0; 
+
+        // Can delete this once figured out a way to access spaceship from the start
+        spaceshipEnergyText = "Spaceship Energy: " + 100;
     }
 
     // Update is called once per frame
@@ -134,7 +129,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Action"))
             PerformAction();
 
-        
         // Animator parameters
 
         // Set the movement animation parameter to detect any movement of the rigidbody
@@ -143,9 +137,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
 
         // Set the variables for the test UI
-        //TestUI();
-
-       
+        TestUI();
     }
 
     // Use for all movement of physics bodies
@@ -193,9 +185,8 @@ public class PlayerController : MonoBehaviour
     // the type of object interracted with
     void PerformAction()
     {
-
         Vector2 raycastDirection = raycastEnd.transform.position - transform.position;
-        RaycastHit2D[] rayCast = Physics2D.RaycastAll(transform.position, raycastDirection, 0.5f);
+        RaycastHit2D[] rayCast = Physics2D.RaycastAll(transform.position, raycastDirection, 0.6f);
 
         // Cycle through all hits from the boxcast
         // check to see if any the object hit has any tag
@@ -221,6 +212,10 @@ public class PlayerController : MonoBehaviour
 
                             // Trigger the watering animation
                             animator.SetTrigger("Watering");
+
+                            // Lower the stamina from the action
+                            stamina -= 10;
+
                             break;
 
                         // If the scythe is equipped, harvest the crop
@@ -240,6 +235,10 @@ public class PlayerController : MonoBehaviour
 
                                 // Trigger the harvesting animation
                                 animator.SetTrigger("Harvesting");
+
+                                // Lower the stamina from the action
+                                stamina -= 10;
+
                             }
                             break;
                     }
@@ -260,8 +259,11 @@ public class PlayerController : MonoBehaviour
 
                                 // Trigged the tilling animation
                                 animator.SetTrigger("Tilling");
+
+                                // Lower the stamina from the action
+                                stamina -= 10;
                             }
-                                
+
                             break;
                         
                         // If seeds are equipped, plant a crop
@@ -274,22 +276,40 @@ public class PlayerController : MonoBehaviour
                             if (TilemapManager.Instance.IsTilled(transform.position))
                                 animator.SetTrigger("Planting");
 
+                            // Lower the stamina from the action
+                            stamina -= 10;
+
                             break;
                     }
 
                     break;
+                case "Generator":
+                    
+                    //You can initialize staminarecharge (or any object belonging to a specific class) by calling this statement
+                    //Which essentially makes this instance be able to access the scripts attached to that object
+                    //Think of it like a pointer 
+                    //Tldr if i hit the generator and it has the staminarecharge component, this statement will be valid
+                    SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
+                    Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
+                    Debug.Log("Stamina value: " + stamina);
+                    spaceshipController.ChargePlayer(ref stamina);
+                   
+                    Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
+                    Debug.Log("Stamina value: " + stamina);
+
+                    // Set the spaceship energy to a string
+                    spaceshipEnergyText = "Spaceship Energy: " + spaceshipController.spaceshipEnergy.ToString();
+
+                    break;
                 // TODO: Add engine/spaceship stuff for codependency system
             }
         }
     }
 
-    //######################################################### SPACESHIP RECHARGE INTERACTION #######################################
-    
 
 
     // Used to display any variables to the screen in place of UI for now
-
     // Can add more variables to this as/when we need them and delete it when we have something better
     void TestUI()
     {
@@ -299,6 +319,10 @@ public class PlayerController : MonoBehaviour
 
         currentToolString = "Tool Equipped: " + currentTool.ToString();
         currentToolUI.text = currentToolString;
-    }
 
+        staminaText = "Player Stamina: " + stamina.ToString();
+        staminaTextUI.text = staminaText;
+
+        spaceshipEnergyUI.text = spaceshipEnergyText;
+    }
 }
