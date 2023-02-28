@@ -122,7 +122,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public item GetItemId(int id)
+    public Item GetItem(int id)
     {
         // search for an item in the inventory
         GameObject obj = Instantiate(InventoryItem, ItemContent);
