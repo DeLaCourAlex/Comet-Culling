@@ -16,6 +16,11 @@ public class InventoryManager : MonoBehaviour
     public Transform ItemContent;
     public GameObject InventoryItem;
 
+    public int id; // unique item id
+    public string name; // item name
+    public int maxStack; // maximum stack size for this item
+    public int quantity; // current quantity of the item
+
     public Toggle EnableRemove;
     //inventory item array
     public InventoryItemController[] InventoryItems;
@@ -24,24 +29,71 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
 
     }
+
     /// <summary>
     /// adding items to the list
     /// </summary>
     /// <param name="item"></param>
-    public void Add(Item item)
+    public bool Add(Item item)
     {
-        for (int i = 0; i < Items.Count; i++)
+        // check if the item is already in the inventory
+         //Items = item.MaxStack;
+        if (item != null)
         {
-            if (Items[i].name == item.name)
+            // add to the stack if it hasn't reached the maximum stack size
+            if (item.quantity + quantity <= item.maxStack)
             {
-                ++Items[i].itemAmount;
-                //return true;
+                item.quantity += quantity;
+                return true;
+            }
+            else
+            {
+                // if the stack is full, add a new stack if possible
+                if (AddNewStack(id, name, maxStack, quantity))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
+        else
+        {
+            // add a new stack for the item
+            return AddNewStack(id, name, maxStack, quantity);
+        }
+
+
 
         Items.Add(item);
 
     }
+    private bool AddNewStack(int id, string name, int maxStack, int quantity)
+    {
+        // check if there is space in the inventory for a new stack
+        if (items.Count < maxInventorySize)
+        {
+            // add a new stack for the item
+            InventoryItemController[] InventoryItems newItem = new InventoryItems();
+            newItem.id = id;
+            newItem.name = name;
+            newItem.maxStack = maxStack;
+            newItem.quantity = quantity;
+            Items.Add(newItem);
+            return true;
+        }
+        else
+        {
+            // inventory is full, cannot add a new stack
+            return false;
+        }
+    }
+
+
+
+
     /// <summary>
     /// removes items from list
     /// </summary>

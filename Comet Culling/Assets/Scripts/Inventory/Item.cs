@@ -10,7 +10,9 @@ public class Item : ScriptableObject
     public int value ;
     public Sprite icon;
     public ItemType itemType;
-    public int itemAmount = 1; 
+    public int quantity;
+    public int maxStack;
+    public int stackSize;
 
     public enum ItemType
     {
