@@ -19,13 +19,13 @@ public class SpaceshipController : MonoBehaviour
     }
 
     //Recharging spaceship
-    public void ChargeSpaceship(CropTypes crop) //We either pass a crop game object to it or its enum, not sure yet (ask the boys)
+    public void ChargeSpaceship(float cropEnergyYield) //We either pass a crop game object to it or its enum, not sure yet (ask the boys)
     {
 
         //for(number of stacked crop items) - will wait for Sangit for this
         if(spaceshipEnergy < MAX_ENERGY)
         {
-            spaceshipEnergy += Mathf.RoundToInt(crop.energyYield); //Add the energy yield to the spaceship's energy
+            spaceshipEnergy += Mathf.RoundToInt(cropEnergyYield); //Add the energy yield to the spaceship's energy
             spaceshipEnergy = Mathf.Min(spaceshipEnergy, MAX_STAMINA); //Ensures only the minimum value is return and it doesn't go over 100
         }
         else //Energy >= max
