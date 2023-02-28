@@ -19,26 +19,20 @@ public class SpaceshipController : MonoBehaviour
     }
 
     //Recharging spaceship
-    public void ChargeSpaceship(CROP_TYPE type) //We either pass a crop game object to it or its enum, not sure yet (ask the boys)
+    public void ChargeSpaceship(CropTypes crop) //We either pass a crop game object to it or its enum, not sure yet (ask the boys)
     {
-        float energyYield = 0; //Placeholder temp
 
-        switch (type)
+        //for(number of stacked crop items) - will wait for Sangit for this
+        if(spaceshipEnergy < MAX_ENERGY)
         {
-            case (CROP_TYPE.A):
-                //Check how much energy type A yields (that's why I thought of passing a ref to a crop gameobject)
-                //Round it (up, maybe)
-                //So it'd be something like energyYield = crop.getEnergy(); 
-
-                break;
-            case (CROP_TYPE.B):
-                break;
-            case (CROP_TYPE.C):
-                break;
-
+            spaceshipEnergy += Mathf.RoundToInt(crop.energyYield); //Add the energy yield to the spaceship's energy
+            spaceshipEnergy = Mathf.Min(spaceshipEnergy, MAX_STAMINA); //Ensures only the minimum value is return and it doesn't go over 100
         }
-        
-        spaceshipEnergy += Mathf.RoundToInt(energyYield); //Add the energy yield to the spaceship's energy
+        else //Energy >= max
+        {
+            Debug.Log("Energy fully recharged, no need for more crops");
+        }
+
 
     }
 
