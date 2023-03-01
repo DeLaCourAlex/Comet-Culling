@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     // INTERRACTION/ACTION VARIABLES
     [SerializeField] Transform raycastEnd;
+    [SerializeField] GameObject tileSelectYes;
+    [SerializeField] GameObject tileSelectNo;
 
     // Store the tools as an enum to know which one to use
     enum Tools
@@ -126,7 +128,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Perform an action
-        if (Input.GetButtonDown("Action"))
+        //if (Input.GetButtonDown("Action"))
             PerformAction();
 
         // Animator parameters
@@ -185,36 +187,68 @@ public class PlayerController : MonoBehaviour
     // the type of object interracted with
     void PerformAction()
     {
+        // Set the raycast direction depending on where the player is facing
         Vector2 raycastDirection = raycastEnd.transform.position - transform.position;
-        RaycastHit2D[] rayCast = Physics2D.RaycastAll(transform.position, raycastDirection, 0.6f);
+        RaycastHit2D[] rayCast = Physics2D.RaycastAll(raycastEnd.transform.position, raycastDirection, 0.1f);
 
         // Cycle through all hits from the boxcast
         // check to see if any the object hit has any tag
         // Use this to determine what actions to perform depending on what tool the player has activated
+
         foreach (RaycastHit2D hit in rayCast)
         {
+            // Use the tag of the object hit to determine what actions can be performed
             string tag = hit.transform.gameObject.tag;
 
-            switch(tag)
+            // Used to correct for rounding down when converting position to ints
+            // We want to round down, but setting a float to an int only removes after the decimal place
+            // This causes the number to round up if the float value is negative
+            int yCorrector = hit.point.y < 0 ? -1 : 0;
+            int xCorrector = hit.point.x < 0 ? -1 : 0;
+
+            // Set the raycast hit position to ints because that's what the SetTile function uses
+            Vector3Int positionInt = new Vector3Int((int)hit.point.x + xCorrector, (int)hit.point.y + yCorrector, 0);
+
+            // Set the position to display if we can interact or not
+            // This needs to be in the middle of the tile, so we add 0.5 on each axis
+            Vector2 displayPosition = new Vector2((float)positionInt.x + 0.5f, (float)positionInt.y + 0.5f);
+            tileSelectNo.transform.position = displayPosition;
+            tileSelectYes.transform.position = displayPosition;
+
+            switch (tag)
             {
                 case "Crop":
                     // If the raycast hits a crop, access its crop controller
                     CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
 
                     // Performs an action on the crop depending on what tool is equipped
-                    switch(currentTool)
+                    switch (currentTool)
                     {
                         // If the watering can is equipped, water the crop
                         case Tools.wateringCan:
 
-                            // Set the crop status to watereds
-                            cropController.isWatered = true;
+                            if (!cropController.isWatered)
+                            {
+                                // Show that we can perform this interaction
+                                DisplayCanInteract(true, false);
 
-                            // Trigger the watering animation
-                            animator.SetTrigger("Watering");
+                                // Perform the interaction
+                                if (Input.GetButtonDown("Action"))
+                                {
+                                    // Set the crop status to watereds
+                                    cropController.isWatered = true;
 
-                            // Lower the stamina from the action
-                            stamina -= 10;
+                                    // Trigger the watering animation
+                                    animator.SetTrigger("Watering");
+
+                                    // Lower the stamina from the action
+                                    stamina -= 10;
+                                }
+                            }
+                            else
+                                // Show that we can't perform this interaction
+                                DisplayCanInteract(false, true);
+                            
 
                             break;
 
@@ -224,67 +258,147 @@ public class PlayerController : MonoBehaviour
                             // If the crop is fully  grown, harvest it
                             if (cropController.isGrown)
                             {
-                                // Destroy the game object
-                                Destroy(hit.transform.gameObject);
-                                // Increase the amount of harvested crops
-                                testCropsHarvested++;
-                                DataPermanence.Instance.testCropsHarvested++;
+                                // Show that we can perform this interaction
+                                DisplayCanInteract(true, false);
 
-                                // Reset the crop's tile to untilled dirt
-                                TilemapManager.Instance.ResetTile(transform.position);
+                                // Perform the interaction
+                                if (Input.GetButtonDown("Action"))
+                                {
+                                    // Destroy the game object
+                                    Destroy(hit.transform.gameObject);
+                                    // Increase the amount of harvested crops
+                                    testCropsHarvested++;
+                                    DataPermanence.Instance.testCropsHarvested++;
 
-                                // Trigger the harvesting animation
-                                animator.SetTrigger("Harvesting");
+                                    // Reset the crop's tile to untilled dirt
+                                    TilemapManager.Instance.ResetTile(positionInt);
 
-                                // Lower the stamina from the action
-                                stamina -= 10;
+                                    // Trigger the harvesting animation
+                                    animator.SetTrigger("Harvesting");
 
+                                    // Lower the stamina from the action
+                                    stamina -= 10;
+                                }
                             }
+                            else
+                                // Show that we can't perform this interaction
+                                DisplayCanInteract(false, true);
+
+                            break;
+
+                        default:
+
+                            // Default is that we are at an interactable tiles or object
+                            // But do not have the right tool selected
+                            // Therefore display that we can't perform this interaction
+                            DisplayCanInteract(false, true);
+
                             break;
                     }
 
                     break;
                 case "Dirt Tile":
 
-                    switch(currentTool)
+                    switch (currentTool)
                     {
                         // If the hoe is equipped, till the ground
                         case Tools.hoe:
 
                             // Check that the tile isn't already tilled
-                            if (!TilemapManager.Instance.IsTilled(transform.position))
+                            if (!TilemapManager.Instance.IsTilled(positionInt))
                             {
-                                // Set the dirt tile to tilled
-                                TilemapManager.Instance.TillDirt(transform.position);
+                                // Show that we can perform this interaction
+                                DisplayCanInteract(true, false);
 
-                                // Trigged the tilling animation
-                                animator.SetTrigger("Tilling");
+                                // Perform the interaction
+                                if (Input.GetButtonDown("Action"))
+                                {
+                                    // Set the dirt tile to tilled
+                                    TilemapManager.Instance.TillDirt(positionInt);
 
-                                // Lower the stamina from the action
-                                stamina -= 10;
+                                    // Trigged the tilling animation
+                                    animator.SetTrigger("Tilling");
+
+                                    // Show that we can't perform this interaction
+                                    DisplayCanInteract(false, true);
+
+                                    // Lower the stamina from the action
+                                    stamina -= 10;
+                                }
                             }
-
+                            else
+                            {
+                                Debug.Log("Dirt Tile Tilled, Hoe Selected");
+                                // Show that we can't perform this interaction
+                                DisplayCanInteract(false, true);
+                            }
+                                
                             break;
-                        
+
                         // If seeds are equipped, plant a crop
                         case Tools.seed:
+
+                            // Check if there is a crop game object in the current position
+                            // Cycle through all the current crops that have been planted
+                            // And check their position against  where you are trying to plant a new crop
+                            GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");
+
+                            // Set the position to plant the crop in the center of the tile in question
+                            Vector2 cropPosition = new Vector2((float)positionInt.x + 0.5f, (float)positionInt.y + 0.5f);
+
+                            // If there is another crop in this position, display that we can't perform the interaction 
+                            // And leave the function
+                            for (int i = 0; i < allCrops.Length; i++)
+                                if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
+                                {
+                                    DisplayCanInteract(false, true);
+                                    return;
+                                }
+                                    
                             
-                            // Plant a crop on the tile at the location of the player
-                            TilemapManager.Instance.PlantCrop(transform.position);
 
                             // Check that the tile is tilled, then trigger the planting animation
-                            if (TilemapManager.Instance.IsTilled(transform.position))
-                                animator.SetTrigger("Planting");
+                            if (TilemapManager.Instance.IsTilled(positionInt))
+                            {
+                                // Show that we can perform this interaction
+                                DisplayCanInteract(true, false);
 
-                            // Lower the stamina from the action
-                            stamina -= 10;
+                                // Perform the interaction
+                                if (Input.GetButtonDown("Action"))
+                                {
+                                    // Plant a crop on the tile at the location of the player
+                                    TilemapManager.Instance.PlantCrop(positionInt, cropPosition);
+
+                                    animator.SetTrigger("Planting");
+
+                                    // Lower the stamina from the action
+                                    stamina -= 10;
+                                }
+                            }
+
+                            else
+                                // Show that we can't perform this interaction
+                                DisplayCanInteract(false, true);
+                           
+
+                            break;
+
+                        default:
+
+                            // Default is that we are at an interactable tiles or object
+                            // But do not have the right tool selected
+                            // Therefore display that we can't perform this interaction
+                            DisplayCanInteract(false, true);
 
                             break;
                     }
 
                     break;
                 case "Generator":
-                    
+
+                    // No need to display tile interaction with the generator
+                    DisplayCanInteract(false, false);
+
                     //You can initialize staminarecharge (or any object belonging to a specific class) by calling this statement
                     //Which essentially makes this instance be able to access the scripts attached to that object
                     //Think of it like a pointer 
@@ -294,7 +408,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
                     Debug.Log("Stamina value: " + stamina);
                     spaceshipController.ChargePlayer(ref stamina);
-                   
+
                     Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
                     Debug.Log("Stamina value: " + stamina);
 
@@ -303,11 +417,24 @@ public class PlayerController : MonoBehaviour
 
                     break;
                 // TODO: Add engine/spaceship stuff for codependency system
+
+                case "Grass Tile":
+
+                    //Debug.Log("FALSE FALSE AT POSITION " + displayPosition);
+                    Debug.Log("Grass Tile");
+                    // No need to display tile interaction when no interactable tiles
+                    DisplayCanInteract(false, false);
+                    break;
             }
         }
     }
 
-
+    // Display if certain interractions can occur based on the tool selected and the nearest tile
+    void DisplayCanInteract(bool displayYes, bool displayNo)
+    {
+        tileSelectYes.SetActive(displayYes);
+        tileSelectNo.SetActive(displayNo);
+    }
 
     // Used to display any variables to the screen in place of UI for now
     // Can add more variables to this as/when we need them and delete it when we have something better

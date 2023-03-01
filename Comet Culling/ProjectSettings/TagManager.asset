@@ -7,6 +7,7 @@ TagManager:
   - Crop
   - Generator
   - Dirt Tile
+  - Grass Tile
   layers:
   - Default
   - TransparentFX
