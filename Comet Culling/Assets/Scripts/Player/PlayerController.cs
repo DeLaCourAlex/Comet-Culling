@@ -28,8 +28,8 @@ public class PlayerController : MonoBehaviour
 
     // CROP RELATED VARIABLES
     [Header("Crop Variables")]
-    [SerializeField] GameObject crop;
-    int testCropsHarvested = 0;
+    [SerializeField] GameObject[] crops;
+    int[] cropsHarvested;
 
     // STAMINA RELATED VARIABLES
     public int stamina;
@@ -39,14 +39,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform raycastEnd;
     [SerializeField] GameObject tileSelectYes;
     [SerializeField] GameObject tileSelectNo;
+    bool carryCropA;
+    bool carryCropB;
 
     // Store the tools as an enum to know which one to use
     enum Tools
     {
         hoe = 0,
-        seed = 1,
-        wateringCan = 2,
-        scythe = 3
+        seedA = 1,
+        seedB = 2,
+        wateringCan = 3,
+        scythe = 4
     }
 
     // The currently equipped tool
@@ -55,8 +58,10 @@ public class PlayerController : MonoBehaviour
 
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
-    string testUIText;
-    [SerializeField] TextMeshProUGUI testUI;
+    string cropAText;
+    [SerializeField] TextMeshProUGUI cropAUI;
+    string cropBText;
+    [SerializeField] TextMeshProUGUI cropBUI;
     string currentToolString;
     [SerializeField] TextMeshProUGUI currentToolUI;
     string staminaText;
@@ -72,14 +77,17 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
 
-        stamina = MAX_STAMINA; 
+        // Initialize member variables
+        stamina = MAX_STAMINA;
+        cropsHarvested = new int[2];
+
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
             // Set the player position when entering a new scene
             rb.MovePosition(DataPermanence.Instance.playerStartPosition);
             // Set the player crops harvested
-            testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
+            cropsHarvested[0] = DataPermanence.Instance.testCropsHarvested;
         }
 
         // Can delete this once figured out a way to access spaceship from the start
@@ -127,6 +135,14 @@ public class PlayerController : MonoBehaviour
                 currentTool++;
         }
 
+        // Set whether the player is carrying a crop or not
+        if (Input.GetButtonDown("No Crops"))
+            ChangeCarriedCrops(false, false);
+        if (Input.GetButtonDown("Crop A"))
+            ChangeCarriedCrops(true, false);
+        if (Input.GetButtonDown("Crop B"))
+            ChangeCarriedCrops(false, true);
+
         // Perform an action
         //if (Input.GetButtonDown("Action"))
             PerformAction();
@@ -137,6 +153,9 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Movement", rb.velocity.magnitude);
         // Set the player direction parameter
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
+        // Set the crops that the player is or isn't carrying
+        animator.SetBool("Holding Crop A", carryCropA);
+        animator.SetBool("Holding Crop B", carryCropB);
 
         // Set the variables for the test UI
         TestUI();
@@ -194,7 +213,6 @@ public class PlayerController : MonoBehaviour
         // Cycle through all hits from the boxcast
         // check to see if any the object hit has any tag
         // Use this to determine what actions to perform depending on what tool the player has activated
-
         foreach (RaycastHit2D hit in rayCast)
         {
             // Use the tag of the object hit to determine what actions can be performed
@@ -218,73 +236,40 @@ public class PlayerController : MonoBehaviour
             switch (tag)
             {
                 case "Crop":
+
+                    // Can not perform these actions whilst carrying crops
+                    if (carryCropA || carryCropB)
+                    {
+                        DisplayCanInteract(false, false);
+
+                        break;
+                    }
+
                     // If the raycast hits a crop, access its crop controller
                     CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
 
                     // Performs an action on the crop depending on what tool is equipped
                     switch (currentTool)
                     {
-                        // If the watering can is equipped, water the crop
+                        // If the watering can is equipped
                         case Tools.wateringCan:
-
-                            if (!cropController.isWatered)
-                            {
-                                // Show that we can perform this interaction
-                                DisplayCanInteract(true, false);
-
-                                // Perform the interaction
-                                if (Input.GetButtonDown("Action"))
-                                {
-                                    // Set the crop status to watereds
-                                    cropController.isWatered = true;
-
-                                    // Trigger the watering animation
-                                    animator.SetTrigger("Watering");
-
-                                    // Lower the stamina from the action
-                                    stamina -= 10;
-                                }
-                            }
-                            else
-                                // Show that we can't perform this interaction
-                                DisplayCanInteract(false, true);
                             
+                            // Interraction between the watering can and a crop
+                            WateringCan(ref cropController);
 
-                            break;
+                            // Return instead of break
+                            // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
+                            return;
 
-                        // If the scythe is equipped, harvest the crop
+                        // If the scythe is equipped
                         case Tools.scythe:
 
-                            // If the crop is fully  grown, harvest it
-                            if (cropController.isGrown)
-                            {
-                                // Show that we can perform this interaction
-                                DisplayCanInteract(true, false);
+                            // Interaction between the scythe and a crop
+                            Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
 
-                                // Perform the interaction
-                                if (Input.GetButtonDown("Action"))
-                                {
-                                    // Destroy the game object
-                                    Destroy(hit.transform.gameObject);
-                                    // Increase the amount of harvested crops
-                                    testCropsHarvested++;
-                                    DataPermanence.Instance.testCropsHarvested++;
-
-                                    // Reset the crop's tile to untilled dirt
-                                    TilemapManager.Instance.ResetTile(positionInt);
-
-                                    // Trigger the harvesting animation
-                                    animator.SetTrigger("Harvesting");
-
-                                    // Lower the stamina from the action
-                                    stamina -= 10;
-                                }
-                            }
-                            else
-                                // Show that we can't perform this interaction
-                                DisplayCanInteract(false, true);
-
-                            break;
+                            // Return instead of break
+                            // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
+                            return;
 
                         default:
 
@@ -299,87 +284,38 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Dirt Tile":
 
+                    // Can not perform these actions whilst carrying crops
+                    if (carryCropA || carryCropB)
+                    {
+                        DisplayCanInteract(false, false);
+
+                        break;
+                    }
+                        
+
                     switch (currentTool)
                     {
                         // If the hoe is equipped, till the ground
                         case Tools.hoe:
 
-                            // Check that the tile isn't already tilled
-                            if (!TilemapManager.Instance.IsTilled(positionInt))
-                            {
-                                // Show that we can perform this interaction
-                                DisplayCanInteract(true, false);
-
-                                // Perform the interaction
-                                if (Input.GetButtonDown("Action"))
-                                {
-                                    // Set the dirt tile to tilled
-                                    TilemapManager.Instance.TillDirt(positionInt);
-
-                                    // Trigged the tilling animation
-                                    animator.SetTrigger("Tilling");
-
-                                    // Show that we can't perform this interaction
-                                    DisplayCanInteract(false, true);
-
-                                    // Lower the stamina from the action
-                                    stamina -= 10;
-                                }
-                            }
-                            else
-                            {
-                                Debug.Log("Dirt Tile Tilled, Hoe Selected");
-                                // Show that we can't perform this interaction
-                                DisplayCanInteract(false, true);
-                            }
+                            // Interaction between the hoe and a dirt tile
+                            Hoe(positionInt);
                                 
                             break;
 
-                        // If seeds are equipped, plant a crop
-                        case Tools.seed:
+                        // If seed A is equipped, plant crop A
+                        case Tools.seedA:
 
-                            // Check if there is a crop game object in the current position
-                            // Cycle through all the current crops that have been planted
-                            // And check their position against  where you are trying to plant a new crop
-                            GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");
+                            // Interaction between the seed and a dirt tile
+                            Seed(positionInt, 0);                           
 
-                            // Set the position to plant the crop in the center of the tile in question
-                            Vector2 cropPosition = new Vector2((float)positionInt.x + 0.5f, (float)positionInt.y + 0.5f);
+                            break;
 
-                            // If there is another crop in this position, display that we can't perform the interaction 
-                            // And leave the function
-                            for (int i = 0; i < allCrops.Length; i++)
-                                if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
-                                {
-                                    DisplayCanInteract(false, true);
-                                    return;
-                                }
-                                    
-                            
+                        // If seed B is equipped, plant crop B
+                        case Tools.seedB:
 
-                            // Check that the tile is tilled, then trigger the planting animation
-                            if (TilemapManager.Instance.IsTilled(positionInt))
-                            {
-                                // Show that we can perform this interaction
-                                DisplayCanInteract(true, false);
-
-                                // Perform the interaction
-                                if (Input.GetButtonDown("Action"))
-                                {
-                                    // Plant a crop on the tile at the location of the player
-                                    TilemapManager.Instance.PlantCrop(positionInt, cropPosition);
-
-                                    animator.SetTrigger("Planting");
-
-                                    // Lower the stamina from the action
-                                    stamina -= 10;
-                                }
-                            }
-
-                            else
-                                // Show that we can't perform this interaction
-                                DisplayCanInteract(false, true);
-                           
+                            // Interaction between the seed and a dirt tile
+                            Seed(positionInt, 1);
 
                             break;
 
@@ -420,13 +356,153 @@ public class PlayerController : MonoBehaviour
 
                 case "Grass Tile":
 
-                    //Debug.Log("FALSE FALSE AT POSITION " + displayPosition);
-                    Debug.Log("Grass Tile");
                     // No need to display tile interaction when no interactable tiles
                     DisplayCanInteract(false, false);
                     break;
             }
         }
+    }
+
+    // Interaction using the watering can with a crop
+    void WateringCan(ref CropController crop)
+    {
+        // If the crop is watered, we can water it
+        if (!crop.isWatered)
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false);
+
+            // Perform the interaction
+            if (Input.GetButtonDown("Action"))
+            {
+                // Set the crop status to watereds
+                crop.isWatered = true;
+
+                // Trigger the watering animation
+                animator.SetTrigger("Watering");
+
+                // Lower the stamina from the action
+                stamina -= 10;
+            }
+        }
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true);
+    }
+
+    // Interaction using the scythe with a crop
+    void Scythe(ref CropController crop, RaycastHit2D rayHit, Vector3Int pos, int cropType)
+    {
+        // If the crop is fully  grown, we can harvest it
+        if (crop.isGrown)
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false);
+
+            // Perform the interaction
+            if (Input.GetButtonDown("Action"))
+            {
+                // Destroy the game object
+                Destroy(rayHit.transform.gameObject);
+                // Increase the amount of harvested crops
+                cropsHarvested[cropType]++;
+                //DataPermanence.Instance.testCropsHarvested++;
+
+                // Reset the crop's tile to untilled dirt
+                TilemapManager.Instance.ResetTile(pos);
+
+                // Trigger the harvesting animation
+                animator.SetTrigger("Harvesting");
+
+                // Lower the stamina from the action
+                stamina -= 10;
+            }
+        }
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true);
+    }
+
+    // Interaction using the hoe with a dirt tile
+    void Hoe(Vector3Int pos)
+    {
+        // Check that the tile isn't already tilled
+        if (!TilemapManager.Instance.IsTilled(pos))
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false);
+
+            // Perform the interaction
+            if (Input.GetButtonDown("Action"))
+            {
+                // Set the dirt tile to tilled
+                TilemapManager.Instance.TillDirt(pos);
+
+                // Trigged the tilling animation
+                animator.SetTrigger("Tilling");
+
+                // Show that we can't perform this interaction
+                DisplayCanInteract(false, true);
+
+                // Lower the stamina from the action
+                stamina -= 10;
+            }
+        }
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true);
+    }
+    
+    // Interaction using a seed with a dirt tile
+    void Seed(Vector3Int pos, int cropElement)
+    {
+        // Check if there is a crop game object in the current position
+        // Cycle through all the current crops that have been planted
+        // And check their position against  where you are trying to plant a new crop
+        GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");
+
+        // Set the position to plant the crop in the center of the tile in question
+        Vector2 cropPosition = new Vector2((float)pos.x + 0.5f, (float)pos.y + 0.5f);
+
+        // If there is another crop in this position, display that we can't perform the interaction 
+        // And leave the function
+        for (int i = 0; i < allCrops.Length; i++)
+            if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
+            {
+                DisplayCanInteract(false, true);
+                return;
+            }
+
+
+
+        // Check that the tile is tilled, then trigger the planting animation
+        if (TilemapManager.Instance.IsTilled(pos))
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false);
+
+            // Perform the interaction
+            if (Input.GetButtonDown("Action"))
+            {
+                // Plant a crop on the tile at the location of the player
+                TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
+
+                animator.SetTrigger("Planting");
+
+                // Lower the stamina from the action
+                stamina -= 10;
+            }
+        }
+
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true);
+    }
+
+    void ChangeCarriedCrops(bool cropA, bool cropB)
+    {
+        carryCropA = cropA;
+        carryCropB = cropB;
     }
 
     // Display if certain interractions can occur based on the tool selected and the nearest tile
@@ -441,8 +517,11 @@ public class PlayerController : MonoBehaviour
     void TestUI()
     {
         // Display the test variable as UI
-        testUIText = "Crops Held: " + testCropsHarvested.ToString();
-        testUI.text = testUIText;
+        cropAText = "Crop A Held: " + cropsHarvested[0].ToString();
+        cropAUI.text = cropAText;
+
+        cropBText = "Crop B Held: " + cropsHarvested[1].ToString();
+        cropBUI.text = cropBText;
 
         currentToolString = "Tool Equipped: " + currentTool.ToString();
         currentToolUI.text = currentToolString;

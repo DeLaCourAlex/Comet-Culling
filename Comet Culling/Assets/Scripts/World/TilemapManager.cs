@@ -63,7 +63,7 @@ public class TilemapManager : MonoBehaviour
     }
 
     // Plant a crop in the center of a tile if it's been tilled
-    public void PlantCrop(Vector3Int position, Vector2 cropPosition)
+    public void PlantCrop(Vector3Int position, Vector2 cropPosition, int cropElement)
     {
         /*// Used to correct for rounding down when converting position to ints
         // We want to round down, but setting a float to an int only removes after the decimal place
@@ -92,7 +92,7 @@ public class TilemapManager : MonoBehaviour
 
         // If there is a tilled dirt tile at the players position, plant the crop
         if (tileToPlant != null && tileData[tileToPlant].isTilled)
-            Instantiate(tileData[tileToPlant].crop, cropPosition, Quaternion.identity);
+            Instantiate(tileData[tileToPlant].crops[cropElement], cropPosition, Quaternion.identity);
     }
 
     // Check if the current tile is tilled
