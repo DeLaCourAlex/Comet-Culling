@@ -16,6 +16,17 @@ public class SpaceshipController : MonoBehaviour
     void Start()
     {
         spaceshipEnergy = MAX_ENERGY;
+
+        // Initialize variables stored in data permanence
+        if (DataPermanence.Instance != null)
+            spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
+    }
+
+    // Called once per frame
+    private void Update()
+    {
+        // Update the spaceship energy in data permanence
+        DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
     }
 
     // Charge the spaceship

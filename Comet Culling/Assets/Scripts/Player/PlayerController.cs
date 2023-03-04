@@ -33,12 +33,15 @@ public class PlayerController : MonoBehaviour
 
     // STAMINA RELATED VARIABLES
     public int stamina;
-    int MAX_STAMINA = 10; 
+    int MAX_STAMINA = 100;
+    int staminaPerAction = 5;
 
     // INTERRACTION/ACTION VARIABLES
     [SerializeField] Transform raycastEnd;
     [SerializeField] GameObject tileSelectYes;
     [SerializeField] GameObject tileSelectNo;
+    int energyCropA = 5;
+    int energyCropB = 15;
     bool carryCropA;
     bool carryCropB;
 
@@ -86,12 +89,11 @@ public class PlayerController : MonoBehaviour
         {
             // Set the player position when entering a new scene
             rb.MovePosition(DataPermanence.Instance.playerStartPosition);
-            // Set the player crops harvested
-            cropsHarvested[0] = DataPermanence.Instance.testCropsHarvested;
-        }
 
-        // Can delete this once figured out a way to access spaceship from the start
-        spaceshipEnergyText = "Spaceship Energy: " + 100;
+            // Set the player member variables
+            cropsHarvested = DataPermanence.Instance.cropsHarvested;
+            stamina = DataPermanence.Instance.playerStamina;
+        }
     }
 
     // Update is called once per frame
@@ -138,14 +140,15 @@ public class PlayerController : MonoBehaviour
         // Set whether the player is carrying a crop or not
         if (Input.GetButtonDown("No Crops"))
             ChangeCarriedCrops(false, false);
-        if (Input.GetButtonDown("Crop A"))
+        if (Input.GetButtonDown("Crop A") && cropsHarvested[0] > 0)
             ChangeCarriedCrops(true, false);
-        if (Input.GetButtonDown("Crop B"))
+        if (Input.GetButtonDown("Crop B") && cropsHarvested[1] > 0)
             ChangeCarriedCrops(false, true);
 
-        // Perform an action
-        //if (Input.GetButtonDown("Action"))
-            PerformAction();
+        // Perform any actions and update the player variables in data permanence
+        PerformAction();
+        DataPermanence.Instance.playerStamina = stamina;
+        DataPermanence.Instance.cropsHarvested = cropsHarvested;
 
         // Animator parameters
 
@@ -341,15 +344,8 @@ public class PlayerController : MonoBehaviour
                     //Tldr if i hit the generator and it has the staminarecharge component, this statement will be valid
                     SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
-                    Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
-                    Debug.Log("Stamina value: " + stamina);
-                    spaceshipController.ChargePlayer(ref stamina);
-
-                    Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
-                    Debug.Log("Stamina value: " + stamina);
-
-                    // Set the spaceship energy to a string
-                    spaceshipEnergyText = "Spaceship Energy: " + spaceshipController.spaceshipEnergy.ToString();
+                    if (Input.GetButtonDown("Action"))
+                        SpaceshipInteraction(ref spaceshipController);
 
                     break;
                 // TODO: Add engine/spaceship stuff for codependency system
@@ -373,7 +369,7 @@ public class PlayerController : MonoBehaviour
             DisplayCanInteract(true, false);
 
             // Perform the interaction
-            if (Input.GetButtonDown("Action"))
+            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
             {
                 // Set the crop status to watereds
                 crop.isWatered = true;
@@ -382,7 +378,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Watering");
 
                 // Lower the stamina from the action
-                stamina -= 10;
+                stamina -= staminaPerAction;
             }
         }
         else
@@ -400,13 +396,12 @@ public class PlayerController : MonoBehaviour
             DisplayCanInteract(true, false);
 
             // Perform the interaction
-            if (Input.GetButtonDown("Action"))
+            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
             {
                 // Destroy the game object
                 Destroy(rayHit.transform.gameObject);
                 // Increase the amount of harvested crops
                 cropsHarvested[cropType]++;
-                //DataPermanence.Instance.testCropsHarvested++;
 
                 // Reset the crop's tile to untilled dirt
                 TilemapManager.Instance.ResetTile(pos);
@@ -415,7 +410,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Harvesting");
 
                 // Lower the stamina from the action
-                stamina -= 10;
+                stamina -= staminaPerAction;
             }
         }
         else
@@ -433,7 +428,7 @@ public class PlayerController : MonoBehaviour
             DisplayCanInteract(true, false);
 
             // Perform the interaction
-            if (Input.GetButtonDown("Action"))
+            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
             {
                 // Set the dirt tile to tilled
                 TilemapManager.Instance.TillDirt(pos);
@@ -445,7 +440,7 @@ public class PlayerController : MonoBehaviour
                 DisplayCanInteract(false, true);
 
                 // Lower the stamina from the action
-                stamina -= 10;
+                stamina -= staminaPerAction;
             }
         }
         else
@@ -482,7 +477,7 @@ public class PlayerController : MonoBehaviour
             DisplayCanInteract(true, false);
 
             // Perform the interaction
-            if (Input.GetButtonDown("Action"))
+            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
             {
                 // Plant a crop on the tile at the location of the player
                 TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
@@ -490,13 +485,51 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Planting");
 
                 // Lower the stamina from the action
-                stamina -= 10;
+                stamina -= staminaPerAction;
             }
         }
 
         else
             // Show that we can't perform this interaction
             DisplayCanInteract(false, true);
+    }
+
+    // Interaction between the player and the spaceship
+    // Either charge the spaceship using the crop the player is holding
+    // Or charge the player form the spaceship's energy
+    void SpaceshipInteraction(ref SpaceshipController spaceship)
+    {
+        // Charge the spaceship with crop A
+        if (carryCropA)
+        {
+            // Charge the spaceship
+            spaceship.ChargeSpaceship(energyCropA);
+
+            // Remove crop from the player's inventory
+            cropsHarvested[0]--;
+
+            // If the crop goes below 0, no longer carrying it
+            if (cropsHarvested[0] <= 0)
+                carryCropA = false;
+        }
+            
+
+        // Charge the spaceship with crop B
+        else if (carryCropB)
+        {
+            spaceship.ChargeSpaceship(energyCropB);
+
+            // Remove crop from the player's inventory
+            cropsHarvested[1]--;
+
+            // If the crop goes below 0, no longer carrying it
+            if (cropsHarvested[1] <= 0)
+                carryCropB = false;
+        }
+            
+        // Charge the player from the spaceship
+        else
+            spaceship.ChargePlayer(ref stamina);
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)
@@ -529,6 +562,8 @@ public class PlayerController : MonoBehaviour
         staminaText = "Player Stamina: " + stamina.ToString();
         staminaTextUI.text = staminaText;
 
+        // Set the spaceship energy to a string
+        spaceshipEnergyText = "Spaceship Energy: " + DataPermanence.Instance.spaceshipEnergy.ToString();
         spaceshipEnergyUI.text = spaceshipEnergyText;
     }
 }
