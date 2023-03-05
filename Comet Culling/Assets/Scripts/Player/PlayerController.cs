@@ -30,11 +30,11 @@ public class PlayerController : MonoBehaviour
 
     // Player stats VARIABLES
     [Header("Player Stats")]
-     public int Health;
-     public int Exp;
+    public int Health;
+    public int Exp;
     //UI
-     public TextMeshProUGUI HealthText;
-     public TextMeshProUGUI ExpText;
+    public TextMeshProUGUI HealthText;
+    public TextMeshProUGUI ExpText;
 
 
 
@@ -195,16 +195,14 @@ public class PlayerController : MonoBehaviour
     }
     public void IncreaseHealth(int value)
     {
-      
-        
-            Health += value;
-            HealthText.text = $"HP:{Health}";
-            Debug.Log(HealthText.text);
-        
 
-        
-    } 
-    
+
+        Health += value;
+        HealthText.text = $"HP:{Health}";
+        Debug.Log(HealthText.text);
+
+    }
+
 
 
     public void IncreaseExp(int value)

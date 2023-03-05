@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,16 +9,40 @@ using UnityEngine.UI;
 public class InventoryItemController : MonoBehaviour
 {
     public GameObject Player;
-   public  PlayerController playerController;
+    public  PlayerController playerController;
 
     Item item;
-
+    [Header("UI")]
+    public TextMeshProUGUI countText;
+    public int count = 1;
+    
     public Button RemoveButton;
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
         playerController = Player.GetComponent<PlayerController>();
     }
+
+
+    public int Count
+    {
+        get
+        { return count; }
+
+        set
+        {
+            if (value > 9)
+            {
+                count = 9;
+            }
+            else
+            {
+                count = value;
+            }
+
+        }
+    }
+
 
     public void RemoveItem()
     {
@@ -30,7 +55,18 @@ public class InventoryItemController : MonoBehaviour
     public void AddItem(Item newItem)
     {
         item = newItem;
+        RefreshCount();
     }
+
+    public void RefreshCount()
+    {
+        countText.text = count.ToString();
+        bool textActive = count > 0;
+        countText.gameObject.SetActive(textActive);
+        Debug.Log(count);
+
+    }
+
 
     public void UseItem()
     {
