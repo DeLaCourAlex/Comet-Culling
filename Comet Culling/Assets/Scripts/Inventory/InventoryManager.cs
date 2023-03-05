@@ -31,10 +31,17 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+       
+
+        //InventoryItemController obj = Instantiate(inventoryController);
+    }
+
+    public void Start()
+    {
+
         inventoryController = new InventoryItemController();
         inventoryController = GetComponent<InventoryItemController>();
 
-        //InventoryItemController obj = Instantiate(inventoryController);
     }
 
 
