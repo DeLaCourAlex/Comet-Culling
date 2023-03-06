@@ -10,6 +10,7 @@ public class InventoryItemController : MonoBehaviour
 {
     public GameObject Player;
     public  PlayerController playerController;
+    //public List<Item> Items = new List<Item>();
 
     Item item;
     [Header("UI")]
@@ -24,24 +25,24 @@ public class InventoryItemController : MonoBehaviour
     }
 
 
-    public int Count
-    {
-        get
-        { return count; }
+    //public int Count
+    //{
+    //    get
+    //    { return count; }
 
-        set
-        {
-            if (value > 9)
-            {
-                count = 9;
-            }
-            else
-            {
-                count = value;
-            }
+    //    set
+    //    {
+    //        if (value > 9)
+    //        {
+    //            count = 9;
+    //        }
+    //        else
+    //        {
+    //            count = value;
+    //        }
 
-        }
-    }
+    //    }
+    //}
 
 
     public void RemoveItem()
@@ -55,15 +56,23 @@ public class InventoryItemController : MonoBehaviour
     public void AddItem(Item newItem)
     {
         item = newItem;
+
         RefreshCount();
+        
+
     }
 
     public void RefreshCount()
     {
+
+        count++;
+        //countText.text = $"{count}";
+        //Debug.Log(countText.text);
         countText.text = count.ToString();
-        bool textActive = count > 0;
-        countText.gameObject.SetActive(textActive);
-        Debug.Log(count);
+        //bool textActive = count > 0;
+        //countText.gameObject.SetActive(textActive);
+       
+        Debug.Log("stacked items: " +count);
 
     }
 

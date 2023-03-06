@@ -40,7 +40,7 @@ public class InventoryManager : MonoBehaviour
     {
 
         inventoryController = new InventoryItemController();
-        inventoryController = GetComponent<InventoryItemController>();
+        //inventoryController = GetComponent<InventoryItemController>();
 
     }
 
@@ -61,18 +61,14 @@ public class InventoryManager : MonoBehaviour
             {
 
                 Debug.Log("items are stacking");
-                inventoryController.count = inventoryController.count + 1;
-
-
-
-
+                inventoryController.count = inventoryController.count +item.amount;
 
                 return;
             }
         }
 
         Items.Add(item);
-        Debug.Log("items are being added");
+        //Debug.Log("items are being added");
 
     }
 
@@ -105,8 +101,9 @@ public class InventoryManager : MonoBehaviour
             var itemName = obj.transform.Find("ItemName").GetComponent<TMPro.TextMeshProUGUI>();
             var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
             var removeButton = obj.transform.Find("RemoveButton").GetComponent<Button>();
-            //var count = obj.transform.Find("count").GetComponent<TMPro.TextMeshProUGUI>();
-
+            var Count = obj.transform.Find("Count").GetComponent<TMPro.TextMeshProUGUI>();
+            
+            //Count.text = inventoryController.countText;
             itemName.text = item.itemName;
             //count.text = item.count;
             itemIcon.sprite = item.icon;
