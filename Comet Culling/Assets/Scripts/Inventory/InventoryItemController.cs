@@ -49,28 +49,28 @@ public class InventoryItemController : MonoBehaviour
     {
         InventoryManager.Instance.Remove(item);
         Destroy(gameObject);
-
+        RefreshCount();
 
     }
 
     public void AddItem(Item newItem)
     {
         item = newItem;
-
+        //Update();
         RefreshCount();
-        
+
 
     }
 
     public void RefreshCount()
     {
 
-        count++;
+        //count++;
         //countText.text = $"{count}";
         //Debug.Log(countText.text);
         countText.text = count.ToString();
-        //bool textActive = count > 0;
-        //countText.gameObject.SetActive(textActive);
+        bool textActive = count > 0;
+        countText.gameObject.SetActive(textActive);
        
         Debug.Log("stacked items: " +count);
 
@@ -93,7 +93,7 @@ public class InventoryItemController : MonoBehaviour
             default:
                 break;
         }
-
+        RefreshCount();
         RemoveItem();
     }
 }

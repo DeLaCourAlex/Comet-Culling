@@ -61,7 +61,7 @@ public class InventoryManager : MonoBehaviour
             {
 
                 Debug.Log("items are stacking");
-                inventoryController.count = inventoryController.count +item.amount;
+                inventoryController.count = inventoryController.count +1;
 
                 return;
             }
@@ -73,7 +73,12 @@ public class InventoryManager : MonoBehaviour
     }
 
 
+    public void Update()
+    {
+        
+        
 
+    }
 
 
     //removes item from inventory 
