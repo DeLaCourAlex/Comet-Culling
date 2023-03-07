@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172bd890c5ed70548b3ed3ebcbb5cd1d, type: 3}
   m_Name: UntilledTileData
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: bc1bad4bfd96b6f4e97dab22f6bf952f, type: 2}
-  crop: {fileID: 0}
+  tile: {fileID: 11400000, guid: 4187345ae34a25a4c84ca20b0239e46b, type: 2}
+  isTilled: 0
+  crops: []

@@ -41,22 +41,12 @@ public class TilemapManager : MonoBehaviour
     // Till a tile, allowing it to have crops planted
     public void TillDirt(Vector3Int position)
     {
-        /*// Used to correct for rounding down when converting position to ints
-        // We want to round down, but setting a float to an int only removes after the decimal place
-        // This causes the number to round up if the float value is negative
-        int yCorrector = position.y < 0 ? -1 : 0;
-        int xCorrector = position.x < 0 ? -1 : 0;
-
-        // Set the player position to ints because that's what the SetTile function uses
-        Vector3Int positionInt = new Vector3Int((int)position.x + xCorrector, (int)position.y + yCorrector, 0);*/
-
         // Get the tile at the player's current position
         TileBase tileToTill = tilemap.GetTile(position);
 
         // If there is a dirt tile at the players position, set it to tilled
         if(tileToTill != null)
         {
-            //Debug.Log("int position: " + position);
             tilemap.SetTile(position, tilledTile);
             DataPermanence.Instance.tilledTilePositions.Add(position);
         }
@@ -65,30 +55,8 @@ public class TilemapManager : MonoBehaviour
     // Plant a crop in the center of a tile if it's been tilled
     public void PlantCrop(Vector3Int position, Vector2 cropPosition, int cropElement)
     {
-        /*// Used to correct for rounding down when converting position to ints
-        // We want to round down, but setting a float to an int only removes after the decimal place
-        // This causes the number to round up if the float value is negative
-        int yCorrector = position.y < 0 ? -1 : 0;
-        int xCorrector = position.x < 0 ? -1 : 0;
-
-        // Set the player position to ints because that's what the SetTile function uses
-        Vector3Int positionInt = new Vector3Int((int)position.x + xCorrector, (int)position.y + yCorrector, 0);*/
-
         // Get the tile at the player's current position
         TileBase tileToPlant = tilemap.GetTile(position);
-
-        /*// Check if there is a crop game object in the current position
-        // Cycle through all the current crops that have been planted
-        // And check their position against  where you are trying to plant a new crop
-        GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");*/
-
-        // Set the position of the new crop in the center of the tile
-        //Vector2 cropPosition = new Vector2((float)position.x + 0.5f, (float)position.y + 0.5f);
-
-        /*// If there is another crop in this position, leave the function
-        for (int i = 0; i < allCrops.Length; i++)
-            if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
-                return;*/
 
         // If there is a tilled dirt tile at the players position, plant the crop
         if (tileToPlant != null && tileData[tileToPlant].isTilled)
@@ -99,15 +67,6 @@ public class TilemapManager : MonoBehaviour
     // Used to control player animations
     public bool IsTilled(Vector3Int position)
     {
-        /*// Used to correct for rounding down when converting position to ints
-        // We want to round down, but setting a float to an int only removes after the decimal place
-        // This causes the number to round up if the float value is negative
-        int yCorrector = position.y < 0 ? -1 : 0;
-        int xCorrector = position.x < 0 ? -1 : 0;
-
-        // Set the player position to ints because that's what the SetTile function uses
-        Vector3Int positionInt = new Vector3Int((int)position.x + xCorrector, (int)position.y + yCorrector, 0);*/
-
         // Get the tile at the player's current position
         TileBase tileToCheck = tilemap.GetTile(position);
 
@@ -117,15 +76,6 @@ public class TilemapManager : MonoBehaviour
     // Reset a tile to untilled after its crop has been harvested
     public void ResetTile(Vector3Int position)
     {
-        /*// Used to correct for rounding down when converting position to ints
-        // We want to round down, but setting a float to an int only removes after the decimal place
-        // This causes the number to round up if the float value is negative
-        int yCorrector = position.y < 0 ? -1 : 0;
-        int xCorrector = position.x < 0 ? -1 : 0;
-
-        // Set the player position to ints because that's what the SetTile function uses
-        Vector3Int positionInt = new Vector3Int((int)position.x + xCorrector, (int)position.y + yCorrector, 0);*/
-
         // Get the tile at the player's current position
         TileBase tileToPlant = tilemap.GetTile(position);
 
