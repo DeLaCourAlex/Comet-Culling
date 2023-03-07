@@ -12,9 +12,9 @@ public class CropController : MonoBehaviour
     Animator animator;
 
     // The age at which a crop is grown
-    [SerializeField] float timeToGrow;
+    [SerializeField] float timeToGrow; 
     // The age at which a crop is grown when watered
-    [SerializeField] float timeToGrowWatered;
+    [SerializeField] float timeToGrowWatered; 
     [SerializeField] float energyGiven;
 
     // Used to determine if the crop type from other scripts
@@ -43,6 +43,9 @@ public class CropController : MonoBehaviour
     {
         // Multiplier to increase the speed that a crop grows if watered
         // This is calculated based on the quotient of the two times to grown - watered and not
+        // This line says that if the crop is not watered, its multiplier is 1 - it grows in normal time
+        // If it is watered, its multiplier is the larger number (time to grow unwatered) divided by the smaller number (time to grow watered)
+        // This causes the time alive to increase faster when it's watered
         wateredMultiplier = isWatered ? timeToGrow / timeToGrowWatered : 1f;
 
         // Increase time alive
