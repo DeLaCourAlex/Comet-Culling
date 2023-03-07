@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7247453546081994389}
   - component: {fileID: 568283112873880299}
   m_Layer: 6
-  m_Name: Crop A
+  m_Name: Crop B
   m_TagString: Crop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.7873354, a: 1}
+  m_Color: {r: 1, g: 0.5701677, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da84dc300022e904e9310f54b3199d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToGrow: 10
-  timeToGrowWatered: 5
+  timeToGrow: 25
+  timeToGrowWatered: 15
   energyGiven: 0
+  <elementNumber>k__BackingField: 1
 --- !u!61 &-7247453546081994389
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 94b27aefc0ef780478837a5e3a6d4c74
+guid: 1731835069a14214584ad8bb1a71255e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Placeholder Holding Crop Sprite Sheet_0
+      name: Placeholder Holding Crop B Sprite Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 021aa0f88e104d645ac55210c4e25122
-      internalID: -1443646363
+      spriteID: 7cdc9165a747f3b40b7f0f565722d838
+      internalID: 1810349132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Placeholder Holding Crop Sprite Sheet_1
+      name: Placeholder Holding Crop B Sprite Sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 113c6bc08585c244ba8169d2881c9b5b
-      internalID: -1651643926
+      spriteID: 31fdc00bcf00c6548ac4edbea96499a8
+      internalID: 1276235233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Placeholder Holding Crop Sprite Sheet_2
+      name: Placeholder Holding Crop B Sprite Sheet_2
       rect:
         serializedVersion: 2
         x: 64
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97b96d220ea10c941a416be22b4337a0
-      internalID: -1429872750
+      spriteID: 02a65782ea15ba8439ad8e063db5d897
+      internalID: -1563872846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Placeholder Holding Crop Sprite Sheet_3
+      name: Placeholder Holding Crop B Sprite Sheet_3
       rect:
         serializedVersion: 2
         x: 96
@@ -194,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b8b65727cac904428051144ec29952e
-      internalID: 793819976
+      spriteID: c7f4abd0814ecbe4dbc945daba02fe9e
+      internalID: 908939150
       vertices: []
       indices: 
       edges: []
@@ -211,10 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Placeholder Holding Crop Sprite Sheet_3: 793819976
-      Placeholder Holding Crop Sprite Sheet_2: -1429872750
-      Placeholder Holding Crop Sprite Sheet_0: -1443646363
-      Placeholder Holding Crop Sprite Sheet_1: -1651643926
+      Placeholder Holding Crop B Sprite Sheet_1: 1276235233
+      Placeholder Holding Crop B Sprite Sheet_0: 1810349132
+      Placeholder Holding Crop B Sprite Sheet_3: 908939150
+      Placeholder Holding Crop B Sprite Sheet_2: -1563872846
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -16,8 +16,11 @@ public class DataPermanence : MonoBehaviour
     // Set the player position when entering a new scene
     public Vector2 playerStartPosition;
 
-    // Set the test variable for crops in player inventory
-    public int testCropsHarvested;
+    // The amount of the different crop types held in inventory
+    public int[] cropsHarvested;
+
+    // Player stamina
+    public int playerStamina;
 
     // ALL VARIABLES FOR CROPS AND CROP MANAGEMENT
 
@@ -45,6 +48,10 @@ public class DataPermanence : MonoBehaviour
     // A reference to the tilemap in the farm scene
     public List<Vector3Int> tilledTilePositions = new List<Vector3Int>();
 
+    // SPACESHIP VARIABLES
+
+    public int spaceshipEnergy;
+
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
 
 
@@ -63,6 +70,10 @@ public class DataPermanence : MonoBehaviour
 
         // Keeps the instance alive moving between scenes
         DontDestroyOnLoad(gameObject);
+
+        cropsHarvested = new int[2];
+        playerStamina = 100;
+        spaceshipEnergy = 100;
     }
 
     private void Update()

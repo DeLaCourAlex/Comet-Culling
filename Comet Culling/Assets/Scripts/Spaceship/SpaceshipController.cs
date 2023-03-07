@@ -16,26 +16,29 @@ public class SpaceshipController : MonoBehaviour
     void Start()
     {
         spaceshipEnergy = MAX_ENERGY;
+
+        // Initialize variables stored in data permanence
+        if (DataPermanence.Instance != null)
+            spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
     }
 
-    //Recharging spaceship
-    public void ChargeSpaceship(float cropEnergyYield) //We either pass a crop game object to it or its enum, not sure yet (ask the boys)
+    // Called once per frame
+    private void Update()
     {
-
-        //for(number of stacked crop items) - will wait for Sangit for this
-        if(spaceshipEnergy < MAX_ENERGY)
-        {
-            spaceshipEnergy += Mathf.RoundToInt(cropEnergyYield); //Add the energy yield to the spaceship's energy
-            spaceshipEnergy = Mathf.Min(spaceshipEnergy, MAX_STAMINA); //Ensures only the minimum value is return and it doesn't go over 100
-        }
-        else //Energy >= max
-        {
-            Debug.Log("Energy fully recharged, no need for more crops");
-        }
-
-
+        // Update the spaceship energy in data permanence
+        DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
     }
 
+    // Charge the spaceship
+    public void ChargeSpaceship(int energy)
+    {
+        // The new energy added to the current energy
+        int newEnergy = spaceshipEnergy + energy;
+
+        // Stop the spaceship energy going over its max energy
+        spaceshipEnergy = Mathf.Min(newEnergy, MAX_ENERGY);
+
+    }
     public void ChargePlayer(ref int botStamina) //Pass these variables into this function from the player's controls
     {
         //Placeholder logic: charging 100% of the robot's stamina takes 25% of the spaceship. Will be replaced for a more optimised value in the future if needed.
@@ -62,9 +65,28 @@ public class SpaceshipController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    //Recharging spaceship
+    // Old version by Bruno, left here for now until approval of new version!
+    /*public void ChargeSpaceship(CROP_TYPE type) //We either pass a crop game object to it or its enum, not sure yet (ask the boys)
     {
+        float energyYield = 0; //Placeholder temp
 
-    }
+        switch (type)
+        {
+            case (CROP_TYPE.A):
+                //Check how much energy type A yields (that's why I thought of passing a ref to a crop gameobject)
+                //Round it (up, maybe)
+                //So it'd be something like energyYield = crop.getEnergy(); 
+
+                break;
+            case (CROP_TYPE.B):
+                break;
+            case (CROP_TYPE.C):
+                break;
+
+        }
+        
+        spaceshipEnergy += Mathf.RoundToInt(energyYield); //Add the energy yield to the spaceship's energy
+
+    }*/
 }
