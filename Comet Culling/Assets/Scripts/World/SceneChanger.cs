@@ -40,7 +40,7 @@ public class SceneChanger : MonoBehaviour
             for(int i = 0; i < crops.Length; i++)
             {
                 CropController cropController = crops[i].GetComponent<CropController>();
-                //DataPermanence.Instance.allCrops.Add(new DataPermanence.CropData(crops[i].transform.position, cropController.timeAlive, cropController.wateredMultiplier, cropController.isWatered));
+                DataPermanence.Instance.allCrops.Add(new DataPermanence.CropData(crops[i].transform.position, cropController.timeAlive, cropController.wateredMultiplier, cropController.isWatered, cropController.elementNumber));
             }
         }
     }

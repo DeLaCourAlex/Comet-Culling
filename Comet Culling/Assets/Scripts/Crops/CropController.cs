@@ -18,7 +18,7 @@ public class CropController : MonoBehaviour
     [SerializeField] float energyGiven;
 
     // Used to determine if the crop type from other scripts
-    [field: SerializeField] public int elementNumber { get; private set; }
+    [field: SerializeField] public int elementNumber { get; set; }
 
     // The time since the crop was planted
     // Used to determine if it can be harvested or not
@@ -60,5 +60,7 @@ public class CropController : MonoBehaviour
         animator.SetBool("Is Grown", isGrown);
         // Set if the crop has been watered
         animator.SetBool("Watered", isWatered);
+        // Set the crop type depending on its element number
+        animator.SetFloat("Element", elementNumber);
     }
 }

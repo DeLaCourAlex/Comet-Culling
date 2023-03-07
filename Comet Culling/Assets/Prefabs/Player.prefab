@@ -195,7 +195,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -1528222516, guid: 5828bf87380e0ba46a72f11b40abff90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -240,18 +240,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &7527863383363309035
 MonoBehaviour:
@@ -267,12 +267,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 20
   maximumSpeed: 15
-  crop: {fileID: 4737909255717466027, guid: 0873f08d38d227546b3314a961d98047, type: 3}
+  crops: []
   stamina: 0
   raycastEnd: {fileID: 2111812885905076054}
   tileSelectYes: {fileID: 7782820167725956421}
   tileSelectNo: {fileID: 308605693944346384}
-  testUI: {fileID: 0}
+  cropAUI: {fileID: 0}
+  cropBUI: {fileID: 0}
   currentToolUI: {fileID: 0}
   staminaTextUI: {fileID: 0}
   spaceshipEnergyUI: {fileID: 0}

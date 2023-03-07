@@ -183,6 +183,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 741263776}
     - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: cropAUI
+      value: 
+      objectReference: {fileID: 329887264}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: cropBUI
+      value: 
+      objectReference: {fileID: 1815847254}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
       propertyPath: currentToolUI
       value: 
       objectReference: {fileID: 329887264}

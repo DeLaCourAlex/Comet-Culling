@@ -31,14 +31,16 @@ public class DataPermanence : MonoBehaviour
         public float timeAlive;
         public float wateredMultiplier;
         public bool isWatered;
+        public int cropType;
 
         // Constructor for when adding items to the crop list
-        public CropData(Vector2 pos, float time, float wMultiplier, bool watered)
+        public CropData(Vector2 pos, float time, float wMultiplier, bool watered, int type)
         {
             position = pos;
             timeAlive = time;
             wateredMultiplier = wMultiplier;
             isWatered = watered;
+            cropType = type;
         }
     }
 
