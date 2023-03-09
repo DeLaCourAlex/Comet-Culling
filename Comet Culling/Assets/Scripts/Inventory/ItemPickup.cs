@@ -11,7 +11,6 @@ public class ItemPickup : MonoBehaviour
     void Pickup()
     {
         InventoryManager.Instance.Add(item);
-        //inventoryController.count = inventoryController.count + 1;
         clickSound.Play();
         Destroy(gameObject);
 

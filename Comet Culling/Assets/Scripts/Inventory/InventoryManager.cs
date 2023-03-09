@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,16 +32,18 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-       
+        
 
-        //InventoryItemController obj = Instantiate(inventoryController);
+
+
     }
 
     public void Start()
     {
 
         inventoryController = new InventoryItemController();
-        //inventoryController = GetComponent<InventoryItemController>();
+        
+
 
     }
 
@@ -53,20 +56,27 @@ public class InventoryManager : MonoBehaviour
     public void Add(Item item)
     {
 
-       
+        foreach (Item InventoryItems in Items)
+        {
+
+            if (InventoryItems.itemType == item.itemType)
+
+            {
+                inventoryController.IncrementCounter();
+                
+
+                
+                return;
+            }
+        }
 
         Items.Add(item);
-        //Debug.Log("items are being added");
+     
 
     }
 
 
-    public void Update()
-    {
-        
-        
 
-    }
 
 
     //removes item from inventory 
@@ -95,7 +105,7 @@ public class InventoryManager : MonoBehaviour
             var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
             var removeButton = obj.transform.Find("RemoveButton").GetComponent<Button>();
             var Count = obj.transform.Find("Count").GetComponent<TMPro.TextMeshProUGUI>();
-            
+
             //Count.text = inventoryController.countText;
             itemName.text = item.itemName;
             //count.text = item.count;
@@ -144,25 +154,7 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < Items.Count; i++)
         {
             InventoryItems[i].AddItem(Items[i]);
-            //inventoryController.count = inventoryController.count + i;
-            //inventoryController.IncrementCounter();
-            foreach (Item InventoryItems in Items)
-            {
 
-                if (InventoryItems.itemType == item.itemType)
-
-                {
-                    
-                    InventoryItems.IncrementCounter();
-
-                    Debug.Log("items are stacking");
-                    //inventoryController.count = inventoryController.count +1;
-                    //inventoryController.IncrementCounter();
-
-                    return;
-                }
-            }
-            
 
         }
 

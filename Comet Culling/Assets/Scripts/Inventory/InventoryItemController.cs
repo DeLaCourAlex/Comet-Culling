@@ -10,80 +10,60 @@ public class InventoryItemController : MonoBehaviour
 {
     public GameObject Player;
     public  PlayerController playerController;
-    //public List<Item> Items = new List<Item>();
+  
 
     Item item;
     [Header("UI")]
     public TextMeshProUGUI countText;
-    public int count = 1;
+    public int count;
     
     public Button RemoveButton;
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
         playerController = Player.GetComponent<PlayerController>();
+
+        UpdatedText();
     }
 
+  
 
-    //public int Count
-    //{
-    //    get
-    //    { return count; }
-
-    //    set
-    //    {
-    //        if (value > 9)
-    //        {
-    //            count = 9;
-    //        }
-    //        else
-    //        {
-    //            count = value;
-    //        }
-
-    //    }
-    //}
 
 
     public void RemoveItem()
     {
         InventoryManager.Instance.Remove(item);
         Destroy(gameObject);
-        RefreshCount();
+      
 
     }
 
     public void AddItem(Item newItem)
     {
+
+
         item = newItem;
-        //Update();
         IncrementCounter();
-        RefreshCount();
+        UpdatedText();
+
+    }
+
+    public int IncrementCounter()
+    {
+        count = count +1;
         
-
-
+         Debug.Log("count value is " + count);
+        return count;
     }
 
-    public void IncrementCounter()
-    {
-        count++;
-        Debug.Log("Incrementing Counter");
-    }
 
-    public void RefreshCount()
+    public void UpdatedText()
     {
-
-      
-        //countText.text = $"{count}";
-        //Debug.Log(countText.text);
-        countText.text = count.ToString();
-        bool textActive = count > 0;
-        countText.gameObject.SetActive(textActive);
        
-        Debug.Log("stacked items: " +count);
-
+        bool textActive = count > 0;
+        countText.gameObject.SetActive(textActive); 
+        countText.text = count.ToString();
     }
-
 
     public void UseItem()
     {
@@ -101,12 +81,11 @@ public class InventoryItemController : MonoBehaviour
             default:
                 break;
         }
-        RefreshCount();
+       
         RemoveItem();
+       
     }
+    
 
-    private void Update()
-    {
-        RefreshCount();
-    }
+    
 }
