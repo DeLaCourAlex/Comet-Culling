@@ -57,15 +57,23 @@ public class InventoryItemController : MonoBehaviour
     {
         item = newItem;
         //Update();
+        IncrementCounter();
         RefreshCount();
+        
 
 
+    }
+
+    public void IncrementCounter()
+    {
+        count++;
+        Debug.Log("Incrementing Counter");
     }
 
     public void RefreshCount()
     {
 
-        //count++;
+      
         //countText.text = $"{count}";
         //Debug.Log(countText.text);
         countText.text = count.ToString();
@@ -95,5 +103,10 @@ public class InventoryItemController : MonoBehaviour
         }
         RefreshCount();
         RemoveItem();
+    }
+
+    private void Update()
+    {
+        RefreshCount();
     }
 }

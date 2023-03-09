@@ -1068,6 +1068,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575052699}
   m_CullTransparentMesh: 1
+--- !u!1001 &737694619
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 793864020}
+    m_Modifications:
+    - target: {fileID: 7052317143720147163, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 261527062}
+    - target: {fileID: 7052317143720147169, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_Name
+      value: Red Potion (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -514.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -266.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.455177
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147175, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+--- !u!4 &737694620 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+  m_PrefabInstance: {fileID: 737694619}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &783154545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,6 +1307,8 @@ Transform:
   - {fileID: 81533327}
   - {fileID: 1384529792}
   - {fileID: 1184855075}
+  - {fileID: 1012346510}
+  - {fileID: 737694620}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1514,6 +1586,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004395612}
   m_CullTransparentMesh: 1
+--- !u!1001 &1012346509
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 793864020}
+    m_Modifications:
+    - target: {fileID: 7052317143720147163, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 261527062}
+    - target: {fileID: 7052317143720147169, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_Name
+      value: Red Potion (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -512.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -266.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.455177
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052317143720147175, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+--- !u!4 &1012346510 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7052317143720147174, guid: 4bb2aeece929f5b49aa1c20e89a6725c, type: 3}
+  m_PrefabInstance: {fileID: 1012346509}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1168626967
 GameObject:
   m_ObjectHideFlags: 0

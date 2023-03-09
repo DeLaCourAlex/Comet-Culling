@@ -53,19 +53,7 @@ public class InventoryManager : MonoBehaviour
     public void Add(Item item)
     {
 
-        foreach (Item InventoryItems in Items)
-        {
-
-            if (InventoryItems.itemType == item.itemType)
-
-            {
-
-                Debug.Log("items are stacking");
-                inventoryController.count = inventoryController.count +1;
-
-                return;
-            }
-        }
+       
 
         Items.Add(item);
         //Debug.Log("items are being added");
@@ -156,6 +144,25 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < Items.Count; i++)
         {
             InventoryItems[i].AddItem(Items[i]);
+            //inventoryController.count = inventoryController.count + i;
+            //inventoryController.IncrementCounter();
+            foreach (Item InventoryItems in Items)
+            {
+
+                if (InventoryItems.itemType == item.itemType)
+
+                {
+                    
+                    InventoryItems.IncrementCounter();
+
+                    Debug.Log("items are stacking");
+                    //inventoryController.count = inventoryController.count +1;
+                    //inventoryController.IncrementCounter();
+
+                    return;
+                }
+            }
+            
 
         }
 
