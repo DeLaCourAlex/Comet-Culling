@@ -49,14 +49,27 @@ public class PlayerController : MonoBehaviour
     string testUIText;
     [SerializeField] TextMeshProUGUI testUI;
 
+
+    //inventory
+    [SerializeField] private UI_Inventory ui_Inventory;
+    private Inventory inventory;
+
+    //private void Awake()
+    //{
+    //    inventory = new Inventory();
+
+    //    ui_Inventory.setInventory(inventory);
+    //}
     // Start is called before the first frame update
     void Start()
     {
+
         // Initialize member objects and components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
 
+        
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
@@ -65,6 +78,9 @@ public class PlayerController : MonoBehaviour
             // Set the player crops harvested
             testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
         }
+
+        inventory = new Inventory();
+        ui_Inventory.setInventory(inventory);
     }
 
     // Update is called once per frame
