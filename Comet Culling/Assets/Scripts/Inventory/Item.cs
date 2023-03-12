@@ -8,11 +8,22 @@ public class Item
    public int amount;
     public enum ItemType
     {
-        Potion,
-        Other
+        cropA,
+        cropB
     }
 
-   
+   public Sprite GetSprite()
+    {
+        switch (itemType) 
+        {
+            default: 
+            case ItemType.cropA:
+                return ItemAssets.Instance.cropASprite; 
+
+            case ItemType.cropB:
+                return ItemAssets.Instance.cropBSprite;
+        }
+    }
 
 
 
