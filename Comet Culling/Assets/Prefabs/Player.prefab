@@ -265,8 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8790edfb8e4cb914887150b8b556d719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 20
-  maximumSpeed: 15
+  movementSpeed: 10
+  maximumSpeed: 5
   crops: []
   stamina: 0
   raycastEnd: {fileID: 2111812885905076054}

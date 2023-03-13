@@ -9,8 +9,6 @@ public class SpaceshipController : MonoBehaviour
    
     const int MAX_ENERGY = 100;
     const int MAX_STAMINA = 100;
-    public enum CROP_TYPE { A, B, C };//This enum would need to be public and belonging to the crop system attributes
-
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +35,6 @@ public class SpaceshipController : MonoBehaviour
 
         // Stop the spaceship energy going over its max energy
         spaceshipEnergy = Mathf.Min(newEnergy, MAX_ENERGY);
-
     }
     public void ChargePlayer(ref int botStamina) //Pass these variables into this function from the player's controls
     {
@@ -62,31 +59,5 @@ public class SpaceshipController : MonoBehaviour
         spaceshipEnergy -= takenEnergy; //New spaceship energy = current level - taken energy
         botStamina += Mathf.Min(addedStamina, rechargingStamina); //New stamina = current stamina + taken value.
         //Only the minimum value between the two will be added to the final stamina. 
-
     }
-
-    //Recharging spaceship
-    // Old version by Bruno, left here for now until approval of new version!
-    /*public void ChargeSpaceship(CROP_TYPE type) //We either pass a crop game object to it or its enum, not sure yet (ask the boys)
-    {
-        float energyYield = 0; //Placeholder temp
-
-        switch (type)
-        {
-            case (CROP_TYPE.A):
-                //Check how much energy type A yields (that's why I thought of passing a ref to a crop gameobject)
-                //Round it (up, maybe)
-                //So it'd be something like energyYield = crop.getEnergy(); 
-
-                break;
-            case (CROP_TYPE.B):
-                break;
-            case (CROP_TYPE.C):
-                break;
-
-        }
-        
-        spaceshipEnergy += Mathf.RoundToInt(energyYield); //Add the energy yield to the spaceship's energy
-
-    }*/
 }

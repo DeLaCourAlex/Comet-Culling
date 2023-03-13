@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     int staminaPerAction = 5;
 
     // INTERRACTION/ACTION VARIABLES
+    [Header("Interaction/Action Variables")]
     [SerializeField] Transform raycastEnd;
     [SerializeField] GameObject tileSelectYes;
     [SerializeField] GameObject tileSelectNo;
@@ -44,6 +45,13 @@ public class PlayerController : MonoBehaviour
     int energyCropB = 15;
     bool carryCropA;
     bool carryCropB;
+    // Used to alter the position of the raycast depending on the previous directions of the player
+    // Ensures that if the player was facing the crops below them if they turn sideways, they will now be 
+    // facing the crop to the bottom right, not directly to the right
+    // This is a vector3 instead of a vector 2 to more easily alter the transform positions which are naturally vector3s
+    Vector3 raycastCorrector = Vector3.zero;
+
+    UI staminaUI;
 
     // Store the tools as an enum to know which one to use
     enum Tools
@@ -104,6 +112,24 @@ public class PlayerController : MonoBehaviour
         // Normalize to reduce increased speed when moving diagonally
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
+        // Set the raycast corrector based on the previous and current direction that the player is facing
+        if(Mathf.Abs(directionAnimatorParameter) == 1 && direction.x != 0)
+        {
+            if (directionAnimatorParameter == 1)
+                raycastCorrector = new Vector3(0, 0.5f, 0);
+            else if (directionAnimatorParameter == -1)
+                raycastCorrector = new Vector3(0, -0.5f, 0);
+        }
+
+        if (directionAnimatorParameter == 0 && direction.y != 0)
+        {
+            if (facingRight)
+                raycastCorrector = new Vector3(0.5f, 0, 0);
+            else if (!facingRight)
+                raycastCorrector = new Vector3(-0.5f, 0, 0);
+        }
+
+        Debug.Log("Raycast Corrector: " + raycastCorrector);
         // Set the direction parameter based on the directional input
         // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
         // will keep the player facing in the current direction
@@ -113,7 +139,7 @@ public class PlayerController : MonoBehaviour
             directionAnimatorParameter = -1;
         else if (Mathf.Abs(direction.x) == 1)
             directionAnimatorParameter = 0;
-
+        
         // Cycle through the enum of tools
         // If at either end of the list, cycle around to the other end
         if(Input.GetButtonDown("Tools Left"))
@@ -210,9 +236,11 @@ public class PlayerController : MonoBehaviour
     void PerformAction()
     {
         // Set the raycast direction depending on where the player is facing
-        Vector2 raycastDirection = raycastEnd.transform.position - transform.position;
-        RaycastHit2D[] rayCast = Physics2D.RaycastAll(raycastEnd.transform.position, raycastDirection, 0.1f);
+        // First set the transforms to vector 2s
+        Vector2 raycastDirection = (raycastEnd.transform.position) - (transform.position);
+        RaycastHit2D[] rayCast = Physics2D.RaycastAll(raycastEnd.transform.position + raycastCorrector, raycastDirection, 0.2f);
 
+        Debug.DrawRay(raycastEnd.transform.position + raycastCorrector, raycastDirection, Color.cyan, 1f, false);
         // Cycle through all hits from the boxcast
         // check to see if any the object hit has any tag
         // Use this to determine what actions to perform depending on what tool the player has activated
