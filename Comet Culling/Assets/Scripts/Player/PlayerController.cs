@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform raycastEnd;
     [SerializeField] GameObject tileSelectYes;
     [SerializeField] GameObject tileSelectNo;
+    [SerializeField] GameObject cropPlant;
     int energyCropA = 5;
     int energyCropB = 15;
     bool carryCropA;
@@ -129,7 +130,6 @@ public class PlayerController : MonoBehaviour
                 raycastCorrector = new Vector3(-0.5f, 0, 0);
         }
 
-        Debug.Log("Raycast Corrector: " + raycastCorrector);
         // Set the direction parameter based on the directional input
         // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
         // will keep the player facing in the current direction
@@ -263,6 +263,7 @@ public class PlayerController : MonoBehaviour
             Vector2 displayPosition = new Vector2((float)positionInt.x + 0.5f, (float)positionInt.y + 0.5f);
             tileSelectNo.transform.position = displayPosition;
             tileSelectYes.transform.position = displayPosition;
+            cropPlant.transform.position = displayPosition;
 
             switch (tag)
             {
@@ -271,7 +272,7 @@ public class PlayerController : MonoBehaviour
                     // Can not perform these actions whilst carrying crops
                     if (carryCropA || carryCropB)
                     {
-                        DisplayCanInteract(false, false);
+                        DisplayCanInteract(false, false, false);
 
                         break;
                     }
@@ -307,18 +308,19 @@ public class PlayerController : MonoBehaviour
                             // Default is that we are at an interactable tiles or object
                             // But do not have the right tool selected
                             // Therefore display that we can't perform this interaction
-                            DisplayCanInteract(false, true);
+                            DisplayCanInteract(false, true, false);
 
                             break;
                     }
 
                     break;
+
                 case "Dirt Tile":
 
                     // Can not perform these actions whilst carrying crops
                     if (carryCropA || carryCropB)
                     {
-                        DisplayCanInteract(false, false);
+                        DisplayCanInteract(false, false, false);
 
                         break;
                     }
@@ -337,8 +339,63 @@ public class PlayerController : MonoBehaviour
                         // If seed A is equipped, plant crop A
                         case Tools.seedA:
 
+                            if (Input.GetButtonDown("Action"))
+                            {
+                                RaycastHit2D[] cropBoxcasts = new RaycastHit2D[9];
+                                int boxcastElement = 0;
+
+                                Vector2 boxcastPosition = Vector2.zero;
+
+                                // THIS WORKS 
+                                for (int i = -1; i < 2; i++)
+                                    for (int j = -1; j < 2; j++)
+                                    {
+                                        
+                                        boxcastPosition = new Vector2(displayPosition.x + i, displayPosition.y + j);
+
+                                        Vector2 boxSize = new Vector2(0.5f, 0.5f);
+                                        cropBoxcasts[boxcastElement] = Physics2D.BoxCast(boxcastPosition, boxSize, 0, Vector2.zero, LayerMask.GetMask("Dirt Tile"));
+
+                                        /*if (cropBoxcast.collider != null)
+                                        {
+                                            int yCorrectorBox = cropBoxcast.point.y < 0 ? -1 : 0;
+                                            int xCorrectorBox = cropBoxcast.point.x < 0 ? -1 : 0;
+                                            // Set the raycast hit position to ints because that's what the SetTile function uses
+                                            Vector3Int boxcastPositionInt = new Vector3Int((int)cropBoxcast.point.x + xCorrectorBox, (int)cropBoxcast.point.y + yCorrectorBox, 0);
+                                            PlantCrop(boxcastPositionInt, 0);
+                                        }*/
+                                        boxcastElement++;
+                                    }
+
+                                foreach (RaycastHit2D boxHit in cropBoxcasts)
+                                    if (boxHit.collider != null)
+                                    {
+                                        int yCorrectorBox = boxHit.point.y < 0 ? -1 : 0;
+                                        int xCorrectorBox = boxHit.point.x < 0 ? -1 : 0;
+                                        // Set the raycast hit position to ints because that's what the SetTile function uses
+                                        Vector3Int boxcastPositionInt = new Vector3Int((int)boxHit.point.x + xCorrectorBox, (int)boxHit.point.y + yCorrectorBox, 0);
+                                        PlantCrop(boxcastPositionInt, 0);
+                                    }
+
+
+                                //Vector2 boxcastSize = new Vector2(3.0f, 3.0f);
+                                //
+                                //RaycastHit2D[] cropBoxcast = Physics2D.BoxCastAll(displayPosition, boxcastSize, 0, Vector2.zero);
+                                //
+                                //foreach (RaycastHit2D boxHits in cropBoxcast)
+                                //{
+                                //    Debug.Log("Hit in " + boxHits.transform.position);
+                                //    // Set the raycast hit position to ints because that's what the SetTile function uses
+                                //    Vector3Int cropPositionInt = new Vector3Int((int)boxHits.point.x + xCorrector, (int)boxHits.point.y + yCorrector, 0);
+                                //    PlantCrop(cropPositionInt, 0);
+                                //}
+                            }
+
+
+
+
                             // Interaction between the seed and a dirt tile
-                            Seed(positionInt, 0);                           
+                            //Seed(positionInt, 0);                           
 
                             break;
 
@@ -355,7 +412,7 @@ public class PlayerController : MonoBehaviour
                             // Default is that we are at an interactable tiles or object
                             // But do not have the right tool selected
                             // Therefore display that we can't perform this interaction
-                            DisplayCanInteract(false, true);
+                            DisplayCanInteract(false, true, false);
 
                             break;
                     }
@@ -364,7 +421,7 @@ public class PlayerController : MonoBehaviour
                 case "Generator":
 
                     // No need to display tile interaction with the generator
-                    DisplayCanInteract(false, false);
+                    DisplayCanInteract(false, false, false);
 
                     //You can initialize staminarecharge (or any object belonging to a specific class) by calling this statement
                     //Which essentially makes this instance be able to access the scripts attached to that object
@@ -381,7 +438,7 @@ public class PlayerController : MonoBehaviour
                 case "Grass Tile":
 
                     // No need to display tile interaction when no interactable tiles
-                    DisplayCanInteract(false, false);
+                    DisplayCanInteract(false, false, false);
                     break;
             }
         }
@@ -394,7 +451,7 @@ public class PlayerController : MonoBehaviour
         if (!crop.isWatered)
         {
             // Show that we can perform this interaction
-            DisplayCanInteract(true, false);
+            DisplayCanInteract(true, false, false);
 
             // Perform the interaction
             if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
@@ -411,7 +468,7 @@ public class PlayerController : MonoBehaviour
         }
         else
             // Show that we can't perform this interaction
-            DisplayCanInteract(false, true);
+            DisplayCanInteract(false, true, false);
     }
 
     // Interaction using the scythe with a crop
@@ -421,7 +478,7 @@ public class PlayerController : MonoBehaviour
         if (crop.isGrown)
         {
             // Show that we can perform this interaction
-            DisplayCanInteract(true, false);
+            DisplayCanInteract(true, false, false);
 
             // Perform the interaction
             if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
@@ -443,7 +500,7 @@ public class PlayerController : MonoBehaviour
         }
         else
             // Show that we can't perform this interaction
-            DisplayCanInteract(false, true);
+            DisplayCanInteract(false, true, false);
     }
 
     // Interaction using the hoe with a dirt tile
@@ -453,7 +510,7 @@ public class PlayerController : MonoBehaviour
         if (!TilemapManager.Instance.IsTilled(pos))
         {
             // Show that we can perform this interaction
-            DisplayCanInteract(true, false);
+            DisplayCanInteract(true, false, false);
 
             // Perform the interaction
             if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
@@ -465,17 +522,40 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Tilling");
 
                 // Show that we can't perform this interaction
-                DisplayCanInteract(false, true);
+                DisplayCanInteract(false, true, false);
 
                 // Lower the stamina from the action
-                stamina -= staminaPerAction;
+                //stamina -= staminaPerAction;
             }
         }
         else
             // Show that we can't perform this interaction
-            DisplayCanInteract(false, true);
+            DisplayCanInteract(false, true, false);
     }
-    
+
+    // Plant a crop
+    void PlantCrop(Vector3Int pos, int cropElement)
+    {
+        // Check if there is a crop game object in the current position
+        // Cycle through all the current crops that have been planted
+        // And check their position against  where you are trying to plant a new crop
+        GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");
+
+        // Set the position to plant the crop in the center of the tile in question
+        Vector2 cropPosition = new Vector2((float)pos.x + 0.5f, (float)pos.y + 0.5f);
+
+        // If there is another crop in this position, display that we can't perform the interaction 
+        // And leave the function
+        for (int i = 0; i < allCrops.Length; i++)
+            if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
+                return;
+
+        // Check that the tile is tilled, then trigger the planting animation
+        if (TilemapManager.Instance.IsTilled(pos))
+            // Plant a crop on the tile at the location of the player
+            TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
+    }
+
     // Interaction using a seed with a dirt tile
     void Seed(Vector3Int pos, int cropElement)
     {
@@ -492,17 +572,15 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < allCrops.Length; i++)
             if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
             {
-                DisplayCanInteract(false, true);
+                DisplayCanInteract(false, true, false);
                 return;
             }
-
-
 
         // Check that the tile is tilled, then trigger the planting animation
         if (TilemapManager.Instance.IsTilled(pos))
         {
             // Show that we can perform this interaction
-            DisplayCanInteract(true, false);
+            DisplayCanInteract(true, false, false);
 
             // Perform the interaction
             if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
@@ -519,7 +597,7 @@ public class PlayerController : MonoBehaviour
 
         else
             // Show that we can't perform this interaction
-            DisplayCanInteract(false, true);
+            DisplayCanInteract(false, true, false);
     }
 
     // Interaction between the player and the spaceship
@@ -567,10 +645,11 @@ public class PlayerController : MonoBehaviour
     }
 
     // Display if certain interractions can occur based on the tool selected and the nearest tile
-    void DisplayCanInteract(bool displayYes, bool displayNo)
+    void DisplayCanInteract(bool displayYes, bool displayNo, bool displayCrop)
     {
         tileSelectYes.SetActive(displayYes);
         tileSelectNo.SetActive(displayNo);
+        cropPlant.SetActive(displayCrop);
     }
 
     // Used to display any variables to the screen in place of UI for now

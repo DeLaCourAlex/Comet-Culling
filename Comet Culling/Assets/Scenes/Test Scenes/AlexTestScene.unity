@@ -1455,7 +1455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 347112554}
   untilledTile: {fileID: 11400000, guid: f6ced7147f82e7e4c9a1820a275aba39, type: 2}
-  tilledTile: {fileID: 11400000, guid: dca27f5efa3db7c4a8048c34fcb09d04, type: 2}
+  tilledTile: {fileID: 11400000, guid: fc1e48d167803f84181b84190043b743, type: 2}
   scriptableTiles:
   - {fileID: 11400000, guid: 9b28d78b5ceb2b6489478c36a0bcc3fc, type: 2}
   - {fileID: 11400000, guid: 7ab456d25498d964faf93abfa59ae729, type: 2}
@@ -3599,7 +3599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 629160721543965100, guid: 9b6d6548ee72c5e419be48390e698b83, type: 3}
       propertyPath: orthographic size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 629160721543965100, guid: 9b6d6548ee72c5e419be48390e698b83, type: 3}
       propertyPath: m_BackGroundColor.b
