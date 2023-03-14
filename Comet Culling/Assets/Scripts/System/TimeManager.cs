@@ -7,29 +7,34 @@ public class TimeManager : MonoBehaviour
 {
     //To notice whether the minute or hour has changed in-game
     public static Action OnMinuteChanged;
-    public static Action OnHourChanged; 
+    public static Action OnHourChanged;
+    public static Action OnDayChanged; 
     //Depends on how often we want certain events to happen we can 
     //Check these actions to know
     
     //Getsetters to access the in-game time
     public static int Minute { get; private set; }
     public static int Hour { get; private set; }
+    public static int Day { get; private set; }
 
     //Have IRL time affect in-game time by a certain ratio
     //Example: 0.5 seconds irl = 1 minute in-game
-    private float minuteToRealTime = 0.5f;
-    private float timer; 
+    private float minuteToRealTime = 0.1f;
+    private float timer;
+    private static int MAX_DAYS = 7;
 
     void Start()
     {
         //Start-off values
         Minute = 0;
-        Hour = 10;
+        Hour = 22;
+        Day = 1; 
         timer = minuteToRealTime; //V important: set timer equivalent
     }
 
     void Update()
     {
+        
         timer -= Time.deltaTime;
 
         if(timer <=0) //If it's = 0, it means our time has elapsed (from 0.5 to 0)
@@ -43,8 +48,21 @@ public class TimeManager : MonoBehaviour
             {
                 Hour++;
                 Minute = 0;
-                OnHourChanged?.Invoke(); 
+                OnHourChanged?.Invoke();
+                if (Hour > 23) //Reset hours, increment day
+                {
+                    Day++;
+                    Hour = 0;
+                    Minute = 0;
+                    OnDayChanged?.Invoke();
+                }
             }
+           
+            //if(Day > MAX_DAYS)
+            //{
+            //    Debug.Log("Reached final day, trigger endscene");
+
+            //}
             timer = minuteToRealTime; //Reset timer
         }
 
