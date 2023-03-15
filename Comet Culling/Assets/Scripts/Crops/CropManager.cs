@@ -18,13 +18,14 @@ public class CropManager : MonoBehaviour
         for(int i = 0; i < DataPermanence.Instance.allCrops.Count; i++)
         {
             //// Instantiate the crop
-            //GameObject newCrop = Instantiate(crop, DataPermanence.Instance.allCrops[i].position, Quaternion.identity);
+            GameObject newCrop = Instantiate(crop, DataPermanence.Instance.allCrops[i].position, Quaternion.identity);
 
             //// Access its crop controller to set the variables from those saved in the data permanence class
-            //CropController cropController = newCrop.GetComponent<CropController>();
-            //cropController.timeAlive = DataPermanence.Instance.allCrops[i].timeAlive;
+            CropController cropController = newCrop.GetComponent<CropController>();
+            cropController.timeAlive = DataPermanence.Instance.allCrops[i].timeAlive;
             ////cropController.wateredMultiplier = DataPermanence.Instance.allCrops[i].wateredMultiplier;
-            //cropController.isWatered = DataPermanence.Instance.allCrops[i].isWatered;
+            cropController.isWatered = DataPermanence.Instance.allCrops[i].isWatered;
+            cropController.elementNumber = DataPermanence.Instance.allCrops[i].cropType;
         }
 
         // Then delete the list of crops once they've all been instantiated

@@ -5,44 +5,37 @@ using UnityEngine;
 public class SpaceshipController : MonoBehaviour
 {
     //Attributes
-    public int spaceshipEnergy { private set; get; } //The global spaceship energy. Contains set and get methods for easier access and manipulation. 
-    public int spaceshipMaxEnergy { private set; get; } 
+    public int spaceshipEnergy { set; get; } //The global spaceship energy. Contains set and get methods for easier access and manipulation. 
+   
     const int MAX_ENERGY = 100;
     const int MAX_STAMINA = 100;
-    public enum CROP_TYPE { A, B, C };//This enum would need to be public and belonging to the crop system attributes
-
 
     // Start is called before the first frame update
     void Start()
     {
         spaceshipEnergy = MAX_ENERGY;
-<<<<<<< Updated upstream
-=======
-        spaceshipMaxEnergy = MAX_ENERGY;
+
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
             spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
->>>>>>> Stashed changes
     }
 
-    //Recharging spaceship
-    public void ChargeSpaceship(float cropEnergyYield) //We either pass a crop game object to it or its enum, not sure yet (ask the boys)
+    // Called once per frame
+    private void Update()
     {
-
-        //for(number of stacked crop items) - will wait for Sangit for this
-        if(spaceshipEnergy < MAX_ENERGY)
-        {
-            spaceshipEnergy += Mathf.RoundToInt(cropEnergyYield); //Add the energy yield to the spaceship's energy
-            spaceshipEnergy = Mathf.Min(spaceshipEnergy, MAX_STAMINA); //Ensures only the minimum value is return and it doesn't go over 100
-        }
-        else //Energy >= max
-        {
-            Debug.Log("Energy fully recharged, no need for more crops");
-        }
-
-
+        // Update the spaceship energy in data permanence
+        DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
     }
 
+    // Charge the spaceship
+    public void ChargeSpaceship(int energy)
+    {
+        // The new energy added to the current energy
+        int newEnergy = spaceshipEnergy + energy;
+
+        // Stop the spaceship energy going over its max energy
+        spaceshipEnergy = Mathf.Min(newEnergy, MAX_ENERGY);
+    }
     public void ChargePlayer(ref int botStamina) //Pass these variables into this function from the player's controls
     {
         //Placeholder logic: charging 100% of the robot's stamina takes 25% of the spaceship. Will be replaced for a more optimised value in the future if needed.
@@ -66,12 +59,5 @@ public class SpaceshipController : MonoBehaviour
         spaceshipEnergy -= takenEnergy; //New spaceship energy = current level - taken energy
         botStamina += Mathf.Min(addedStamina, rechargingStamina); //New stamina = current stamina + taken value.
         //Only the minimum value between the two will be added to the final stamina. 
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

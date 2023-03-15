@@ -28,23 +28,39 @@ public class PlayerController : MonoBehaviour
 
     // CROP RELATED VARIABLES
     [Header("Crop Variables")]
-    [SerializeField] GameObject crop;
-    int testCropsHarvested = 0;
+    [SerializeField] GameObject[] crops;
+    int[] cropsHarvested;
 
     // STAMINA RELATED VARIABLES
     public int stamina;
-    int MAX_STAMINA = 10; 
+    int MAX_STAMINA = 100;
+    int staminaPerAction = 5;
 
     // INTERRACTION/ACTION VARIABLES
+    [Header("Interaction/Action Variables")]
     [SerializeField] Transform raycastEnd;
+    [SerializeField] GameObject tileSelectYes;
+    [SerializeField] GameObject tileSelectNo;
+    int energyCropA = 5;
+    int energyCropB = 15;
+    bool carryCropA;
+    bool carryCropB;
+    // Used to alter the position of the raycast depending on the previous directions of the player
+    // Ensures that if the player was facing the crops below them if they turn sideways, they will now be 
+    // facing the crop to the bottom right, not directly to the right
+    // This is a vector3 instead of a vector 2 to more easily alter the transform positions which are naturally vector3s
+    Vector3 raycastCorrector = Vector3.zero;
+
+    UI staminaUI;
 
     // Store the tools as an enum to know which one to use
     enum Tools
     {
         hoe = 0,
-        seed = 1,
-        wateringCan = 2,
-        scythe = 3
+        seedA = 1,
+        seedB = 2,
+        wateringCan = 3,
+        scythe = 4
     }
 
     // The currently equipped tool
@@ -53,8 +69,10 @@ public class PlayerController : MonoBehaviour
 
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
-    string testUIText;
-    [SerializeField] TextMeshProUGUI testUI;
+    string cropAText;
+    [SerializeField] TextMeshProUGUI cropAUI;
+    string cropBText;
+    [SerializeField] TextMeshProUGUI cropBUI;
     string currentToolString;
     [SerializeField] TextMeshProUGUI currentToolUI;
     string staminaText;
@@ -70,18 +88,20 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
 
-        stamina = MAX_STAMINA; 
+        // Initialize member variables
+        stamina = MAX_STAMINA;
+        cropsHarvested = new int[2];
+
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
             // Set the player position when entering a new scene
             rb.MovePosition(DataPermanence.Instance.playerStartPosition);
-            // Set the player crops harvested
-            testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
-        }
 
-        // Can delete this once figured out a way to access spaceship from the start
-        spaceshipEnergyText = "Spaceship Energy: " + 100;
+            // Set the player member variables
+            cropsHarvested = DataPermanence.Instance.cropsHarvested;
+            stamina = DataPermanence.Instance.playerStamina;
+        }
     }
 
     // Update is called once per frame
@@ -92,6 +112,24 @@ public class PlayerController : MonoBehaviour
         // Normalize to reduce increased speed when moving diagonally
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
+        // Set the raycast corrector based on the previous and current direction that the player is facing
+        if(Mathf.Abs(directionAnimatorParameter) == 1 && direction.x != 0)
+        {
+            if (directionAnimatorParameter == 1)
+                raycastCorrector = new Vector3(0, 0.5f, 0);
+            else if (directionAnimatorParameter == -1)
+                raycastCorrector = new Vector3(0, -0.5f, 0);
+        }
+
+        if (directionAnimatorParameter == 0 && direction.y != 0)
+        {
+            if (facingRight)
+                raycastCorrector = new Vector3(0.5f, 0, 0);
+            else if (!facingRight)
+                raycastCorrector = new Vector3(-0.5f, 0, 0);
+        }
+
+        Debug.Log("Raycast Corrector: " + raycastCorrector);
         // Set the direction parameter based on the directional input
         // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
         // will keep the player facing in the current direction
@@ -101,7 +139,7 @@ public class PlayerController : MonoBehaviour
             directionAnimatorParameter = -1;
         else if (Mathf.Abs(direction.x) == 1)
             directionAnimatorParameter = 0;
-
+        
         // Cycle through the enum of tools
         // If at either end of the list, cycle around to the other end
         if(Input.GetButtonDown("Tools Left"))
@@ -125,9 +163,18 @@ public class PlayerController : MonoBehaviour
                 currentTool++;
         }
 
-        // Perform an action
-        if (Input.GetButtonDown("Action"))
-            PerformAction();
+        // Set whether the player is carrying a crop or not
+        if (Input.GetButtonDown("No Crops"))
+            ChangeCarriedCrops(false, false);
+        if (Input.GetButtonDown("Crop A") && cropsHarvested[0] > 0)
+            ChangeCarriedCrops(true, false);
+        if (Input.GetButtonDown("Crop B") && cropsHarvested[1] > 0)
+            ChangeCarriedCrops(false, true);
+
+        // Perform any actions and update the player variables in data permanence
+        PerformAction();
+        DataPermanence.Instance.playerStamina = stamina;
+        DataPermanence.Instance.cropsHarvested = cropsHarvested;
 
         // Animator parameters
 
@@ -135,6 +182,9 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Movement", rb.velocity.magnitude);
         // Set the player direction parameter
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
+        // Set the crops that the player is or isn't carrying
+        animator.SetBool("Holding Crop A", carryCropA);
+        animator.SetBool("Holding Crop B", carryCropB);
 
         // Set the variables for the test UI
         TestUI();
@@ -185,19 +235,20 @@ public class PlayerController : MonoBehaviour
     // the type of object interracted with
     void PerformAction()
     {
-        Vector2 raycastDirection = raycastEnd.transform.position - transform.position;
-        RaycastHit2D[] rayCast = Physics2D.RaycastAll(transform.position, raycastDirection, 0.6f);
+        // Set the raycast direction depending on where the player is facing
+        // First set the transforms to vector 2s
+        Vector2 raycastDirection = (raycastEnd.transform.position) - (transform.position);
+        RaycastHit2D[] rayCast = Physics2D.RaycastAll(raycastEnd.transform.position + raycastCorrector, raycastDirection, 0.2f);
 
+        Debug.DrawRay(raycastEnd.transform.position + raycastCorrector, raycastDirection, Color.cyan, 1f, false);
         // Cycle through all hits from the boxcast
         // check to see if any the object hit has any tag
         // Use this to determine what actions to perform depending on what tool the player has activated
         foreach (RaycastHit2D hit in rayCast)
         {
+            // Use the tag of the object hit to determine what actions can be performed
             string tag = hit.transform.gameObject.tag;
 
-<<<<<<< Updated upstream
-            switch(tag)
-=======
             // Used to correct for rounding down when converting position to ints
             // We want to round down, but setting a float to an int only removes after the decimal place
             // This causes the number to round up if the float value is negative
@@ -212,166 +263,139 @@ public class PlayerController : MonoBehaviour
             Vector2 displayPosition = new Vector2((float)positionInt.x + 0.5f, (float)positionInt.y + 0.5f);
             tileSelectNo.transform.position = displayPosition;
             tileSelectYes.transform.position = displayPosition;
-            SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
             switch (tag)
->>>>>>> Stashed changes
             {
                 case "Crop":
+
+                    // Can not perform these actions whilst carrying crops
+                    if (carryCropA || carryCropB)
+                    {
+                        DisplayCanInteract(false, false);
+
+                        break;
+                    }
+
                     // If the raycast hits a crop, access its crop controller
                     CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
 
                     // Performs an action on the crop depending on what tool is equipped
-                    switch(currentTool)
+                    switch (currentTool)
                     {
-                        // If the watering can is equipped, water the crop
+                        // If the watering can is equipped
                         case Tools.wateringCan:
+                            
+                            // Interraction between the watering can and a crop
+                            WateringCan(ref cropController);
 
-                            // Set the crop status to watereds
-                            cropController.isWatered = true;
+                            // Return instead of break
+                            // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
+                            return;
 
-                            // Trigger the watering animation
-                            animator.SetTrigger("Watering");
-
-                            // Lower the stamina from the action
-                            stamina -= 10;
-
-                            break;
-
-                        // If the scythe is equipped, harvest the crop
+                        // If the scythe is equipped
                         case Tools.scythe:
 
-                            // If the crop is fully  grown, harvest it
-                            if (cropController.isGrown)
-                            {
-                                // Destroy the game object
-                                Destroy(hit.transform.gameObject);
-                                // Increase the amount of harvested crops
-                                testCropsHarvested++;
-                                DataPermanence.Instance.testCropsHarvested++;
+                            // Interaction between the scythe and a crop
+                            Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
 
-                                // Reset the crop's tile to untilled dirt
-                                TilemapManager.Instance.ResetTile(transform.position);
+                            // Return instead of break
+                            // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
+                            return;
 
-                                // Trigger the harvesting animation
-                                animator.SetTrigger("Harvesting");
+                        default:
 
-                                // Lower the stamina from the action
-                                stamina -= 10;
+                            // Default is that we are at an interactable tiles or object
+                            // But do not have the right tool selected
+                            // Therefore display that we can't perform this interaction
+                            DisplayCanInteract(false, true);
 
-                            }
                             break;
                     }
 
                     break;
                 case "Dirt Tile":
 
-                    switch(currentTool)
+                    // Can not perform these actions whilst carrying crops
+                    if (carryCropA || carryCropB)
+                    {
+                        DisplayCanInteract(false, false);
+
+                        break;
+                    }
+                        
+
+                    switch (currentTool)
                     {
                         // If the hoe is equipped, till the ground
                         case Tools.hoe:
 
-                            // Check that the tile isn't already tilled
-                            if (!TilemapManager.Instance.IsTilled(transform.position))
-                            {
-                                // Set the dirt tile to tilled
-                                TilemapManager.Instance.TillDirt(transform.position);
+                            // Interaction between the hoe and a dirt tile
+                            Hoe(positionInt);
+                                
+                            break;
 
-                                // Trigged the tilling animation
-                                animator.SetTrigger("Tilling");
+                        // If seed A is equipped, plant crop A
+                        case Tools.seedA:
 
-                                // Lower the stamina from the action
-                                stamina -= 10;
-                            }
+                            // Interaction between the seed and a dirt tile
+                            Seed(positionInt, 0);                           
 
                             break;
-                        
-                        // If seeds are equipped, plant a crop
-                        case Tools.seed:
-                            
-                            // Plant a crop on the tile at the location of the player
-                            TilemapManager.Instance.PlantCrop(transform.position);
 
-                            // Check that the tile is tilled, then trigger the planting animation
-                            if (TilemapManager.Instance.IsTilled(transform.position))
-                                animator.SetTrigger("Planting");
+                        // If seed B is equipped, plant crop B
+                        case Tools.seedB:
 
-                            // Lower the stamina from the action
-                            stamina -= 10;
+                            // Interaction between the seed and a dirt tile
+                            Seed(positionInt, 1);
+
+                            break;
+
+                        default:
+
+                            // Default is that we are at an interactable tiles or object
+                            // But do not have the right tool selected
+                            // Therefore display that we can't perform this interaction
+                            DisplayCanInteract(false, true);
 
                             break;
                     }
 
                     break;
                 case "Generator":
-<<<<<<< Updated upstream
-                    
+
+                    // No need to display tile interaction with the generator
+                    DisplayCanInteract(false, false);
+
                     //You can initialize staminarecharge (or any object belonging to a specific class) by calling this statement
                     //Which essentially makes this instance be able to access the scripts attached to that object
                     //Think of it like a pointer 
                     //Tldr if i hit the generator and it has the staminarecharge component, this statement will be valid
                     SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
-                    Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
-                    Debug.Log("Stamina value: " + stamina);
-                    spaceshipController.ChargePlayer(ref stamina);
-                   
-                    Debug.Log("Spaceship energy: " + spaceshipController.spaceshipEnergy);
-                    Debug.Log("Stamina value: " + stamina);
-
-                    // Set the spaceship energy to a string
-                    spaceshipEnergyText = "Spaceship Energy: " + spaceshipController.spaceshipEnergy.ToString();
+                    if (Input.GetButtonDown("Action"))
+                        SpaceshipInteraction(ref spaceshipController);
 
                     break;
                 // TODO: Add engine/spaceship stuff for codependency system
-=======
-
-                    // No need to display tile interaction with the generator
-                    DisplayCanInteract(false, false);
-
-                    
-
-                    if (Input.GetButtonDown("Action"))
-                    {
-                        if(spaceshipController.spaceshipEnergy >= spaceshipController.spaceshipMaxEnergy) 
-                        {//If the spaceship's energy level goes above the max
-                            Debug.Log("Spaceship fully charged, no need to add crops");
-                            break; //Don't let it feed a crop nor perform an action. 
-                        }
-                        GeneratorInteraction(ref spaceshipController);
-
-                    }
-
-                    break;
-
-                case "Bed":
-                    // No need to display tile interaction with the bed
-                    DisplayCanInteract(false, false);
-                    //spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
-
-                    if (Input.GetButtonDown("Action"))
-                    {
-                        //Add logic here to ask player if they want to go to sleep
-
-                        spaceshipController.ChargePlayer(ref stamina);
-
-                    }
-
-                    break;
 
                 case "Grass Tile":
 
                     // No need to display tile interaction when no interactable tiles
                     DisplayCanInteract(false, false);
                     break;
->>>>>>> Stashed changes
             }
         }
     }
 
+    // Interaction using the watering can with a crop
+    void WateringCan(ref CropController crop)
+    {
+        // If the crop is watered, we can water it
+        if (!crop.isWatered)
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false);
 
-<<<<<<< Updated upstream
-=======
             // Perform the interaction
             if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
             {
@@ -394,7 +418,7 @@ public class PlayerController : MonoBehaviour
     void Scythe(ref CropController crop, RaycastHit2D rayHit, Vector3Int pos, int cropType)
     {
         // If the crop is fully  grown, we can harvest it
-        if (crop.isGrown && !crop.isWilted)
+        if (crop.isGrown)
         {
             // Show that we can perform this interaction
             DisplayCanInteract(true, false);
@@ -416,15 +440,6 @@ public class PlayerController : MonoBehaviour
                 // Lower the stamina from the action
                 stamina -= staminaPerAction;
             }
-        }
-        else if (crop.isWilted) //If it's wilted, nothing is collected
-        {
-            // Destroy the game object
-            Destroy(rayHit.transform.gameObject);
-            // Reset the crop's tile to untilled dirt
-            TilemapManager.Instance.ResetTile(pos);
-            // Lower the stamina from the action
-            stamina -= staminaPerAction;
         }
         else
             // Show that we can't perform this interaction
@@ -510,9 +525,8 @@ public class PlayerController : MonoBehaviour
     // Interaction between the player and the spaceship
     // Either charge the spaceship using the crop the player is holding
     // Or charge the player form the spaceship's energy
-    void GeneratorInteraction(ref SpaceshipController spaceship)
+    void SpaceshipInteraction(ref SpaceshipController spaceship)
     {
-        //Notes for later: this could maybe work better with a switch statement
         // Charge the spaceship with crop A
         if (carryCropA)
         {
@@ -541,6 +555,9 @@ public class PlayerController : MonoBehaviour
                 carryCropB = false;
         }
             
+        // Charge the player from the spaceship
+        else
+            spaceship.ChargePlayer(ref stamina);
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)
@@ -555,15 +572,17 @@ public class PlayerController : MonoBehaviour
         tileSelectYes.SetActive(displayYes);
         tileSelectNo.SetActive(displayNo);
     }
->>>>>>> Stashed changes
 
     // Used to display any variables to the screen in place of UI for now
     // Can add more variables to this as/when we need them and delete it when we have something better
     void TestUI()
     {
         // Display the test variable as UI
-        testUIText = "Crops Held: " + testCropsHarvested.ToString();
-        testUI.text = testUIText;
+        cropAText = "Crop A Held: " + cropsHarvested[0].ToString();
+        cropAUI.text = cropAText;
+
+        cropBText = "Crop B Held: " + cropsHarvested[1].ToString();
+        cropBUI.text = cropBText;
 
         currentToolString = "Tool Equipped: " + currentTool.ToString();
         currentToolUI.text = currentToolString;
@@ -571,6 +590,8 @@ public class PlayerController : MonoBehaviour
         staminaText = "Player Stamina: " + stamina.ToString();
         staminaTextUI.text = staminaText;
 
+        // Set the spaceship energy to a string
+        spaceshipEnergyText = "Spaceship Energy: " + DataPermanence.Instance.spaceshipEnergy.ToString();
         spaceshipEnergyUI.text = spaceshipEnergyText;
     }
 }

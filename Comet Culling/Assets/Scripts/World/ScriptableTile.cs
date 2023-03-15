@@ -21,5 +21,5 @@ public class ScriptableTile : ScriptableObject
     public bool isTilled;
 
     // The crop to be planted on the tile
-    public GameObject crop;
+    public GameObject[] crops;
 }

@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9245283, g: 0.12559624, b: 0.78565717, a: 1}
+  m_Sprite: {fileID: -1712161372, guid: 750314e80720ff54295561cd1d950d73, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da84dc300022e904e9310f54b3199d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growthRate: 30
-  energyYield: 5.5
-  growthRateWatered: 20
-  growthRateDry: 30
+  timeToGrow: 25
+  timeToGrowWatered: 15
+  energyGiven: 0
+  <elementNumber>k__BackingField: 1
 --- !u!61 &-7247453546081994389
 BoxCollider2D:
   m_ObjectHideFlags: 0
