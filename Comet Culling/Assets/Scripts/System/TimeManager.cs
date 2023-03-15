@@ -17,8 +17,14 @@ public class TimeManager : MonoBehaviour
 
     //Have IRL time affect in-game time by a certain ratio
     //Example: 0.5 seconds irl = 1 minute in-game
+<<<<<<< Updated upstream
     private float minuteToRealTime = 0.5f;
     private float timer; 
+=======
+    private float minuteToRealTime = 0.01f;
+    private float timer;
+    private static int MAX_DAYS = 7;
+>>>>>>> Stashed changes
 
     void Start()
     {
@@ -26,6 +32,8 @@ public class TimeManager : MonoBehaviour
         Minute = 0;
         Hour = 10;
         timer = minuteToRealTime; //V important: set timer equivalent
+        OnDayChanged?.Invoke();
+
     }
 
     void Update()
@@ -45,6 +53,15 @@ public class TimeManager : MonoBehaviour
                 Minute = 0;
                 OnHourChanged?.Invoke(); 
             }
+<<<<<<< Updated upstream
+=======
+
+            if (Day >= MAX_DAYS)
+            {
+                Debug.Log("Reached final day, trigger endscene");
+
+            }
+>>>>>>> Stashed changes
             timer = minuteToRealTime; //Reset timer
         }
 

@@ -5,8 +5,8 @@ using UnityEngine;
 public class SpaceshipController : MonoBehaviour
 {
     //Attributes
-    public int spaceshipEnergy { set; get; } //The global spaceship energy. Contains set and get methods for easier access and manipulation. 
-   
+    public int spaceshipEnergy { private set; get; } //The global spaceship energy. Contains set and get methods for easier access and manipulation. 
+    public int spaceshipMaxEnergy { private set; get; } 
     const int MAX_ENERGY = 100;
     const int MAX_STAMINA = 100;
     public enum CROP_TYPE { A, B, C };//This enum would need to be public and belonging to the crop system attributes
@@ -16,6 +16,13 @@ public class SpaceshipController : MonoBehaviour
     void Start()
     {
         spaceshipEnergy = MAX_ENERGY;
+<<<<<<< Updated upstream
+=======
+        spaceshipMaxEnergy = MAX_ENERGY;
+        // Initialize variables stored in data permanence
+        if (DataPermanence.Instance != null)
+            spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
+>>>>>>> Stashed changes
     }
 
     //Recharging spaceship

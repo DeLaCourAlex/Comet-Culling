@@ -7,6 +7,11 @@ TagManager:
   - Crop
   - Generator
   - Dirt Tile
+<<<<<<< Updated upstream
+=======
+  - Grass Tile
+  - Bed
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX

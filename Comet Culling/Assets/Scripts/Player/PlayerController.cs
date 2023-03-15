@@ -195,7 +195,27 @@ public class PlayerController : MonoBehaviour
         {
             string tag = hit.transform.gameObject.tag;
 
+<<<<<<< Updated upstream
             switch(tag)
+=======
+            // Used to correct for rounding down when converting position to ints
+            // We want to round down, but setting a float to an int only removes after the decimal place
+            // This causes the number to round up if the float value is negative
+            int yCorrector = hit.point.y < 0 ? -1 : 0;
+            int xCorrector = hit.point.x < 0 ? -1 : 0;
+
+            // Set the raycast hit position to ints because that's what the SetTile function uses
+            Vector3Int positionInt = new Vector3Int((int)hit.point.x + xCorrector, (int)hit.point.y + yCorrector, 0);
+
+            // Set the position to display if we can interact or not
+            // This needs to be in the middle of the tile, so we add 0.5 on each axis
+            Vector2 displayPosition = new Vector2((float)positionInt.x + 0.5f, (float)positionInt.y + 0.5f);
+            tileSelectNo.transform.position = displayPosition;
+            tileSelectYes.transform.position = displayPosition;
+            SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+            switch (tag)
+>>>>>>> Stashed changes
             {
                 case "Crop":
                     // If the raycast hits a crop, access its crop controller
@@ -284,6 +304,7 @@ public class PlayerController : MonoBehaviour
 
                     break;
                 case "Generator":
+<<<<<<< Updated upstream
                     
                     //You can initialize staminarecharge (or any object belonging to a specific class) by calling this statement
                     //Which essentially makes this instance be able to access the scripts attached to that object
@@ -303,11 +324,238 @@ public class PlayerController : MonoBehaviour
 
                     break;
                 // TODO: Add engine/spaceship stuff for codependency system
+=======
+
+                    // No need to display tile interaction with the generator
+                    DisplayCanInteract(false, false);
+
+                    
+
+                    if (Input.GetButtonDown("Action"))
+                    {
+                        if(spaceshipController.spaceshipEnergy >= spaceshipController.spaceshipMaxEnergy) 
+                        {//If the spaceship's energy level goes above the max
+                            Debug.Log("Spaceship fully charged, no need to add crops");
+                            break; //Don't let it feed a crop nor perform an action. 
+                        }
+                        GeneratorInteraction(ref spaceshipController);
+
+                    }
+
+                    break;
+
+                case "Bed":
+                    // No need to display tile interaction with the bed
+                    DisplayCanInteract(false, false);
+                    //spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+                    if (Input.GetButtonDown("Action"))
+                    {
+                        //Add logic here to ask player if they want to go to sleep
+
+                        spaceshipController.ChargePlayer(ref stamina);
+
+                    }
+
+                    break;
+
+                case "Grass Tile":
+
+                    // No need to display tile interaction when no interactable tiles
+                    DisplayCanInteract(false, false);
+                    break;
+>>>>>>> Stashed changes
             }
         }
     }
 
 
+<<<<<<< Updated upstream
+=======
+            // Perform the interaction
+            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+            {
+                // Set the crop status to watereds
+                crop.isWatered = true;
+
+                // Trigger the watering animation
+                animator.SetTrigger("Watering");
+
+                // Lower the stamina from the action
+                stamina -= staminaPerAction;
+            }
+        }
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true);
+    }
+
+    // Interaction using the scythe with a crop
+    void Scythe(ref CropController crop, RaycastHit2D rayHit, Vector3Int pos, int cropType)
+    {
+        // If the crop is fully  grown, we can harvest it
+        if (crop.isGrown && !crop.isWilted)
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false);
+
+            // Perform the interaction
+            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+            {
+                // Destroy the game object
+                Destroy(rayHit.transform.gameObject);
+                // Increase the amount of harvested crops
+                cropsHarvested[cropType]++;
+
+                // Reset the crop's tile to untilled dirt
+                TilemapManager.Instance.ResetTile(pos);
+
+                // Trigger the harvesting animation
+                animator.SetTrigger("Harvesting");
+
+                // Lower the stamina from the action
+                stamina -= staminaPerAction;
+            }
+        }
+        else if (crop.isWilted) //If it's wilted, nothing is collected
+        {
+            // Destroy the game object
+            Destroy(rayHit.transform.gameObject);
+            // Reset the crop's tile to untilled dirt
+            TilemapManager.Instance.ResetTile(pos);
+            // Lower the stamina from the action
+            stamina -= staminaPerAction;
+        }
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true);
+    }
+
+    // Interaction using the hoe with a dirt tile
+    void Hoe(Vector3Int pos)
+    {
+        // Check that the tile isn't already tilled
+        if (!TilemapManager.Instance.IsTilled(pos))
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false);
+
+            // Perform the interaction
+            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+            {
+                // Set the dirt tile to tilled
+                TilemapManager.Instance.TillDirt(pos);
+
+                // Trigged the tilling animation
+                animator.SetTrigger("Tilling");
+
+                // Show that we can't perform this interaction
+                DisplayCanInteract(false, true);
+
+                // Lower the stamina from the action
+                stamina -= staminaPerAction;
+            }
+        }
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true);
+    }
+    
+    // Interaction using a seed with a dirt tile
+    void Seed(Vector3Int pos, int cropElement)
+    {
+        // Check if there is a crop game object in the current position
+        // Cycle through all the current crops that have been planted
+        // And check their position against  where you are trying to plant a new crop
+        GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");
+
+        // Set the position to plant the crop in the center of the tile in question
+        Vector2 cropPosition = new Vector2((float)pos.x + 0.5f, (float)pos.y + 0.5f);
+
+        // If there is another crop in this position, display that we can't perform the interaction 
+        // And leave the function
+        for (int i = 0; i < allCrops.Length; i++)
+            if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
+            {
+                DisplayCanInteract(false, true);
+                return;
+            }
+
+
+
+        // Check that the tile is tilled, then trigger the planting animation
+        if (TilemapManager.Instance.IsTilled(pos))
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false);
+
+            // Perform the interaction
+            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+            {
+                // Plant a crop on the tile at the location of the player
+                TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
+
+                animator.SetTrigger("Planting");
+
+                // Lower the stamina from the action
+                stamina -= staminaPerAction;
+            }
+        }
+
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true);
+    }
+
+    // Interaction between the player and the spaceship
+    // Either charge the spaceship using the crop the player is holding
+    // Or charge the player form the spaceship's energy
+    void GeneratorInteraction(ref SpaceshipController spaceship)
+    {
+        //Notes for later: this could maybe work better with a switch statement
+        // Charge the spaceship with crop A
+        if (carryCropA)
+        {
+            // Charge the spaceship
+            spaceship.ChargeSpaceship(energyCropA);
+
+            // Remove crop from the player's inventory
+            cropsHarvested[0]--;
+
+            // If the crop goes below 0, no longer carrying it
+            if (cropsHarvested[0] <= 0)
+                carryCropA = false;
+        }
+            
+
+        // Charge the spaceship with crop B
+        else if (carryCropB)
+        {
+            spaceship.ChargeSpaceship(energyCropB);
+
+            // Remove crop from the player's inventory
+            cropsHarvested[1]--;
+
+            // If the crop goes below 0, no longer carrying it
+            if (cropsHarvested[1] <= 0)
+                carryCropB = false;
+        }
+            
+    }
+
+    void ChangeCarriedCrops(bool cropA, bool cropB)
+    {
+        carryCropA = cropA;
+        carryCropB = cropB;
+    }
+
+    // Display if certain interractions can occur based on the tool selected and the nearest tile
+    void DisplayCanInteract(bool displayYes, bool displayNo)
+    {
+        tileSelectYes.SetActive(displayYes);
+        tileSelectNo.SetActive(displayNo);
+    }
+>>>>>>> Stashed changes
 
     // Used to display any variables to the screen in place of UI for now
     // Can add more variables to this as/when we need them and delete it when we have something better

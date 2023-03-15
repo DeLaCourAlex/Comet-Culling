@@ -7,7 +7,18 @@ using UnityEngine;
 public class TimeUI : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
+<<<<<<< Updated upstream
 
+=======
+    public TextMeshProUGUI dateText;
+    private void Start()
+    {
+        
+        UpdateTime();
+        UpdateDate();
+
+    }
+>>>>>>> Stashed changes
     private void OnEnable()
     {
         TimeManager.OnMinuteChanged += UpdateTime;
@@ -23,5 +34,15 @@ public class TimeUI : MonoBehaviour
     private void UpdateTime()
     {
         timeText.text = $"{TimeManager.Hour:00}:{TimeManager.Minute:00}"; //The 00 is a mask here so the empty string space can be filled w/ a 0
+<<<<<<< Updated upstream
+=======
+        //dateText.text = $"{TimeManager.Day}";
+    }
+    private void UpdateDate()
+    {
+        dateText.text = $"Day {TimeManager.Day}";
+               //dateText.text = $"Day one";
+
+>>>>>>> Stashed changes
     }
 }

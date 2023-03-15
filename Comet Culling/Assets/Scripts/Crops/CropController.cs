@@ -23,10 +23,12 @@ public class CropController : MonoBehaviour
     // The time since the crop was planted
     // Used to determine if it can be harvested or not
     public bool isGrown { get; private set; }
+    public bool isWilted { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        isWilted = false;
         animator = GetComponent<Animator>();
         growthRate = growthRateDry;
     }
@@ -50,10 +52,26 @@ public class CropController : MonoBehaviour
         if (timeAlive >= growthRate)
             isGrown = true;
 
+        //Setting wilted to true or false depending on its status
+        if(isGrown && timeAlive >= (timeToGrow*0.5)) //If the crop has grown and it has been alive for more than half the time it takes to grow
+            isWilted = true;
+        else
+            isWilted = false;
+
+
+
+
         // Animator parameters
 
         // Set the age of the crop
+<<<<<<< Updated upstream
         animator.SetFloat("Age", timeAlive);
+=======
+        animator.SetBool("Is Grown", isGrown);
+        //Set crop wilted status
+        animator.SetBool("Is Wilted", isWilted);
+
+>>>>>>> Stashed changes
         // Set if the crop has been watered
         animator.SetBool("Watered", isWatered);
 

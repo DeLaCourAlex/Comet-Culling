@@ -28,6 +28,11 @@ public class DataPermanence : MonoBehaviour
         public float timeAlive;
         public float wateredMultiplier;
         public bool isWatered;
+<<<<<<< Updated upstream
+=======
+        
+        public int cropType;
+>>>>>>> Stashed changes
 
         // Constructor for when adding items to the crop list
         public CropData(Vector2 pos, float time, float wMultiplier, bool watered)
@@ -36,6 +41,11 @@ public class DataPermanence : MonoBehaviour
             timeAlive = time;
             wateredMultiplier = wMultiplier;
             isWatered = watered;
+<<<<<<< Updated upstream
+=======
+            cropType = type;
+          
+>>>>>>> Stashed changes
         }
     }
 
