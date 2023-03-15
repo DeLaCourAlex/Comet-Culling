@@ -366,17 +366,33 @@ public class PlayerController : MonoBehaviour
                     // No need to display tile interaction with the generator
                     DisplayCanInteract(false, false);
 
-                    //You can initialize staminarecharge (or any object belonging to a specific class) by calling this statement
-                    //Which essentially makes this instance be able to access the scripts attached to that object
-                    //Think of it like a pointer 
-                    //Tldr if i hit the generator and it has the staminarecharge component, this statement will be valid
                     SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
                     if (Input.GetButtonDown("Action"))
+                    {
+                        if(spaceshipController.spaceshipEnergy >= spaceshipController.maxSpaceshipEnergy)
+                        {
+                            Debug.Log("Can't charge spaceship anymore - energy full"); 
+                        }
                         SpaceshipInteraction(ref spaceshipController);
 
+                    }
+
                     break;
-                // TODO: Add engine/spaceship stuff for codependency system
+                case "Bed":
+                    // No need to display tile interaction with the bed
+                    DisplayCanInteract(false, false);
+                    spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+                    if (Input.GetButtonDown("Action"))
+                    {
+                        //Add logic here to ask player if they want to go to sleep
+                        //BUG: for some reason the spaceship's energy level don't go down after this
+                        spaceshipController.ChargePlayer(ref stamina);
+
+                    }
+
+                    break;
 
                 case "Grass Tile":
 
@@ -555,9 +571,7 @@ public class PlayerController : MonoBehaviour
                 carryCropB = false;
         }
             
-        // Charge the player from the spaceship
-        else
-            spaceship.ChargePlayer(ref stamina);
+        
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)
