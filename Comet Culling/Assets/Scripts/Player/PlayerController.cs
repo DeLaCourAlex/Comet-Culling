@@ -82,8 +82,7 @@ public class PlayerController : MonoBehaviour
         inventory = new Inventory();
         ui_Inventory.setInventory(inventory);
 
-        ItemWorld.SpawnItemWorld(new Vector3(0, 0,0), new Item { itemType = Item.ItemType.cropA, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(-20, 20), new Item { itemType = Item.ItemType.cropB, amount = 1 });
+        
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
