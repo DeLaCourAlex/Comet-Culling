@@ -59,14 +59,30 @@ public class PlayerController : MonoBehaviour
     {
         hoe = 0,
         seedA = 1,
-        seedB = 2,
-        wateringCan = 3,
-        scythe = 4
+        wateringCan = 2,
+        scythe = 3,
+        seedB = 4
     }
 
     // The currently equipped tool
     // Determines which action to perform
     Tools currentTool = Tools.hoe;
+
+    // IN GAME TUTORIAL VARIABLES
+    // Check if the player is in the tutorial and limit their actions if so
+    bool inTutorial = true;
+    // The stage of the tutorial the player is currently in
+    public int tutorialNumber { get; private set; } = 0;
+    // Restricts the amount of tools the player can select during the tutorial
+    int availableTools = 1;
+    // The tiles with which the player can interact during the tutorial
+    // This is a block of 3x3 tiles on the top left corner of the farming area
+    // Must be a vector3int because that's what type Unity's tile system uses
+    Vector3Int[] tutorialTiles = {
+        new Vector3Int(-5, 2, 0), new Vector3Int(-4, 2, 0), new Vector3Int(-3, 2, 0),
+        new Vector3Int(-5, 1, 0), new Vector3Int(-4, 1, 0), new Vector3Int(-3, 1, 0),
+        new Vector3Int(-5, 0, 0), new Vector3Int(-4, 0, 0), new Vector3Int(-3, 0, 0)
+    };
 
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
@@ -148,7 +164,7 @@ public class PlayerController : MonoBehaviour
             // Then change it to the highest tool in the enums
             // Otherwise, go to the next one down
             if (currentTool <= 0)
-                currentTool = (Tools)System.Enum.GetValues(typeof(Tools)).Length - 1;
+                currentTool = (Tools)availableTools - 1;
             else
                 currentTool--;
         }
@@ -157,7 +173,7 @@ public class PlayerController : MonoBehaviour
             // If the current weapon is the highest tool in the enums
             // Then change it to the lowest tool in the enums
             // Otherwise, go to the next one up
-            if (currentTool >= (Tools)System.Enum.GetValues(typeof(Tools)).Length - 1)
+            if (currentTool >= (Tools)availableTools - 1)
                 currentTool = 0;
             else
                 currentTool++;
@@ -176,6 +192,12 @@ public class PlayerController : MonoBehaviour
         DataPermanence.Instance.playerStamina = stamina;
         DataPermanence.Instance.cropsHarvested = cropsHarvested;
 
+        // If we're in the tutorial, check what phase of the tutorial we're in and move along accordingly
+        if(inTutorial)
+        {
+            CheckTutorialOneOver();
+        }
+        
         // Animator parameters
 
         // Set the movement animation parameter to detect any movement of the rigidbody
@@ -289,9 +311,23 @@ public class PlayerController : MonoBehaviour
                     // Seed A is equipped
                     case Tools.seedA:
 
-                        // Display where crop A will be planted and plant them
-                        UseSeed(displayPosition, 0);
-
+                        // Check if we're in the tutorial
+                        if(inTutorial)
+                        {
+                            // If we're in the tutorial, can only plant crop A in the middle of the
+                            // tutorial tile section during the second phase of the tutorial
+                            if (tutorialNumber == 1 && positionInt == tutorialTiles[4])
+                                UseSeed(displayPosition, 0);
+                            // Otherwise, can't plant any crops
+                            else
+                                DisplayCanInteract(false, true, false);
+                        }
+                        else if (!inTutorial)
+                        {
+                            // Display where crop A will be planted and plant them
+                            UseSeed(displayPosition, 0);
+                        }
+                        
                         break;
 
                     // Seed B is equipped
@@ -308,8 +344,29 @@ public class PlayerController : MonoBehaviour
                         // If interacting with a dirt tile, till it
                         if(tag == "Dirt Tile")
                         {
-                            Hoe(positionInt);
-                            return;
+                            // Not in tutorial - interact as normal
+                            if(!inTutorial)
+                            {
+                                Hoe(positionInt);
+                                return;
+                            }
+                            // In tutorial - can only till certain tiles
+                            else if(inTutorial)
+                            {
+                                for(int i = 0; i < tutorialTiles.Length; i++)
+                                {
+                                    if (positionInt == tutorialTiles[i])
+                                    {
+                                        Hoe(positionInt);
+                                        Debug.Log("PositionInt: " + positionInt);
+                                        Debug.Log("Tile position: " + tutorialTiles[i]);
+                                        return;
+                                    }
+                                    else
+                                        DisplayCanInteract(false, true, false);
+                                }
+                                    
+                            }
                         }
                         else
                             DisplayCanInteract(false, true, false);
@@ -589,6 +646,26 @@ public class PlayerController : MonoBehaviour
         tileSelectYes.SetActive(displayYes);
         tileSelectNo.SetActive(displayNo);
         cropPlant.SetActive(displayCrop);
+    }
+
+    // Used to move to the next phase of the tutorial
+    void ChangeTutorialStage(int toolsAvail, int tutNum)
+    {
+        availableTools = toolsAvail;
+        tutorialNumber = tutNum;
+    }
+
+    // Check if the first phase of the tutorial is over
+    // This is done by checking if all the necessary tiles have been tilled
+    void CheckTutorialOneOver()
+    {
+        // If any of the 9 tiles are untilled, leave this function
+        foreach (Vector3Int tile in tutorialTiles)
+            if (!TilemapManager.Instance.IsTilled(tile))
+                return;
+
+        // If all the tiles are tilled we reach this  line - move to the next tutorial stage
+        ChangeTutorialStage(2, 1);
     }
 
     // Used to display any variables to the screen in place of UI for now
