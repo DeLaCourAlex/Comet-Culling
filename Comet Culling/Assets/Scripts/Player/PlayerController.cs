@@ -265,181 +265,84 @@ public class PlayerController : MonoBehaviour
             tileSelectYes.transform.position = displayPosition;
             cropPlant.transform.position = displayPosition;
 
-            switch (tag)
+            // Access the necessary scripts based one what the raycast might have hit
+            // If the raycast hits a crop, access its crop controller
+            CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
+            // If the raycast hit a generator/bed, access its spaceship controller
+            SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+            // Can not perform actions whilst carrying crops or interacting with grass tiles
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged")
             {
-                case "Crop":
+                DisplayCanInteract(false, false, false);
 
-                    // Can not perform these actions whilst carrying crops
-                    if (carryCropA || carryCropB)
-                    {
-                        DisplayCanInteract(false, false, false);
+                // Generator related interactions
+                if (Input.GetButtonDown("Action") && tag == "Generator")
+                    SpaceshipInteraction(ref spaceshipController);
+            }
+                
+            // Otherwise, perform an action based on equipped tool and what's being interacted with
+            else
+            {
+                switch (currentTool)
+                {
+                    // Seed A is equipped
+                    case Tools.seedA:
 
-                        break;
-                    }
-
-                    // If the raycast hits a crop, access its crop controller
-                    CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
-
-                    // Performs an action on the crop depending on what tool is equipped
-                    switch (currentTool)
-                    {
-                        // If the watering can is equipped
-                        case Tools.wateringCan:
-                            
-                            // Interraction between the watering can and a crop
-                            WateringCan(ref cropController);
-
-                            // Return instead of break
-                            // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
-                            return;
-
-                        // If the scythe is equipped
-                        case Tools.scythe:
-
-                            // Interaction between the scythe and a crop
-                            Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
-
-                            // Return instead of break
-                            // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
-                            return;
-
-                        default:
-
-                            // Default is that we are at an interactable tiles or object
-                            // But do not have the right tool selected
-                            // Therefore display that we can't perform this interaction
-                            DisplayCanInteract(false, true, false);
-
-                            break;
-                    }
-
-                    break;
-
-                case "Dirt Tile":
-
-                    // Can not perform these actions whilst carrying crops
-                    if (carryCropA || carryCropB)
-                    {
-                        DisplayCanInteract(false, false, false);
+                        // Display where crop A will be planted and plant them
+                        UseSeed(displayPosition, 0);
 
                         break;
-                    }
-                        
 
-                    switch (currentTool)
-                    {
-                        // If the hoe is equipped, till the ground
-                        case Tools.hoe:
+                    // Seed B is equipped
+                    case Tools.seedB:
 
-                            // Interaction between the hoe and a dirt tile
+                        // Display where crop B will be planted and plant them
+                        UseSeed(displayPosition, 1);
+
+                        break;
+
+                    // Hoe is equipped 
+                    case Tools.hoe:
+
+                        // If interacting with a dirt tile, till it
+                        if(tag == "Dirt Tile")
+                        {
                             Hoe(positionInt);
-                                
-                            break;
-
-                        // If seed A is equipped, plant crop A
-                        case Tools.seedA:
-
-                            if (Input.GetButtonDown("Action"))
-                            {
-                                RaycastHit2D[] cropBoxcasts = new RaycastHit2D[9];
-                                int boxcastElement = 0;
-
-                                Vector2 boxcastPosition = Vector2.zero;
-
-                                // THIS WORKS 
-                                for (int i = -1; i < 2; i++)
-                                    for (int j = -1; j < 2; j++)
-                                    {
-                                        
-                                        boxcastPosition = new Vector2(displayPosition.x + i, displayPosition.y + j);
-
-                                        Vector2 boxSize = new Vector2(0.5f, 0.5f);
-                                        cropBoxcasts[boxcastElement] = Physics2D.BoxCast(boxcastPosition, boxSize, 0, Vector2.zero, LayerMask.GetMask("Dirt Tile"));
-
-                                        /*if (cropBoxcast.collider != null)
-                                        {
-                                            int yCorrectorBox = cropBoxcast.point.y < 0 ? -1 : 0;
-                                            int xCorrectorBox = cropBoxcast.point.x < 0 ? -1 : 0;
-                                            // Set the raycast hit position to ints because that's what the SetTile function uses
-                                            Vector3Int boxcastPositionInt = new Vector3Int((int)cropBoxcast.point.x + xCorrectorBox, (int)cropBoxcast.point.y + yCorrectorBox, 0);
-                                            PlantCrop(boxcastPositionInt, 0);
-                                        }*/
-                                        boxcastElement++;
-                                    }
-
-                                foreach (RaycastHit2D boxHit in cropBoxcasts)
-                                    if (boxHit.collider != null)
-                                    {
-                                        int yCorrectorBox = boxHit.point.y < 0 ? -1 : 0;
-                                        int xCorrectorBox = boxHit.point.x < 0 ? -1 : 0;
-                                        // Set the raycast hit position to ints because that's what the SetTile function uses
-                                        Vector3Int boxcastPositionInt = new Vector3Int((int)boxHit.point.x + xCorrectorBox, (int)boxHit.point.y + yCorrectorBox, 0);
-                                        PlantCrop(boxcastPositionInt, 0);
-                                    }
-
-
-                                //Vector2 boxcastSize = new Vector2(3.0f, 3.0f);
-                                //
-                                //RaycastHit2D[] cropBoxcast = Physics2D.BoxCastAll(displayPosition, boxcastSize, 0, Vector2.zero);
-                                //
-                                //foreach (RaycastHit2D boxHits in cropBoxcast)
-                                //{
-                                //    Debug.Log("Hit in " + boxHits.transform.position);
-                                //    // Set the raycast hit position to ints because that's what the SetTile function uses
-                                //    Vector3Int cropPositionInt = new Vector3Int((int)boxHits.point.x + xCorrector, (int)boxHits.point.y + yCorrector, 0);
-                                //    PlantCrop(cropPositionInt, 0);
-                                //}
-                            }
-
-
-
-
-                            // Interaction between the seed and a dirt tile
-                            //Seed(positionInt, 0);                           
-
-                            break;
-
-                        // If seed B is equipped, plant crop B
-                        case Tools.seedB:
-
-                            // Interaction between the seed and a dirt tile
-                            Seed(positionInt, 1);
-
-                            break;
-
-                        default:
-
-                            // Default is that we are at an interactable tiles or object
-                            // But do not have the right tool selected
-                            // Therefore display that we can't perform this interaction
+                            return;
+                        }
+                        else
                             DisplayCanInteract(false, true, false);
 
-                            break;
-                    }
+                        break;
 
-                    break;
-                case "Generator":
+                    // Watering can is equipped 
+                    case Tools.wateringCan:
 
-                    // No need to display tile interaction with the generator
-                    DisplayCanInteract(false, false, false);
+                        // If interacting with an unwatered crop, water it
+                        if(tag == "Crop")
+                        {
+                            WateringCan(ref cropController);
+                            return;
+                        }
+                        else
+                            DisplayCanInteract(false, true, false);
 
-                    //You can initialize staminarecharge (or any object belonging to a specific class) by calling this statement
-                    //Which essentially makes this instance be able to access the scripts attached to that object
-                    //Think of it like a pointer 
-                    //Tldr if i hit the generator and it has the staminarecharge component, this statement will be valid
-                    SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+                        break;
 
-                    if (Input.GetButtonDown("Action"))
-                        SpaceshipInteraction(ref spaceshipController);
+                    case Tools.scythe:
 
-                    break;
-                // TODO: Add engine/spaceship stuff for codependency system
+                        // If interacting with a grown crop, harvest it
+                        if (tag == "Crop")
+                        {
+                            Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
+                            return;
+                        }
+                        else
+                            DisplayCanInteract(false, true, false);
 
-                case "Grass Tile":
-
-                    // No need to display tile interaction when no interactable tiles
-                    DisplayCanInteract(false, false, false);
-                    break;
+                        break;
+                }
             }
         }
     }
@@ -448,7 +351,7 @@ public class PlayerController : MonoBehaviour
     void WateringCan(ref CropController crop)
     {
         // If the crop is watered, we can water it
-        if (!crop.isWatered)
+        if (!crop.isWatered && !crop.isGrown)
         {
             // Show that we can perform this interaction
             DisplayCanInteract(true, false, false);
@@ -554,6 +457,42 @@ public class PlayerController : MonoBehaviour
         if (TilemapManager.Instance.IsTilled(pos))
             // Plant a crop on the tile at the location of the player
             TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
+    }
+
+    void UseSeed(Vector2 pos, int cropElement)
+    {
+        DisplayCanInteract(false, true, false);
+
+        RaycastHit2D[] cropBoxcasts = new RaycastHit2D[9];
+        int boxcastElement = 0;
+
+        Vector2 boxcastPosition = Vector2.zero;
+
+        for (int i = -1; i < 2; i++)
+            for (int j = -1; j < 2; j++)
+            {
+
+                boxcastPosition = new Vector2(pos.x + i, pos.y + j);
+
+                Vector2 boxSize = new Vector2(0.5f, 0.5f);
+                cropBoxcasts[boxcastElement] = Physics2D.BoxCast(boxcastPosition, boxSize, 0, Vector2.zero, LayerMask.GetMask("Dirt Tile"));
+
+                boxcastElement++;
+            }
+
+        foreach (RaycastHit2D boxHit in cropBoxcasts)
+            if (boxHit.collider != null)
+            {
+                int yCorrectorBox = boxHit.point.y < 0 ? -1 : 0;
+                int xCorrectorBox = boxHit.point.x < 0 ? -1 : 0;
+                // Set the raycast hit position to ints because that's what the SetTile function uses
+                Vector3Int boxcastPositionInt = new Vector3Int((int)boxHit.point.x + xCorrectorBox, (int)boxHit.point.y + yCorrectorBox, 0);
+                if (TilemapManager.Instance.IsTilled(boxcastPositionInt))
+                    DisplayCanInteract(false, false, true);
+
+                if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+                    PlantCrop(boxcastPositionInt, cropElement);
+            }
     }
 
     // Interaction using a seed with a dirt tile
