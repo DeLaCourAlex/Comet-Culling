@@ -296,6 +296,7 @@ public class PlayerController : MonoBehaviour
                         case Tools.scythe:
 
                             // Interaction between the scythe and a crop
+
                             Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
 
                             // Return instead of break
@@ -387,8 +388,16 @@ public class PlayerController : MonoBehaviour
                     if (Input.GetButtonDown("Action"))
                     {
                         //Add logic here to ask player if they want to go to sleep
+                        //If (goesToSleep){
+                        //TimeManager.Day++;
+                        //Set time to be 7 AM
+                        // Reset all tilled tiles that do not have anything planted
+                        // And also make the crops grow... this probably needs to go in its separate function
+                        // Ask alex how we can work around the growing}
+                        
                         //BUG: for some reason the spaceship's energy level don't go down after this
                         spaceshipController.ChargePlayer(ref stamina);
+
 
                     }
 
@@ -436,6 +445,7 @@ public class PlayerController : MonoBehaviour
         // If the crop is fully  grown, we can harvest it
         if (crop.isGrown)
         {
+
             // Show that we can perform this interaction
             DisplayCanInteract(true, false);
 
@@ -444,14 +454,19 @@ public class PlayerController : MonoBehaviour
             {
                 // Destroy the game object
                 Destroy(rayHit.transform.gameObject);
-                // Increase the amount of harvested crops
-                cropsHarvested[cropType]++;
+
+                if (crop.isWithered) { /*Do nothing*/}
+
+                else
+                {
+                    // Increase the amount of harvested crops
+                    cropsHarvested[cropType]++;
+                    // Trigger the harvesting animation
+                    animator.SetTrigger("Harvesting");
+                }
 
                 // Reset the crop's tile to untilled dirt
                 TilemapManager.Instance.ResetTile(pos);
-
-                // Trigger the harvesting animation
-                animator.SetTrigger("Harvesting");
 
                 // Lower the stamina from the action
                 stamina -= staminaPerAction;

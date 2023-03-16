@@ -15,7 +15,8 @@ public class SpaceshipController : MonoBehaviour
     void Start()
     {
         spaceshipEnergy = MAX_ENERGY;
-        maxSpaceshipEnergy = MAX_ENERGY; 
+        maxSpaceshipEnergy = MAX_ENERGY;
+        DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
             spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
@@ -31,14 +32,22 @@ public class SpaceshipController : MonoBehaviour
     // Charge the spaceship
     public void ChargeSpaceship(int energy)
     {
+        //DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
+        //if (DataPermanence.Instance != null)
+            spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
         // The new energy added to the current energy
         int newEnergy = spaceshipEnergy + energy;
 
         // Stop the spaceship energy going over its max energy
         spaceshipEnergy = Mathf.Min(newEnergy, MAX_ENERGY);
+        
     }
     public void ChargePlayer(ref int botStamina) //Pass these variables into this function from the player's controls
     {
+        //DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
+        //if (DataPermanence.Instance != null)
+            spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
+
         //Placeholder logic: charging 100% of the robot's stamina takes 25% of the spaceship. Will be replaced for a more optimised value in the future if needed.
         int rechargingStamina = MAX_STAMINA - botStamina; //Value needed to recharge to 100% stamina
         int takenEnergy = ((rechargingStamina * 25) / MAX_STAMINA); //Percentage of energy that will be taken from the spaceship to fill 100% of robot stamina
@@ -60,5 +69,6 @@ public class SpaceshipController : MonoBehaviour
         spaceshipEnergy -= takenEnergy; //New spaceship energy = current level - taken energy
         botStamina += Mathf.Min(addedStamina, rechargingStamina); //New stamina = current stamina + taken value.
         //Only the minimum value between the two will be added to the final stamina. 
+        Debug.Log(spaceshipEnergy);
     }
 }
