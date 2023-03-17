@@ -80,7 +80,11 @@ public class PlayerController : MonoBehaviour
         }
 
         inventory = new Inventory();
-        ui_Inventory.setInventory(inventory);
+        ui_Inventory.SetInventory(inventory);
+
+        //ItemWorld.SpawnItemWorld(new Vector3(0, 2), new Item { itemType = Item.ItemType.cropA, amount = 1 }); 
+        //ItemWorld.SpawnItemWorld(new Vector3(-2, 0), new Item { itemType = Item.ItemType.cropB, amount = 1 }); 
+
 
         
     }
@@ -90,7 +94,7 @@ public class PlayerController : MonoBehaviour
         if(itemWorld != null) 
         {
             inventory.AddItem(itemWorld.GetItem());
-            itemWorld.Destroyself();
+            itemWorld.DestroySelf();
 
         }
     }

@@ -18,22 +18,18 @@ public class UI_Inventory : MonoBehaviour
     }
 
 
-    public void setInventory(Inventory inventory)
+    public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
 
-        inventory.onItemListChanged += Inventory_OnItemListChanged;
+        inventory.OnItemListChanged += Inventory_OnItemListChanged;
         RefreshInventoryItems();
     }
 
-    private void Inventory_OnItemListChanged(object sender, System.EventArgs e) 
-    
-    {
+    private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
 
+    { 
         RefreshInventoryItems();
-
-
-
     }
 
     private void RefreshInventoryItems()
@@ -65,7 +61,7 @@ public class UI_Inventory : MonoBehaviour
         
 
             x++;
-            if (x>4)
+            if (x>=4)
             {
                 x=0;
                 y++;

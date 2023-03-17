@@ -15,6 +15,10 @@ public class ItemWorld : MonoBehaviour
     }
     private Item item;
     private SpriteRenderer spriteRenderer;
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     public void SetItem(Item Item)
     {
@@ -30,7 +34,7 @@ public class ItemWorld : MonoBehaviour
 
     }
 
-    public void Destroyself()
+    public void DestroySelf()
     {
 
         Destroy(gameObject);
