@@ -10,8 +10,9 @@ public class ItemAssets : MonoBehaviour
         Instance = this;
     }
 
-    public Transform pfItemWorld;
 
+
+    public Transform pfItemWorld;
     public Sprite cropASprite;
     public Sprite cropBSprite;
 

@@ -10,16 +10,27 @@ public class UI_Inventory : MonoBehaviour
     public Transform itemSlotContainer;
     public Transform itemSlotTemplate;
 
+    bool isInventoryVisible = false;
+
     private void Start()
     {
-        //itemSlotContainer= transform.Find("itemSlotContainer");
-        //itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
+        //OpenInventory();
+    }
 
+
+    public void OpenInventory()
+    {
+
+        if (Input.GetKeyDown(KeyCode.I))
+            isInventoryVisible = !isInventoryVisible;    // Flip bool value when 'I' is pressed
+
+        this.gameObject.SetActive(isInventoryVisible);
     }
 
 
     public void SetInventory(Inventory inventory)
     {
+        
         this.inventory = inventory;
 
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
@@ -27,7 +38,6 @@ public class UI_Inventory : MonoBehaviour
     }
 
     private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
-
     { 
         RefreshInventoryItems();
     }

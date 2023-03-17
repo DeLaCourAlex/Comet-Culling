@@ -78,9 +78,11 @@ public class PlayerController : MonoBehaviour
             // Set the player crops harvested
             testCropsHarvested = DataPermanence.Instance.testCropsHarvested;
         }
-
+     
         inventory = new Inventory();
         ui_Inventory.SetInventory(inventory);
+        
+        
 
         //ItemWorld.SpawnItemWorld(new Vector3(0, 2), new Item { itemType = Item.ItemType.cropA, amount = 1 }); 
         //ItemWorld.SpawnItemWorld(new Vector3(-2, 0), new Item { itemType = Item.ItemType.cropB, amount = 1 }); 
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour
         ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
         if(itemWorld != null) 
         {
+            Debug.Log("Colider working");
             inventory.AddItem(itemWorld.GetItem());
             itemWorld.DestroySelf();
 
@@ -102,6 +105,7 @@ public class PlayerController : MonoBehaviour
     // Used to read input, perform calculations, set states etc
     void Update()
     {
+        ui_Inventory.OpenInventory();
         // Read directional input and set the movement vector
         // Normalize to reduce increased speed when moving diagonally
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
