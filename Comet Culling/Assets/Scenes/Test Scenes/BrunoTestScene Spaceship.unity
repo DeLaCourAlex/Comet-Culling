@@ -665,7 +665,7 @@ PrefabInstance:
     - target: {fileID: 4923963301156947606, guid: c0d3bfe03ef587d46b1f7f443a237a25, type: 3}
       propertyPath: energyUI
       value: 
-      objectReference: {fileID: 826662866}
+      objectReference: {fileID: 764802421}
     - target: {fileID: 4923963301156947607, guid: c0d3bfe03ef587d46b1f7f443a237a25, type: 3}
       propertyPath: m_Name
       value: Data Manager
@@ -786,17 +786,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ab724988f1379349be0ec4e573f716a, type: 3}
---- !u!114 &826662866 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3105630228383540489, guid: 9ab724988f1379349be0ec4e573f716a, type: 3}
-  m_PrefabInstance: {fileID: 826662865}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5179cb50e898d974ca85d46ef66e5b51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &877862347
 GameObject:
   m_ObjectHideFlags: 0

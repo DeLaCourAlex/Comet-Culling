@@ -383,7 +383,7 @@ public class PlayerController : MonoBehaviour
                 case "Bed":
                     // No need to display tile interaction with the bed
                     DisplayCanInteract(false, false);
-                    spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+                    SpaceshipController staminaController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
                     if (Input.GetButtonDown("Action"))
                     {
@@ -394,9 +394,8 @@ public class PlayerController : MonoBehaviour
                         // Reset all tilled tiles that do not have anything planted
                         // And also make the crops grow... this probably needs to go in its separate function
                         // Ask alex how we can work around the growing}
-                        
-                        //BUG: for some reason the spaceship's energy level don't go down after this
-                        spaceshipController.ChargePlayer(ref stamina);
+
+                        staminaController.ChargePlayer(ref stamina);
 
 
                     }
