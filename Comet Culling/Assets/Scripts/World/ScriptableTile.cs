@@ -7,8 +7,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "Scriptable Tile", menuName = "Scriptable Tile")]
 public class ScriptableTile : ScriptableObject
 {
-    public TileBase[] tileArray;
+    // The tile that this data will attach to
+    public TileBase tile;
+
+    // Sprites to display if a dirt tile has been tilled or not
+    //[SerializeField] Sprite tilledDirt;
+    //[SerializeField] Sprite untilledDirt;
+
+    // Used to perform a check to see if the current tile is tilled
+    public bool isTilled;
+
+    // The crop to be planted on the tile
+    public GameObject[] crops;
 }

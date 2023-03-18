@@ -4,19 +4,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DataPermanence : MonoBehaviour
 {
     // Create an instance of the class to allow to call its functions statically
-    public static DataPermanence Instance;
+    [HideInInspector] public static DataPermanence Instance;
 
     // ALL VARIABLES TO SET IN THE PLAYER CONTROLLER
 
     // Set the player position when entering a new scene
-    public Vector2 playerStartPosition;
+    [HideInInspector] public Vector2 playerStartPosition;
 
-    // Set the test variable for crops in player inventory
-    public int testCropsHarvested;
+    // The amount of the different crop types held in inventory
+    [HideInInspector] public int[] cropsHarvested;
+
+    // Player stamina
+    [HideInInspector] public int playerStamina;
 
     // ALL VARIABLES FOR CROPS AND CROP MANAGEMENT
 
@@ -27,21 +31,33 @@ public class DataPermanence : MonoBehaviour
         public float timeAlive;
         public float wateredMultiplier;
         public bool isWatered;
+        public int cropType;
 
         // Constructor for when adding items to the crop list
-        public CropData(Vector2 pos, float time, float wMultiplier, bool watered)
+        public CropData(Vector2 pos, float time, float wMultiplier, bool watered, int type)
         {
             position = pos;
             timeAlive = time;
             wateredMultiplier = wMultiplier;
             isWatered = watered;
+            cropType = type;
         }
     }
 
-    public List<CropData> allCrops = new List<CropData>();
+    // A list of all crops in the farm scene
+    [HideInInspector] public List<CropData> allCrops = new List<CropData>();
+
+    // A reference to the tilemap in the farm scene
+    [HideInInspector] public List<Vector3Int> tilledTilePositions = new List<Vector3Int>();
+
+    // SPACESHIP VARIABLES
+
+    [HideInInspector] public int spaceshipEnergy;
 
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
-
+    // UI to display the spaceships energy
+    [Header("UI References")]
+    [SerializeField] UI energyUI;
 
     // Called when the object containing the script is initialized
     private void Awake()
@@ -58,6 +74,10 @@ public class DataPermanence : MonoBehaviour
 
         // Keeps the instance alive moving between scenes
         DontDestroyOnLoad(gameObject);
+
+        cropsHarvested = new int[2];
+        playerStamina = 100;
+        spaceshipEnergy = 100;
     }
 
     private void Update()
@@ -70,5 +90,10 @@ public class DataPermanence : MonoBehaviour
             {
                 allCrops[i].timeAlive += Time.deltaTime * allCrops[i].wateredMultiplier;
             }
+
+        // Update the UI with the current spaceship energy
+        energyUI.UpdateValue(spaceshipEnergy);
+        Debug.Log("Spaceship energy in data manager: " + spaceshipEnergy);
+        //Debug.Log("Spaceship energy in UI script: " + energyUI.attributeValue);
     }
 }
