@@ -1,44 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class ItemWorld : MonoBehaviour
-{
-    public static ItemWorld SpawnItemWorld(Vector3 position, Item item)
-    {
-        Transform transform = Instantiate(ItemAssets.Instance.pfItemWorld, position, Quaternion.identity);
+//public class ItemWorld : MonoBehaviour
+//{
+//    public static ItemWorld SpawnItemWorld(Vector3 position, Item item)
+//    {
+//        //Transform transform = Instantiate(ItemAssets.Instance.pfItemWorld, position, Quaternion.identity);
 
-        ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
-        itemWorld.SetItem(item);
+//        //ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
+//        //
+//    }
+//    private Item item;
+//    private SpriteRenderer spriteRenderer;
+//    private void Awake()
+//    {
+//        spriteRenderer = GetComponent<SpriteRenderer>();
+//    }
 
-        return itemWorld;
-    }
-    private Item item;
-    private SpriteRenderer spriteRenderer;
-    private void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    public void SetItem(Item Item)
-    {
-        this.item = Item;
-        spriteRenderer.sprite = item.GetSprite();
+//    public void SetItem(Item Item)
+//    {
+//        this.item = Item;
+//        spriteRenderer.sprite = item.GetSprite();
 
 
-    }
+//    }
 
-    public Item GetItem() 
-    {
-        return item;
+//    public Item GetItem() 
+//    {
+//        return item;
 
-    }
+//    }
 
-    public void DestroySelf()
-    {
+//    public void DestroySelf()
+//    {
 
-        Destroy(gameObject);
-    }
+//        Destroy(gameObject);
+//    }
 
 
-}
+//}

@@ -80,6 +80,16 @@ public class PlayerController : MonoBehaviour
     string spaceshipEnergyText;
     [SerializeField] TextMeshProUGUI spaceshipEnergyUI;
 
+    //inventory
+    [SerializeField] private UI_Inventory ui_Inventory;
+    private Inventory inventory;
+
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -102,12 +112,21 @@ public class PlayerController : MonoBehaviour
             cropsHarvested = DataPermanence.Instance.cropsHarvested;
             stamina = DataPermanence.Instance.playerStamina;
         }
+
+        //instantiates inventory and sets inventory to player
+        inventory = new Inventory();
+        //passing in the inventory object onto UI script
+        ui_Inventory.SetInventory(inventory);
+
     }
 
     // Update is called once per frame
     // Used to read input, perform calculations, set states etc
     void Update()
     {
+
+        ui_Inventory.OpenInventory();
+
         // Read directional input and set the movement vector
         // Normalize to reduce increased speed when moving diagonally
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
@@ -129,7 +148,7 @@ public class PlayerController : MonoBehaviour
                 raycastCorrector = new Vector3(-0.5f, 0, 0);
         }
 
-        Debug.Log("Raycast Corrector: " + raycastCorrector);
+        //Debug.Log("Raycast Corrector: " + raycastCorrector);
         // Set the direction parameter based on the directional input
         // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
         // will keep the player facing in the current direction
@@ -430,6 +449,23 @@ public class PlayerController : MonoBehaviour
                 Destroy(rayHit.transform.gameObject);
                 // Increase the amount of harvested crops
                 cropsHarvested[cropType]++;
+
+               
+                if (cropType== 0) 
+                {
+                    //update cropA in inventory
+                     inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
+                    Debug.Log("Crop A is being added");
+                    Debug.Log("item list: " + inventory.GetItemList());
+
+                }
+
+                else if (cropType == 1)
+                {
+                    //update cropB in inventory
+                    inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
+                    Debug.Log("Crop B is being added");
+                }
 
                 // Reset the crop's tile to untilled dirt
                 TilemapManager.Instance.ResetTile(pos);

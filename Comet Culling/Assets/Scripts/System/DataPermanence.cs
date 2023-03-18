@@ -93,7 +93,7 @@ public class DataPermanence : MonoBehaviour
 
         // Update the UI with the current spaceship energy
         energyUI.UpdateValue(spaceshipEnergy);
-        Debug.Log("Spaceship energy in data manager: " + spaceshipEnergy);
+        //Debug.Log("Spaceship energy in data manager: " + spaceshipEnergy);
         //Debug.Log("Spaceship energy in UI script: " + energyUI.attributeValue);
     }
 }
