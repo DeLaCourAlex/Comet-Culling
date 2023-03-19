@@ -13,9 +13,9 @@ public class TimeManager : MonoBehaviour
     //Check these actions to know
 
     //Getsetters to access the in-game time
-    public static int Minute { get; private set; }
-    public static int Hour { get; private set; }
-    public static int Day { get; private set; }
+    public static int Minute { get; set; }
+    public static int Hour { get; set; }
+    public static int Day { get; set; }
 
     //Have IRL time affect in-game time by a certain ratio
     //Example: 0.5 seconds irl = 1 minute in-game
@@ -31,7 +31,7 @@ public class TimeManager : MonoBehaviour
         //Start-off values
         Day = 1;
         Minute = 0;
-        Hour = 10;
+        Hour = 8;
         timer = minuteToRealTime; //V important: set timer equivalent
         OnDayChanged?.Invoke();
 
@@ -73,4 +73,5 @@ public class TimeManager : MonoBehaviour
         }
 
     }
+
 }

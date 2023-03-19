@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
                 raycastCorrector = new Vector3(-0.5f, 0, 0);
         }
 
-        Debug.Log("Raycast Corrector: " + raycastCorrector);
+        //Debug.Log("Raycast Corrector: " + raycastCorrector);
         // Set the direction parameter based on the directional input
         // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
         // will keep the player facing in the current direction
@@ -388,13 +388,8 @@ public class PlayerController : MonoBehaviour
                     if (Input.GetButtonDown("Action"))
                     {
                         //Add logic here to ask player if they want to go to sleep
-                        //If (goesToSleep){
-                        //TimeManager.Day++;
-                        //Set time to be 7 AM
-                        // Reset all tilled tiles that do not have anything planted
-                        // And also make the crops grow... this probably needs to go in its separate function
-                        // Ask alex how we can work around the growing}
-
+                        //If (dialogue opction yes){
+                        GoToSleep(); 
                         staminaController.ChargePlayer(ref stamina);
 
 
@@ -586,6 +581,22 @@ public class PlayerController : MonoBehaviour
         }
             
         
+    }
+
+    void GoToSleep()
+    {
+        //TimeManager.Day++;
+        //Set time to be 7 AM
+        // Reset all tilled tiles that do not have anything planted
+
+        if (TimeManager.Hour < 24 && TimeManager.Hour >= 7) //If the time is anywhere not between midnight and 7 am
+        {
+            TimeManager.Day++; //Increase the day count
+            Debug.Log("DAY:" + TimeManager.Day);
+
+        }
+        TimeManager.Hour = 7;
+        TimeManager.Minute = 0;
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)

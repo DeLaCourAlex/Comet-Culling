@@ -666,6 +666,10 @@ PrefabInstance:
       propertyPath: energyUI
       value: 
       objectReference: {fileID: 764802421}
+    - target: {fileID: 4923963301156947606, guid: c0d3bfe03ef587d46b1f7f443a237a25, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4923963301156947607, guid: c0d3bfe03ef587d46b1f7f443a237a25, type: 3}
       propertyPath: m_Name
       value: Data Manager
