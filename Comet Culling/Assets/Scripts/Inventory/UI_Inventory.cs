@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using static UnityEditor.Progress;
 using System;
+using CodeMonkey.Utils;
 
 public class UI_Inventory : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class UI_Inventory : MonoBehaviour
     private Inventory inventory;
     public Transform itemSlotContainer;
     public Transform itemSlotTemplate;
-
+    public PlayerController playerController;
     bool isInventoryVisible = false;
 
     private void Start()
@@ -76,7 +77,16 @@ public class UI_Inventory : MonoBehaviour
 
 
 
+                itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () => 
+                {
+                    //use Item
+                    inventory.RemoveItem(item);
+                    //playerController.cropsHarvested[0]++;
 
+
+                };
+
+               
 
 
                 itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);

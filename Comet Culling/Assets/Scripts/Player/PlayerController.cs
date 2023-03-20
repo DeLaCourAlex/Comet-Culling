@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     // CROP RELATED VARIABLES
     [Header("Crop Variables")]
     [SerializeField] GameObject[] crops;
-    int[] cropsHarvested;
+    //made cropsHarvested public so the inventory class can acess it 
+    public int[] cropsHarvested;
 
     // STAMINA RELATED VARIABLES
     public int stamina;

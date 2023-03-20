@@ -14,14 +14,11 @@ public class Inventory
     {
         itemList = new List<Item>();
         //AddItem(new Item { itemType = Item.ItemType.cropA, amount = 3});
-        //AddItem(new Item { itemType = Item.ItemType.cropB, amount = 3});
-        //AddItem(new Item { itemType = Item.ItemType.cropB, amount = 3});
-        //AddItem(new Item { itemType = Item.ItemType.cropB, amount = 3});
-        //AddItem(new Item { itemType = Item.ItemType.cropB, amount = 3});
         Debug.Log("Inventory is working");
         Debug.Log(itemList.Count);
     }
 
+    //adds item to inventory(stacking)
     public void AddItem(Item item)
     {
       
@@ -44,9 +41,36 @@ public class Inventory
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
 
     }
-     
 
-public List<Item> GetItemList()
+    //removes item from inventory
+    public void RemoveItem(Item item) 
+    {
+        Item itemInInventory= null;
+        foreach (Item inventoryItem in itemList)
+        {
+            if (inventoryItem.itemType == item.itemType)
+            {
+                inventoryItem.amount -= item.amount;
+                itemInInventory = inventoryItem;
+                //itemList.Remove(itemInInventory);
+            }
+        }
+
+        if (itemInInventory != null && itemInInventory.amount <= 0)
+        {
+            itemList.Remove(itemInInventory);
+        }
+
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+
+
+
+
+
+    }
+
+
+    public List<Item> GetItemList()
     {
         return itemList;
     }
