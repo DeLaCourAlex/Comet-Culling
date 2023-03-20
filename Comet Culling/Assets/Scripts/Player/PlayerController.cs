@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,7 +35,10 @@ public class PlayerController : MonoBehaviour
     // STAMINA RELATED VARIABLES
     public int stamina;
     int MAX_STAMINA = 100;
-    int staminaPerAction = 5;
+    int staminaUsedHoe = 2;
+    int staminaUsedPlanting = 10;
+    int staminaUsedWatering = 3;
+    int staminaUsedScythe = 5;
 
     // INTERRACTION/ACTION VARIABLES
     [Header("Interaction/Action Variables")]
@@ -118,6 +122,8 @@ public class PlayerController : MonoBehaviour
             // Set the player member variables
             cropsHarvested = DataPermanence.Instance.cropsHarvested;
             stamina = DataPermanence.Instance.playerStamina;
+            tutorialNumber = DataPermanence.Instance.tutorialNumber;
+            availableTools = DataPermanence.Instance.availableTools;
         }
     }
 
@@ -192,10 +198,72 @@ public class PlayerController : MonoBehaviour
         DataPermanence.Instance.playerStamina = stamina;
         DataPermanence.Instance.cropsHarvested = cropsHarvested;
 
-        // If we're in the tutorial, check what phase of the tutorial we're in and move along accordingly
+        // If we're in the tutorial, check what phase of the tutorial we're in
+        // then check if the conditions to finish that phase have been met
+        // These functions will move to the next phase of the tutorial of the conditions are met
         if(inTutorial)
         {
-            CheckTutorialOneOver();
+            switch(tutorialNumber)
+            {
+                case 0:
+
+                    CheckTutorialOneOver();
+
+                    break;
+
+                case 1:
+
+                    CheckTutorialTwoOver();
+
+                    break;
+
+                case 2:
+
+                    CheckTutorialThreeOver();
+
+                    break;
+
+                case 3:
+
+                    CheckTutorialFourOver();
+
+                    break;
+
+                case 4:
+
+                    CheckTutorialFiveOver();
+
+                    break;
+
+                case 5:
+
+                    CheckTutorialSixOver();
+
+                    break;
+
+                case 6:
+
+                    CheckTutorialSevenOver();
+
+                    break;
+
+                case 7:
+
+                    CheckTutorialEightOver();
+
+                    break;
+
+                case 8:
+
+                    CheckTutorialOver();
+
+                    break;
+            }
+/*            if(tutorialNumber == 0)
+                CheckTutorialOneOver();
+            else if(tutorialNumber == 1)
+                CheckTutorialTwoOver();*/
+            
         }
         
         // Animator parameters
@@ -316,7 +384,7 @@ public class PlayerController : MonoBehaviour
                         {
                             // If we're in the tutorial, can only plant crop A in the middle of the
                             // tutorial tile section during the second phase of the tutorial
-                            if (tutorialNumber == 1 && positionInt == tutorialTiles[4])
+                            if (positionInt == tutorialTiles[4] && tutorialNumber == 1)
                                 UseSeed(displayPosition, 0);
                             // Otherwise, can't plant any crops
                             else
@@ -414,16 +482,16 @@ public class PlayerController : MonoBehaviour
             DisplayCanInteract(true, false, false);
 
             // Perform the interaction
-            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+            if (Input.GetButtonDown("Action") && stamina >= staminaUsedWatering)
             {
                 // Set the crop status to watereds
                 crop.isWatered = true;
 
                 // Trigger the watering animation
-                animator.SetTrigger("Watering");
+                //animator.SetTrigger("Watering");
 
                 // Lower the stamina from the action
-                stamina -= staminaPerAction;
+                stamina -= staminaUsedWatering;
             }
         }
         else
@@ -441,7 +509,7 @@ public class PlayerController : MonoBehaviour
             DisplayCanInteract(true, false, false);
 
             // Perform the interaction
-            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+            if (Input.GetButtonDown("Action") && stamina >= staminaUsedScythe)
             {
                 // Destroy the game object
                 Destroy(rayHit.transform.gameObject);
@@ -452,10 +520,10 @@ public class PlayerController : MonoBehaviour
                 TilemapManager.Instance.ResetTile(pos);
 
                 // Trigger the harvesting animation
-                animator.SetTrigger("Harvesting");
+                //animator.SetTrigger("Harvesting");
 
                 // Lower the stamina from the action
-                stamina -= staminaPerAction;
+                stamina -= staminaUsedScythe;
             }
         }
         else
@@ -473,19 +541,19 @@ public class PlayerController : MonoBehaviour
             DisplayCanInteract(true, false, false);
 
             // Perform the interaction
-            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+            if (Input.GetButtonDown("Action") && stamina >= staminaUsedHoe)
             {
                 // Set the dirt tile to tilled
                 TilemapManager.Instance.TillDirt(pos);
 
                 // Trigged the tilling animation
-                animator.SetTrigger("Tilling");
+                //animator.SetTrigger("Tilling");
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
 
                 // Lower the stamina from the action
-                //stamina -= staminaPerAction;
+                stamina -= staminaUsedHoe;
             }
         }
         else
@@ -516,43 +584,79 @@ public class PlayerController : MonoBehaviour
             TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
     }
 
+    // Bring up the display to plant a 3x3 square of crops
+    // And call the planting function
     void UseSeed(Vector2 pos, int cropElement)
     {
+        // Show that we can perform this interaction
         DisplayCanInteract(false, true, false);
 
+        // Create 9 boxcasts in a 3x3 square
+        // This is to check if any of the required squares can have a crop planted
         RaycastHit2D[] cropBoxcasts = new RaycastHit2D[9];
         int boxcastElement = 0;
 
-        Vector2 boxcastPosition = Vector2.zero;
+        Vector2 boxcastPosition;
 
+        // This for loop makes a 3x3 square of tiles and sets a box cast on each square
+        // With the selected tile in the center
         for (int i = -1; i < 2; i++)
             for (int j = -1; j < 2; j++)
             {
-
+                // Set the position of the box cast to  the current tile in the 3x3 square
                 boxcastPosition = new Vector2(pos.x + i, pos.y + j);
 
+                // Set the size of the boxcast to half a tile
                 Vector2 boxSize = new Vector2(0.5f, 0.5f);
+
+                // Cast the boxcast
                 cropBoxcasts[boxcastElement] = Physics2D.BoxCast(boxcastPosition, boxSize, 0, Vector2.zero, LayerMask.GetMask("Dirt Tile"));
 
+                // Move to the next element in the array of boxcasts
                 boxcastElement++;
             }
 
+        // A flag to make sure stamina is taken once for each used seed
+        // Instead of multiple times for each planted crop
+        bool staminaTaken = false;
+
+        // If any of the boxcasts from the 3x3 square hit a tilled tile
+        // Then enable a crop to be planted here and plant one if the action button is pressed
         foreach (RaycastHit2D boxHit in cropBoxcasts)
             if (boxHit.collider != null)
             {
+                // Used to correct for rounding down when converting position to ints
+                // We want to round down, but setting a float to an int only removes after the decimal place
+                // This causes the number to round up if the float value is negative
                 int yCorrectorBox = boxHit.point.y < 0 ? -1 : 0;
                 int xCorrectorBox = boxHit.point.x < 0 ? -1 : 0;
+
                 // Set the raycast hit position to ints because that's what the SetTile function uses
                 Vector3Int boxcastPositionInt = new Vector3Int((int)boxHit.point.x + xCorrectorBox, (int)boxHit.point.y + yCorrectorBox, 0);
+
+                // If any of the selected tiles are tilled tile and can have a crop planted
+                // Then display that this 3x3 box can have crops planted
                 if (TilemapManager.Instance.IsTilled(boxcastPositionInt))
                     DisplayCanInteract(false, false, true);
 
-                if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+                // Plant the crops for each tile in the 3x3 square that can have a crop planted there
+                if (Input.GetButtonDown("Action") && stamina >= staminaUsedPlanting)
+                {
+                    // Plant the crop
                     PlantCrop(boxcastPositionInt, cropElement);
+
+                    if(!staminaTaken)
+                    {
+                        // Lower the stamina from the action
+                        stamina -= staminaUsedPlanting;
+
+                        staminaTaken = true;
+                    }    
+                }
             }
     }
 
-    // Interaction using a seed with a dirt tile
+/*    // Interaction using a seed with a dirt tile
     void Seed(Vector3Int pos, int cropElement)
     {
         // Check if there is a crop game object in the current position
@@ -584,7 +688,7 @@ public class PlayerController : MonoBehaviour
                 // Plant a crop on the tile at the location of the player
                 TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
 
-                animator.SetTrigger("Planting");
+                //animator.SetTrigger("Planting");
 
                 // Lower the stamina from the action
                 stamina -= staminaPerAction;
@@ -595,7 +699,7 @@ public class PlayerController : MonoBehaviour
             // Show that we can't perform this interaction
             DisplayCanInteract(false, true, false);
     }
-
+*/
     // Interaction between the player and the spaceship
     // Either charge the spaceship using the crop the player is holding
     // Or charge the player form the spaceship's energy
@@ -653,19 +757,106 @@ public class PlayerController : MonoBehaviour
     {
         availableTools = toolsAvail;
         tutorialNumber = tutNum;
+        DataPermanence.Instance.tutorialNumber = tutNum;
+        DataPermanence.Instance.availableTools = toolsAvail;
     }
 
     // Check if the first phase of the tutorial is over
     // This is done by checking if all the necessary tiles have been tilled
     void CheckTutorialOneOver()
     {
-        // If any of the 9 tiles are untilled, leave this function
+        // If any of the 9 tiles are untilled, leave this function - this stage of the tutorial is incomplete
         foreach (Vector3Int tile in tutorialTiles)
-            if (!TilemapManager.Instance.IsTilled(tile))
+            if (TilemapManager.Instance != null && !TilemapManager.Instance.IsTilled(tile))
                 return;
 
         // If all the tiles are tilled we reach this  line - move to the next tutorial stage
         ChangeTutorialStage(2, 1);
+    }
+
+    void CheckTutorialTwoOver()
+    {
+        // Get an array of all crops in the scene
+        // This will only be the 3x3 tutorial square of crops at this point
+        GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+
+        // Check that the array is neither null nor empty
+        // This means that the crops have been planted here
+        if (crops?.Length > 0)
+            ChangeTutorialStage(3, 2);
+    }
+
+    void CheckTutorialThreeOver()
+    {
+        // Get an array of all crops in the scene
+        // This will only be the 3x3 tutorial square of crops at this point
+        GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+
+        // Access the crop game objects' crop controllers
+        // If any of them are unwatered, leaving this function - this stage of the tutorial is incomplete
+        foreach (GameObject crop in crops)
+            if (!crop.GetComponent<CropController>().isWatered)
+                return;
+
+        // If all the crops are watered we reach this line - move to the next tutorial stage
+        ChangeTutorialStage(3, 3);
+    }
+
+    void CheckTutorialFourOver()
+    {
+        // Check if the player has entered the spaceship in tutorial four
+        // If so, move to the next tutorial stage
+        if(tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+            ChangeTutorialStage(3, 4);
+    }
+
+    void CheckTutorialFiveOver()
+    {
+        // TODO: add functionality here to sleep and move to the next day, grow crops, etc
+
+        // TEMPORARY CODE TO FULLY GROW ALL CROPS AND MOVE TO NEXT PHASE OF TUTORIAL
+        if (Input.GetButtonDown("Action"))
+        {
+            // Cycle through the list of crops in data permanence
+            // Set them all to an age where they're fully grown
+            for (int i = 0; i < DataPermanence.Instance.allCrops.Count; i++)
+            {
+                DataPermanence.Instance.allCrops[i].timeAlive = 100;
+            }
+
+            ChangeTutorialStage(4, 5);
+        }
+            
+    }
+
+    void CheckTutorialSixOver()
+    {
+        if(cropsHarvested[0] == 9)
+            ChangeTutorialStage(4, 6);
+    }
+
+    void CheckTutorialSevenOver()
+    {
+        // Check if the player has entered the spaceship in tutorial seven
+        // If so, move to the next tutorial stage
+        if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+            ChangeTutorialStage(4, 7);
+    }
+
+    void CheckTutorialEightOver()
+    {
+        if (cropsHarvested[0] == 0)
+            ChangeTutorialStage(4, 8);
+    }
+
+    void CheckTutorialOver()
+    {
+        if (tutorialNumber == 8 && stamina == 100)
+        {
+            ChangeTutorialStage(5, 9);
+            inTutorial = false;
+        }
+            
     }
 
     // Used to display any variables to the screen in place of UI for now
