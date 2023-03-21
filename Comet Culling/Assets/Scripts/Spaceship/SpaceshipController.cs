@@ -14,9 +14,9 @@ public class SpaceshipController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spaceshipEnergy = MAX_ENERGY;
+
         maxSpaceshipEnergy = MAX_ENERGY;
-        //DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
+
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
             spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
