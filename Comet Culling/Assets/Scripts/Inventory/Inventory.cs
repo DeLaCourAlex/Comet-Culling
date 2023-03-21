@@ -8,20 +8,23 @@ public class Inventory
     public event EventHandler OnItemListChanged;
 
     private List<Item> itemList;
+    private Action<Item> useItemAction;
     internal static object gameObject;
 
-    public Inventory()
+    public Inventory(Action<Item> useItemAction)
     {
+        this.useItemAction = useItemAction;
         itemList = new List<Item>();
         //AddItem(new Item { itemType = Item.ItemType.cropA, amount = 3});
         Debug.Log("Inventory is working");
         Debug.Log(itemList.Count);
+
     }
 
     //adds item to inventory(stacking)
     public void AddItem(Item item)
     {
-      
+
         Debug.Log("Stacking");
         bool itemAlreadyInInventory = false;
         foreach (Item inventoryItem in itemList)
@@ -42,10 +45,15 @@ public class Inventory
 
     }
 
-    //removes item from inventory
-    public void RemoveItem(Item item) 
+    public void UseItem(Item item)
     {
-        Item itemInInventory= null;
+        useItemAction(item);
+    }
+
+    //removes item from inventory
+    public void RemoveItem(Item item)
+    {
+        Item itemInInventory = null;
         foreach (Item inventoryItem in itemList)
         {
             if (inventoryItem.itemType == item.itemType)
@@ -60,12 +68,12 @@ public class Inventory
         {
             itemList.Remove(itemInInventory);
         }
+        else
+        {
+            itemList.Remove(item);
+        }
 
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
-
-
-
-
 
     }
 

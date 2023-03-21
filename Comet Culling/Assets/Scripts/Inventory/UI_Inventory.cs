@@ -21,6 +21,10 @@ public class UI_Inventory : MonoBehaviour
         //OpenInventory();
     }
 
+    public void SetPlayer(PlayerController playerController)
+    {
+        this.playerController = playerController;
+    }
 
 
 
@@ -77,13 +81,13 @@ public class UI_Inventory : MonoBehaviour
 
 
 
-                itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () => 
-                {
+                itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () =>
+               
+                    {
                     //use Item
+                    inventory.UseItem(item);
                     inventory.RemoveItem(item);
-                    //playerController.cropsHarvested[0]++;
-
-
+                    Debug.Log("clicking is working");
                 };
 
                
