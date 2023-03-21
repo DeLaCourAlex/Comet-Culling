@@ -25,6 +25,7 @@ public class CropManager : MonoBehaviour
             cropController.timeAlive = DataPermanence.Instance.allCrops[i].timeAlive;
             ////cropController.wateredMultiplier = DataPermanence.Instance.allCrops[i].wateredMultiplier;
             cropController.isWatered = DataPermanence.Instance.allCrops[i].isWatered;
+
             cropController.elementNumber = DataPermanence.Instance.allCrops[i].cropType;
         }
 

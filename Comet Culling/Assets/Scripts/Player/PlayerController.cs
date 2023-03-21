@@ -401,6 +401,8 @@ public class PlayerController : MonoBehaviour
                     // Seed B is equipped
                     case Tools.seedB:
 
+
+
                         // Display where crop B will be planted and plant them
                         UseSeed(displayPosition, 1);
 
@@ -456,8 +458,8 @@ public class PlayerController : MonoBehaviour
                         break;
 
                     case Tools.scythe:
-
-                        // If interacting with a grown crop, harvest it
+					
+					// If interacting with a grown crop, harvest it
                         if (tag == "Crop")
                         {
                             Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
@@ -465,9 +467,45 @@ public class PlayerController : MonoBehaviour
                         }
                         else
                             DisplayCanInteract(false, true, false);
+                    
+				}
+                 // STUFF FOR BED HERE
+                    // No need to display tile interaction with the bed
+                    DisplayCanInteract(false, false);
+                    SpaceshipController staminaController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+                    if (Input.GetButtonDown("Action"))
+                    {
+                        //Add logic here to ask player if they want to go to sleep
+                        //If (goesToSleep){
+                        //TimeManager.Day++;
+                        //Set time to be 7 AM
+                        // Reset all tilled tiles that do not have anything planted
+                        // And also make the crops grow... this probably needs to go in its separate function
+                        // Ask alex how we can work around the growing}
+
+                        staminaController.ChargePlayer(ref stamina);
+
+
+                    }
+					
+					// STUFF FOR GENERATOR HERE
+					SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+                    if (Input.GetButtonDown("Action"))
+                    {
+                        if(spaceshipController.spaceshipEnergy >= spaceshipController.maxSpaceshipEnergy)
+                        {
+                            Debug.Log("Can't charge spaceship anymore - energy full"); 
+                        }
+                        SpaceshipInteraction(ref spaceshipController);
+
+                    }
+
+                    break;
 
                         break;
-                }
+                
             }
         }
     }
@@ -505,6 +543,7 @@ public class PlayerController : MonoBehaviour
         // If the crop is fully  grown, we can harvest it
         if (crop.isGrown)
         {
+
             // Show that we can perform this interaction
             DisplayCanInteract(true, false, false);
 
@@ -513,8 +552,16 @@ public class PlayerController : MonoBehaviour
             {
                 // Destroy the game object
                 Destroy(rayHit.transform.gameObject);
-                // Increase the amount of harvested crops
-                cropsHarvested[cropType]++;
+
+                if (crop.isWithered) { /*Do nothing*/}
+
+                else
+                {
+                    // Increase the amount of harvested crops
+                    cropsHarvested[cropType]++;
+                    // Trigger the harvesting animation
+                    animator.SetTrigger("Harvesting");
+                }
 
                 // Reset the crop's tile to untilled dirt
                 TilemapManager.Instance.ResetTile(pos);
@@ -733,9 +780,7 @@ public class PlayerController : MonoBehaviour
                 carryCropB = false;
         }
             
-        // Charge the player from the spaceship
-        else
-            spaceship.ChargePlayer(ref stamina);
+        
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)

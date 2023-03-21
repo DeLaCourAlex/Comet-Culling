@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; 
 using UnityEngine.Tilemaps;
 
 public class DataPermanence : MonoBehaviour
@@ -62,8 +63,8 @@ public class DataPermanence : MonoBehaviour
 
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
     // UI to display the spaceships energy
-    [Header("UI References")]
-    [SerializeField] UI energyUI;
+    //[Header("UI References")]
+    //[SerializeField] TextMeshProUGUI energyUI;
 
     // Called when the object containing the script is initialized
     private void Awake()
@@ -99,6 +100,8 @@ public class DataPermanence : MonoBehaviour
             }
 
         // Update the UI with the current spaceship energy
-        energyUI.UpdateValue(spaceshipEnergy);
+
+        energyUI.text = "Spaceship energy = " + spaceshipEnergy.ToString(); 
+
     }
 }
