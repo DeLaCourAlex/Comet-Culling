@@ -78,11 +78,14 @@ public class PlayerController : MonoBehaviour
 
     // IN GAME TUTORIAL VARIABLES
     // Check if the player is in the tutorial and limit their actions if so
-    bool inTutorial = true;
+    [SerializeField] bool inTutorial = true;
+
     // The stage of the tutorial the player is currently in
     public int tutorialNumber { get; private set; } = 0;
+
     // Restricts the amount of tools the player can select during the tutorial
     int availableTools = 1;
+
     // The tiles with which the player can interact during the tutorial
     // This is a block of 3x3 tiles on the top left corner of the farming area
     // Must be a vector3int because that's what type Unity's tile system uses
@@ -129,6 +132,9 @@ public class PlayerController : MonoBehaviour
             tutorialNumber = DataPermanence.Instance.tutorialNumber;
             availableTools = DataPermanence.Instance.availableTools;
         }
+
+        if(!inTutorial)
+            ChangeTutorialStage(5, 9);
     }
 
     // Update is called once per frame
@@ -233,11 +239,11 @@ public class PlayerController : MonoBehaviour
 
                     break;
 
-                case 4:
+/*                case 4:
 
                     CheckTutorialFiveOver();
 
-                    break;
+                    break;*/
 
                 case 5:
 
@@ -368,13 +374,20 @@ public class PlayerController : MonoBehaviour
             SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged")
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed"))
             {
                 DisplayCanInteract(false, false, false);
 
                 // Generator related interactions
-                if (Input.GetButtonDown("Action") && tag == "Generator")
+                if (Input.GetButtonDown("Action") && (tag == "Generator"))
                     SpaceshipInteraction(ref spaceshipController);
+                // Bed related interractions
+                if (Input.GetButtonDown("Action") && (tag == "Bed"))
+                {
+                    // bed functionality here
+                    // For now it only moves to the next stage of the tutorial
+                    CheckTutorialFiveOver();
+                }
             }
                 
             // Otherwise, perform an action based on equipped tool and what's being interacted with
@@ -698,6 +711,15 @@ public class PlayerController : MonoBehaviour
         // Charge the player from the spaceship
         else
             spaceship.ChargePlayer(ref stamina);
+    }
+
+    void GoToSleep()
+    {
+        // If the time is not between midnight and 7am, stay on the current day
+        if (TimeManager.Hour < 24 && TimeManager.Hour >= 7)
+        {
+            //TimeManager.da
+        }
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)

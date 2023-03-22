@@ -8,6 +8,7 @@ TagManager:
   - Generator
   - Dirt Tile
   - Grass Tile
+  - Bed
   layers:
   - Default
   - TransparentFX

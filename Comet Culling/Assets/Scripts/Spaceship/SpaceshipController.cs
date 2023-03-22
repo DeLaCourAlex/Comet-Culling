@@ -10,6 +10,9 @@ public class SpaceshipController : MonoBehaviour
     const int MAX_ENERGY = 100;
     const int MAX_STAMINA = 100;
 
+    // A screen to display options when using the bed
+    [SerializeField] GameObject bedScreen;
+
     // Start is called before the first frame update
     void Start()
     {
