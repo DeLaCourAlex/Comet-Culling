@@ -6,8 +6,9 @@ using UnityEngine;
 public class Inventory
 {
     public event EventHandler OnItemListChanged;
-
+    //creates a list of items to hold items in inventory 
     private List<Item> itemList;
+    //Action delegate to encapsulate the useItem function
     private Action<Item> useItemAction;
     internal static object gameObject;
 
@@ -45,10 +46,7 @@ public class Inventory
 
     }
 
-    public void UseItem(Item item)
-    {
-        useItemAction(item);
-    }
+  
 
     //removes item from inventory
     public void RemoveItem(Item item)
@@ -77,7 +75,13 @@ public class Inventory
 
     }
 
+    //function to use item on mouse click 
+    public void UseItem(Item item)
+    {
+        useItemAction(item);
+    }
 
+    //gets and returns the item list 
     public List<Item> GetItemList()
     {
         return itemList;

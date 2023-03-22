@@ -21,13 +21,14 @@ public class UI_Inventory : MonoBehaviour
         //OpenInventory();
     }
 
+    //sets the player to the UI_inventory scripts so it can aceses the player 
     public void SetPlayer(PlayerController playerController)
     {
         this.playerController = playerController;
     }
 
 
-
+    //opens inventory upon key press
     public void OpenInventory()
     {
 
@@ -38,6 +39,7 @@ public class UI_Inventory : MonoBehaviour
     }
 
 
+    //instantiates and updates inventory 
     public void SetInventory(Inventory inventory)
     {
 
@@ -47,11 +49,13 @@ public class UI_Inventory : MonoBehaviour
         RefreshInventoryItems();
     }
 
+    //refresh inventory if item list has changed 
     private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
     {
         RefreshInventoryItems();
     }
 
+    //refresh inventory
     private void RefreshInventoryItems()
     {
         foreach (Transform child in itemSlotContainer)
@@ -64,60 +68,43 @@ public class UI_Inventory : MonoBehaviour
         int y = 0;
         float itemSlotCellSize = 30f;
 
-        Debug.Log("Item Count: " + inventory.GetItemList().Count);
-        List<Item> list = inventory.GetItemList();
-        for (int i = 0; i < list.Count; i++)
+        foreach (Item item in inventory.GetItemList())
         {
-            Item item = list[i];
 
-            try
+            RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
+            itemSlotRectTransform.gameObject.SetActive(true);
+
+            //sets the mouse click to the useItem function  
+            itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () =>
             {
+                //use Item
+                inventory.UseItem(item);
+                //inventory.RemoveItem(item);
+                Debug.Log("clicking is working");
+            };
 
-                Debug.Log($"Item: {i} {item.itemType}");
+            itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
+            Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
+            image.sprite = item.GetSprite();
+            TextMeshProUGUI uiText = itemSlotRectTransform.Find("amountText").GetComponent<TextMeshProUGUI>();
 
-                RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer)
-                    .GetComponent<RectTransform>();
-                itemSlotRectTransform.gameObject.SetActive(true);
-
-
-
-                itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () =>
-               
-                    {
-                    //use Item
-                    inventory.UseItem(item);
-                    inventory.RemoveItem(item);
-                    Debug.Log("clicking is working");
-                };
-
-               
-
-
-                itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
-                Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
-                image.sprite = item.GetSprite();
-                TextMeshProUGUI uiText = itemSlotRectTransform.Find("amountText").GetComponent<TextMeshProUGUI>();
-                if (item.amount > 1)
-                {
-                    uiText.SetText(item.amount.ToString());
-                }
-                else
-                {
-                    uiText.SetText("");
-                }
-
-
-                x++;
-                if (x >= 4)
-                {
-                    x = 0;
-                    y++;
-
-                }
+            //activates the stacking text if item amount is more than 1 
+            if (item.amount > 1)
+            {
+                uiText.SetText(item.amount.ToString());
             }
-            catch (Exception ex)
+            else
             {
-                Debug.LogError(ex.ToString());
+                uiText.SetText("");
+            }
+
+
+            x++;
+            if (x >= 4)
+            {
+                x = 0;
+                y++;
+
             }
         }
     }
