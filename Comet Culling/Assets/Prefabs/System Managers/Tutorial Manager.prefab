@@ -800,11 +800,11 @@ MonoBehaviour:
 
 
     Interact with the generator
-    to feed your crops into the spaceship.
+    using SPACE to feed your crops into the spaceship.
 
 
-    Feed all of your harvested crops
-    in to charge the generator as fully as you can.'
+    Feed all of your harvested
+    crops in to charge the generator as fully as you can.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1045,7 +1045,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Now that the ship has some energy, press '1' to unequip all items,  and
-    interact with the generator to charge your stamina from the ship's batteries.
+    interact with the generator  using SPACE to charge your stamina from the ship's
+    batteries.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1181,8 +1182,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: There's not much more to for now until the crops have grown. Look around
-    the spaceship if you want, and when you're ready, interact with the bed to rest
-    until tomorrow.
+    the spaceship if you want, and when you're ready, interact with the bed using
+    SPACE to rest until tomorrow.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

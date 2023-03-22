@@ -27,7 +27,7 @@ public class SpaceshipController : MonoBehaviour
     private void Update()
     {
         // Update the spaceship energy in data permanence
-        DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
+        spaceshipEnergy = DataPermanence.Instance.spaceshipEnergy;
     }
 
     // Charge the spaceship
@@ -38,6 +38,8 @@ public class SpaceshipController : MonoBehaviour
 
         // Stop the spaceship energy going over its max energy
         spaceshipEnergy = Mathf.Min(newEnergy, MAX_ENERGY);
+
+        DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
     }
     public void ChargePlayer(ref int botStamina) //Pass these variables into this function from the player's controls
     {
@@ -62,5 +64,7 @@ public class SpaceshipController : MonoBehaviour
         spaceshipEnergy -= takenEnergy; //New spaceship energy = current level - taken energy
         botStamina += Mathf.Min(addedStamina, rechargingStamina); //New stamina = current stamina + taken value.
         //Only the minimum value between the two will be added to the final stamina. 
+
+        DataPermanence.Instance.spaceshipEnergy = spaceshipEnergy;
     }
 }

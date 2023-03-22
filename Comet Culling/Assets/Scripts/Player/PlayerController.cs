@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
             stamina = DataPermanence.Instance.playerStamina;
             tutorialNumber = DataPermanence.Instance.tutorialNumber;
             availableTools = DataPermanence.Instance.availableTools;
+            inTutorial = DataPermanence.Instance.playerTutorial;
         }
 
         if(!inTutorial)
@@ -268,7 +269,8 @@ public class PlayerController : MonoBehaviour
                     CheckTutorialOver();
 
                     break;
-            }            
+            }
+            Debug.Log("In tutorial: " + inTutorial);
         }
 
         // Move the camera position further above the player if they're near the top of the crop scene
@@ -384,9 +386,9 @@ public class PlayerController : MonoBehaviour
                 // Bed related interractions
                 if (Input.GetButtonDown("Action") && (tag == "Bed"))
                 {
-                    // bed functionality here
-                    // For now it only moves to the next stage of the tutorial
-                    CheckTutorialFiveOver();
+                    GoToSleep();
+                    if(inTutorial)
+                        CheckTutorialFiveOver();
                 }
             }
                 
@@ -445,8 +447,8 @@ public class PlayerController : MonoBehaviour
                                     if (positionInt == tutorialTiles[i])
                                     {
                                         Hoe(positionInt);
-                                        Debug.Log("PositionInt: " + positionInt);
-                                        Debug.Log("Tile position: " + tutorialTiles[i]);
+                                       //Debug.Log("PositionInt: " + positionInt);
+                                       //Debug.Log("Tile position: " + tutorialTiles[i]);
                                         return;
                                     }
                                     else
@@ -715,11 +717,48 @@ public class PlayerController : MonoBehaviour
 
     void GoToSleep()
     {
+        // Figure out how long the crops grow between now and 7am next day
+        // Then convert this into seconds and grow the crops that long
+        int hoursGrowth;
+        int minsGrowth;
+
         // If the time is not between midnight and 7am, stay on the current day
         if (TimeManager.Hour < 24 && TimeManager.Hour >= 7)
         {
-            //TimeManager.da
+            Debug.Log("Day increased. Old day: " + TimeManager.Day);
+            // Increase the day count
+            TimeManager.Day += 1;
+            Debug.Log("Day increased. New day: " + TimeManager.Day);
+
+            // Increase crop growth hours, adding the rest of today if we're sleeping until the next day
+            // plus the 7 hour because we sleep until 7 the next day
+            hoursGrowth = 7 + (24 - TimeManager.Hour);
         }
+        // If we're not sleeping until the next day ie sleeping from 2am - 7am
+        // Use that time slept to grow the crops instead
+        else
+            hoursGrowth = 7 - TimeManager.Hour;
+
+        // The minutes past the hour needs to be subtracted from time grown
+        minsGrowth = TimeManager.Minute;
+
+        // Now this all needs to be converted to seconds
+        // First convert hours to minutes game time
+        float secondsGrowth = ((hoursGrowth * 60) - minsGrowth);
+        // Now convert to seconds in real time - if 0.5 seconds real time is 1 minute game time
+        secondsGrowth *= 0.5f;
+
+        // Now add the real time growth to all the crops held in data permanence
+        // Making sure to use their water multiplier if watered
+        if (DataPermanence.Instance.allCrops.Count != 0)
+            for (int i = 0; i < DataPermanence.Instance.allCrops.Count; i++)
+            {
+                DataPermanence.Instance.allCrops[i].timeAlive += secondsGrowth * DataPermanence.Instance.allCrops[i].wateredMultiplier;
+            }
+
+        TimeManager.Hour = 7;
+        TimeManager.Minute = 0;
+
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)
@@ -799,17 +838,17 @@ public class PlayerController : MonoBehaviour
         // TODO: add functionality here to sleep and move to the next day, grow crops, etc
 
         // TEMPORARY CODE TO FULLY GROW ALL CROPS AND MOVE TO NEXT PHASE OF TUTORIAL
-        if (Input.GetButtonDown("Action"))
-        {
-            // Cycle through the list of crops in data permanence
-            // Set them all to an age where they're fully grown
-            for (int i = 0; i < DataPermanence.Instance.allCrops.Count; i++)
-            {
-                DataPermanence.Instance.allCrops[i].timeAlive = 100;
-            }
+        //if (Input.GetButtonDown("Action"))
+        //{
+        //    // Cycle through the list of crops in data permanence
+        //    // Set them all to an age where they're fully grown
+        //    for (int i = 0; i < DataPermanence.Instance.allCrops.Count; i++)
+        //    {
+        //        DataPermanence.Instance.allCrops[i].timeAlive = 100;
+        //    }
 
             ChangeTutorialStage(4, 5);
-        }
+        //}
             
     }
 
@@ -839,6 +878,7 @@ public class PlayerController : MonoBehaviour
         {
             ChangeTutorialStage(5, 9);
             inTutorial = false;
+            DataPermanence.Instance.playerTutorial = false;
         }
             
     }
@@ -860,6 +900,7 @@ public class PlayerController : MonoBehaviour
         staminaText = "Player Stamina: " + stamina.ToString();
         staminaTextUI.text = staminaText;
 
+        Debug.Log("In player, spaceship energy: " + DataPermanence.Instance.spaceshipEnergy);
         // Set the spaceship energy to a string
         spaceshipEnergyText = "Spaceship Energy: " + DataPermanence.Instance.spaceshipEnergy.ToString();
         spaceshipEnergyUI.text = spaceshipEnergyText;

@@ -62,10 +62,15 @@ public class DataPermanence : MonoBehaviour
 
     [HideInInspector] public int spaceshipEnergy;
 
+    // TIME/DAY VARIABLES
+    [HideInInspector] public int day;
+    [HideInInspector] public int hour;
+    [HideInInspector] public int mins;
+
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
     // UI to display the spaceships energy
-    [Header("UI References")]
-    [SerializeField] UI energyUI;
+    //[Header("UI References")]
+    //[SerializeField] UI energyUI;
 
     // Called when the object containing the script is initialized
     private void Awake()
@@ -87,6 +92,12 @@ public class DataPermanence : MonoBehaviour
         playerStamina = 100;
         spaceshipEnergy = 0;
         availableTools = 1;
+        playerTutorial = true;
+
+        //Start-off values
+        day = 1;
+        mins = 0;
+        hour = 7;
     }
 
     private void Update()
@@ -101,7 +112,7 @@ public class DataPermanence : MonoBehaviour
             }
 
         // Update the UI with the current spaceship energy
-        energyUI.UpdateValue(spaceshipEnergy);
+        //energyUI.UpdateValue(spaceshipEnergy);
     }
 
     public void PlayerStartTutorial()
