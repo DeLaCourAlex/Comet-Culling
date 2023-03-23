@@ -728,6 +728,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Day increased. Old day: " + TimeManager.Day);
             // Increase the day count
             TimeManager.Day += 1;
+            TimeManager.OnDayChanged?.Invoke();
             Debug.Log("Day increased. New day: " + TimeManager.Day);
 
             // Increase crop growth hours, adding the rest of today if we're sleeping until the next day
