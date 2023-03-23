@@ -12,9 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Test Scenes/AlexTestScene SpaceShip.unity
     guid: 37b96b9d420f4bf4d812a6f2713f5383
   - enabled: 1
-    path: Assets/Scenes/Test Scenes/SangitTestScene.unity
-    guid: 7b5661eda7d5a08429e5c563d6fa090a
+
+    path: Assets/Scenes/Test Scenes/ShangitTestScene 2.unity
+    guid: 2ff7f0aa663cb6040bc37f0e5f820962
+  - enabled: 1
+    path: Assets/Scenes/Test Scenes/ShangitTestScene SpaceShip.unity
+    guid: b9cd665b34f1b7c4eb77ce0983faf7d5
+
   - enabled: 1
     path: Assets/Scenes/Test Scenes/BrunoTestScene.unity
     guid: d4dd5b5e1be05fe40a178a22a133d2b6
+
   m_configObjects: {}

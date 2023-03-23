@@ -38,7 +38,7 @@ public class TimeUI : MonoBehaviour
     }
     private void UpdateDate()
     {
-        dateText.text = $"Day {TimeManager.Day}";
+        //dateText.text = $"Day {TimeManager.Day}";
 
     }
 }
