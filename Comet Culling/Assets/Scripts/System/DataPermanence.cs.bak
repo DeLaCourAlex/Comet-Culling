@@ -22,8 +22,11 @@ public class DataPermanence : MonoBehaviour
     // Player stamina
     [HideInInspector] public int playerStamina;
 
+<<<<<<< HEAD
+=======
     [HideInInspector] public bool playerTutorial;
 
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
     // The current tutorial stage if applicable
     [HideInInspector] public int tutorialNumber;
 
@@ -33,6 +36,10 @@ public class DataPermanence : MonoBehaviour
     // ALL VARIABLES FOR CROPS AND CROP MANAGEMENT
     [HideInInspector] public int cropA;
     [HideInInspector] public int cropB;
+
+
+
+
 
     // Store the position of each crop and its time alive in a list
     public class CropData
@@ -94,13 +101,15 @@ public class DataPermanence : MonoBehaviour
         playerStamina = 100;
         spaceshipEnergy = 0;
         availableTools = 1;
-
+<<<<<<< HEAD
+=======
         playerTutorial = true;
 
         //Start-off values
         day = 1;
         mins = 0;
         hour = 7;
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
     }
 
     private void Update()
@@ -115,7 +124,17 @@ public class DataPermanence : MonoBehaviour
             }
 
         // Update the UI with the current spaceship energy
+<<<<<<< HEAD
 
+        energyUI.UpdateValue(spaceshipEnergy);
+        //Debug.Log("Spaceship energy in data manager: " + spaceshipEnergy);
+        //Debug.Log("Spaceship energy in UI script: " + energyUI.attributeValue);
+
+
+        energyUI.text = "Spaceship energy = " + spaceshipEnergy.ToString(); 
+
+
+=======
         //energyUI.UpdateValue(spaceshipEnergy);
     }
 
@@ -131,6 +150,6 @@ public class DataPermanence : MonoBehaviour
         playerTutorial = false;
         tutorialNumber = 9;
         availableTools = 5;
-
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
     }
 }

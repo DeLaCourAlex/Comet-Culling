@@ -47,7 +47,7 @@ public class Inventory
 
     }
 
-  
+
 
     //removes item from inventory
     public void RemoveItem(Item item)
@@ -88,4 +88,3 @@ public class Inventory
         return itemList;
     }
 }
-

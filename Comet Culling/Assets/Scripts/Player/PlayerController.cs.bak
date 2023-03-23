@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     BoxCollider2D box;
-
+    
     // The position of the camera follow 
     // Used to change camera position if the player is in certain parts of the scene
     [SerializeField] Transform cameraFollow;
@@ -34,11 +34,16 @@ public class PlayerController : MonoBehaviour
     // CROP RELATED VARIABLES
     [Header("Crop Variables")]
     [SerializeField] GameObject[] crops;
-    int[] cropsHarvested;
+    //made cropsHarvested public so the inventory class can acess it 
+    public int[] cropsHarvested;
 
     // STAMINA RELATED VARIABLES
     public int stamina;
     int MAX_STAMINA = 100;
+<<<<<<< HEAD
+
+=======
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
     int staminaUsedHoe = 2;
     int staminaUsedPlanting = 10;
     int staminaUsedWatering = 3;
@@ -50,7 +55,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject tileSelectYes;
     [SerializeField] GameObject tileSelectNo;
     [SerializeField] GameObject cropPlant;
-    int energyCropA = 10;
+    int energyCropA = 5;
     int energyCropB = 15;
     bool carryCropA;
     bool carryCropB;
@@ -78,6 +83,13 @@ public class PlayerController : MonoBehaviour
 
     // IN GAME TUTORIAL VARIABLES
     // Check if the player is in the tutorial and limit their actions if so
+<<<<<<< HEAD
+    bool inTutorial = true;
+    // The stage of the tutorial the player is currently in
+    public int tutorialNumber { get; private set; } = 0;
+    // Restricts the amount of tools the player can select during the tutorial
+    int availableTools = 1;
+=======
     [SerializeField] bool inTutorial = true;
 
     // The stage of the tutorial the player is currently in
@@ -86,6 +98,7 @@ public class PlayerController : MonoBehaviour
     // Restricts the amount of tools the player can select during the tutorial
     int availableTools = 1;
 
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
     // The tiles with which the player can interact during the tutorial
     // This is a block of 3x3 tiles on the top left corner of the farming area
     // Must be a vector3int because that's what type Unity's tile system uses
@@ -95,31 +108,34 @@ public class PlayerController : MonoBehaviour
         new Vector3Int(-5, 0, 0), new Vector3Int(-4, 0, 0), new Vector3Int(-3, 0, 0)
     };
 
-    //inventory
-    public UI_Inventory ui_Inventory;
-    public Inventory inventory;
-
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
-/*    string cropAText;
+    string cropAText;
     [SerializeField] TextMeshProUGUI cropAUI;
     string cropBText;
-    [SerializeField] TextMeshProUGUI cropBUI;*/
+    [SerializeField] TextMeshProUGUI cropBUI;
     string currentToolString;
     [SerializeField] TextMeshProUGUI currentToolUI;
-/*    string staminaText;
+    string staminaText;
     [SerializeField] TextMeshProUGUI staminaTextUI;
     string spaceshipEnergyText;
-    [SerializeField] TextMeshProUGUI spaceshipEnergyUI;*/
+    [SerializeField] TextMeshProUGUI spaceshipEnergyUI;
+
+    //inventory
+    [SerializeField] public UI_Inventory ui_Inventory;
+    public Inventory inventory;
+
 
     private void Awake()
     {
-        //DontDestroyOnLoad(ui_Inventory);
+        DontDestroyOnLoad(ui_Inventory);
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
         // Initialize member objects and components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -132,26 +148,22 @@ public class PlayerController : MonoBehaviour
         //instantiates inventory and sets inventory to player
         inventory = new Inventory(UseItem);
         ui_Inventory.SetPlayer(this);
-
         //passing in the inventory object onto UI script
         ui_Inventory.SetInventory(inventory);
-
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
             // Set the player position when entering a new scene
             rb.MovePosition(DataPermanence.Instance.playerStartPosition);
+                 tutorialNumber = DataPermanence.Instance.tutorialNumber;
+            availableTools = DataPermanence.Instance.availableTools;
 
             // Set the player member variables
             cropsHarvested = DataPermanence.Instance.cropsHarvested;
             stamina = DataPermanence.Instance.playerStamina;
-            tutorialNumber = DataPermanence.Instance.tutorialNumber;
-            availableTools = DataPermanence.Instance.availableTools;
-            inTutorial = DataPermanence.Instance.playerTutorial;
+<<<<<<< HEAD
 
-            // If there are any crops held in the inventory in data permanence
-            // add them to player inventory in this scene
-            if (DataPermanence.Instance.cropA > 0)
+           if(DataPermanence.Instance.cropA > 0)
             {
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = DataPermanence.Instance.cropA });
                 Debug.Log("inventory DataPermance ammout for crop A" + DataPermanence.Instance.cropA);
@@ -161,19 +173,54 @@ public class PlayerController : MonoBehaviour
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
                 Debug.Log("inventory DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
             }
+           
+          
+
         }
 
-        if (!inTutorial)
+
+=======
+            tutorialNumber = DataPermanence.Instance.tutorialNumber;
+            availableTools = DataPermanence.Instance.availableTools;
+            inTutorial = DataPermanence.Instance.playerTutorial;
+        }
+
+        if(!inTutorial)
             ChangeTutorialStage(5, 9);
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
     }
+
+    //adds a single crop to player upon mouse click and removes a single crop from the inventory
+    public void UseItem(Item item)
+    {
+        switch (item.itemType)
+        {
+            case Item.ItemType.cropA:
+                cropsHarvested[0]++;
+                DataPermanence.Instance.cropA--;
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
+                break;
+            case Item.ItemType.cropB:
+                cropsHarvested[1]++;
+                DataPermanence.Instance.cropB--;
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
+                break;
+
+          
+        }
+
+
+    }
+
+
+
 
     // Update is called once per frame
     // Used to read input, perform calculations, set states etc
     void Update()
     {
         //function to open inventory 
-        if(Input.GetKeyDown(KeyCode.I))
-            ui_Inventory.OpenInventory();
+        ui_Inventory.OpenInventory();
 
         // Read directional input and set the movement vector
         // Normalize to reduce increased speed when moving diagonally
@@ -196,6 +243,10 @@ public class PlayerController : MonoBehaviour
                 raycastCorrector = new Vector3(-0.5f, 0, 0);
         }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
         // Set the direction parameter based on the directional input
         // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
         // will keep the player facing in the current direction
@@ -232,10 +283,10 @@ public class PlayerController : MonoBehaviour
         // Set whether the player is carrying a crop or not
         if (Input.GetButtonDown("No Crops"))
             ChangeCarriedCrops(false, false);
-/*        if (Input.GetButtonDown("Crop A") && cropsHarvested[0] > 0)
+        if (Input.GetButtonDown("Crop A") && cropsHarvested[0] > 0)
             ChangeCarriedCrops(true, false);
         if (Input.GetButtonDown("Crop B") && cropsHarvested[1] > 0)
-            ChangeCarriedCrops(false, true);*/
+            ChangeCarriedCrops(false, true);
 
         // Perform any actions and update the player variables in data permanence
         PerformAction();
@@ -245,9 +296,9 @@ public class PlayerController : MonoBehaviour
         // If we're in the tutorial, check what phase of the tutorial we're in
         // then check if the conditions to finish that phase have been met
         // These functions will move to the next phase of the tutorial of the conditions are met
-        if (inTutorial)
+        if(inTutorial)
         {
-            switch (tutorialNumber)
+            switch(tutorialNumber)
             {
                 case 0:
 
@@ -273,11 +324,19 @@ public class PlayerController : MonoBehaviour
 
                     break;
 
-                /*                case 4:
+<<<<<<< HEAD
+                case 4:
 
-                                    CheckTutorialFiveOver();
+                    CheckTutorialFiveOver();
 
-                                    break;*/
+                    break;
+=======
+/*                case 4:
+
+                    CheckTutorialFiveOver();
+
+                    break;*/
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
 
                 case 5:
 
@@ -303,6 +362,15 @@ public class PlayerController : MonoBehaviour
 
                     break;
             }
+<<<<<<< HEAD
+/*            if(tutorialNumber == 0)
+                CheckTutorialOneOver();
+            else if(tutorialNumber == 1)
+                CheckTutorialTwoOver();*/
+            
+        }
+        
+=======
             Debug.Log("In tutorial: " + inTutorial);
         }
 
@@ -313,9 +381,10 @@ public class PlayerController : MonoBehaviour
         else
             cameraFollow.transform.position = transform.position;
 
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
         // Animator parameters
 
-        // Set the movement animation parameter to detect any movement of the rigidbody
+            // Set the movement animation parameter to detect any movement of the rigidbody
         animator.SetFloat("Movement", rb.velocity.magnitude);
         // Set the player direction parameter
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
@@ -409,22 +478,31 @@ public class PlayerController : MonoBehaviour
             SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
+<<<<<<< HEAD
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged")
+=======
             if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed"))
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
             {
                 DisplayCanInteract(false, false, false);
 
                 // Generator related interactions
+<<<<<<< HEAD
+                if (Input.GetButtonDown("Action") && tag == "Generator")
+                    SpaceshipInteraction(ref spaceshipController);
+=======
                 if (Input.GetButtonDown("Action") && (tag == "Generator"))
                     SpaceshipInteraction(ref spaceshipController);
                 // Bed related interractions
                 if (Input.GetButtonDown("Action") && (tag == "Bed"))
                 {
                     GoToSleep();
-                    if (inTutorial)
+                    if(inTutorial)
                         CheckTutorialFiveOver();
                 }
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
             }
-
+                
             // Otherwise, perform an action based on equipped tool and what's being interacted with
             else
             {
@@ -434,7 +512,8 @@ public class PlayerController : MonoBehaviour
                     case Tools.seedA:
 
                         // Check if we're in the tutorial
-                        if (inTutorial)
+                        if(inTutorial)
+<<<<<<< HEAD
                         {
                             // If we're in the tutorial, can only plant crop A in the middle of the
                             // tutorial tile section during the second phase of the tutorial
@@ -449,7 +528,136 @@ public class PlayerController : MonoBehaviour
                             // Display where crop A will be planted and plant them
                             UseSeed(displayPosition, 0);
                         }
+                        
+                        break;
 
+                    }
+
+                    // If the raycast hits a crop, access its crop controller
+                    CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
+
+                    // Performs an action on the crop depending on what tool is equipped
+                    switch (currentTool)
+                    {
+                        // If the watering can is equipped
+                        case Tools.wateringCan:
+
+                            // Interraction between the watering can and a crop
+                            WateringCan(ref cropController);
+
+                            // Return instead of break
+                            // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
+                            return;
+
+
+                    // Seed B is equipped
+                    case Tools.seedB:
+
+
+
+                        // Display where crop B will be planted and plant them
+                        UseSeed(displayPosition, 1);
+
+                        break;
+
+                    }
+
+
+
+                    // Hoe is equipped 
+                    case Tools.hoe:
+
+                        // If interacting with a dirt tile, till it
+                        if(tag == "Dirt Tile")
+                        {
+                            // Not in tutorial - interact as normal
+                            if(!inTutorial)
+                            {
+                                Hoe(positionInt);
+                                return;
+                            }
+                            // In tutorial - can only till certain tiles
+                            else if(inTutorial)
+                            {
+                                for(int i = 0; i < tutorialTiles.Length; i++)
+                                {
+                                    if (positionInt == tutorialTiles[i])
+                                    {
+                                        Hoe(positionInt);
+                                        Debug.Log("PositionInt: " + positionInt);
+                                        Debug.Log("Tile position: " + tutorialTiles[i]);
+                                        return;
+                                    }
+                                    else
+                                        DisplayCanInteract(false, true, false);
+                                }
+                                    
+                            }
+                        }
+                        else
+                            DisplayCanInteract(false, true, false);
+
+
+                            // Interaction between the hoe and a dirt tile
+                            Hoe(positionInt);
+
+                            break;
+
+                        // If seed A is equipped, plant crop A
+                        case Tools.seedA:
+
+                            // Interaction between the seed and a dirt tile
+                            Seed(positionInt, 0);
+
+                        break;
+
+                    // Watering can is equipped 
+                    case Tools.wateringCan:
+
+
+                        // If interacting with an unwatered crop, water it
+                        if(tag == "Crop")
+                        {
+                            WateringCan(ref cropController);
+                            return;
+                        }
+                        else
+                            DisplayCanInteract(false, true, false);
+
+                        break;
+
+                    case Tools.scythe:
+					
+					// If interacting with a grown crop, harvest it
+                        if (tag == "Crop")
+                        {
+                            Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
+                            return;
+                        }
+                        else
+                            DisplayCanInteract(false, true, false);
+                    
+				}
+                 // STUFF FOR BED HERE
+                    // No need to display tile interaction with the bed
+                    DisplayCanInteract(false, false);
+                    SpaceshipController staminaController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+=======
+                        {
+                            // If we're in the tutorial, can only plant crop A in the middle of the
+                            // tutorial tile section during the second phase of the tutorial
+                            if (positionInt == tutorialTiles[4] && tutorialNumber == 1)
+                                UseSeed(displayPosition, 0);
+                            // Otherwise, can't plant any crops
+                            else
+                                DisplayCanInteract(false, true, false);
+                        }
+                        else if (!inTutorial)
+                        {
+                            // Display where crop A will be planted and plant them
+                            UseSeed(displayPosition, 0);
+                        }
+                        
                         break;
 
                     // Seed B is equipped
@@ -457,6 +665,7 @@ public class PlayerController : MonoBehaviour
 
                         // Display where crop B will be planted and plant them
                         UseSeed(displayPosition, 1);
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
 
                         break;
 
@@ -464,42 +673,63 @@ public class PlayerController : MonoBehaviour
                     case Tools.hoe:
 
                         // If interacting with a dirt tile, till it
-                        if (tag == "Dirt Tile")
+                        if(tag == "Dirt Tile")
                         {
                             // Not in tutorial - interact as normal
-                            if (!inTutorial)
+                            if(!inTutorial)
                             {
                                 Hoe(positionInt);
                                 return;
                             }
                             // In tutorial - can only till certain tiles
-                            else if (inTutorial)
+                            else if(inTutorial)
                             {
-                                for (int i = 0; i < tutorialTiles.Length; i++)
+                                for(int i = 0; i < tutorialTiles.Length; i++)
                                 {
                                     if (positionInt == tutorialTiles[i])
                                     {
                                         Hoe(positionInt);
-                                        //Debug.Log("PositionInt: " + positionInt);
-                                        //Debug.Log("Tile position: " + tutorialTiles[i]);
+                                       //Debug.Log("PositionInt: " + positionInt);
+                                       //Debug.Log("Tile position: " + tutorialTiles[i]);
                                         return;
                                     }
                                     else
                                         DisplayCanInteract(false, true, false);
                                 }
-
+                                    
                             }
                         }
                         else
                             DisplayCanInteract(false, true, false);
 
+<<<<<<< HEAD
+                    }
+					
+					// STUFF FOR GENERATOR HERE
+					SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+                    if (Input.GetButtonDown("Action"))
+                    {
+                        if(spaceshipController.spaceshipEnergy >= spaceshipController.maxSpaceshipEnergy)
+                        {
+                            Debug.Log("Can't charge spaceship anymore - energy full"); 
+                        }
+                        SpaceshipInteraction(ref spaceshipController);
+
+                    }
+=======
                         break;
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
 
                     // Watering can is equipped 
                     case Tools.wateringCan:
 
+<<<<<<< HEAD
+                        break;
+                
+=======
                         // If interacting with an unwatered crop, water it
-                        if (tag == "Crop")
+                        if(tag == "Crop")
                         {
                             WateringCan(ref cropController);
                             return;
@@ -522,6 +752,7 @@ public class PlayerController : MonoBehaviour
 
                         break;
                 }
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
             }
         }
     }
@@ -567,23 +798,41 @@ public class PlayerController : MonoBehaviour
             {
                 // Destroy the game object
                 Destroy(rayHit.transform.gameObject);
+<<<<<<< HEAD
+
                 // Increase the amount of harvested crops
                 //cropsHarvested[cropType]++;
-                switch(cropType)
+                if (crop.isWithered) { /*Do nothing*/}
+
+                if (cropType == 0)
                 {
-                    case 0:
+                    //update cropA in inventory
+                    inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
+                    DataPermanence.Instance.cropA++;
+                    Debug.Log("Crop A is being added");
+                    Debug.Log("DataPermance ammout for crop A" +DataPermanence.Instance.cropA);
+                    Debug.Log("item list: " + inventory.GetItemList());
 
-                        inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
-                        DataPermanence.Instance.cropA++;
-                        break;
-
-                    case 1:
-
-                        inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
-                        DataPermanence.Instance.cropB++;
-                        break;
                 }
-                    
+
+                else if (cropType == 1)
+                {
+                    //update cropB in inventory
+                    inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
+                    DataPermanence.Instance.cropB++;
+                    Debug.Log("DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
+                    Debug.Log("Crop B is being added");
+
+
+              
+
+             
+
+                }
+=======
+                // Increase the amount of harvested crops
+                cropsHarvested[cropType]++;
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
 
                 // Reset the crop's tile to untilled dirt
                 TilemapManager.Instance.ResetTile(pos);
@@ -630,8 +879,13 @@ public class PlayerController : MonoBehaviour
             DisplayCanInteract(false, true, false);
     }
 
+<<<<<<< HEAD
+
+   
+
     // Plant a crop
     void PlantCrop(Vector3Int pos, int cropElement)
+
     {
         // Check if there is a crop game object in the current position
         // Cycle through all the current crops that have been planted
@@ -714,17 +968,139 @@ public class PlayerController : MonoBehaviour
                     // Plant the crop
                     PlantCrop(boxcastPositionInt, cropElement);
 
-                    if (!staminaTaken)
+                    if(!staminaTaken)
                     {
                         // Lower the stamina from the action
                         stamina -= staminaUsedPlanting;
 
                         staminaTaken = true;
-                    }
+                    }    
                 }
             }
     }
 
+/*    // Interaction using a seed with a dirt tile
+    void Seed(Vector3Int pos, int cropElement)
+=======
+    // Plant a crop
+    void PlantCrop(Vector3Int pos, int cropElement)
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
+    {
+        // Check if there is a crop game object in the current position
+        // Cycle through all the current crops that have been planted
+        // And check their position against  where you are trying to plant a new crop
+        GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");
+
+        // Set the position to plant the crop in the center of the tile in question
+        Vector2 cropPosition = new Vector2((float)pos.x + 0.5f, (float)pos.y + 0.5f);
+
+        // If there is another crop in this position, display that we can't perform the interaction 
+        // And leave the function
+        for (int i = 0; i < allCrops.Length; i++)
+            if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
+<<<<<<< HEAD
+            {
+                DisplayCanInteract(false, true, false);
+                return;
+            }
+
+        // Check that the tile is tilled, then trigger the planting animation
+        if (TilemapManager.Instance.IsTilled(pos))
+        {
+            // Show that we can perform this interaction
+            DisplayCanInteract(true, false, false);
+=======
+                return;
+
+        // Check that the tile is tilled, then trigger the planting animation
+        if (TilemapManager.Instance.IsTilled(pos))
+            // Plant a crop on the tile at the location of the player
+            TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
+    }
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
+
+    // Bring up the display to plant a 3x3 square of crops
+    // And call the planting function
+    void UseSeed(Vector2 pos, int cropElement)
+    {
+        // Show that we can perform this interaction
+        DisplayCanInteract(false, true, false);
+
+        // Create 9 boxcasts in a 3x3 square
+        // This is to check if any of the required squares can have a crop planted
+        RaycastHit2D[] cropBoxcasts = new RaycastHit2D[9];
+        int boxcastElement = 0;
+
+        Vector2 boxcastPosition;
+
+        // This for loop makes a 3x3 square of tiles and sets a box cast on each square
+        // With the selected tile in the center
+        for (int i = -1; i < 2; i++)
+            for (int j = -1; j < 2; j++)
+            {
+                // Set the position of the box cast to  the current tile in the 3x3 square
+                boxcastPosition = new Vector2(pos.x + i, pos.y + j);
+
+<<<<<<< HEAD
+                //animator.SetTrigger("Planting");
+=======
+                // Set the size of the boxcast to half a tile
+                Vector2 boxSize = new Vector2(0.5f, 0.5f);
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
+
+                // Cast the boxcast
+                cropBoxcasts[boxcastElement] = Physics2D.BoxCast(boxcastPosition, boxSize, 0, Vector2.zero, LayerMask.GetMask("Dirt Tile"));
+
+                // Move to the next element in the array of boxcasts
+                boxcastElement++;
+            }
+
+<<<<<<< HEAD
+        else
+            // Show that we can't perform this interaction
+            DisplayCanInteract(false, true, false);
+=======
+        // A flag to make sure stamina is taken once for each used seed
+        // Instead of multiple times for each planted crop
+        bool staminaTaken = false;
+
+        // If any of the boxcasts from the 3x3 square hit a tilled tile
+        // Then enable a crop to be planted here and plant one if the action button is pressed
+        foreach (RaycastHit2D boxHit in cropBoxcasts)
+            if (boxHit.collider != null)
+            {
+                // Used to correct for rounding down when converting position to ints
+                // We want to round down, but setting a float to an int only removes after the decimal place
+                // This causes the number to round up if the float value is negative
+                int yCorrectorBox = boxHit.point.y < 0 ? -1 : 0;
+                int xCorrectorBox = boxHit.point.x < 0 ? -1 : 0;
+
+                // Set the raycast hit position to ints because that's what the SetTile function uses
+                Vector3Int boxcastPositionInt = new Vector3Int((int)boxHit.point.x + xCorrectorBox, (int)boxHit.point.y + yCorrectorBox, 0);
+
+                // If any of the selected tiles are tilled tile and can have a crop planted
+                // Then display that this 3x3 box can have crops planted
+                if (TilemapManager.Instance.IsTilled(boxcastPositionInt))
+                    DisplayCanInteract(false, false, true);
+
+                // Plant the crops for each tile in the 3x3 square that can have a crop planted there
+                if (Input.GetButtonDown("Action") && stamina >= staminaUsedPlanting)
+                {
+                    // Plant the crop
+                    PlantCrop(boxcastPositionInt, cropElement);
+
+                    if(!staminaTaken)
+                    {
+                        // Lower the stamina from the action
+                        stamina -= staminaUsedPlanting;
+
+                        staminaTaken = true;
+                    }    
+                }
+            }
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
+    }
+*/
     // Interaction between the player and the spaceship
     // Either charge the spaceship using the crop the player is holding
     // Or charge the player form the spaceship's energy
@@ -733,20 +1109,14 @@ public class PlayerController : MonoBehaviour
         // Charge the spaceship with crop A
         if (carryCropA)
         {
-            // Make sure only one crop is fed into the generator at a certain tutorial stage
-            if (inTutorial && (DataPermanence.Instance.cropA < 9 && tutorialNumber >= 7))
-                return;
-
             // Charge the spaceship
             spaceship.ChargeSpaceship(energyCropA);
 
             // Remove crop from the player's inventory
-            //cropsHarvested[0]--;
-            inventory.RemoveItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
-            DataPermanence.Instance.cropA--;
+            cropsHarvested[0]--;
 
             // If the crop goes below 0, no longer carrying it
-            if (DataPermanence.Instance.cropA <= 0)
+            if (cropsHarvested[0] <= 0)
                 carryCropA = false;
         }
 
@@ -757,15 +1127,22 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropB);
 
             // Remove crop from the player's inventory
-            //cropsHarvested[1]--;
-            inventory.RemoveItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
-            DataPermanence.Instance.cropB--;
+            cropsHarvested[1]--;
 
             // If the crop goes below 0, no longer carrying it
-            if (DataPermanence.Instance.cropB <= 0)
+            if (cropsHarvested[1] <= 0)
                 carryCropB = false;
         }
 
+
+        // Charge the player from the spaceship
+        else
+            spaceship.ChargePlayer(ref stamina);
+
+            
+<<<<<<< HEAD
+        
+=======
         // Charge the player from the spaceship
         else
             spaceship.ChargePlayer(ref stamina);
@@ -815,40 +1192,8 @@ public class PlayerController : MonoBehaviour
 
         TimeManager.Hour = 7;
         TimeManager.Minute = 0;
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
 
-    }
-
-    //adds a single crop to player upon mouse click and removes a single crop from the inventory
-    public void UseItem(Item item)
-    {
-        switch (item.itemType)
-        {
-            case Item.ItemType.cropA:
-
-                if(carryCropA)
-                    ChangeCarriedCrops(false, false);
-                else
-                    ChangeCarriedCrops(true, false);
-
-                ui_Inventory.OpenInventory();
-                //cropsHarvested[0]++;
-                //DataPermanence.Instance.cropA--;
-                //inventory.RemoveItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
-                break;
-
-            case Item.ItemType.cropB:
-
-                if(carryCropB)
-                    ChangeCarriedCrops(true, false);
-                else
-                    ChangeCarriedCrops(false, true);
-
-                ui_Inventory.OpenInventory();
-                //cropsHarvested[1]++;
-                //DataPermanence.Instance.cropB--;
-                //inventory.RemoveItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
-                break;
-        }
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)
@@ -919,7 +1264,7 @@ public class PlayerController : MonoBehaviour
     {
         // Check if the player has entered the spaceship in tutorial four
         // If so, move to the next tutorial stage
-        if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        if(tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
             ChangeTutorialStage(3, 4);
     }
 
@@ -928,6 +1273,19 @@ public class PlayerController : MonoBehaviour
         // TODO: add functionality here to sleep and move to the next day, grow crops, etc
 
         // TEMPORARY CODE TO FULLY GROW ALL CROPS AND MOVE TO NEXT PHASE OF TUTORIAL
+<<<<<<< HEAD
+        if (Input.GetButtonDown("Action"))
+        {
+            // Cycle through the list of crops in data permanence
+            // Set them all to an age where they're fully grown
+            for (int i = 0; i < DataPermanence.Instance.allCrops.Count; i++)
+            {
+                DataPermanence.Instance.allCrops[i].timeAlive = 100;
+            }
+
+            ChangeTutorialStage(4, 5);
+        }
+=======
         //if (Input.GetButtonDown("Action"))
         //{
         //    // Cycle through the list of crops in data permanence
@@ -937,21 +1295,16 @@ public class PlayerController : MonoBehaviour
         //        DataPermanence.Instance.allCrops[i].timeAlive = 100;
         //    }
 
-        ChangeTutorialStage(4, 5);
+            ChangeTutorialStage(4, 5);
         //}
-
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
+            
     }
 
     void CheckTutorialSixOver()
     {
-        if(SceneManager.GetActiveScene().name == "AlexTestScene")
-        {
-            GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
-
-            if (crops.Length == 0)
-                ChangeTutorialStage(4, 6);
-        }
-        
+        if(cropsHarvested[0] == 9)
+            ChangeTutorialStage(4, 6);
     }
 
     void CheckTutorialSevenOver()
@@ -964,19 +1317,22 @@ public class PlayerController : MonoBehaviour
 
     void CheckTutorialEightOver()
     {
-        if (DataPermanence.Instance.cropA == 8)
+        if (cropsHarvested[0] == 0)
             ChangeTutorialStage(4, 8);
     }
 
     void CheckTutorialOver()
     {
-        if (tutorialNumber == 8 && DataPermanence.Instance.spaceshipEnergy == 0)
+        if (tutorialNumber == 8 && stamina == 100)
         {
             ChangeTutorialStage(5, 9);
             inTutorial = false;
+<<<<<<< HEAD
+=======
             DataPermanence.Instance.playerTutorial = false;
+>>>>>>> Alex-trying-to-fix-scary-merge-commits
         }
-
+            
     }
 
     // Used to display any variables to the screen in place of UI for now
@@ -984,21 +1340,21 @@ public class PlayerController : MonoBehaviour
     void TestUI()
     {
         // Display the test variable as UI
-/*        cropAText = "Crop A Held: " + cropsHarvested[0].ToString();
+        cropAText = "Crop A Held: " + cropsHarvested[0].ToString();
         cropAUI.text = cropAText;
 
         cropBText = "Crop B Held: " + cropsHarvested[1].ToString();
-        cropBUI.text = cropBText;*/
+        cropBUI.text = cropBText;
 
         currentToolString = "Tool Equipped: " + currentTool.ToString();
         currentToolUI.text = currentToolString;
 
-/*        staminaText = "Player Stamina: " + stamina.ToString();
+        staminaText = "Player Stamina: " + stamina.ToString();
         staminaTextUI.text = staminaText;
 
         Debug.Log("In player, spaceship energy: " + DataPermanence.Instance.spaceshipEnergy);
         // Set the spaceship energy to a string
         spaceshipEnergyText = "Spaceship Energy: " + DataPermanence.Instance.spaceshipEnergy.ToString();
-        spaceshipEnergyUI.text = spaceshipEnergyText;*/
+        spaceshipEnergyUI.text = spaceshipEnergyText;
     }
 }

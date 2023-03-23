@@ -26,6 +26,19 @@ public class Item
                 return ItemAssets.Instance.cropBSprite;
         }
     }
+    //public bool IsStackable()
+    //{
+    //    switch (itemType)
+    //    {
 
+    //        case ItemType.cropA:
+    //            return true;
+    //        case ItemType.cropB:
+    //            return true;
+    //        default:
+    //            return false;
+    //    }
+
+    //}
 
 }

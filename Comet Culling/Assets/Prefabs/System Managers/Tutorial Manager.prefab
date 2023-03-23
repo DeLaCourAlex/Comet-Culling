@@ -765,7 +765,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.359802, y: -100}
+  m_AnchoredPosition: {x: -18.359802, y: -80}
   m_SizeDelta: {x: 732.5542, y: 161.0674}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7104376733521824235
@@ -796,15 +796,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press ''2'' to equip your harvested crops.
+  m_text: 'Press "I" to open the inventory and click on the crop to equip it.
 
 
-    Interact with the generator
-    using SPACE to feed your crops into the spaceship.
+    Interact
+    with the generator using SPACE to feed your crops into the spaceship.
 
 
-    Feed all of your harvested
-    crops in to charge the generator as fully as you can.'
+    Feed
+    one of your harvested crops in to charge the generator.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1044,9 +1044,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Now that the ship has some energy, press '1' to unequip all items,  and
-    interact with the generator  using SPACE to charge your stamina from the ship's
-    batteries.
+  m_text: 'Now that the ship has some energy, Press "I" to open the inventory and
+    click on the crop to unequip it.
+
+
+    Interact with the generator  using SPACE
+    to charge your stamina from the ship''s batteries.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -14,11 +14,17 @@ public class UI_Inventory : MonoBehaviour
     public Transform itemSlotContainer;
     public Transform itemSlotTemplate;
     public PlayerController playerController;
+    [SerializeField] GameObject backgroundPanel;
     bool isInventoryVisible = false;
+
+    private void Awake()
+    {
+        //DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
-        
+
     }
 
     //sets the player to the UI_inventory scripts so it can aceses the player 
@@ -32,10 +38,11 @@ public class UI_Inventory : MonoBehaviour
     public void OpenInventory()
     {
 
-        if (Input.GetKeyDown(KeyCode.I))
-            isInventoryVisible = !isInventoryVisible;    // Flip bool value when 'I' is pressed
+        
+        isInventoryVisible = !isInventoryVisible;    // Flip bool value when 'I' is pressed
 
         this.gameObject.SetActive(isInventoryVisible);
+        backgroundPanel.SetActive(isInventoryVisible);
     }
 
 
