@@ -23,6 +23,12 @@ public class DataPermanence : MonoBehaviour
     [HideInInspector] public int playerStamina;
 
     // ALL VARIABLES FOR CROPS AND CROP MANAGEMENT
+    [HideInInspector] public int cropA;
+    [HideInInspector] public int cropB;
+
+
+
+
 
     // Store the position of each crop and its time alive in a list
     public class CropData
@@ -32,7 +38,7 @@ public class DataPermanence : MonoBehaviour
         public float wateredMultiplier;
         public bool isWatered;
         public int cropType;
-
+       
         // Constructor for when adding items to the crop list
         public CropData(Vector2 pos, float time, float wMultiplier, bool watered, int type)
         {

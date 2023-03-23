@@ -88,12 +88,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(ui_Inventory);
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
         // Initialize member objects and components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -103,6 +105,11 @@ public class PlayerController : MonoBehaviour
         stamina = MAX_STAMINA;
         cropsHarvested = new int[2];
 
+        //instantiates inventory and sets inventory to player
+        inventory = new Inventory(UseItem);
+        ui_Inventory.SetPlayer(this);
+        //passing in the inventory object onto UI script
+        ui_Inventory.SetInventory(inventory);
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
@@ -112,13 +119,21 @@ public class PlayerController : MonoBehaviour
             // Set the player member variables
             cropsHarvested = DataPermanence.Instance.cropsHarvested;
             stamina = DataPermanence.Instance.playerStamina;
+           if(DataPermanence.Instance.cropA > 0)
+            {
+                inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = DataPermanence.Instance.cropA });
+                Debug.Log("inventory DataPermance ammout for crop A" + DataPermanence.Instance.cropA);
+            }
+            if (DataPermanence.Instance.cropB > 0)
+            {
+                inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
+                Debug.Log("inventory DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
+            }
+           
+          
+
         }
 
-        //instantiates inventory and sets inventory to player
-        inventory = new Inventory(UseItem);
-        ui_Inventory.SetPlayer(this);
-        //passing in the inventory object onto UI script
-        ui_Inventory.SetInventory(inventory);
 
     }
 
@@ -129,10 +144,12 @@ public class PlayerController : MonoBehaviour
         {
             case Item.ItemType.cropA:
                 cropsHarvested[0]++;
+                DataPermanence.Instance.cropA--;
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
                 break;
             case Item.ItemType.cropB:
                 cropsHarvested[1]++;
+                DataPermanence.Instance.cropB--;
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
                 break;
         }
@@ -478,7 +495,9 @@ public class PlayerController : MonoBehaviour
                 {
                     //update cropA in inventory
                     inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
+                    DataPermanence.Instance.cropA++;
                     Debug.Log("Crop A is being added");
+                    Debug.Log("DataPermance ammout for crop A" +DataPermanence.Instance.cropA);
                     Debug.Log("item list: " + inventory.GetItemList());
 
                 }
@@ -487,6 +506,8 @@ public class PlayerController : MonoBehaviour
                 {
                     //update cropB in inventory
                     inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
+                    DataPermanence.Instance.cropB++;
+                    Debug.Log("DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
                     Debug.Log("Crop B is being added");
                 }
 

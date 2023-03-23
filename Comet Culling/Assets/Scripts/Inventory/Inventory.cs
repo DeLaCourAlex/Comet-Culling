@@ -12,6 +12,7 @@ public class Inventory
     private Action<Item> useItemAction;
     internal static object gameObject;
 
+
     public Inventory(Action<Item> useItemAction)
     {
         this.useItemAction = useItemAction;

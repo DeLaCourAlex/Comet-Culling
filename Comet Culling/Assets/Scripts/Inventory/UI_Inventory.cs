@@ -18,7 +18,7 @@ public class UI_Inventory : MonoBehaviour
 
     private void Start()
     {
-        //OpenInventory();
+        
     }
 
     //sets the player to the UI_inventory scripts so it can aceses the player 
