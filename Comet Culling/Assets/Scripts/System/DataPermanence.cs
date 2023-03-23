@@ -4,7 +4,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; 
 using UnityEngine.Tilemaps;
 
 public class DataPermanence : MonoBehaviour
@@ -22,6 +21,9 @@ public class DataPermanence : MonoBehaviour
 
     // Player stamina
     [HideInInspector] public int playerStamina;
+
+    [HideInInspector] public bool playerTutorial;
+
 
     // The current tutorial stage if applicable
     [HideInInspector] public int tutorialNumber;
@@ -67,10 +69,15 @@ public class DataPermanence : MonoBehaviour
 
     [HideInInspector] public int spaceshipEnergy;
 
+    // TIME/DAY VARIABLES
+    [HideInInspector] public int day;
+    [HideInInspector] public int hour;
+    [HideInInspector] public int mins;
+
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
     // UI to display the spaceships energy
     //[Header("UI References")]
-    //[SerializeField] TextMeshProUGUI energyUI;
+    //[SerializeField] UI energyUI;
 
     // Called when the object containing the script is initialized
     private void Awake()
@@ -92,6 +99,13 @@ public class DataPermanence : MonoBehaviour
         playerStamina = 100;
         spaceshipEnergy = 0;
         availableTools = 1;
+
+        playerTutorial = true;
+
+        //Start-off values
+        day = 1;
+        mins = 0;
+        hour = 7;
     }
 
     private void Update()
@@ -107,13 +121,21 @@ public class DataPermanence : MonoBehaviour
 
         // Update the UI with the current spaceship energy
 
-        energyUI.UpdateValue(spaceshipEnergy);
-        //Debug.Log("Spaceship energy in data manager: " + spaceshipEnergy);
-        //Debug.Log("Spaceship energy in UI script: " + energyUI.attributeValue);
+        //energyUI.UpdateValue(spaceshipEnergy);
+    }
 
+    public void PlayerStartTutorial()
+    {
+        playerTutorial = true;
+        tutorialNumber = 0;
+        availableTools = 1;
+    }
 
-        energyUI.text = "Spaceship energy = " + spaceshipEnergy.ToString(); 
-
+    public void PlayerStartNoTutorial()
+    {
+        playerTutorial = false;
+        tutorialNumber = 9;
+        availableTools = 5;
 
     }
 }

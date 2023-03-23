@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Crop
+  - Generator
+  - Dirt Tile
+  - Grass Tile
+  - Bed
   layers:
   - Default
   - TransparentFX
@@ -11,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Crop
+  - Dirt Tile
   - 
   - 
   - 

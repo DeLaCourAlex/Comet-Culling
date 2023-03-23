@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Comet Culling/Assets/Scenes/Test Scenes/ShangitTestScene 2.unity.meta
 guid: 2ff7f0aa663cb6040bc37f0e5f820962
 DefaultImporter:
+========
+guid: d7d41614a862e8d4d91fcfd22430747b
+PrefabImporter:
+>>>>>>>> Alex-trying-to-fix-scary-merge-commits:Comet Culling/Assets/Prefabs/bed.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
