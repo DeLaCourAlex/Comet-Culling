@@ -21,7 +21,7 @@ public class TilemapManager : MonoBehaviour
     Dictionary<TileBase, ScriptableTile> tileData;
 
     // Called when the script object is initialized
-    private void Awake()
+    private void Start()
     {
         Instance = this;
 

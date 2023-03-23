@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; 
 using UnityEngine.Tilemaps;
 
 public class DataPermanence : MonoBehaviour
@@ -21,6 +22,12 @@ public class DataPermanence : MonoBehaviour
 
     // Player stamina
     [HideInInspector] public int playerStamina;
+
+    // The current tutorial stage if applicable
+    [HideInInspector] public int tutorialNumber;
+
+    // THe available tools, used to minimize tool use during tutorials
+    [HideInInspector] public int availableTools;
 
     // ALL VARIABLES FOR CROPS AND CROP MANAGEMENT
     [HideInInspector] public int cropA;
@@ -62,8 +69,8 @@ public class DataPermanence : MonoBehaviour
 
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
     // UI to display the spaceships energy
-    [Header("UI References")]
-    [SerializeField] UI energyUI;
+    //[Header("UI References")]
+    //[SerializeField] TextMeshProUGUI energyUI;
 
     // Called when the object containing the script is initialized
     private void Awake()
@@ -83,7 +90,8 @@ public class DataPermanence : MonoBehaviour
 
         cropsHarvested = new int[2];
         playerStamina = 100;
-        spaceshipEnergy = 100;
+        spaceshipEnergy = 0;
+        availableTools = 1;
     }
 
     private void Update()
@@ -98,8 +106,14 @@ public class DataPermanence : MonoBehaviour
             }
 
         // Update the UI with the current spaceship energy
+
         energyUI.UpdateValue(spaceshipEnergy);
         //Debug.Log("Spaceship energy in data manager: " + spaceshipEnergy);
         //Debug.Log("Spaceship energy in UI script: " + energyUI.attributeValue);
+
+
+        energyUI.text = "Spaceship energy = " + spaceshipEnergy.ToString(); 
+
+
     }
 }

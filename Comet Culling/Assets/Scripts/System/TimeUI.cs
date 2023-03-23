@@ -10,13 +10,16 @@ public class TimeUI : MonoBehaviour
     public TextMeshProUGUI dateText;
     private void Start()
     {
+
+        UpdateTime();
         UpdateDate();
-        UpdateTime(); 
+
     }
+
     private void OnEnable()
     {
         TimeManager.OnMinuteChanged += UpdateTime;
-        TimeManager.OnHourChanged += UpdateTime; 
+        TimeManager.OnHourChanged += UpdateTime;
         TimeManager.OnDayChanged += UpdateDate;
     }
 
@@ -31,13 +34,11 @@ public class TimeUI : MonoBehaviour
     private void UpdateTime()
     {
         timeText.text = $"{TimeManager.Hour:00}:{TimeManager.Minute:00}"; //The 00 is a mask here so the empty string space can be filled w/ a 0
-        //dateText.text = $"{TimeManager.Day}";
+
     }
     private void UpdateDate()
     {
         //dateText.text = $"Day {TimeManager.Day}";
-
-        //dateText.text = $"Day one";
 
     }
 }
