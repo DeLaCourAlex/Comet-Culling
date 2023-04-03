@@ -33,12 +33,15 @@ public class TimeUI : MonoBehaviour
 
     private void UpdateTime()
     {
-        timeText.text = $"{TimeManager.Hour:00}:{TimeManager.Minute:00}"; //The 00 is a mask here so the empty string space can be filled w/ a 0
+        if(timeText != null)
+            timeText.text = $"{TimeManager.Hour:00}:{TimeManager.Minute:00}"; //The 00 is a mask here so the empty string space can be filled w/ a 0
 
     }
     private void UpdateDate()
     {
-        dateText.text = $"Day {TimeManager.Day}";
+
+        if(dateText != null)
+            dateText.text = $"Day {TimeManager.Day}";
 
     }
 }

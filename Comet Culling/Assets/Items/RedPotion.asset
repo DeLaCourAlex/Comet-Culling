@@ -15,4 +15,6 @@ MonoBehaviour:
   id: 1
   itemName: Red Potion
   value: 10
+  amount: 1
   icon: {fileID: 21300000, guid: 06fb5f6981b459b4e80f56b6cc120933, type: 3}
+  itemType: 0

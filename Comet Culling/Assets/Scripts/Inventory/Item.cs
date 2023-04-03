@@ -1,24 +1,44 @@
-
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Item/Create New Item")]
-public class Item : ScriptableObject
+[Serializable]
+public class Item
 {
-
-    public int id;
-    public string itemName;
-    public int value;
-    public Sprite icon;
     public ItemType itemType;
-
-
+    public int amount;
     public enum ItemType
     {
-        Potion,
-        Other
+        cropA,
+        cropB
     }
 
+    public Sprite GetSprite()
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.cropA:
+                return ItemAssets.Instance.cropASprite;
 
+            case ItemType.cropB:
+                return ItemAssets.Instance.cropBSprite;
+        }
+    }
+    //public bool IsStackable()
+    //{
+    //    switch (itemType)
+    //    {
 
+    //        case ItemType.cropA:
+    //            return true;
+    //        case ItemType.cropB:
+    //            return true;
+    //        default:
+    //            return false;
+    //    }
+
+    //}
 
 }

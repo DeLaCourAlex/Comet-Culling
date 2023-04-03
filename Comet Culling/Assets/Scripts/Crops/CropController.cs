@@ -29,13 +29,12 @@ public class CropController : MonoBehaviour
     public bool isWatered { get; set; }
 
     public bool isGrown { get; private set; }
-    public bool isWithered { get; private set; }
+
     public float wateredMultiplier { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        isWithered = false; 
         animator = GetComponent<Animator>();
     }
 
@@ -55,20 +54,12 @@ public class CropController : MonoBehaviour
         if (timeAlive >= timeToGrow)
             isGrown = true;
 
-        if (isGrown && timeAlive > TimeManager.Day)
-            //If the crop has been mature + alive for more than one day, wither
-            //Will add another && here so it can check the condition if the player has gone to sleep 
-            isWithered = true; 
-        else
-            isWithered = false;
         // Animator parameters
 
         // Set the age of the crop
         animator.SetBool("Is Grown", isGrown);
         // Set if the crop has been watered
         animator.SetBool("Watered", isWatered);
-        // Set if the crop is withered
-        animator.SetBool("Withered", isWithered);
         // Set the crop type depending on its element number
         animator.SetFloat("Element", elementNumber);
     }

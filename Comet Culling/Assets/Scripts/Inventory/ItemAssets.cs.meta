@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 7db5444f14856ba42b20188db612209b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cropASprite: {fileID: 2012134669, guid: 43758eee287c87246ab665291bf7f5ef, type: 3}
+  - cropBSprite: {fileID: -1712161372, guid: 750314e80720ff54295561cd1d950d73, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

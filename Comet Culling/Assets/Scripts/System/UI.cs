@@ -4,20 +4,37 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    Animator animator;
+    Animator animatorStamina;
+    Animator animatorEnergy;
+    [SerializeField] GameObject staminaBar;
+    [SerializeField] GameObject energyBar;
 
     // The attribute to be displayed ie stamina, energy, health etc.
-    int attributeValue;
+    /*public int attributeValue;*/
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        animatorStamina = staminaBar.GetComponent<Animator>();
+        animatorEnergy = energyBar.GetComponent<Animator>();
     }
 
-    public void UpdateValue(int value)
+    private void Update()
     {
-        if(animator != null)
-            animator.SetFloat("Value", value);
+        if (animatorStamina != null)
+        {
+            animatorStamina.SetFloat("Value", DataPermanence.Instance.playerStamina / 10);
+/*            Debug.Log("UPDATING STAMINA UI");*/
+            //Debug.Log("Stamina: " + DataPermanence.Instance.playerStamina / 10);
+        }
+            
+
+        if (animatorEnergy != null)
+        {
+            animatorEnergy.SetFloat("Value", DataPermanence.Instance.spaceshipEnergy / 10);
+            Debug.Log("UPDATING ENERGY UI");
+            Debug.Log("Energy: " + DataPermanence.Instance.spaceshipEnergy);
+        }
+
     }
     // Update is called once per frame
 /*    void Update()
