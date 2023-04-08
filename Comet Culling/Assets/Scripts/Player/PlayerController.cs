@@ -137,14 +137,14 @@ public class PlayerController : MonoBehaviour
         {
             // Set the player position when entering a new scene
             rb.MovePosition(DataPermanence.Instance.playerStartPosition);
-                 tutorialNumber = DataPermanence.Instance.tutorialNumber;
+            tutorialNumber = DataPermanence.Instance.tutorialNumber;
             availableTools = DataPermanence.Instance.availableTools;
 
             // Set the player member variables
             cropsHarvested = DataPermanence.Instance.cropsHarvested;
             stamina = DataPermanence.Instance.playerStamina;
 
-           if(DataPermanence.Instance.cropA > 0)
+            if (DataPermanence.Instance.cropA > 0)
             {
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = DataPermanence.Instance.cropA });
                 Debug.Log("inventory DataPermance ammout for crop A" + DataPermanence.Instance.cropA);
@@ -154,8 +154,8 @@ public class PlayerController : MonoBehaviour
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
                 Debug.Log("inventory DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
             }
-           
-          
+
+
 
         }
 
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
                 break;
 
-          
+
         }
 
 
@@ -265,9 +265,9 @@ public class PlayerController : MonoBehaviour
         // If we're in the tutorial, check what phase of the tutorial we're in
         // then check if the conditions to finish that phase have been met
         // These functions will move to the next phase of the tutorial of the conditions are met
-        if(inTutorial)
+        if (inTutorial)
         {
-            switch(tutorialNumber)
+            switch (tutorialNumber)
             {
                 case 0:
 
@@ -323,13 +323,13 @@ public class PlayerController : MonoBehaviour
 
                     break;
             }
-/*            if(tutorialNumber == 0)
-                CheckTutorialOneOver();
-            else if(tutorialNumber == 1)
-                CheckTutorialTwoOver();*/
-            
+            /*            if(tutorialNumber == 0)
+                            CheckTutorialOneOver();
+                        else if(tutorialNumber == 1)
+                            CheckTutorialTwoOver();*/
+
         }
-        
+
         // Animator parameters
 
         // Set the movement animation parameter to detect any movement of the rigidbody
@@ -434,7 +434,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetButtonDown("Action") && tag == "Generator")
                     SpaceshipInteraction(ref spaceshipController);
             }
-                
+
             // Otherwise, perform an action based on equipped tool and what's being interacted with
             else
             {
@@ -444,7 +444,7 @@ public class PlayerController : MonoBehaviour
                     case Tools.seedA:
 
                         // Check if we're in the tutorial
-                        if(inTutorial)
+                        if (inTutorial)
                         {
                             // If we're in the tutorial, can only plant crop A in the middle of the
                             // tutorial tile section during the second phase of the tutorial
@@ -459,58 +459,52 @@ public class PlayerController : MonoBehaviour
                             // Display where crop A will be planted and plant them
                             UseSeed(displayPosition, 0);
                         }
-                        
+
                         break;
 
-                    }
+                }
 
-                    // If the raycast hits a crop, access its crop controller
-                    CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
+                // If the raycast hits a crop, access its crop controller
+                CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
 
-                    // Performs an action on the crop depending on what tool is equipped
-                    switch (currentTool)
-                    {
-                        // If the watering can is equipped
-                        case Tools.wateringCan:
+                // Performs an action on the crop depending on what tool is equipped
+                switch (currentTool)
+                {
+                    // If the watering can is equipped
+                    case Tools.wateringCan:
 
-                            // Interraction between the watering can and a crop
-                            WateringCan(ref cropController);
+                        // Interraction between the watering can and a crop
+                        WateringCan(ref cropController);
 
-                            // Return instead of break
-                            // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
-                            return;
+                        // Return instead of break
+                        // Want to leave the function so that it doesn't register the subsequent hit of the dirt tile
+                        return;
 
 
                     // Seed B is equipped
                     case Tools.seedB:
-
-
 
                         // Display where crop B will be planted and plant them
                         UseSeed(displayPosition, 1);
 
                         break;
 
-                    }
-
-
-
                     // Hoe is equipped 
                     case Tools.hoe:
 
                         // If interacting with a dirt tile, till it
-                        if(tag == "Dirt Tile")
+                        if (tag == "Dirt Tile")
                         {
                             // Not in tutorial - interact as normal
-                            if(!inTutorial)
+                            if (!inTutorial)
                             {
                                 Hoe(positionInt);
                                 return;
                             }
                             // In tutorial - can only till certain tiles
-                            else if(inTutorial)
+                            else if (inTutorial)
                             {
-                                for(int i = 0; i < tutorialTiles.Length; i++)
+                                for (int i = 0; i < tutorialTiles.Length; i++)
                                 {
                                     if (positionInt == tutorialTiles[i])
                                     {
@@ -522,23 +516,23 @@ public class PlayerController : MonoBehaviour
                                     else
                                         DisplayCanInteract(false, true, false);
                                 }
-                                    
+
                             }
                         }
                         else
                             DisplayCanInteract(false, true, false);
 
 
-                            // Interaction between the hoe and a dirt tile
-                            Hoe(positionInt);
+                        // Interaction between the hoe and a dirt tile
+                        Hoe(positionInt);
 
-                            break;
+                        break;
 
-                        // If seed A is equipped, plant crop A
-                        case Tools.seedA:
+                    // If seed A is equipped, plant crop A
+                    case Tools.seedA:
 
-                            // Interaction between the seed and a dirt tile
-                            Seed(positionInt, 0);
+                        // Interaction between the seed and a dirt tile
+                        Seed(positionInt, 0);
 
                         break;
 
@@ -547,7 +541,7 @@ public class PlayerController : MonoBehaviour
 
 
                         // If interacting with an unwatered crop, water it
-                        if(tag == "Crop")
+                        if (tag == "Crop")
                         {
                             WateringCan(ref cropController);
                             return;
@@ -558,8 +552,8 @@ public class PlayerController : MonoBehaviour
                         break;
 
                     case Tools.scythe:
-					
-					// If interacting with a grown crop, harvest it
+
+                        // If interacting with a grown crop, harvest it
                         if (tag == "Crop")
                         {
                             Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
@@ -567,45 +561,45 @@ public class PlayerController : MonoBehaviour
                         }
                         else
                             DisplayCanInteract(false, true, false);
-                    
-				}
-                 // STUFF FOR BED HERE
-                    // No need to display tile interaction with the bed
-                    DisplayCanInteract(false, false);
-                    SpaceshipController staminaController = hit.transform.gameObject.GetComponent<SpaceshipController>();
 
-                    if (Input.GetButtonDown("Action"))
+                }
+                // STUFF FOR BED HERE
+                // No need to display tile interaction with the bed
+                DisplayCanInteract(false, false);
+                SpaceshipController staminaController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+                if (Input.GetButtonDown("Action"))
+                {
+                    //Add logic here to ask player if they want to go to sleep
+                    //If (goesToSleep){
+                    //TimeManager.Day++;
+                    //Set time to be 7 AM
+                    // Reset all tilled tiles that do not have anything planted
+                    // And also make the crops grow... this probably needs to go in its separate function
+                    // Ask alex how we can work around the growing}
+
+                    staminaController.ChargePlayer(ref stamina);
+
+
+                }
+
+                // STUFF FOR GENERATOR HERE
+                SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+
+                if (Input.GetButtonDown("Action"))
+                {
+                    if (spaceshipController.spaceshipEnergy >= spaceshipController.maxSpaceshipEnergy)
                     {
-                        //Add logic here to ask player if they want to go to sleep
-                        //If (goesToSleep){
-                        //TimeManager.Day++;
-                        //Set time to be 7 AM
-                        // Reset all tilled tiles that do not have anything planted
-                        // And also make the crops grow... this probably needs to go in its separate function
-                        // Ask alex how we can work around the growing}
-
-                        staminaController.ChargePlayer(ref stamina);
-
-
+                        Debug.Log("Can't charge spaceship anymore - energy full");
                     }
-					
-					// STUFF FOR GENERATOR HERE
-					SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+                    SpaceshipInteraction(ref spaceshipController);
 
-                    if (Input.GetButtonDown("Action"))
-                    {
-                        if(spaceshipController.spaceshipEnergy >= spaceshipController.maxSpaceshipEnergy)
-                        {
-                            Debug.Log("Can't charge spaceship anymore - energy full"); 
-                        }
-                        SpaceshipInteraction(ref spaceshipController);
+                }
 
-                    }
+                break;
 
-                    break;
+               
 
-                        break;
-                
             }
         }
     }
@@ -663,7 +657,7 @@ public class PlayerController : MonoBehaviour
                     inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
                     DataPermanence.Instance.cropA++;
                     Debug.Log("Crop A is being added");
-                    Debug.Log("DataPermance ammout for crop A" +DataPermanence.Instance.cropA);
+                    Debug.Log("DataPermance ammout for crop A" + DataPermanence.Instance.cropA);
                     Debug.Log("item list: " + inventory.GetItemList());
 
                 }
@@ -677,9 +671,9 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Crop B is being added");
 
 
-              
 
-             
+
+
 
                 }
 
@@ -729,7 +723,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-   
+
 
     // Plant a crop
     void PlantCrop(Vector3Int pos, int cropElement)
@@ -816,61 +810,61 @@ public class PlayerController : MonoBehaviour
                     // Plant the crop
                     PlantCrop(boxcastPositionInt, cropElement);
 
-                    if(!staminaTaken)
+                    if (!staminaTaken)
                     {
                         // Lower the stamina from the action
                         stamina -= staminaUsedPlanting;
 
                         staminaTaken = true;
-                    }    
+                    }
                 }
             }
     }
 
-/*    // Interaction using a seed with a dirt tile
-    void Seed(Vector3Int pos, int cropElement)
-    {
-        // Check if there is a crop game object in the current position
-        // Cycle through all the current crops that have been planted
-        // And check their position against  where you are trying to plant a new crop
-        GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");
-
-        // Set the position to plant the crop in the center of the tile in question
-        Vector2 cropPosition = new Vector2((float)pos.x + 0.5f, (float)pos.y + 0.5f);
-
-        // If there is another crop in this position, display that we can't perform the interaction 
-        // And leave the function
-        for (int i = 0; i < allCrops.Length; i++)
-            if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
-            {
-                DisplayCanInteract(false, true, false);
-                return;
-            }
-
-        // Check that the tile is tilled, then trigger the planting animation
-        if (TilemapManager.Instance.IsTilled(pos))
+    /*    // Interaction using a seed with a dirt tile
+        void Seed(Vector3Int pos, int cropElement)
         {
-            // Show that we can perform this interaction
-            DisplayCanInteract(true, false, false);
+            // Check if there is a crop game object in the current position
+            // Cycle through all the current crops that have been planted
+            // And check their position against  where you are trying to plant a new crop
+            GameObject[] allCrops = GameObject.FindGameObjectsWithTag("Crop");
 
-            // Perform the interaction
-            if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+            // Set the position to plant the crop in the center of the tile in question
+            Vector2 cropPosition = new Vector2((float)pos.x + 0.5f, (float)pos.y + 0.5f);
+
+            // If there is another crop in this position, display that we can't perform the interaction 
+            // And leave the function
+            for (int i = 0; i < allCrops.Length; i++)
+                if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
+                {
+                    DisplayCanInteract(false, true, false);
+                    return;
+                }
+
+            // Check that the tile is tilled, then trigger the planting animation
+            if (TilemapManager.Instance.IsTilled(pos))
             {
-                // Plant a crop on the tile at the location of the player
-                TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
+                // Show that we can perform this interaction
+                DisplayCanInteract(true, false, false);
 
-                //animator.SetTrigger("Planting");
+                // Perform the interaction
+                if (Input.GetButtonDown("Action") && stamina >= staminaPerAction)
+                {
+                    // Plant a crop on the tile at the location of the player
+                    TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
 
-                // Lower the stamina from the action
-                stamina -= staminaPerAction;
+                    //animator.SetTrigger("Planting");
+
+                    // Lower the stamina from the action
+                    stamina -= staminaPerAction;
+                }
             }
-        }
 
-        else
-            // Show that we can't perform this interaction
-            DisplayCanInteract(false, true, false);
-    }
-*/
+            else
+                // Show that we can't perform this interaction
+                DisplayCanInteract(false, true, false);
+        }
+    */
     // Interaction between the player and the spaceship
     // Either charge the spaceship using the crop the player is holding
     // Or charge the player form the spaceship's energy
@@ -909,8 +903,8 @@ public class PlayerController : MonoBehaviour
         else
             spaceship.ChargePlayer(ref stamina);
 
-            
-        
+
+
 
     }
 
@@ -982,7 +976,7 @@ public class PlayerController : MonoBehaviour
     {
         // Check if the player has entered the spaceship in tutorial four
         // If so, move to the next tutorial stage
-        if(tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
             ChangeTutorialStage(3, 4);
     }
 
@@ -1002,12 +996,12 @@ public class PlayerController : MonoBehaviour
 
             ChangeTutorialStage(4, 5);
         }
-            
+
     }
 
     void CheckTutorialSixOver()
     {
-        if(cropsHarvested[0] == 9)
+        if (cropsHarvested[0] == 9)
             ChangeTutorialStage(4, 6);
     }
 
@@ -1032,7 +1026,7 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 9);
             inTutorial = false;
         }
-            
+
     }
 
     // Used to display any variables to the screen in place of UI for now
