@@ -229,6 +229,10 @@ public class PlayerController : MonoBehaviour
                 currentTool++;
         }
 
+        // When press escape, quit the game
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+
         // Set whether the player is carrying a crop or not
         if (Input.GetButtonDown("No Crops"))
             ChangeCarriedCrops(false, false);
@@ -320,8 +324,8 @@ public class PlayerController : MonoBehaviour
         // Set the player direction parameter
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
         // Set the crops that the player is or isn't carrying
-        animator.SetBool("Holding Crop A", carryCropA);
-        animator.SetBool("Holding Crop B", carryCropB);
+        //animator.SetBool("Holding Crop A", carryCropA);
+        //animator.SetBool("Holding Crop B", carryCropB);
 
         // Set the variables for the test UI
         TestUI();
@@ -375,9 +379,11 @@ public class PlayerController : MonoBehaviour
         // Set the raycast direction depending on where the player is facing
         // First set the transforms to vector 2s
         Vector2 raycastDirection = (raycastEnd.transform.position) - (transform.position);
-        RaycastHit2D[] rayCast = Physics2D.RaycastAll(raycastEnd.transform.position + raycastCorrector, raycastDirection, 0.2f);
+        Vector2 raycastStart = new Vector2(transform.position.x, transform.position.y - 0.375f);
+        RaycastHit2D[] rayCast = Physics2D.RaycastAll(raycastStart, raycastDirection, 0.125f);
+        //RaycastHit2D[] rayCast = Physics2D.RaycastAll(raycastEnd.transform.position + raycastCorrector, raycastDirection, 0.2f);
 
-        Debug.DrawRay(raycastEnd.transform.position + raycastCorrector, raycastDirection, Color.cyan, 1f, false);
+        //Debug.DrawRay(raycastEnd.transform.position + raycastCorrector, raycastDirection, Color.cyan, 1f, false);
         // Cycle through all hits from the boxcast
         // check to see if any the object hit has any tag
         // Use this to determine what actions to perform depending on what tool the player has activated
