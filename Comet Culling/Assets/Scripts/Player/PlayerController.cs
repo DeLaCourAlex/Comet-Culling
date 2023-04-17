@@ -44,6 +44,14 @@ public class PlayerController : MonoBehaviour
     int staminaUsedWatering = 3;
     int staminaUsedScythe = 5;
 
+    // DEATH RELATED VARIABLES
+    // Flag that the player is out of stamina and spaceship is out of energy
+    bool resourcesDepleted;
+    // Set the day, hour and minute until player death
+    int deathDay;
+    int deathHour;
+    int deathMinute;
+
     // INTERRACTION/ACTION VARIABLES
     [Header("Interaction/Action Variables")]
     [SerializeField] Transform raycastEnd;
@@ -75,6 +83,9 @@ public class PlayerController : MonoBehaviour
     // The currently equipped tool
     // Determines which action to perform
     Tools currentTool = Tools.hoe;
+
+    // Reference to the pause screen, to enable and disable it
+    [SerializeField] GameObject pauseScreen;
 
     // IN GAME TUTORIAL VARIABLES
     // Check if the player is in the tutorial and limit their actions if so
@@ -149,6 +160,10 @@ public class PlayerController : MonoBehaviour
             availableTools = DataPermanence.Instance.availableTools;
             inTutorial = DataPermanence.Instance.playerTutorial;
 
+            resourcesDepleted = DataPermanence.Instance.resourcesDepleted;
+            deathDay = DataPermanence.Instance.deathDay;
+            deathHour = DataPermanence.Instance.deathHour;
+            deathMinute = DataPermanence.Instance.deathMinute;
             // If there are any crops held in the inventory in data permanence
             // add them to player inventory in this scene
             if (DataPermanence.Instance.cropA > 0)
@@ -171,8 +186,21 @@ public class PlayerController : MonoBehaviour
     // Used to read input, perform calculations, set states etc
     void Update()
     {
+        
+
+        // Stop movement during certain animations
+        // Get the name of the current animation
+        string currentAnimation = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        // Check if the current animation should stop movement
+        if (currentAnimation == "Player Hoe Down" || currentAnimation == "Player Hoe Sideways" || currentAnimation == "Player Hoe Up" ||
+            currentAnimation == "Player Scythe Down" || currentAnimation == "Player Scythe Sideways" || currentAnimation == "Player Scythe Up" ||
+            currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up")
+            canMove = false;
+        else
+            canMove = true;
+
         //function to open inventory 
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
             ui_Inventory.OpenInventory();
 
         // Read directional input and set the movement vector
@@ -229,9 +257,11 @@ public class PlayerController : MonoBehaviour
                 currentTool++;
         }
 
-        // When press escape, quit the game
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Application.Quit();
+        if (Input.GetButtonDown("Cancel"))
+            PauseGame();
+        //// When press escape, quit the game
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //    Application.Quit();
 
         // Set whether the player is carrying a crop or not
         if (Input.GetButtonDown("No Crops"))
@@ -245,6 +275,9 @@ public class PlayerController : MonoBehaviour
         PerformAction();
         DataPermanence.Instance.playerStamina = stamina;
         DataPermanence.Instance.cropsHarvested = cropsHarvested;
+
+        // Check if the player has no resources and if so, for how long this has been the case
+        DeathCheck();
 
         // If we're in the tutorial, check what phase of the tutorial we're in
         // then check if the conditions to finish that phase have been met
@@ -548,7 +581,7 @@ public class PlayerController : MonoBehaviour
                 crop.isWatered = true;
 
                 // Trigger the watering animation
-                //animator.SetTrigger("Watering");
+                animator.SetTrigger("Watering");
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedWatering;
@@ -595,7 +628,7 @@ public class PlayerController : MonoBehaviour
                 TilemapManager.Instance.ResetTile(pos);
 
                 // Trigger the harvesting animation
-                //animator.SetTrigger("Harvesting");
+                animator.SetTrigger("Harvesting");
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedScythe;
@@ -622,7 +655,7 @@ public class PlayerController : MonoBehaviour
                 TilemapManager.Instance.TillDirt(pos);
 
                 // Trigged the tilling animation
-                //animator.SetTrigger("Tilling");
+                animator.SetTrigger("Tilling");
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
@@ -855,6 +888,40 @@ public class PlayerController : MonoBehaviour
                 //inventory.RemoveItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
                 break;
         }
+    }
+
+    // Check if the player stamina and ship energy are empty
+    // If they are, the player has one day to find some stamina or energy before death
+    void DeathCheck()
+    {
+        // If resources are empty, set the flag to true and begin the death countdown
+        if (DataPermanence.Instance.spaceshipEnergy <= 0 && stamina <= 0 && !resourcesDepleted)
+        {
+            resourcesDepleted = true;
+            deathDay = TimeManager.Day + 1;
+            deathHour = TimeManager.Hour;
+            deathMinute = TimeManager.Minute;
+            DataPermanence.Instance.deathDay = deathDay;
+            DataPermanence.Instance.deathHour = deathHour;
+            DataPermanence.Instance.deathMinute = deathMinute;
+        }
+        
+        // If resources are gained before death, unset the bool
+        if (resourcesDepleted && (DataPermanence.Instance.spaceshipEnergy > 0 || stamina > 0))
+            resourcesDepleted = false;
+
+        // If one day is passed with no resources, the player dies
+        if (resourcesDepleted && TimeManager.Day >= deathDay && TimeManager.Hour >= deathHour && TimeManager.Minute >= deathMinute)
+            SceneChanger.Instance.ChangeScene("Game Over", Vector2.zero);
+            
+
+        DataPermanence.Instance.resourcesDepleted = resourcesDepleted;
+    }
+
+    void PauseGame()
+    {
+        pauseScreen.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)

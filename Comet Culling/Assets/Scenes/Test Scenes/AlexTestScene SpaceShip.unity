@@ -2280,6 +2280,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 5290637129546232861, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290637129546232861, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290637129546232861, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5680148788655895751, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_Name
       value: GameManager (1)
@@ -2381,6 +2393,11 @@ PrefabInstance:
 --- !u!1 &1138341580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7923527715699143452, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
+  m_PrefabInstance: {fileID: 1138341579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1138341581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3966986169940313335, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
   m_PrefabInstance: {fileID: 1138341579}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1326748506
@@ -2729,6 +2746,10 @@ PrefabInstance:
       propertyPath: inTutorial
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: pauseScreen
+      value: 
+      objectReference: {fileID: 1138341581}
     - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
       propertyPath: ui_Inventory
       value: 
