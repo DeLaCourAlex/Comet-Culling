@@ -166,6 +166,17 @@ public class PlayerController : MonoBehaviour
             deathMinute = DataPermanence.Instance.deathMinute;
             // If there are any crops held in the inventory in data permanence
             // add them to player inventory in this scene
+            //Adds tools and seeds to the inventory 
+            inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = 1 });
+            inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
+            inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 1 });
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
+
+
+
+
+            //Making sure the correct amount of items are being held across scenes 
             if (DataPermanence.Instance.cropA > 0)
             {
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = DataPermanence.Instance.cropA });
@@ -176,6 +187,33 @@ public class PlayerController : MonoBehaviour
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
                 Debug.Log("inventory DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
             }
+            if (DataPermanence.Instance.hoe > 0)
+            {
+                inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = DataPermanence.Instance.hoe });
+                Debug.Log("inventory DataPermance ammout for hoe" + DataPermanence.Instance.hoe);
+            }
+            if (DataPermanence.Instance.wateringCan > 0)
+            {
+                inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = DataPermanence.Instance.wateringCan });
+                Debug.Log("inventory DataPermance ammout for wateringCan" + DataPermanence.Instance.wateringCan);
+            }
+            if (DataPermanence.Instance.scythe > 0)
+            {
+                inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = DataPermanence.Instance.scythe });
+                Debug.Log("inventory DataPermance ammout for scythe" + DataPermanence.Instance.scythe);
+            }
+
+            if (DataPermanence.Instance.seedA > 0)
+            {
+                inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = DataPermanence.Instance.seedA });
+                Debug.Log("inventory DataPermance ammout for seedA" + DataPermanence.Instance.seedA);
+            }
+            if (DataPermanence.Instance.seedB > 0)
+            {
+                inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = DataPermanence.Instance.seedB });
+                Debug.Log("inventory DataPermance ammout for seedB" + DataPermanence.Instance.seedB);
+            }
+
         }
 
         if (!inTutorial)
