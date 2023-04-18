@@ -22,6 +22,7 @@ public class UI_Inventory : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
     }
 
+
     private void Start()
     {
 

@@ -28,13 +28,22 @@ public class TimeManager : MonoBehaviour
 
     void Start()
     {
-        //Start-off values
-        Day = 1;
-        Minute = 0;
-        Hour = 8;
+        if (DataPermanence.Instance != null)
+        {
+            Minute = DataPermanence.Instance.mins;
+            Hour = DataPermanence.Instance.hour;
+            Day = DataPermanence.Instance.day;
+        }
+        else
+        {
+            //Start-off values
+            Day = 1;
+            Minute = 0;
+            Hour = 7;
+        }
+
         timer = minuteToRealTime; //V important: set timer equivalent
         OnDayChanged?.Invoke();
-
     }
 
     void Update()
@@ -72,6 +81,8 @@ public class TimeManager : MonoBehaviour
             timer = minuteToRealTime; //Reset timer
         }
 
+        DataPermanence.Instance.mins = Minute;
+        DataPermanence.Instance.hour = Hour;
+        DataPermanence.Instance.day = Day;
     }
-
 }

@@ -11,7 +11,16 @@ public class Item
     public enum ItemType
     {
         cropA,
-        cropB
+        cropB, 
+        cropC, 
+
+        seedsA,
+        seedsB,
+        seedsC,
+
+        batteryA,
+        batteryAA,
+        batteryAAA
     }
 
     public Sprite GetSprite()
@@ -40,5 +49,20 @@ public class Item
     //    }
 
     //}
+ 
 
+    public int GetBattery(ItemType type) {//Method that returns a value depending on the battery type
+        //This value would then get added to the stamina
+        switch (type)
+        {
+            case ItemType.batteryA:
+                return 75;
+            case ItemType.batteryAA:
+                return 50;
+            case ItemType.batteryAAA:
+                return 25;
+            default:
+                return 0; 
+        }
+    }
 }
