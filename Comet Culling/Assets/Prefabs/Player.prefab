@@ -392,11 +392,9 @@ MonoBehaviour:
   tileSelectYes: {fileID: 7782820167725956421}
   tileSelectNo: {fileID: 308605693944346384}
   cropPlant: {fileID: 7902182014504787802}
-  cropAUI: {fileID: 0}
-  cropBUI: {fileID: 0}
+  inTutorial: 1
+  ui_Inventory: {fileID: 0}
   currentToolUI: {fileID: 0}
-  staminaTextUI: {fileID: 0}
-  spaceshipEnergyUI: {fileID: 0}
 --- !u!95 &7527863383091862404
 Animator:
   serializedVersion: 5

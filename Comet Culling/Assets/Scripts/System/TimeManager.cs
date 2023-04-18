@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
 {
@@ -72,10 +73,10 @@ public class TimeManager : MonoBehaviour
             }
 
 
-            if (Day >= MAX_DAYS)
+            if (Day > MAX_DAYS)
             {
                 Debug.Log("Reached final day, trigger endscene");
-
+                SceneChanger.Instance.ChangeScene("Ending", Vector2.zero);
             }
 
             timer = minuteToRealTime; //Reset timer

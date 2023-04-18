@@ -30,9 +30,21 @@ public class DataPermanence : MonoBehaviour
     // THe available tools, used to minimize tool use during tutorials
     [HideInInspector] public int availableTools;
 
+    // Determine if the player is out of resources and, because of this, when their impending death is 
+    [HideInInspector] public bool resourcesDepleted;
+    [HideInInspector] public int deathDay;
+    [HideInInspector] public int deathHour;
+    [HideInInspector] public int deathMinute;
+
     // ALL VARIABLES FOR CROPS AND CROP MANAGEMENT
     [HideInInspector] public int cropA;
     [HideInInspector] public int cropB;
+    [HideInInspector] public int hoe;
+    [HideInInspector] public int wateringCan;
+    [HideInInspector] public int scythe;
+    [HideInInspector] public int seedA;
+    [HideInInspector] public int seedB;
+
 
     // Store the position of each crop and its time alive in a list
     public class CropData
@@ -133,4 +145,12 @@ public class DataPermanence : MonoBehaviour
         availableTools = 5;
 
     }
+
+    public void RestartGame()
+    {
+        Destroy(gameObject);
+    }
+
+    /*availableTools; tutorialNumber; playerTutorial; playerStamina; cropsHarvested; playerStartPosition;
+        cropB; cropA; deathMinute;deathHour; deathDay; resourcesDepleted;*/
 }

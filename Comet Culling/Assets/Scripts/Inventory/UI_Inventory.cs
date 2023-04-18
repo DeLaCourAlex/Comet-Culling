@@ -6,6 +6,7 @@ using TMPro;
 using static UnityEditor.Progress;
 using System;
 using CodeMonkey.Utils;
+using static Item;
 
 public class UI_Inventory : MonoBehaviour
 {
@@ -94,6 +95,7 @@ public class UI_Inventory : MonoBehaviour
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
             image.sprite = item.GetSprite();
+            TextMeshProUGUI itemText = itemSlotRectTransform.Find("ItemDIsc").GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI uiText = itemSlotRectTransform.Find("amountText").GetComponent<TextMeshProUGUI>();
 
             //activates the stacking text if item amount is more than 1 
@@ -105,6 +107,89 @@ public class UI_Inventory : MonoBehaviour
             {
                 uiText.SetText("");
             }
+
+
+            itemSlotRectTransform.GetComponent<Button_UI>().MouseOverFunc = () =>
+            {
+
+                switch (item.itemType)
+                {
+                    default:
+                    case ItemType.cropA:
+                        itemText.SetText("This is Crop A");
+                        break;
+
+                    case ItemType.cropB:
+                        itemText.SetText("This is Crop B");
+                        break;
+
+                    case ItemType.hoe:
+                        itemText.SetText("This is a hoe");
+                        break;
+
+                    case ItemType.wateringCan:
+                        itemText.SetText("This is a watering can");
+                        break;
+
+                    case ItemType.scythe:
+                        itemText.SetText("This is a scythe");
+                        break;
+
+                    case ItemType.seedA:
+                        itemText.SetText("This is seed A");
+                        break;
+
+                    case ItemType.seedB:
+                        itemText.SetText("This is seed B");
+                        break;
+
+
+                }
+
+                Debug.Log("middle clicking is working");
+            };
+
+            itemSlotRectTransform.GetComponent<Button_UI>().MouseOutOnceFunc = () =>
+            {
+
+                switch (item.itemType)
+                {
+                    default:
+                    case ItemType.cropA:
+                        itemText.SetText("");
+                        break;
+
+                    case ItemType.cropB:
+                        itemText.SetText("");
+                        break;
+
+                    case ItemType.hoe:
+                        itemText.SetText("");
+                        break;
+
+                    case ItemType.wateringCan:
+                        itemText.SetText("");
+                        break;
+
+                    case ItemType.scythe:
+                        itemText.SetText("");
+                        break;
+
+                    case ItemType.seedA:
+                        itemText.SetText("");
+                        break;
+
+                    case ItemType.seedB:
+                        itemText.SetText("");
+                        break;
+
+
+                }
+
+                Debug.Log("mouse out is working");
+            };
+
+
 
 
             x++;

@@ -8,6 +8,7 @@ public class TutorialManager : MonoBehaviour
     // Used to control and display the various tutorial text boxes
     [SerializeField] GameObject[] tutorialText;
     [SerializeField] GameObject[] tutorialHighlights;
+    [SerializeField] GameObject textBox;
 
     // Store a reference to the door of whatever scene the player is currently in
     // This can be activated and deactivated to stop the player moving between scenes
@@ -67,6 +68,7 @@ public class TutorialManager : MonoBehaviour
         if(playerController.tutorialNumber == 9)
         {
             doorCollider.enabled = true;
+            textBox.SetActive(false);
             enabled = false;
         }
     }
