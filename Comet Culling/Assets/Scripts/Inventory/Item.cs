@@ -11,9 +11,16 @@ public class Item
     public enum ItemType
     {
         cropA,
-        cropB
+        cropB,
+        hoe,
+        wateringCan,
+        scythe,
+        seedA,
+        seedB
     }
 
+
+    //Gets sprites for each item
     public Sprite GetSprite()
     {
         switch (itemType)
@@ -21,24 +28,21 @@ public class Item
             default:
             case ItemType.cropA:
                 return ItemAssets.Instance.cropASprite;
-
             case ItemType.cropB:
                 return ItemAssets.Instance.cropBSprite;
+            case ItemType.hoe:
+                return ItemAssets.Instance.hoeSprite;
+            case ItemType.wateringCan:
+                return ItemAssets.Instance.wateringCanSprite;
+            case ItemType.scythe:
+                return ItemAssets.Instance.scytheSprite;
+            case ItemType.seedA:
+                return ItemAssets.Instance.seedASprite;
+            case ItemType.seedB:
+                return ItemAssets.Instance.seedBSprite;
+
         }
     }
-    //public bool IsStackable()
-    //{
-    //    switch (itemType)
-    //    {
 
-    //        case ItemType.cropA:
-    //            return true;
-    //        case ItemType.cropB:
-    //            return true;
-    //        default:
-    //            return false;
-    //    }
-
-    //}
 
 }

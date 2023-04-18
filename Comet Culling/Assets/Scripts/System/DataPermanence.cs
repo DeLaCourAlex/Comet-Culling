@@ -39,6 +39,12 @@ public class DataPermanence : MonoBehaviour
     // ALL VARIABLES FOR CROPS AND CROP MANAGEMENT
     [HideInInspector] public int cropA;
     [HideInInspector] public int cropB;
+    [HideInInspector] public int hoe;
+    [HideInInspector] public int wateringCan;
+    [HideInInspector] public int scythe;
+    [HideInInspector] public int seedA;
+    [HideInInspector] public int seedB;
+
 
     // Store the position of each crop and its time alive in a list
     public class CropData
