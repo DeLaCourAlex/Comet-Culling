@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
     int energyCropB = 15;
     bool carryCropA;
     bool carryCropB;
+    // Check if the inventory is open - stops items being used when mouse clicking in the inventory
+    bool inventoryOpen;
     //bool carryHoe;
     //bool carryWatcan;
     //bool carryScythe;
@@ -127,8 +129,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TextMeshProUGUI cropAUI;
     string cropBText;
     [SerializeField] TextMeshProUGUI cropBUI;*/
-    string currentToolString;
-    [SerializeField] TextMeshProUGUI currentToolUI;
+    //string currentToolString;
+    //[SerializeField] TextMeshProUGUI currentToolUI;
 /*    string staminaText;
     [SerializeField] TextMeshProUGUI staminaTextUI;
     string spaceshipEnergyText;
@@ -179,21 +181,19 @@ public class PlayerController : MonoBehaviour
             // add them to player inventory in this scene
             //Adds tools and seeds to the inventory 
 
-            //if (tutorialNumber > 8)
-            //{
-
             inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = 1 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 1 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
 
-            //}
+            if (!inTutorial || (inTutorial && availableTools > 1))
+                inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 10 });
 
+            if (!inTutorial || (inTutorial && availableTools > 2))
+                inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
 
+            if (!inTutorial || (inTutorial && availableTools > 3))
+                inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
 
-
-
+            if (!inTutorial)
+                inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 10 });
 
             //Making sure the correct amount of items are being held across scenes 
             if (DataPermanence.Instance.cropA > 0)
@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
                 Debug.Log("inventory DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
             }
-            if (DataPermanence.Instance.hoe > 0)
+            /*if (DataPermanence.Instance.hoe > 0)
             {
                 inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = DataPermanence.Instance.hoe });
                 Debug.Log("inventory DataPermance ammout for hoe" + DataPermanence.Instance.hoe);
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
             {
                 inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = DataPermanence.Instance.scythe });
                 Debug.Log("inventory DataPermance ammout for scythe" + DataPermanence.Instance.scythe);
-            }
+            }*/
 
             if (DataPermanence.Instance.seedA > 0)
             {
@@ -260,76 +260,47 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
             ui_Inventory.OpenInventory();
 
-        // Read directional input and set the movement vector
-        // Normalize to reduce increased speed when moving diagonally
-        direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
-        // Set the raycast corrector based on the previous and current direction that the player is facing
-        if (Mathf.Abs(directionAnimatorParameter) == 1 && direction.x != 0)
+        // Gameplay action/movement can only happen when the inventory is closed
+        if(!ui_Inventory.isInventoryVisible)
         {
-            if (directionAnimatorParameter == 1)
-                raycastCorrector = new Vector3(0, 0.5f, 0);
-            else if (directionAnimatorParameter == -1)
-                raycastCorrector = new Vector3(0, -0.5f, 0);
-        }
+            // Read directional input and set the movement vector
+            // Normalize to reduce increased speed when moving diagonally
+            direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        if (directionAnimatorParameter == 0 && direction.y != 0)
-        {
-            if (facingRight)
-                raycastCorrector = new Vector3(0.5f, 0, 0);
-            else if (!facingRight)
-                raycastCorrector = new Vector3(-0.5f, 0, 0);
-        }
+            // Set the raycast corrector based on the previous and current direction that the player is facing
+            if (Mathf.Abs(directionAnimatorParameter) == 1 && direction.x != 0)
+            {
+                if (directionAnimatorParameter == 1)
+                    raycastCorrector = new Vector3(0, 0.5f, 0);
+                else if (directionAnimatorParameter == -1)
+                    raycastCorrector = new Vector3(0, -0.5f, 0);
+            }
 
-        // Set the direction parameter based on the directional input
-        // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
-        // will keep the player facing in the current direction
-        if (direction.y == 1)
-            directionAnimatorParameter = 1;
-        else if (direction.y == -1)
-            directionAnimatorParameter = -1;
-        else if (Mathf.Abs(direction.x) == 1)
-            directionAnimatorParameter = 0;
+            if (directionAnimatorParameter == 0 && direction.y != 0)
+            {
+                if (facingRight)
+                    raycastCorrector = new Vector3(0.5f, 0, 0);
+                else if (!facingRight)
+                    raycastCorrector = new Vector3(-0.5f, 0, 0);
+            }
 
-        // Cycle through the enum of tools
-        // If at either end of the list, cycle around to the other end
-        if (Input.GetButtonDown("Tools Left"))
-        {
-            // If the current weapon is the lowest tool in the enums
-            // Then change it to the highest tool in the enums
-            // Otherwise, go to the next one down
-            if (currentTool <= 0)
-                currentTool = (Tools)availableTools - 1;
-            else
-                currentTool--;
-        }
-        if (Input.GetButtonDown("Tools Right"))
-        {
-            // If the current weapon is the highest tool in the enums
-            // Then change it to the lowest tool in the enums
-            // Otherwise, go to the next one up
-            if (currentTool >= (Tools)availableTools - 1)
-                currentTool = 0;
-            else
-                currentTool++;
+            // Set the direction parameter based on the directional input
+            // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
+            // will keep the player facing in the current direction
+            if (direction.y == 1)
+                directionAnimatorParameter = 1;
+            else if (direction.y == -1)
+                directionAnimatorParameter = -1;
+            else if (Mathf.Abs(direction.x) == 1)
+                directionAnimatorParameter = 0;
+
+            // Perform any actions and update the player variables in data permanence
+            PerformAction();
         }
 
         if (Input.GetButtonDown("Cancel"))
             PauseGame();
-        //// When press escape, quit the game
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //    Application.Quit();
 
-        // Set whether the player is carrying a crop or not
-        //if (Input.GetButtonDown("No Crops"))
-        //    ChangeCarriedCrops(false, false);
-        //if (Input.GetButtonDown("Crop A") && cropsHarvested[0] > 0)
-        //    ChangeCarriedCrops(true, false);
-        //if (Input.GetButtonDown("Crop B") && cropsHarvested[1] > 0)
-        //    ChangeCarriedCrops(false, true);
-
-        // Perform any actions and update the player variables in data permanence
-        PerformAction();
         DataPermanence.Instance.playerStamina = stamina;
         DataPermanence.Instance.cropsHarvested = cropsHarvested;
 
@@ -971,6 +942,7 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = spriteArray[0];
                 DataPermanence.Instance.hoe--;
 
+                ui_Inventory.OpenInventory();
 
                 break;
 
@@ -980,6 +952,8 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = spriteArray[1];
                 DataPermanence.Instance.wateringCan--;
 
+                ui_Inventory.OpenInventory();
+
                 break;
 
             case Item.ItemType.scythe:
@@ -987,6 +961,8 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.scythe;
                 spriteRenderer.sprite = spriteArray[2];
                 DataPermanence.Instance.scythe--;
+
+                ui_Inventory.OpenInventory();
 
                 break;
 
@@ -996,6 +972,8 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = spriteArray[3];
                 DataPermanence.Instance.seedA--;
 
+                ui_Inventory.OpenInventory();
+
                 break;
 
             case Item.ItemType.seedB:
@@ -1003,6 +981,8 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.seedB;
                 spriteRenderer.sprite = spriteArray[4];
                 DataPermanence.Instance.seedB--;
+
+                ui_Inventory.OpenInventory();
 
                 break;
 
@@ -1076,6 +1056,11 @@ public class PlayerController : MonoBehaviour
             if (TilemapManager.Instance != null && !TilemapManager.Instance.IsTilled(tile))
                 return;
 
+        // Add seed A to inventory
+        // THis condition stops it being constantly added every update
+        if (tutorialNumber == 0)
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 10 });
+
         // If all the tiles are tilled we reach this  line - move to the next tutorial stage
         ChangeTutorialStage(2, 1);
     }
@@ -1088,8 +1073,14 @@ public class PlayerController : MonoBehaviour
 
         // Check that the array is neither null nor empty
         // This means that the crops have been planted here
-        if (crops?.Length > 0)
+        if (crops?.Length > 0 && tutorialNumber == 1)
+        {
             ChangeTutorialStage(3, 2);
+            inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
+        }
+            
+
+        
     }
 
     void CheckTutorialThreeOver()
@@ -1106,6 +1097,8 @@ public class PlayerController : MonoBehaviour
 
         // If all the crops are watered we reach this line - move to the next tutorial stage
         ChangeTutorialStage(3, 3);
+
+        
     }
 
     void CheckTutorialFourOver()
@@ -1129,8 +1122,12 @@ public class PlayerController : MonoBehaviour
         //    {
         //        DataPermanence.Instance.allCrops[i].timeAlive = 100;
         //    }
+        if (tutorialNumber == 4)
+            inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
 
         ChangeTutorialStage(4, 5);
+
+        
         //}
 
     }
@@ -1168,6 +1165,7 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 9);
             inTutorial = false;
             DataPermanence.Instance.playerTutorial = false;
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
         }
 
     }
@@ -1192,8 +1190,8 @@ public class PlayerController : MonoBehaviour
         cropBText = "Crop B Held: " + cropsHarvested[1].ToString();
         cropBUI.text = cropBText;*/
 
-        currentToolString = "Tool Equipped: " + currentTool.ToString();
-        currentToolUI.text = currentToolString;
+        //currentToolString = "Tool Equipped: " + currentTool.ToString();
+        //currentToolUI.text = currentToolString;
 
 /*        staminaText = "Player Stamina: " + stamina.ToString();
         staminaTextUI.text = staminaText;

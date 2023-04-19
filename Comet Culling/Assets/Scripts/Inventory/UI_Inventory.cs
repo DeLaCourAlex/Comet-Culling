@@ -16,7 +16,7 @@ public class UI_Inventory : MonoBehaviour
     public Transform itemSlotTemplate;
     public PlayerController playerController;
     //[SerializeField] GameObject backgroundPanel;
-    bool isInventoryVisible = false;
+    public bool isInventoryVisible { get; private set; } = false;
 
     private void Awake()
     {
