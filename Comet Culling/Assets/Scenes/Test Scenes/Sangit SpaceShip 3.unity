@@ -2140,7 +2140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7691776405050469887, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}
       propertyPath: destinationScene
-      value: AlexTestScene
+      value: SangitTestScene3
       objectReference: {fileID: 0}
     - target: {fileID: 7691776405050469887, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}
       propertyPath: destinationStartingPosition.x

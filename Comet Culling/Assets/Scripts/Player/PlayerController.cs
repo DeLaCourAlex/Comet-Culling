@@ -13,6 +13,11 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     BoxCollider2D box;
 
+    //Tool sprite
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite[] spriteArray;
+    [SerializeField] GameObject toolSprite;
+
     // The position of the camera follow 
     // Used to change camera position if the player is in certain parts of the scene
     [SerializeField] Transform cameraFollow;
@@ -62,6 +67,12 @@ public class PlayerController : MonoBehaviour
     int energyCropB = 15;
     bool carryCropA;
     bool carryCropB;
+    //bool carryHoe;
+    //bool carryWatcan;
+    //bool carryScythe;
+    //bool carrySeedA;
+    //bool carrySeedB;
+
     // Used to alter the position of the raycast depending on the previous directions of the player
     // Ensures that if the player was facing the crops below them if they turn sideways, they will now be 
     // facing the crop to the bottom right, not directly to the right
@@ -167,11 +178,19 @@ public class PlayerController : MonoBehaviour
             // If there are any crops held in the inventory in data permanence
             // add them to player inventory in this scene
             //Adds tools and seeds to the inventory 
+
+            //if (tutorialNumber > 8)
+            //{
+
             inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = 1 });
             inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
             inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
             inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 1 });
             inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
+
+            //}
+
+
 
 
 
@@ -302,12 +321,12 @@ public class PlayerController : MonoBehaviour
         //    Application.Quit();
 
         // Set whether the player is carrying a crop or not
-        if (Input.GetButtonDown("No Crops"))
-            ChangeCarriedCrops(false, false);
-/*        if (Input.GetButtonDown("Crop A") && cropsHarvested[0] > 0)
-            ChangeCarriedCrops(true, false);
-        if (Input.GetButtonDown("Crop B") && cropsHarvested[1] > 0)
-            ChangeCarriedCrops(false, true);*/
+        //if (Input.GetButtonDown("No Crops"))
+        //    ChangeCarriedCrops(false, false);
+        //if (Input.GetButtonDown("Crop A") && cropsHarvested[0] > 0)
+        //    ChangeCarriedCrops(true, false);
+        //if (Input.GetButtonDown("Crop B") && cropsHarvested[1] > 0)
+        //    ChangeCarriedCrops(false, true);
 
         // Perform any actions and update the player variables in data permanence
         PerformAction();
@@ -923,33 +942,71 @@ public class PlayerController : MonoBehaviour
     //adds a single crop to player upon mouse click and removes a single crop from the inventory
     public void UseItem(Item item)
     {
+        toolSprite.SetActive(true);
         switch (item.itemType)
         {
             case Item.ItemType.cropA:
 
-                if(carryCropA)
+                if (carryCropA)
                     ChangeCarriedCrops(false, false);
                 else
                     ChangeCarriedCrops(true, false);
 
                 ui_Inventory.OpenInventory();
-                //cropsHarvested[0]++;
-                //DataPermanence.Instance.cropA--;
-                //inventory.RemoveItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
+
                 break;
 
             case Item.ItemType.cropB:
-
-                if(carryCropB)
+                if (carryCropB)
                     ChangeCarriedCrops(true, false);
                 else
                     ChangeCarriedCrops(false, true);
 
                 ui_Inventory.OpenInventory();
-                //cropsHarvested[1]++;
-                //DataPermanence.Instance.cropB--;
-                //inventory.RemoveItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
+
                 break;
+
+            case Item.ItemType.hoe:
+                currentTool = Tools.hoe;
+                spriteRenderer.sprite = spriteArray[0];
+                DataPermanence.Instance.hoe--;
+
+
+                break;
+
+            case Item.ItemType.wateringCan:
+
+                currentTool = Tools.wateringCan;
+                spriteRenderer.sprite = spriteArray[1];
+                DataPermanence.Instance.wateringCan--;
+
+                break;
+
+            case Item.ItemType.scythe:
+
+                currentTool = Tools.scythe;
+                spriteRenderer.sprite = spriteArray[2];
+                DataPermanence.Instance.scythe--;
+
+                break;
+
+            case Item.ItemType.seedA:
+              
+                currentTool = Tools.seedA;
+                spriteRenderer.sprite = spriteArray[3];
+                DataPermanence.Instance.seedA--;
+
+                break;
+
+            case Item.ItemType.seedB:
+             
+                currentTool = Tools.seedB;
+                spriteRenderer.sprite = spriteArray[4];
+                DataPermanence.Instance.seedB--;
+
+                break;
+
+
         }
     }
 
@@ -1121,7 +1178,7 @@ public class PlayerController : MonoBehaviour
     // Because the player doesn't contain an audio manage component
     public void footstepsAudio()
     {
-        AudioManager.Instance.playFootsteps();
+        //AudioManager.Instance.playFootsteps();
     }
 
     // Used to display any variables to the screen in place of UI for now

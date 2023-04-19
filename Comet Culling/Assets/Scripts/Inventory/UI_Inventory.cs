@@ -15,7 +15,7 @@ public class UI_Inventory : MonoBehaviour
     public Transform itemSlotContainer;
     public Transform itemSlotTemplate;
     public PlayerController playerController;
-    [SerializeField] GameObject backgroundPanel;
+    //[SerializeField] GameObject backgroundPanel;
     bool isInventoryVisible = false;
 
     private void Awake()
@@ -43,7 +43,7 @@ public class UI_Inventory : MonoBehaviour
         isInventoryVisible = !isInventoryVisible;    // Flip bool value when 'I' is pressed
 
         this.gameObject.SetActive(isInventoryVisible);
-        backgroundPanel.SetActive(isInventoryVisible);
+        //backgroundPanel.SetActive(isInventoryVisible);
     }
 
 
