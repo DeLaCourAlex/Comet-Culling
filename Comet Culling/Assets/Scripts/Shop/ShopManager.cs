@@ -5,17 +5,22 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
+    private Action<Item> useItemAct; 
     //Create a list that stores merchant item info
-    private List<Item> shopItemList;
-
+    public List<Item> shopItemList;
     //VARIABLES
     //Booleans that refer to each trade possibility 
-    bool seedATrade, seedBTrade; 
+    bool seedATrade, seedBTrade;
+
+    
     void Start()
     {
 
-        seedATrade = false; seedBTrade = false; 
+        seedATrade = false; seedBTrade = false;
+        UpdateStock();
+        Debug.Log("Shop item count:" + shopItemList.Count);
     }
+
 
     //INVENTORY TRADE CHECK
     //first, check possible trades when opening shop keep
@@ -79,17 +84,17 @@ public class ShopManager : MonoBehaviour
 
         switch (tradedItem.itemType)
         {
-            case Item.ItemType.seedsA:
+            case Item.ItemType.seedA:
                 if (seedATrade) 
                 {
                     inventory.AddItem(tradedItem);
-                    for(int i = 0; i < 4; i++)
-                    {
-                        inventory.RemoveItem()
-                    }
+                    //for(int i = 0; i < 4; i++)
+                    //{
+                    //    inventory.RemoveItem()
+                    //}
                 }
                 break;
-            case Item.ItemType.seedsB:
+            case Item.ItemType.seedB:
                 if (seedBTrade)
                 {
                     inventory.AddItem(tradedItem);
@@ -101,6 +106,17 @@ public class ShopManager : MonoBehaviour
 
     }
 
+    public void UpdateStock() 
+    {
+        shopItemList.Add(new Item { itemType = Item.ItemType.seedA, amount = 10 });
+        shopItemList.Add(new Item { itemType = Item.ItemType.seedB, amount = 10 });
+
+    }
+
+    //public List<Item> GetShopItemList()
+    //{
+    //    return shopItemList;
+    //}
 
 
 }

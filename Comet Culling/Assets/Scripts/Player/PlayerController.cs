@@ -110,6 +110,9 @@ public class PlayerController : MonoBehaviour
     public UI_Inventory ui_Inventory;
     public Inventory inventory;
 
+    //SHOP
+    private ShopManager shopManager;
+    public Shop_UI ui_Shop; 
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
 /*    string cropAText;
@@ -144,6 +147,10 @@ public class PlayerController : MonoBehaviour
         inventory = new Inventory(UseItem);
         ui_Inventory.SetPlayer(this);
 
+        //Instantiates shop and sets it to player 
+        shopManager = new ShopManager();
+        ui_Shop.SetShop(shopManager, inventory, this); 
+        
         //passing in the inventory object onto UI script
         ui_Inventory.SetInventory(inventory);
 
@@ -173,7 +180,11 @@ public class PlayerController : MonoBehaviour
             inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 1 });
             inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
 
+            //SHOP TESTING - This called at start
+            inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 10 });
+            inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = 10 });
 
+            shopManager.UpdateStock(); 
 
 
             //Making sure the correct amount of items are being held across scenes 
@@ -240,6 +251,10 @@ public class PlayerController : MonoBehaviour
         //function to open inventory 
         if (Input.GetKeyDown(KeyCode.I))
             ui_Inventory.OpenInventory();
+
+        //OPEN SHOP TEST
+        if (Input.GetKeyDown(KeyCode.K))
+            ui_Shop.OpenShop();  
 
         // Read directional input and set the movement vector
         // Normalize to reduce increased speed when moving diagonally
