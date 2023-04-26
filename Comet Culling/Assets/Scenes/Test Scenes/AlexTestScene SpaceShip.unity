@@ -2680,6 +2680,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6112277206919301741, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+      propertyPath: footsteps
+      value: 
+      objectReference: {fileID: 8300000, guid: 8b7463e3f11affb4b9c7df361ea4724c, type: 3}
+    - target: {fileID: 6112277206919301741, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+      propertyPath: plantSeed
+      value: 
+      objectReference: {fileID: 8300000, guid: b2743fb2e7ecb7a4994fa3337d9ef24d, type: 3}
+    - target: {fileID: 6112277206919301741, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+      propertyPath: waterCrop
+      value: 
+      objectReference: {fileID: 8300000, guid: 8196002c226dfe14e9a8871cc3b822d5, type: 3}
+    - target: {fileID: 6112277206919301741, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+      propertyPath: harvestCrop
+      value: 
+      objectReference: {fileID: 8300000, guid: a57c41ba32e5fbe439fd441731a6da7d, type: 3}
+    - target: {fileID: 6112277206919301741, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+      propertyPath: tillingSoil
+      value: 
+      objectReference: {fileID: 8300000, guid: 36ff9560a0f55844797ae1a6cbbfbb48, type: 3}
+    - target: {fileID: 6112277206919301741, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+      propertyPath: generatorFeedCrops
+      value: 
+      objectReference: {fileID: 8300000, guid: 464db1f99676a07439c674134fc2f1c1, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
 --- !u!4 &1870514576 stripped
