@@ -9,6 +9,9 @@ TagManager:
   - Dirt Tile
   - Grass Tile
   - Bed
+  - ToolSprite
+  - Stack
+  - Screen
   layers:
   - Default
   - TransparentFX

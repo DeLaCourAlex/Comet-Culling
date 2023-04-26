@@ -44,10 +44,13 @@ public class PlayerController : MonoBehaviour
     // STAMINA RELATED VARIABLES
     public int stamina;
     int MAX_STAMINA = 100;
-    int staminaUsedHoe = 2;
+    //int staminaUsedHoe = 2;
+    int staminaUsedHoe = 10;
+
     int staminaUsedPlanting = 10;
     int staminaUsedWatering = 3;
     int staminaUsedScythe = 5;
+
 
     // DEATH RELATED VARIABLES
     // Flag that the player is out of stamina and spaceship is out of energy
@@ -69,6 +72,10 @@ public class PlayerController : MonoBehaviour
     bool carryCropB;
     // Check if the inventory is open - stops items being used when mouse clicking in the inventory
     bool inventoryOpen;
+
+    //Check if screen has been interacted with today
+    bool hasInteractedScreenToday; 
+
     //bool carryHoe;
     //bool carryWatcan;
     //bool carryScythe;
@@ -103,6 +110,8 @@ public class PlayerController : MonoBehaviour
     // IN GAME TUTORIAL VARIABLES
     // Check if the player is in the tutorial and limit their actions if so
     [SerializeField] bool inTutorial = true;
+    //[SerializeField] bool inTutorial = false;
+
 
     // The stage of the tutorial the player is currently in
     public int tutorialNumber { get; private set; } = 0;
@@ -173,10 +182,12 @@ public class PlayerController : MonoBehaviour
             availableTools = DataPermanence.Instance.availableTools;
             inTutorial = DataPermanence.Instance.playerTutorial;
 
+
             resourcesDepleted = DataPermanence.Instance.resourcesDepleted;
             deathDay = DataPermanence.Instance.deathDay;
             deathHour = DataPermanence.Instance.deathHour;
             deathMinute = DataPermanence.Instance.deathMinute;
+            hasInteractedScreenToday = DataPermanence.Instance.screenInteractedToday; 
             // If there are any crops held in the inventory in data permanence
             // add them to player inventory in this scene
             //Adds tools and seeds to the inventory 
@@ -194,6 +205,9 @@ public class PlayerController : MonoBehaviour
 
             if (!inTutorial)
                 inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 10 });
+
+            if (!inTutorial)
+                inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 10 });
 
             //Making sure the correct amount of items are being held across scenes 
             if (DataPermanence.Instance.cropA > 0)
@@ -368,7 +382,7 @@ public class PlayerController : MonoBehaviour
 
                     break;
             }
-            Debug.Log("In tutorial: " + inTutorial);
+            //Debug.Log("In tutorial: " + inTutorial);
         }
 
         // Move the camera position further above the player if they're near the top of the crop scene
@@ -474,15 +488,31 @@ public class PlayerController : MonoBehaviour
             CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
             // If the raycast hit a generator/bed, access its spaceship controller
             SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+            CaptainLogs captainLogs = hit.transform.gameObject.GetComponent<CaptainLogs>(); 
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed"))
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed") || (tag == "Screen"))
             {
                 DisplayCanInteract(false, false, false);
 
                 // Generator related interactions
                 if (Input.GetButtonDown("Action") && (tag == "Generator"))
                     SpaceshipInteraction(ref spaceshipController);
+
+                //Screen related interactions
+                if (Input.GetButtonDown("Action") && (tag == "Screen"))
+                {
+                    if (!hasInteractedScreenToday)
+                    {
+                        captainLogs.hasBeenRead = true;
+                        Debug.Log("Just interacted with screen");
+                        DataPermanence.Instance.screenInteractedToday = true; 
+                    }
+                    else
+                        Debug.Log("Has interacted is true (not good)");
+                    //else //Ask player if they want to read the same log again
+                }
+                    
                 // Bed related interractions
                 if (Input.GetButtonDown("Action") && (tag == "Bed"))
                 {
@@ -495,100 +525,105 @@ public class PlayerController : MonoBehaviour
             // Otherwise, perform an action based on equipped tool and what's being interacted with
             else
             {
-                switch (currentTool)
+                if (stamina > 10) //Player can use tools only if they have enough stamina
                 {
-                    // Seed A is equipped
-                    case Tools.seedA:
+                    switch (currentTool)
+                    {
+                        // Seed A is equipped
+                        case Tools.seedA:
 
-                        // Check if we're in the tutorial
-                        if (inTutorial)
-                        {
-                            // If we're in the tutorial, can only plant crop A in the middle of the
-                            // tutorial tile section during the second phase of the tutorial
-                            if (positionInt == tutorialTiles[4] && tutorialNumber == 1)
+                            // Check if we're in the tutorial
+                            if (inTutorial)
+                            {
+                                // If we're in the tutorial, can only plant crop A in the middle of the
+                                // tutorial tile section during the second phase of the tutorial
+                                if (positionInt == tutorialTiles[4] && tutorialNumber == 1)
+                                    UseSeed(displayPosition, 0);
+                                // Otherwise, can't plant any crops
+                                else
+                                    DisplayCanInteract(false, true, false);
+                            }
+                            else if (!inTutorial)
+                            {
+                                // Display where crop A will be planted and plant them
                                 UseSeed(displayPosition, 0);
-                            // Otherwise, can't plant any crops
+                            }
+
+                            break;
+
+                        // Seed B is equipped
+                        case Tools.seedB:
+
+                            // Display where crop B will be planted and plant them
+                            UseSeed(displayPosition, 1);
+
+                            break;
+
+                        // Hoe is equipped 
+                        case Tools.hoe:
+
+                            // If interacting with a dirt tile, till it
+                            if (tag == "Dirt Tile")
+                            {
+                                // Not in tutorial - interact as normal
+                                if (!inTutorial)
+                                {
+                                    Hoe(positionInt);
+                                    return;
+                                }
+                                // In tutorial - can only till certain tiles
+                                else if (inTutorial)
+                                {
+                                    for (int i = 0; i < tutorialTiles.Length; i++)
+                                    {
+                                        if (positionInt == tutorialTiles[i])
+                                        {
+                                            Hoe(positionInt);
+                                            //Debug.Log("PositionInt: " + positionInt);
+                                            //Debug.Log("Tile position: " + tutorialTiles[i]);
+                                            return;
+                                        }
+                                        else
+                                            DisplayCanInteract(false, true, false);
+                                    }
+
+                                }
+                            }
                             else
                                 DisplayCanInteract(false, true, false);
-                        }
-                        else if (!inTutorial)
-                        {
-                            // Display where crop A will be planted and plant them
-                            UseSeed(displayPosition, 0);
-                        }
 
-                        break;
+                            break;
 
-                    // Seed B is equipped
-                    case Tools.seedB:
+                        // Watering can is equipped 
+                        case Tools.wateringCan:
 
-                        // Display where crop B will be planted and plant them
-                        UseSeed(displayPosition, 1);
-
-                        break;
-
-                    // Hoe is equipped 
-                    case Tools.hoe:
-
-                        // If interacting with a dirt tile, till it
-                        if (tag == "Dirt Tile")
-                        {
-                            // Not in tutorial - interact as normal
-                            if (!inTutorial)
+                            // If interacting with an unwatered crop, water it
+                            if (tag == "Crop")
                             {
-                                Hoe(positionInt);
+                                WateringCan(ref cropController);
                                 return;
                             }
-                            // In tutorial - can only till certain tiles
-                            else if (inTutorial)
+                            else
+                                DisplayCanInteract(false, true, false);
+
+                            break;
+
+                        case Tools.scythe:
+
+                            // If interacting with a grown crop, harvest it
+                            if (tag == "Crop")
                             {
-                                for (int i = 0; i < tutorialTiles.Length; i++)
-                                {
-                                    if (positionInt == tutorialTiles[i])
-                                    {
-                                        Hoe(positionInt);
-                                        //Debug.Log("PositionInt: " + positionInt);
-                                        //Debug.Log("Tile position: " + tutorialTiles[i]);
-                                        return;
-                                    }
-                                    else
-                                        DisplayCanInteract(false, true, false);
-                                }
-
+                                Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
+                                return;
                             }
-                        }
-                        else
-                            DisplayCanInteract(false, true, false);
+                            else
+                                DisplayCanInteract(false, true, false);
 
-                        break;
-
-                    // Watering can is equipped 
-                    case Tools.wateringCan:
-
-                        // If interacting with an unwatered crop, water it
-                        if (tag == "Crop")
-                        {
-                            WateringCan(ref cropController);
-                            return;
-                        }
-                        else
-                            DisplayCanInteract(false, true, false);
-
-                        break;
-
-                    case Tools.scythe:
-
-                        // If interacting with a grown crop, harvest it
-                        if (tag == "Crop")
-                        {
-                            Scythe(ref cropController, hit, positionInt, cropController.elementNumber);
-                            return;
-                        }
-                        else
-                            DisplayCanInteract(false, true, false);
-
-                        break;
+                            break;
+                    }
                 }
+                else
+                    Debug.Log("Not enough stamina to perform an action!");
             }
         }
     }
@@ -692,7 +727,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Tilling");
 
                 // Play the tilling sfx
-                AudioManager.Instance.playTillingSoil();
+                //AudioManager.Instance.playTillingSoil();
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
@@ -882,6 +917,9 @@ public class PlayerController : MonoBehaviour
             // Increase crop growth hours, adding the rest of today if we're sleeping until the next day
             // plus the 7 hour because we sleep until 7 the next day
             hoursGrowth = 7 + (24 - TimeManager.Hour);
+
+            //Also reset screen interaction
+            DataPermanence.Instance.screenInteractedToday = false; 
         }
         // If we're not sleeping until the next day ie sleeping from 2am - 7am
         // Use that time slept to grow the crops instead
@@ -909,6 +947,8 @@ public class PlayerController : MonoBehaviour
         TimeManager.Minute = 0;
 
     }
+
+ 
 
     //adds a single crop to player upon mouse click and removes a single crop from the inventory
     public void UseItem(Item item)

@@ -32,15 +32,30 @@ public class TimeManager : MonoBehaviour
         //Start-off values
         Day = 1;
         Minute = 0;
-        Hour = 8;
+        Hour = 7;
         timer = minuteToRealTime; //V important: set timer equivalent
         OnDayChanged?.Invoke();
+        if(DataPermanence.Instance != null) 
+        {
+            Day = DataPermanence.Instance.day;
+            Hour = DataPermanence.Instance.hour;
+            Minute = DataPermanence.Instance.mins;
 
+        }
     }
 
     void Update()
     {
         timer -= Time.deltaTime;
+
+        if (DataPermanence.Instance != null)
+        {
+            DataPermanence.Instance.day = Day;
+            DataPermanence.Instance.hour = Hour;
+            DataPermanence.Instance.mins = Minute;
+            Debug.Log("Data permanence time: " + DataPermanence.Instance.hour + ":" + DataPermanence.Instance.mins); 
+
+        }
 
         if (timer <= 0) //If it's = 0, it means our time has elapsed (from 0.5 to 0)
         { //So we need to increment the minutes

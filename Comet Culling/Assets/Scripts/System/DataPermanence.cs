@@ -76,6 +76,10 @@ public class DataPermanence : MonoBehaviour
 
     [HideInInspector] public int spaceshipEnergy;
 
+    //CAPTAIN LOG VARIABLES
+    [HideInInspector] public bool screenInteractedToday;
+
+
     // TIME/DAY VARIABLES
     [HideInInspector] public int day;
     [HideInInspector] public int hour;
@@ -105,9 +109,11 @@ public class DataPermanence : MonoBehaviour
         cropsHarvested = new int[2];
         playerStamina = 100;
         spaceshipEnergy = 0;
+        screenInteractedToday = false; 
         availableTools = 1;
 
         playerTutorial = true;
+        //playerTutorial = false;
 
         //Start-off values
         day = 1;
@@ -125,7 +131,7 @@ public class DataPermanence : MonoBehaviour
             {
                 allCrops[i].timeAlive += Time.deltaTime * allCrops[i].wateredMultiplier;
             }
-
+        
         // Update the UI with the current spaceship energy
 
         //energyUI.UpdateValue(spaceshipEnergy);

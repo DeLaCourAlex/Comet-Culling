@@ -27,7 +27,7 @@ public class Inventory
     public void AddItem(Item item)
     {
 
-        Debug.Log("Stacking");
+        //Debug.Log("Stacking");
         bool itemAlreadyInInventory = false;
         foreach (Item inventoryItem in itemList)
         {
