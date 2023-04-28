@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     int staminaUsedHoe = 2;
     int staminaUsedPlanting = 10;
     int staminaUsedWatering = 3;
-    int staminaUsedScythe = 5;
+    int staminaUsedScythe = 1;
 
     // DEATH RELATED VARIABLES
     // Flag that the player is out of stamina and spaceship is out of energy
@@ -63,17 +63,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject tileSelectYes;
     [SerializeField] GameObject tileSelectNo;
     [SerializeField] GameObject cropPlant;
+    [SerializeField] GameObject NPC;
+
     int energyCropA = 10;
     int energyCropB = 15;
     bool carryCropA;
     bool carryCropB;
     // Check if the inventory is open - stops items being used when mouse clicking in the inventory
     bool inventoryOpen;
-    //bool carryHoe;
-    //bool carryWatcan;
-    //bool carryScythe;
-    //bool carrySeedA;
-    //bool carrySeedB;
 
     // Used to alter the position of the raycast depending on the previous directions of the player
     // Ensures that if the player was facing the crops below them if they turn sideways, they will now be 
@@ -102,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     // IN GAME TUTORIAL VARIABLES
     // Check if the player is in the tutorial and limit their actions if so
-    [SerializeField] bool inTutorial = true;
+    [SerializeField] bool inTutorial;
 
     // The stage of the tutorial the player is currently in
     public int tutorialNumber { get; private set; } = 0;
@@ -125,16 +122,16 @@ public class PlayerController : MonoBehaviour
 
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
-/*    string cropAText;
-    [SerializeField] TextMeshProUGUI cropAUI;
-    string cropBText;
-    [SerializeField] TextMeshProUGUI cropBUI;*/
+    /*    string cropAText;
+        [SerializeField] TextMeshProUGUI cropAUI;
+        string cropBText;
+        [SerializeField] TextMeshProUGUI cropBUI;*/
     //string currentToolString;
     //[SerializeField] TextMeshProUGUI currentToolUI;
-/*    string staminaText;
-    [SerializeField] TextMeshProUGUI staminaTextUI;
-    string spaceshipEnergyText;
-    [SerializeField] TextMeshProUGUI spaceshipEnergyUI;*/
+    /*    string staminaText;
+        [SerializeField] TextMeshProUGUI staminaTextUI;
+        string spaceshipEnergyText;
+        [SerializeField] TextMeshProUGUI spaceshipEnergyUI;*/
 
     private void Awake()
     {
@@ -144,6 +141,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //NPC.SetActive(false);
         // Initialize member objects and components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -243,7 +241,7 @@ public class PlayerController : MonoBehaviour
     // Used to read input, perform calculations, set states etc
     void Update()
     {
-        
+       
 
         // Stop movement during certain animations
         // Get the name of the current animation
@@ -261,7 +259,7 @@ public class PlayerController : MonoBehaviour
             ui_Inventory.OpenInventory();
 
         // Gameplay action/movement can only happen when the inventory is closed
-        if(!ui_Inventory.isInventoryVisible)
+        if (!ui_Inventory.isInventoryVisible)
         {
             // Read directional input and set the movement vector
             // Normalize to reduce increased speed when moving diagonally
@@ -338,11 +336,11 @@ public class PlayerController : MonoBehaviour
 
                     break;
 
-                /*                case 4:
+                //case 4:
 
-                                    CheckTutorialFiveOver();
+                //    CheckTutorialFiveOver();
 
-                                    break;*/
+                //    break;
 
                 case 5:
 
@@ -369,6 +367,10 @@ public class PlayerController : MonoBehaviour
                     break;
             }
             Debug.Log("In tutorial: " + inTutorial);
+            //updates npc based on day
+            DayCycle();
+            //skip tutorial upon key press
+            SkipOverTutorial();
         }
 
         // Move the camera position further above the player if they're near the top of the crop scene
@@ -612,7 +614,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Watering");
 
                 // Play the watering sfx
-                AudioManager.Instance.playWaterCrop();
+                //AudioManager.Instance.playWaterCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedWatering;
@@ -639,7 +641,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(rayHit.transform.gameObject);
                 // Increase the amount of harvested crops
                 //cropsHarvested[cropType]++;
-                switch(cropType)
+                switch (cropType)
                 {
                     case 0:
 
@@ -653,7 +655,7 @@ public class PlayerController : MonoBehaviour
                         DataPermanence.Instance.cropB++;
                         break;
                 }
-                    
+
 
                 // Reset the crop's tile to untilled dirt
                 TilemapManager.Instance.ResetTile(pos);
@@ -662,7 +664,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Harvesting");
 
                 // Play the scythe sfx
-                AudioManager.Instance.playHarvestCrop();
+                //AudioManager.Instance.playHarvestCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedScythe;
@@ -692,7 +694,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Tilling");
 
                 // Play the tilling sfx
-                AudioManager.Instance.playTillingSoil();
+                //AudioManager.Instance.playTillingSoil();
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
@@ -791,7 +793,7 @@ public class PlayerController : MonoBehaviour
                     PlantCrop(boxcastPositionInt, cropElement);
 
                     // Play the planting sfx
-                    AudioManager.Instance.playPlantSeed();
+                    //AudioManager.Instance.playPlantSeed();
 
                     if (!staminaTaken)
                     {
@@ -820,7 +822,7 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropA);
 
             // Play the crops into generator sfx
-            AudioManager.Instance.playGeneratorFeedCrops();
+            //AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[0]--;
@@ -839,7 +841,7 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropB);
 
             // Play the crops into generator sfx
-            AudioManager.Instance.playGeneratorFeedCrops();
+            //AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[1]--;
@@ -857,10 +859,10 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargePlayer(ref stamina);
 
             // Play the player recharge sfx
-            if(DataPermanence.Instance.spaceshipEnergy > 0)
-                AudioManager.Instance.playGeneratorRecharge();
+            //if(DataPermanence.Instance.spaceshipEnergy > 0)
+            //AudioManager.Instance.playGeneratorRecharge();
         }
-            
+
     }
 
     void GoToSleep()
@@ -967,7 +969,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case Item.ItemType.seedA:
-              
+
                 currentTool = Tools.seedA;
                 spriteRenderer.sprite = spriteArray[3];
                 DataPermanence.Instance.seedA--;
@@ -977,7 +979,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case Item.ItemType.seedB:
-             
+
                 currentTool = Tools.seedB;
                 spriteRenderer.sprite = spriteArray[4];
                 DataPermanence.Instance.seedB--;
@@ -1005,7 +1007,7 @@ public class PlayerController : MonoBehaviour
             DataPermanence.Instance.deathHour = deathHour;
             DataPermanence.Instance.deathMinute = deathMinute;
         }
-        
+
         // If resources are gained before death, unset the bool
         if (resourcesDepleted && (DataPermanence.Instance.spaceshipEnergy > 0 || stamina > 0))
             resourcesDepleted = false;
@@ -1013,7 +1015,7 @@ public class PlayerController : MonoBehaviour
         // If one day is passed with no resources, the player dies
         if (resourcesDepleted && TimeManager.Day >= deathDay && TimeManager.Hour >= deathHour && TimeManager.Minute >= deathMinute)
             SceneChanger.Instance.ChangeScene("Game Over", Vector2.zero);
-            
+
 
         DataPermanence.Instance.resourcesDepleted = resourcesDepleted;
     }
@@ -1078,9 +1080,9 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(3, 2);
             inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
         }
-            
 
-        
+
+
     }
 
     void CheckTutorialThreeOver()
@@ -1098,14 +1100,15 @@ public class PlayerController : MonoBehaviour
         // If all the crops are watered we reach this line - move to the next tutorial stage
         ChangeTutorialStage(3, 3);
 
-        
+
     }
 
     void CheckTutorialFourOver()
     {
         // Check if the player has entered the spaceship in tutorial four
         // If so, move to the next tutorial stage
-        if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        //if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3")
             ChangeTutorialStage(3, 4);
     }
 
@@ -1127,28 +1130,30 @@ public class PlayerController : MonoBehaviour
 
         ChangeTutorialStage(4, 5);
 
-        
+
         //}
 
     }
 
     void CheckTutorialSixOver()
     {
-        if(SceneManager.GetActiveScene().name == "AlexTestScene")
+        //if(SceneManager.GetActiveScene().name == "AlexTestScene")
+        if (SceneManager.GetActiveScene().name == "SangitTestScene3")
         {
             GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
 
             if (crops.Length == 0)
                 ChangeTutorialStage(4, 6);
         }
-        
+
     }
 
     void CheckTutorialSevenOver()
     {
         // Check if the player has entered the spaceship in tutorial seven
         // If so, move to the next tutorial stage
-        if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        //if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3")
             ChangeTutorialStage(4, 7);
     }
 
@@ -1166,39 +1171,90 @@ public class PlayerController : MonoBehaviour
             inTutorial = false;
             DataPermanence.Instance.playerTutorial = false;
             inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
+            //merchent npc shows up after tutorial is over
+
         }
 
     }
-
-    // A seperate function to call this audio manager function
-    // Used to call the function as an animation event
-    // Therefore can not be called directly from the audio manager
-    // Because the player doesn't contain an audio manage component
-    public void footstepsAudio()
+    //enables the NPC depanding on what day
+    private void DayCycle()
     {
-        //AudioManager.Instance.playFootsteps();
+        switch (TimeManager.Day)
+        {
+            case 1:
+               NPC.SetActive(false);
+                break;
+            case 2:
+                NPC.SetActive(true);
+                break;
+            case 3:
+                NPC.SetActive(false);
+                break;
+            case 4:
+                NPC.SetActive(true);
+                break;
+            case 5:
+                NPC.SetActive(false);
+                break;
+            case 6:
+                NPC.SetActive(true);
+                break;
+            case 7:
+                NPC.SetActive(false);
+                break;
+
+        }
+
+
     }
 
-    // Used to display any variables to the screen in place of UI for now
-    // Can add more variables to this as/when we need them and delete it when we have something better
-    void TestUI()
+
+    //Skips over tutorial when key is pressed
+    void SkipOverTutorial()
     {
-        // Display the test variable as UI
-/*        cropAText = "Crop A Held: " + cropsHarvested[0].ToString();
-        cropAUI.text = cropAText;
-
-        cropBText = "Crop B Held: " + cropsHarvested[1].ToString();
-        cropBUI.text = cropBText;*/
-
-        //currentToolString = "Tool Equipped: " + currentTool.ToString();
-        //currentToolUI.text = currentToolString;
-
-/*        staminaText = "Player Stamina: " + stamina.ToString();
-        staminaTextUI.text = staminaText;
-
-        Debug.Log("In player, spaceship energy: " + DataPermanence.Instance.spaceshipEnergy);
-        // Set the spaceship energy to a string
-        spaceshipEnergyText = "Spaceship Energy: " + DataPermanence.Instance.spaceshipEnergy.ToString();
-        spaceshipEnergyUI.text = spaceshipEnergyText;*/
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            
+                TimeManager.Day++;
+                TimeManager.OnDayChanged?.Invoke();
+                ChangeTutorialStage(5, 9);
+            
+        }
     }
+
+
+
+
+
+// A seperate function to call this audio manager function
+// Used to call the function as an animation event
+// Therefore can not be called directly from the audio manager
+// Because the player doesn't contain an audio manage component
+public void footstepsAudio()
+{
+    //AudioManager.Instance.playFootsteps();
+}
+
+// Used to display any variables to the screen in place of UI for now
+// Can add more variables to this as/when we need them and delete it when we have something better
+void TestUI()
+{
+    // Display the test variable as UI
+    /*        cropAText = "Crop A Held: " + cropsHarvested[0].ToString();
+            cropAUI.text = cropAText;
+
+            cropBText = "Crop B Held: " + cropsHarvested[1].ToString();
+            cropBUI.text = cropBText;*/
+
+    //currentToolString = "Tool Equipped: " + currentTool.ToString();
+    //currentToolUI.text = currentToolString;
+
+    /*        staminaText = "Player Stamina: " + stamina.ToString();
+            staminaTextUI.text = staminaText;
+
+            Debug.Log("In player, spaceship energy: " + DataPermanence.Instance.spaceshipEnergy);
+            // Set the spaceship energy to a string
+            spaceshipEnergyText = "Spaceship Energy: " + DataPermanence.Instance.spaceshipEnergy.ToString();
+            spaceshipEnergyUI.text = spaceshipEnergyText;*/
+}
 }

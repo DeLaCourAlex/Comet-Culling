@@ -1,0 +1,27 @@
+﻿title: Day_6_LA
+tags:
+---
+//If the player has low affinity 
+
+Vas: Hello there. How’s the farming going?  #line:093de3c 
+
+PR1NC3: The ship is almost charged, I will be leaving soon.  #line:0a7d9b4 
+
+Vas: Oh, sure. I’m happy to hear that. (clearly not happy to hear that) #line:00fb89a 
+
+Vas: Where are you heading next?  #line:0cab393 
+
+PR1NC3: I will try and get closer to our original target planet. I think it makes sense for them to go there as well.  #line:083f819 
+
+Vas: Sounds like a good idea.  #line:0920501 
+
+PR1NC3: Do you have more seeds for me? They would come in helpful.  #line:0005829 
+
+Vas: … Yeah, here, have these.   #line:072e5e1 
+
+//Player gets the seeds, conversation quits. 
+
+
+
+
+===

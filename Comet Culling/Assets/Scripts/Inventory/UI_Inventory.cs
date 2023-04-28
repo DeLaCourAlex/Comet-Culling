@@ -15,7 +15,7 @@ public class UI_Inventory : MonoBehaviour
     public Transform itemSlotContainer;
     public Transform itemSlotTemplate;
     public PlayerController playerController;
-    //[SerializeField] GameObject backgroundPanel;
+    [SerializeField] GameObject ItemInfo;
     public bool isInventoryVisible { get; private set; } = false;
 
     private void Awake()
@@ -94,7 +94,8 @@ public class UI_Inventory : MonoBehaviour
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
             image.sprite = item.GetSprite();
-            TextMeshProUGUI itemText = itemSlotRectTransform.Find("ItemDIsc").GetComponent<TextMeshProUGUI>();
+            //TextMeshProUGUI itemText = itemSlotRectTransform.Find("ItemDIsc").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI itemInfo = ItemInfo.GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI uiText = itemSlotRectTransform.Find("amountText").GetComponent<TextMeshProUGUI>();
 
             //activates the stacking text if item amount is more than 1 
@@ -115,31 +116,36 @@ public class UI_Inventory : MonoBehaviour
                 {
                     default:
                     case ItemType.cropA:
-                        itemText.SetText("This is Crop A");
+                        itemInfo.SetText("Developed crop A - Lantern Plant \r\nLantern plant can be used to replenish (...) energy to the spaceship. " +
+                            "\r\nIt gets its name from its shape, resembling an oil lantern. It attracts pollinators to its large inflorescence by " +
+                            "performing a dance using side tendrils. ");
                         break;
 
                     case ItemType.cropB:
-                        itemText.SetText("This is Crop B");
+                        itemInfo.SetText(" Taco Plant\r\nTaco plant can be used to replenish (...) energy to the spaceship. \r\nNamed after an ancient Earthian dish consisting of filling inside a corn flour tortilla shell. " +
+                            "Taco plants are carnivorous and attract their prey using bioluminescent appendices covered in a sticky sap. After something touches them, the plant closes and begins to digest the catch. ");
                         break;
 
                     case ItemType.hoe:
-                        itemText.SetText("This is a hoe");
+                        itemInfo.SetText("Hoe\r\nUsed to prepare the soil for planting seeds. \r\nHoes have been a popular agricultural hand tool for ages. Humans may have conquered space travel, but still haven’t found a way to improve them. ");
                         break;
 
                     case ItemType.wateringCan:
-                        itemText.SetText("This is a watering can");
+                        itemInfo.SetText("Watering Can \r\nUsed to help your crops grow faster. \r\nIt separates hydrogen gas and oxygen gas from the atmosphere, mixes and heats them up in order to create water. \r\nIn short, it uses science to never run out of water!");
                         break;
 
                     case ItemType.scythe:
-                        itemText.SetText("This is a scythe");
+                        itemInfo.SetText("Scythe\r\nUse in order to harvest mature crops. " +
+                            "\r\nA curved blade connected to a telescopic handle, which can be collapsed for easy storage." +
+                            " Simple tool but makes you look cool while in use! ");
                         break;
 
                     case ItemType.seedA:
-                        itemText.SetText("This is seed A");
+                        itemInfo.SetText("This is seed A");
                         break;
 
                     case ItemType.seedB:
-                        itemText.SetText("This is seed B");
+                        itemInfo.SetText("This is seed B");
                         break;
 
 
@@ -155,31 +161,31 @@ public class UI_Inventory : MonoBehaviour
                 {
                     default:
                     case ItemType.cropA:
-                        itemText.SetText("");
+                        itemInfo.SetText("");
                         break;
 
                     case ItemType.cropB:
-                        itemText.SetText("");
+                        itemInfo.SetText("");
                         break;
 
                     case ItemType.hoe:
-                        itemText.SetText("");
+                        itemInfo.SetText("");
                         break;
 
                     case ItemType.wateringCan:
-                        itemText.SetText("");
+                        itemInfo.SetText("");
                         break;
 
                     case ItemType.scythe:
-                        itemText.SetText("");
+                        itemInfo.SetText("");
                         break;
 
                     case ItemType.seedA:
-                        itemText.SetText("");
+                        itemInfo.SetText("");
                         break;
 
                     case ItemType.seedB:
-                        itemText.SetText("");
+                        itemInfo.SetText("");
                         break;
 
 

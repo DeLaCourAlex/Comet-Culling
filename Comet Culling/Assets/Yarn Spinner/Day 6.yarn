@@ -1,0 +1,70 @@
+﻿title: Day_6
+tags:
+---
+//If the player had built affinity with Vas
+
+PR1NC3: (happy) Vas! You’re back! #line:0fde517 
+
+Vas: Hello there! Did you miss me?  #line:0536ec7 
+
+PR1NC3: Maybe…  #line:04e5ebc 
+
+PR1NC3: Anywayy, how are you doing?  #line:00791e1 
+
+Vas: Quite good! Managed to secure some interesting goods. I should be able to sell them for a big sum.  #line:0a86ff8 
+
+PR1NC3: I’m glad to hear that! #line:0610d72 
+
+Vas: How are you? Farming going well? #line:04ee252 
+
+PR1NC3: (sad) Yes… I just wanted to talk to you about something.  #line:0f54e82 
+
+Vas: What’s going on?  #line:0208949 
+
+-> PR1NC3: I remembered something about the incident.  #line:057a763 
+
+Vas: (sad) Is that so? #line:0f89669 
+
+PR1NC3: Vas… I think I caused our ship to crash.  #line:0440d8c 
+
+Vas: I knew it would come to this…  #line:06e0014 
+
+Vas: Prince, listen. I just want you to remember that no matter what your mind is telling you, it wasn’t your fault.  #line:004af33 
+
+PR1NC3: But it was! I messed with the control panel, caused the engine to overheat and we crashed. Everything would be fine if not for me.  #line:0fb85d9 
+
+Vas: You didn’t mean to do it. You told me that you couldn't control your body and were forced to follow the commands you had programmed.  #line:0bda88c 
+
+PR1NC3: …  #line:0da876c 
+
+Vas: It’s your superiors who are at fault, not you.  #line:0175f94 
+
+PR1NC3: I should have fought stronger to stop myself.  #line:0590eec 
+
+Vas: (angry) It’s your superiors who are at fault, not you. Nothing you say will change my opinion on that.  #line:0a8d4bd 
+
+PR1NC3: I just… I miss them so much. They were my family and now they’re gone. I cannot stand the thought that I hurt them.  #line:0d3a72f 
+
+Vas: I know, but you’re not going to help them by blaming yourself. You will be reunited.  #line:0b09b38 
+
+PR1NC3: How many times did we have this conversation?  #line:0a50739 
+
+Vas: … Quite a few. It never gets easier, especially seeing you hurt over and over again.  #line:04b5edd 
+
+Vas: But I will do it as many times as you need it.  #line:0c8dade 
+
+PR1NC3: I don’t know what to say.  #line:0a9f7ec 
+
+Vas: You don’t need to say anything. Here, take this, that’s the least I can do to help #line:0d3588c 
+
+PR1NC3: Thank you for staying by my side Vas.  #line:00edc83 
+
+Player gets the seeds, and the conversation quits.  #line:0fa84da 
+
+-> PR1NC3: Never mind, it doesn’t really matter.  #line:0a4066a 
+
+Vas: Ok… If you say so.  #line:0ee44df 
+
+//Player gets the seeds, and the conversation quits. 
+
+===
