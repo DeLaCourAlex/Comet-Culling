@@ -351,11 +351,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6792052798941441641, guid: 86eaa2ae7ca704f47a5431e2f941c695, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.88
+      value: -1.12
       objectReference: {fileID: 0}
     - target: {fileID: 6792052798941441641, guid: 86eaa2ae7ca704f47a5431e2f941c695, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.27
+      value: 5.3
       objectReference: {fileID: 0}
     - target: {fileID: 6792052798941441641, guid: 86eaa2ae7ca704f47a5431e2f941c695, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2843,6 +2843,10 @@ PrefabInstance:
       propertyPath: pauseScreen
       value: 
       objectReference: {fileID: 1138341581}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: maximumSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
       propertyPath: ui_Inventory
       value: 

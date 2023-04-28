@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
     // MOVEMENT VARIABLES
     [Header("Movement Variables")]
     // Control player speed
-    [SerializeField] float movementSpeed = 20f;
-    [SerializeField] float maximumSpeed = 15f;
+    [SerializeField] float movementSpeed = 10f;
+    [SerializeField] float maximumSpeed = 3f;
     // Read the movement direction from player input
     Vector2 direction;
     // Used to flip certain animations depending on the player's direction
@@ -45,11 +45,11 @@ public class PlayerController : MonoBehaviour
     public int stamina;
     int MAX_STAMINA = 100;
     //int staminaUsedHoe = 2;
-    int staminaUsedHoe = 10;
+    int staminaUsedHoe = 2;
 
     int staminaUsedPlanting = 10;
     int staminaUsedWatering = 3;
-    int staminaUsedScythe = 5;
+    int staminaUsedScythe = 3;
 
 
     // DEATH RELATED VARIABLES
@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     int energyCropB = 15;
     bool carryCropA;
     bool carryCropB;
+    bool planting;
     // Check if the inventory is open - stops items being used when mouse clicking in the inventory
     bool inventoryOpen;
 
@@ -265,14 +266,19 @@ public class PlayerController : MonoBehaviour
         // Check if the current animation should stop movement
         if (currentAnimation == "Player Hoe Down" || currentAnimation == "Player Hoe Sideways" || currentAnimation == "Player Hoe Up" ||
             currentAnimation == "Player Scythe Down" || currentAnimation == "Player Scythe Sideways" || currentAnimation == "Player Scythe Up" ||
-            currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up")
+            currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up" ||
+            currentAnimation == "Player Seed Down" || currentAnimation == "Player Seed Sideways" || currentAnimation == "Player Seed Up")
             canMove = false;
         else
             canMove = true;
 
         //function to open inventory 
         if (Input.GetKeyDown(KeyCode.I))
+        {
             ui_Inventory.OpenInventory();
+            direction = Vector2.zero;
+        }
+            
 
         // Gameplay action/movement can only happen when the inventory is closed
         if(!ui_Inventory.isInventoryVisible)
@@ -301,12 +307,17 @@ public class PlayerController : MonoBehaviour
             // Set the direction parameter based on the directional input
             // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
             // will keep the player facing in the current direction
-            if (direction.y == 1)
-                directionAnimatorParameter = 1;
-            else if (direction.y == -1)
-                directionAnimatorParameter = -1;
-            else if (Mathf.Abs(direction.x) == 1)
-                directionAnimatorParameter = 0;
+            // canMove condition stops transitioning between up/down/sideways during certain animation
+            if(canMove)
+            {
+                if (direction.y == 1)
+                    directionAnimatorParameter = 1;
+                else if (direction.y == -1)
+                    directionAnimatorParameter = -1;
+                else if (Mathf.Abs(direction.x) == 1)
+                    directionAnimatorParameter = 0;
+            }
+            
 
             // Perform any actions and update the player variables in data permanence
             PerformAction();
@@ -395,7 +406,7 @@ public class PlayerController : MonoBehaviour
         // Animator parameters
 
         // Set the movement animation parameter to detect any movement of the rigidbody
-        animator.SetFloat("Movement", rb.velocity.magnitude);
+        animator.SetFloat("Movement", direction.magnitude);
         // Set the player direction parameter
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
         // Set the crops that the player is or isn't carrying
@@ -435,7 +446,7 @@ public class PlayerController : MonoBehaviour
         if (inputDirection.y == 0)
             rb.velocity = new Vector2(rb.velocity.x, 0f);
 
-        if ((inputDirection.x < 0 && facingRight) || (inputDirection.x > 0 && !facingRight))
+        if (((inputDirection.x < 0 && facingRight) || (inputDirection.x > 0 && !facingRight)) && canMove)
             FlipPlayer();
     }
 
@@ -514,7 +525,8 @@ public class PlayerController : MonoBehaviour
                 }
                     
                 // Bed related interractions
-                if (Input.GetButtonDown("Action") && (tag == "Bed"))
+                // Make sure the bed is not accessed during certain parts of the tutorial
+                if (Input.GetButtonDown("Action") && (tag == "Bed") && (!inTutorial || tutorialNumber == 4))
                 {
                     GoToSleep();
                     if (inTutorial)
@@ -756,12 +768,19 @@ public class PlayerController : MonoBehaviour
         // And leave the function
         for (int i = 0; i < allCrops.Length; i++)
             if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
+            {
+                planting = false;
                 return;
-
+            }
+         
         // Check that the tile is tilled, then trigger the planting animation
         if (TilemapManager.Instance.IsTilled(pos))
+        {
             // Plant a crop on the tile at the location of the player
             TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
+            planting = true;
+        }
+            
     }
 
     // Bring up the display to plant a 3x3 square of crops
@@ -822,18 +841,27 @@ public class PlayerController : MonoBehaviour
                 // Plant the crops for each tile in the 3x3 square that can have a crop planted there
                 if (Input.GetButtonDown("Action") && stamina >= staminaUsedPlanting)
                 {
+                    planting = false;
+
                     // Plant the crop
                     PlantCrop(boxcastPositionInt, cropElement);
 
-                    // Play the planting sfx
-                    AudioManager.Instance.playPlantSeed();
-
-                    if (!staminaTaken)
+                    if(planting)
                     {
-                        // Lower the stamina from the action
-                        stamina -= staminaUsedPlanting;
+                        // Play the planting sfx
+                        AudioManager.Instance.playPlantSeed();
 
-                        staminaTaken = true;
+                        // Trigger the planting animation
+                        animator.SetTrigger("Planting");
+
+                        // Make sure that stamina is only taken once if multiple crops are planted
+                        if (!staminaTaken)
+                        {
+                            // Lower the stamina from the action
+                            stamina -= staminaUsedPlanting;
+
+                            staminaTaken = true;
+                        }
                     }
                 }
             }
@@ -959,9 +987,17 @@ public class PlayerController : MonoBehaviour
             case Item.ItemType.cropA:
 
                 if (carryCropA)
+                {
                     ChangeCarriedCrops(false, false);
+                    spriteRenderer.sprite = spriteArray[(int)currentTool];
+                }
+                    
                 else
+                {
                     ChangeCarriedCrops(true, false);
+                    spriteRenderer.sprite = spriteArray[5];
+                }
+                    
 
                 ui_Inventory.OpenInventory();
 
@@ -969,9 +1005,17 @@ public class PlayerController : MonoBehaviour
 
             case Item.ItemType.cropB:
                 if (carryCropB)
-                    ChangeCarriedCrops(true, false);
+                {
+                    ChangeCarriedCrops(false, false);
+                    spriteRenderer.sprite = spriteArray[(int)currentTool];
+                }
+                    
                 else
+                {
                     ChangeCarriedCrops(false, true);
+                    spriteRenderer.sprite = spriteArray[6];
+                }
+                    
 
                 ui_Inventory.OpenInventory();
 
@@ -982,6 +1026,9 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = spriteArray[0];
                 DataPermanence.Instance.hoe--;
 
+                // Set both the carried crops to false
+                ChangeCarriedCrops(false, false);
+
                 ui_Inventory.OpenInventory();
 
                 break;
@@ -989,8 +1036,11 @@ public class PlayerController : MonoBehaviour
             case Item.ItemType.wateringCan:
 
                 currentTool = Tools.wateringCan;
-                spriteRenderer.sprite = spriteArray[1];
+                spriteRenderer.sprite = spriteArray[2];
                 DataPermanence.Instance.wateringCan--;
+
+                // Set both the carried crops to false
+                ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
 
@@ -999,8 +1049,11 @@ public class PlayerController : MonoBehaviour
             case Item.ItemType.scythe:
 
                 currentTool = Tools.scythe;
-                spriteRenderer.sprite = spriteArray[2];
+                spriteRenderer.sprite = spriteArray[3];
                 DataPermanence.Instance.scythe--;
+
+                // Set both the carried crops to false
+                ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
 
@@ -1009,8 +1062,11 @@ public class PlayerController : MonoBehaviour
             case Item.ItemType.seedA:
               
                 currentTool = Tools.seedA;
-                spriteRenderer.sprite = spriteArray[3];
+                spriteRenderer.sprite = spriteArray[1];
                 DataPermanence.Instance.seedA--;
+
+                // Set both the carried crops to false
+                ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
 
@@ -1022,11 +1078,12 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = spriteArray[4];
                 DataPermanence.Instance.seedB--;
 
+                // Set both the carried crops to false
+                ChangeCarriedCrops(false, false);
+
                 ui_Inventory.OpenInventory();
 
                 break;
-
-
         }
     }
 
