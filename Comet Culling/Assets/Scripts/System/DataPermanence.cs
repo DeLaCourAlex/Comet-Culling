@@ -22,6 +22,9 @@ public class DataPermanence : MonoBehaviour
     // Player stamina
     [HideInInspector] public int playerStamina;
 
+    // Keep the current tool selected between scenes
+    [HideInInspector] public int currentTool;
+
     [HideInInspector] public bool playerTutorial;
 
     // The current tutorial stage if applicable

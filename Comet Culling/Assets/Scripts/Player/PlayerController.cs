@@ -221,21 +221,6 @@ public class PlayerController : MonoBehaviour
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
                 Debug.Log("inventory DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
             }
-            /*if (DataPermanence.Instance.hoe > 0)
-            {
-                inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = DataPermanence.Instance.hoe });
-                Debug.Log("inventory DataPermance ammout for hoe" + DataPermanence.Instance.hoe);
-            }
-            if (DataPermanence.Instance.wateringCan > 0)
-            {
-                inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = DataPermanence.Instance.wateringCan });
-                Debug.Log("inventory DataPermance ammout for wateringCan" + DataPermanence.Instance.wateringCan);
-            }
-            if (DataPermanence.Instance.scythe > 0)
-            {
-                inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = DataPermanence.Instance.scythe });
-                Debug.Log("inventory DataPermance ammout for scythe" + DataPermanence.Instance.scythe);
-            }*/
 
             if (DataPermanence.Instance.seedA > 0)
             {
@@ -248,6 +233,14 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("inventory DataPermance ammout for seedB" + DataPermanence.Instance.seedB);
             }
 
+            // Set the current tool to that from the previous scene
+            currentTool = (Tools)DataPermanence.Instance.currentTool;
+
+            if(availableTools > 1)
+            {
+                toolSprite.SetActive(true);
+                spriteRenderer.sprite = spriteArray[(int)currentTool];
+            } 
         }
 
         if (!inTutorial)
@@ -499,7 +492,8 @@ public class PlayerController : MonoBehaviour
             CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
             // If the raycast hit a generator/bed, access its spaceship controller
             SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
-            CaptainLogs captainLogs = hit.transform.gameObject.GetComponent<CaptainLogs>(); 
+            CaptainLogs captainLogs = hit.transform.gameObject.GetComponent<CaptainLogs>();
+            BedController bedController = hit.transform.gameObject.GetComponent<BedController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
             if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed") || (tag == "Screen"))
@@ -528,7 +522,7 @@ public class PlayerController : MonoBehaviour
                 // Make sure the bed is not accessed during certain parts of the tutorial
                 if (Input.GetButtonDown("Action") && (tag == "Bed") && (!inTutorial || tutorialNumber == 4))
                 {
-                    GoToSleep();
+                    GoToSleep(ref bedController);
                     if (inTutorial)
                         CheckTutorialFiveOver();
                 }
@@ -926,8 +920,9 @@ public class PlayerController : MonoBehaviour
             
     }
 
-    void GoToSleep()
+    void GoToSleep(ref BedController bed)
     {
+        bed.BedAnimation();
         // Figure out how long the crops grow between now and 7am next day
         // Then convert this into seconds and grow the crops that long
         int hoursGrowth;
@@ -940,6 +935,9 @@ public class PlayerController : MonoBehaviour
             // Increase the day count
             TimeManager.Day += 1;
             TimeManager.OnDayChanged?.Invoke();
+
+            // Save the new day in data permanence to keep it between scenes
+            DataPermanence.Instance.day += 1;
             Debug.Log("Day increased. New day: " + TimeManager.Day);
 
             // Increase crop growth hours, adding the rest of today if we're sleeping until the next day
@@ -997,9 +995,13 @@ public class PlayerController : MonoBehaviour
                     ChangeCarriedCrops(true, false);
                     spriteRenderer.sprite = spriteArray[5];
                 }
-                    
 
+
+                // Close the inventory once a tool is selected
                 ui_Inventory.OpenInventory();
+
+                // Store the currently selected took in data permanence to keep it between scenes
+                DataPermanence.Instance.currentTool = (int)currentTool;
 
                 break;
 
@@ -1015,9 +1017,13 @@ public class PlayerController : MonoBehaviour
                     ChangeCarriedCrops(false, true);
                     spriteRenderer.sprite = spriteArray[6];
                 }
-                    
 
+
+                // Close the inventory once a tool is selected
                 ui_Inventory.OpenInventory();
+
+                // Store the currently selected took in data permanence to keep it between scenes
+                DataPermanence.Instance.currentTool = (int)currentTool;
 
                 break;
 
@@ -1029,7 +1035,11 @@ public class PlayerController : MonoBehaviour
                 // Set both the carried crops to false
                 ChangeCarriedCrops(false, false);
 
+                // Close the inventory once a tool is selected
                 ui_Inventory.OpenInventory();
+
+                // Store the currently selected took in data permanence to keep it between scenes
+                DataPermanence.Instance.currentTool = (int)currentTool;
 
                 break;
 
@@ -1042,7 +1052,11 @@ public class PlayerController : MonoBehaviour
                 // Set both the carried crops to false
                 ChangeCarriedCrops(false, false);
 
+                // Close the inventory once a tool is selected
                 ui_Inventory.OpenInventory();
+
+                // Store the currently selected took in data permanence to keep it between scenes
+                DataPermanence.Instance.currentTool = (int)currentTool;
 
                 break;
 
@@ -1055,7 +1069,11 @@ public class PlayerController : MonoBehaviour
                 // Set both the carried crops to false
                 ChangeCarriedCrops(false, false);
 
+                // Close the inventory once a tool is selected
                 ui_Inventory.OpenInventory();
+
+                // Store the currently selected took in data permanence to keep it between scenes
+                DataPermanence.Instance.currentTool = (int)currentTool;
 
                 break;
 
@@ -1068,7 +1086,11 @@ public class PlayerController : MonoBehaviour
                 // Set both the carried crops to false
                 ChangeCarriedCrops(false, false);
 
+                // Close the inventory once a tool is selected
                 ui_Inventory.OpenInventory();
+
+                // Store the currently selected took in data permanence to keep it between scenes
+                DataPermanence.Instance.currentTool = (int)currentTool;
 
                 break;
 
@@ -1081,7 +1103,11 @@ public class PlayerController : MonoBehaviour
                 // Set both the carried crops to false
                 ChangeCarriedCrops(false, false);
 
+                // Close the inventory once a tool is selected
                 ui_Inventory.OpenInventory();
+
+                // Store the currently selected took in data permanence to keep it between scenes
+                DataPermanence.Instance.currentTool = (int)currentTool;
 
                 break;
         }
