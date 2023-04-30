@@ -88,6 +88,9 @@ public class DataPermanence : MonoBehaviour
     [HideInInspector] public int hour;
     [HideInInspector] public int mins;
 
+    [HideInInspector] public float sfxVolume;
+    [HideInInspector] public float musicVolume;
+
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
     // UI to display the spaceships energy
     //[Header("UI References")]
@@ -122,6 +125,9 @@ public class DataPermanence : MonoBehaviour
         day = 1;
         mins = 0;
         hour = 7;
+
+        sfxVolume = 1;
+        musicVolume = 1;
     }
 
     private void Update()

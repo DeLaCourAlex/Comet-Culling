@@ -207,8 +207,8 @@ public class PlayerController : MonoBehaviour
             if (!inTutorial)
                 inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 10 });
 
-            if (!inTutorial)
-                inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 10 });
+            //if (!inTutorial)
+            //    inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 10 });
 
             //Making sure the correct amount of items are being held across scenes 
             if (DataPermanence.Instance.cropA > 0)
@@ -733,7 +733,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Tilling");
 
                 // Play the tilling sfx
-                //AudioManager.Instance.playTillingSoil();
+                AudioManager.Instance.playTillingSoil();
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
@@ -1299,7 +1299,7 @@ public class PlayerController : MonoBehaviour
     // Because the player doesn't contain an audio manage component
     public void footstepsAudio()
     {
-        //AudioManager.Instance.playFootsteps();
+        AudioManager.Instance.playFootsteps();
     }
 
     // Used to display any variables to the screen in place of UI for now
