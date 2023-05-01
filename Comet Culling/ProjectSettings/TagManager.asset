@@ -11,7 +11,7 @@ TagManager:
   - Bed
   - ToolSprite
   - Stack
-  - npc
+  - Screen
   layers:
   - Default
   - TransparentFX

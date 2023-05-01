@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 7527863383091862404}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -387,10 +387,12 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5547763150201784086}
   spriteArray:
   - {fileID: 21300000, guid: b7ad77e7135805748bb9136f2d0ab939, type: 3}
+  - {fileID: 21300000, guid: 0ea1b31058f36ea499babc310c9f0db9, type: 3}
   - {fileID: 21300000, guid: 6dfea505920873c4c9d5d59f2bd81d78, type: 3}
   - {fileID: 21300000, guid: 670a52b5c7f6dd2489688c58ef8db670, type: 3}
-  - {fileID: 21300000, guid: 474d326aa7dad7544b9868086738eb2d, type: 3}
-  - {fileID: 21300000, guid: 897165c4d3022e842877ff33951c86d0, type: 3}
+  - {fileID: 21300000, guid: 621ea7a58de616b4a9932194faf70607, type: 3}
+  - {fileID: 1358016483, guid: c37633450dfbf8e42a554104ebdbc00d, type: 3}
+  - {fileID: -1009198576, guid: 13927a8a0604ea74e821f3a249fa6d50, type: 3}
   toolSprite: {fileID: 5547763150201784080}
   cameraFollow: {fileID: 501646162173470325}
   movementSpeed: 10
@@ -401,9 +403,8 @@ MonoBehaviour:
   tileSelectYes: {fileID: 7782820167725956421}
   tileSelectNo: {fileID: 308605693944346384}
   cropPlant: {fileID: 7902182014504787802}
-  NPC: {fileID: 0}
   pauseScreen: {fileID: 0}
-  inTutorial: 0
+  inTutorial: 1
   ui_Inventory: {fileID: 0}
 --- !u!95 &7527863383091862404
 Animator:

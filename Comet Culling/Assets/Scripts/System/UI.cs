@@ -31,8 +31,8 @@ public class UI : MonoBehaviour
         if (animatorEnergy != null)
         {
             animatorEnergy.SetFloat("Value", DataPermanence.Instance.spaceshipEnergy / 10);
-            Debug.Log("UPDATING ENERGY UI");
-            Debug.Log("Energy: " + DataPermanence.Instance.spaceshipEnergy);
+            //Debug.Log("UPDATING ENERGY UI");
+            //Debug.Log("Energy: " + DataPermanence.Instance.spaceshipEnergy);
         }
 
     }
