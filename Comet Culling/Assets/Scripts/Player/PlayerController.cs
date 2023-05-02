@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     //merchent 
     [SerializeField] GameObject Dialogue;
      private DialogueRunner dialogueRunner;
-
+    DialogueUI dialogueUI; 
 
     // The position of the camera follow 
     // Used to change camera position if the player is in certain parts of the scene
@@ -271,7 +271,7 @@ public class PlayerController : MonoBehaviour
                 {
 
                     case 2:
-                        dialogueRunner.StartDialogue("Day_2");
+                        dialogueRunner.StartDialogue("TestTalkSprite");
                         break;
 
                     case 4:
