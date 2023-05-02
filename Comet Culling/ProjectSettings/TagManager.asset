@@ -12,6 +12,7 @@ TagManager:
   - ToolSprite
   - Stack
   - Screen
+  - NPC
   layers:
   - Default
   - TransparentFX

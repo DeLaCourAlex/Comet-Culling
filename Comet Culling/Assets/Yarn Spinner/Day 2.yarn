@@ -1,25 +1,25 @@
 ﻿title: Day_2
 tags:
 ---
-Merchant: Hello there fellow space traveller! It is nice to see you again.  #line:helloThere
+Merchant: Hello there fellow space traveller! It is nice to see you again.  
 
 -> PR1NC3: Hello? Do we know each other? 
 
-Merchant:  Oh, right. I see you’re still affected by that memory issue. What a shame. In that case, let me reintroduce myself I am Vas, a travelling merchant. Glad that our paths have crossed again.   #line:OhRight
+Merchant:  Oh, right. I see you’re still affected by that memory issue. What a shame. In that case, let me reintroduce myself I am Vas, a travelling merchant. Glad that our paths have crossed again.   
 
 -> PR1NC3: I need to get back to my work 
 
 -> PR1NC3: A memory issue?  
 
-Merchant: Here we go again. You took a pretty hard hit during the crash and your memory drive got damaged, But don’t worry about it right now, your journey is the most important thing.  #line:Here_we_go
+Merchant: Here we go again. You took a pretty hard hit during the crash and your memory drive got damaged, But don’t worry about it right now, your journey is the most important thing.  
 
 -> PR1NC3: (Frown) How much do you know about me?  
 
-Vas: A bit? But all the information was given willingly! As you have probably noticed, this is far from our first meeting. We had quite a lot of time to talk. #line:Abit
+Vas: A bit? But all the information was given willingly! As you have probably noticed, this is far from our first meeting. We had quite a lot of time to talk. 
 
 -> PR1NC3: So, you’re a merchant?  
 
-Vas: Why, yes! I visit different planets to expand my inventory and it is quite *Vas*t if I do say so myself! #line:WhyYes
+Vas: Why, yes! I visit different planets to expand my inventory and it is quite *Vas*t if I do say so myself! 
 
 ->PR1NC3: *Annoyed* 
 
@@ -27,10 +27,8 @@ Vas: Ok, ok, not in a mood for jokes, I get it.
 
 ->PR1NC3: OK, why don’t you show me what you have? Do you want to trade? 
 
-Vas: I wouldn’t feel comfortable asking a friend for payment. Please, just take these seeds. On the house!  Hopefully they will help you continue your journey.  #line:I_wouldn’t
+Vas: I wouldn’t feel comfortable asking a friend for payment. Please, just take these seeds. On the house!  Hopefully they will help you continue your journey.  
 
 
 ===
-
-
 

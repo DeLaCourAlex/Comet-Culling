@@ -11,24 +11,47 @@ public class Merchent : MonoBehaviour
     [SerializeField] GameObject Panel;
     [SerializeField] GameObject Shop;
     [SerializeField] GameObject Dialogue;
-    public DialogueRunner dialogueRunner;
-    //public string StartNode = Yarn.Dialogue.DefaultStartNodeName;
+    //public DialogueRunner dialogueRunner;
+    private DialogueRunner dialogueRunner;
+
+    //[SerializeField] public string StartNode = Yarn.Dialogue.DefaultStartNodeName;
 
 
     //public PlayerController playerController;
 
     private void Start()
     {
+        dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
         //DayCycle();
         //gameObject.SetActive(true);
     }
+
+    // then we need a function to tell Yarn Spinner to start from {specifiedNodeName}
+    //public string Day2;
+    //public string Day4;
+    //public string Day6;
+    //public string Day6_LA;
+
+    private void Day2Conversation()
+    {
+        dialogueRunner.StartDialogue("Day_2");
+    }
+    private void Day4Conversation()
+    {
+        dialogueRunner.StartDialogue("Day_4");
+    }
+    private void Day6Conversation()
+    {
+        dialogueRunner.StartDialogue("Day_6");
+    }
+
     //player detection
     bool player_detection = false;
 
     // Update is called once per frame
     void Update()
     {
-        //DayCycle();
+        DayCycle();
 
         //if player is detected 
         if (player_detection)
@@ -57,7 +80,7 @@ public class Merchent : MonoBehaviour
 
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //if (collision.gameObject.name == "Player")
@@ -76,35 +99,28 @@ public class Merchent : MonoBehaviour
     }
 
 
-    //private void DayCycle()
-    //{
-    //    switch (TimeManager.Day)
-    //    {
-    //        case 1:
-              
-    //            break;
-    //        case 2:
-    //            //Dialogue.StartNode("Day_2");
-    //            break;
-    //        case 3:
-                
-    //            break;
-    //        case 4:
-    //            gameObject.SetActive(true);
-    //            break;
-    //        case 5:
-    //            gameObject.SetActive(false);
-    //            break;
-    //        case 6:
-    //            gameObject.SetActive(true);
-    //            break;
-    //        case 7:
-    //            gameObject.SetActive(false);
-    //            break;
+    private void DayCycle()
+    {
+        switch (TimeManager.Day)
+        {
+           
+            case 2:
+                Day2Conversation();
+                break;
+            
+            case 4:
+                Day4Conversation();
+                break;
+           
+            case 6:
+                Day6Conversation();
+                break;
+          
 
-    //    }
+        }
 
 
-    //}
 
-}
+
+    }
+    }

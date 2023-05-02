@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Yarn;
+using Yarn.Unity;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +19,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Sprite[] spriteArray;
     [SerializeField] GameObject toolSprite;
+   
+
+    //merchent 
+    [SerializeField] GameObject Dialogue;
+     private DialogueRunner dialogueRunner;
+
 
     // The position of the camera follow 
     // Used to change camera position if the player is in certain parts of the scene
@@ -146,7 +154,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
-
+        dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
         // Initialize member variables
         stamina = MAX_STAMINA;
         cropsHarvested = new int[2];
@@ -237,6 +245,68 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 9);
     }
 
+
+    //NPC detection
+    bool npc_detection = false;
+
+    //collision with NPC
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+       
+        if (collision.CompareTag("NPC"))
+        {
+            npc_detection = true;
+            
+            //Npc Detection
+            if (npc_detection)
+            {
+
+                //starts a different node depending on the day 
+                switch (TimeManager.Day)
+                {
+
+                    case 2:
+                        dialogueRunner.StartDialogue("Day_2");
+                        break;
+
+                    case 4:
+
+                        dialogueRunner.StartDialogue("Day_4");
+                        break;
+
+                    case 6:
+
+                        dialogueRunner.StartDialogue("Day_6");
+                        break;
+
+
+                }
+
+            }
+            Debug.Log("collision triggred");
+
+        }
+    }
+
+    //exit collision 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        npc_detection = false;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Update is called once per frame
     // Used to read input, perform calculations, set states etc
     void Update()
@@ -296,6 +366,7 @@ public class PlayerController : MonoBehaviour
             PerformAction();
         }
 
+        if (Input.GetButtonDown("Cancel"))
         if (Input.GetButtonDown("Cancel"))
             PauseGame();
 
@@ -1176,27 +1247,33 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    
     //enables the NPC depanding on what day
     private void DayCycle()
     {
+       
         switch (TimeManager.Day)
         {
             case 1:
                NPC.SetActive(false);
                 break;
             case 2:
+             
                 NPC.SetActive(true);
                 break;
             case 3:
                 NPC.SetActive(false);
                 break;
             case 4:
+             
                 NPC.SetActive(true);
                 break;
             case 5:
                 NPC.SetActive(false);
                 break;
             case 6:
+               
                 NPC.SetActive(true);
                 break;
             case 7:

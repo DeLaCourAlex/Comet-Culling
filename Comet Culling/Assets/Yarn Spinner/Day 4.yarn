@@ -1,69 +1,57 @@
 ﻿title: Day_4
 tags:
 ---
-Vas: Hello! I see you’re up bright and early.  #line:0f0b10f 
+Vas: Hello! I see you’re up bright and early.  
+->PR1NC3: I need to tend to my crops. 
 
-->PR1NC3: I need to tend to my crops.  #line:0aef84b 
+Vas: Of course, how is that going?  
 
-Vas: Of course, how is that going?  #line:01631d8 
+->PR1NC3: Slow but steady. What brings you here again?  
 
-->PR1NC3: Slow but steady. What brings you here again?  #line:0150a02 
+Vas: I wanted to check up on you!  
+-> PR1NC3: Oho, I’m starting to think you like me or something.
 
-Vas: I wanted to check up on you!  #line:0c1b29f 
+Vas: (3rd expression) Of course I do! You’re my friend and I want to make sure you’re ok.
+Vas: It pains me to see you alone. I really hope you can be reunited with them.  
 
--> PR1NC3: Oho, I’m starting to think you like me or something #line:0185cc4 
+->PR1NC3: … (sad)  
 
-Vas: (3rd expression) Of course I do! You’re my friend and I want to make sure you’re ok. #line:0a6fd8d 
+PR1NC3: Yeah me too. They were my crew.  
 
-Vas: It pains me to see you alone. I really hope you can be reunited with them.  #line:0c898ab 
+Vas: I know, but don’t worry! You’re getting closer, I’m sure. And in the meantime, I’ll do my best to keep you company!  
+->PR1NC3: I… I really appreciate it.  
 
-->PR1NC3: … (sad)  #line:0d766e1 
+Vas: So, do you want to talk about them? 
 
-PR1NC3: Yeah me too. They were my crew.  #line:0e063be 
+-> PR1NC3: Not really… (sad)
 
-Vas: I know, but don’t worry! You’re getting closer, I’m sure. And in the meantime, I’ll do my best to keep you company!  #line:007ea0a 
+Vas: That’s ok. Here, have these seeds, that’s the least I can do to help.
 
-->PR1NC3: I… I really appreciate it.  #line:01b55d9 
+-> PR1NC3: Maybe? I don’t really know what to say.
 
-Vas: So, do you want to talk about them?  #line:0196a9c 
+Vas: Just tell me who they were to you?
 
--> PR1NC3: Not really… (sad) #line:0c8e5c3 
+-> PR1NC3: Sally was my captain, Emilia the engineer and Jonah the medic.
 
-Vas: That’s ok. Here, have these seeds, that’s the least I can do to help. #line:047d4fc 
+Vas: Ok but what were they like?
 
-//The player gets seeds, quits the dialogue
+-> PR1NC3: …
 
--> PR1NC3: Maybe? I don’t really know what to say.  #line:0a882d6 
+-> PR1NC3: Sally was… is a really considerate person. She cares about rules and seems really strict. But based on what I’ve seen, she puts the safety of her crew above everything else. I know she cares about them deeply.
 
-Vas: Just tell me who they were to you?  #line:0c908da 
+-> PR1NC3: Emilia prefers to spend time on her own and is very dedicated to her research. Jonah wouldn’t have that though. He tried to coax her into leaving her lab and socialising more. He is just very social. (happy) I think she didn’t mind it half as much as she said she did.
 
--> PR1NC3: Sally was my captain, Emilia the engineer and Jonah the medic.  #line:01cf6e3 
+Vas: See? It’s good to see you smile. It suits you. Did it make you feel better?
 
-Vas: Ok but what were they like?  #line:04f4ca3 
+-> PR1NC3: I think so? I haven’t spoken to someone about them in a while. It actually feels as if they aren’t that far away now.
 
--> PR1NC3: … #line:09059cc 
+Vas: I’m glad. Here, take these seeds. Hopefully they will help you find them sooner.
 
--> PR1NC3: Sally was… is a really considerate person. She cares about rules and seems really strict. But based on what I’ve seen, she puts the safety of her crew above everything else. I know she cares about them deeply.  #line:0f1b391 
+-> PR1NC3: … Thank you Vas.
 
--> PR1NC3: Emilia prefers to spend time on her own and is very dedicated to her research. Jonah wouldn’t have that though. He tried to coax her into leaving her lab and socialising more. He is just very social. (happy) I think she didn’t mind it half as much as she said she did.  #line:0e1d48c 
+-> PR1NC3: No need. I am doing ok on my own. I need to get back to work now.
 
-Vas: See? It’s good to see you smile. It suits you. Did it make you feel better?  #line:0b47370 
-
--> PR1NC3: I think so? I haven’t spoken to someone about them in a while. It actually feels as if they aren’t that far away now.  #line:0722b6d 
-
-Vas: I’m glad. Here, take these seeds. Hopefully they will help you find them sooner.  #line:026c522 
-
--> PR1NC3: … Thank you Vas.  #line:02dd462 
-
-//Player gets the seeds. Quits the conversation.
-
--> PR1NC3: No need. I am doing ok on my own. I need to get back to work now.  #line:070830f 
-
-Vas: (angry) If you say so. Take these at least.  #line:09744f3 
-
-//Player gets the seeds. Quits the conversation.
-
-
+Vas: (angry) If you say so. Take these at least.
 
 
 ===
