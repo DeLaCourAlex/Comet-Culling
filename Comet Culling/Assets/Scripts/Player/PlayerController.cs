@@ -368,9 +368,11 @@ public class PlayerController : MonoBehaviour
             }
             Debug.Log("In tutorial: " + inTutorial);
             //updates npc based on day
-            DayCycle();
+            if(NPC != null)
+                DayCycle();
             //skip tutorial upon key press
-            SkipOverTutorial();
+            if (Input.GetKeyDown(KeyCode.Q))
+                SkipOverTutorial();
         }
 
         // Move the camera position further above the player if they're near the top of the crop scene
@@ -1211,15 +1213,10 @@ public class PlayerController : MonoBehaviour
 
     //Skips over tutorial when key is pressed
     void SkipOverTutorial()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            
-                TimeManager.Day++;
-                TimeManager.OnDayChanged?.Invoke();
-                ChangeTutorialStage(5, 9);
-            
-        }
+    {   
+       TimeManager.Day++;
+       TimeManager.OnDayChanged?.Invoke();
+       ChangeTutorialStage(5, 9);
     }
 
 
