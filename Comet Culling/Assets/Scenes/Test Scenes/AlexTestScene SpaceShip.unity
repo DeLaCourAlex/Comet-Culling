@@ -2388,6 +2388,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 6714829655991233921, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
+      propertyPath: m_Name
+      value: Pause Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 7938732817665319376, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: door
       value: 
@@ -2401,6 +2405,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1138341580}
     - target: {fileID: 8431023399184274141, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868596350081771933, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
