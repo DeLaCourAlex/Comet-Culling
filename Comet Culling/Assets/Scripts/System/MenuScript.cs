@@ -43,7 +43,11 @@ public class MenuScript : MonoBehaviour
             DataPermanence.Instance.tutorialNumber = 0;
 
         else if (!tutorial)
+        {
             DataPermanence.Instance.tutorialNumber = 9;
+            DataPermanence.Instance.spaceshipEnergy = 100;
+        }
+            
 
         DataPermanence.Instance.playerTutorial = tutorial;
     }

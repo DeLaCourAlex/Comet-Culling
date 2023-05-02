@@ -73,6 +73,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject cropPlant;
     [SerializeField] GameObject NPC;
 
+    //Check if screen has been interacted with today
+    bool hasInteractedScreenToday;
+    bool readingCaptainsLog;
+
     int energyCropA = 10;
     int energyCropB = 15;
     bool carryCropA;
@@ -183,6 +187,7 @@ public class PlayerController : MonoBehaviour
             deathDay = DataPermanence.Instance.deathDay;
             deathHour = DataPermanence.Instance.deathHour;
             deathMinute = DataPermanence.Instance.deathMinute;
+            hasInteractedScreenToday = DataPermanence.Instance.screenInteractedToday;
             // If there are any crops held in the inventory in data permanence
             // add them to player inventory in this scene
             //Adds tools and seeds to the inventory 
@@ -319,7 +324,8 @@ public class PlayerController : MonoBehaviour
         // Check if the current animation should stop movement
         if (currentAnimation == "Player Hoe Down" || currentAnimation == "Player Hoe Sideways" || currentAnimation == "Player Hoe Up" ||
             currentAnimation == "Player Scythe Down" || currentAnimation == "Player Scythe Sideways" || currentAnimation == "Player Scythe Up" ||
-            currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up")
+            currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up" ||
+            readingCaptainsLog)
             canMove = false;
         else
             canMove = true;
@@ -333,7 +339,8 @@ public class PlayerController : MonoBehaviour
         {
             // Read directional input and set the movement vector
             // Normalize to reduce increased speed when moving diagonally
-            direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            if(!readingCaptainsLog)
+                direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
             // Set the raycast corrector based on the previous and current direction that the player is facing
             if (Mathf.Abs(directionAnimatorParameter) == 1 && direction.x != 0)
@@ -439,9 +446,11 @@ public class PlayerController : MonoBehaviour
             }
             Debug.Log("In tutorial: " + inTutorial);
             //updates npc based on day
-            DayCycle();
+            if(NPC != null)
+                DayCycle();
             //skip tutorial upon key press
-            SkipOverTutorial();
+            if (Input.GetKeyDown(KeyCode.Q))
+                SkipOverTutorial();
         }
 
         // Move the camera position further above the player if they're near the top of the crop scene
@@ -547,9 +556,11 @@ public class PlayerController : MonoBehaviour
             CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
             // If the raycast hit a generator/bed, access its spaceship controller
             SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+            CaptainLogs captainLogs = hit.transform.gameObject.GetComponent<CaptainLogs>();
+            BedController bedController = hit.transform.gameObject.GetComponent<BedController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed"))
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed") || (tag == "Screen"))
             {
                 DisplayCanInteract(false, false, false);
 
@@ -559,9 +570,39 @@ public class PlayerController : MonoBehaviour
                 // Bed related interractions
                 if (Input.GetButtonDown("Action") && (tag == "Bed"))
                 {
-                    GoToSleep();
+                    GoToSleep(ref bedController);
                     if (inTutorial)
                         CheckTutorialFiveOver();
+                }
+                //Screen related interactions
+                if (Input.GetButtonDown("Action") && (tag == "Screen"))
+                {
+                    if (hasInteractedScreenToday && !readingCaptainsLog)
+                    {
+                        readingCaptainsLog = true;
+                        captainLogs.logOpen = true;
+                    }
+
+                    else if (readingCaptainsLog)
+                    {
+                        readingCaptainsLog = false;
+                        captainLogs.logOpen = false;
+                    }
+
+
+                    else if (!hasInteractedScreenToday)
+                    {
+                        captainLogs.hasBeenRead = true;
+                        hasInteractedScreenToday = true;
+                        Debug.Log("Just interacted with screen");
+                        DataPermanence.Instance.screenInteractedToday = true;
+                        readingCaptainsLog = true;
+                        captainLogs.logOpen = true;
+                    }
+
+                    
+                        Debug.Log("Has interacted is true (not good)");
+                    //else //Ask player if they want to read the same log again
                 }
             }
 
@@ -936,8 +977,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void GoToSleep()
+    void GoToSleep(ref BedController bed)
     {
+        bed.BedAnimation();
         // Figure out how long the crops grow between now and 7am next day
         // Then convert this into seconds and grow the crops that long
         int hoursGrowth;
@@ -981,6 +1023,7 @@ public class PlayerController : MonoBehaviour
         TimeManager.Hour = 7;
         TimeManager.Minute = 0;
 
+        hasInteractedScreenToday = false;
     }
 
     //adds a single crop to player upon mouse click and removes a single crop from the inventory
@@ -1288,15 +1331,10 @@ public class PlayerController : MonoBehaviour
 
     //Skips over tutorial when key is pressed
     void SkipOverTutorial()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            
-                TimeManager.Day++;
-                TimeManager.OnDayChanged?.Invoke();
-                ChangeTutorialStage(5, 9);
-            
-        }
+    {   
+       TimeManager.Day++;
+       TimeManager.OnDayChanged?.Invoke();
+       ChangeTutorialStage(5, 9);
     }
 
 
