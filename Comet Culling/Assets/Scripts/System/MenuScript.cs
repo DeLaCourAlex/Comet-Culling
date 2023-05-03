@@ -36,4 +36,31 @@ public class MenuScript : MonoBehaviour
         pauseScreen.SetActive(false);
         Time.timeScale = 1f;
     }
+
+    public void SetTutorial(bool tutorial)
+    {
+        if(tutorial)
+            DataPermanence.Instance.tutorialNumber = 0;
+
+        else if (!tutorial)
+        {
+            DataPermanence.Instance.tutorialNumber = 9;
+            DataPermanence.Instance.spaceshipEnergy = 100;
+        }
+            
+
+        DataPermanence.Instance.playerTutorial = tutorial;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        DataPermanence.Instance.sfxVolume = volume;
+        AudioManager.Instance.sfxVolume = volume;
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        DataPermanence.Instance.musicVolume = volume;
+        AudioManager.Instance.sfxVolume = volume;
+    }
 }

@@ -22,6 +22,9 @@ public class DataPermanence : MonoBehaviour
     // Player stamina
     [HideInInspector] public int playerStamina;
 
+    // Keep the current tool selected between scenes
+    [HideInInspector] public int currentTool;
+
     [HideInInspector] public bool playerTutorial;
 
     // The current tutorial stage if applicable
@@ -76,10 +79,17 @@ public class DataPermanence : MonoBehaviour
 
     [HideInInspector] public int spaceshipEnergy;
 
+    //CAPTAIN LOG VARIABLES
+    [HideInInspector] public bool screenInteractedToday;
+
+
     // TIME/DAY VARIABLES
     [HideInInspector] public int day;
     [HideInInspector] public int hour;
     [HideInInspector] public int mins;
+
+    [HideInInspector] public float sfxVolume;
+    [HideInInspector] public float musicVolume;
 
     // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
     // UI to display the spaceships energy
@@ -105,14 +115,19 @@ public class DataPermanence : MonoBehaviour
         cropsHarvested = new int[2];
         playerStamina = 100;
         spaceshipEnergy = 0;
+        screenInteractedToday = false; 
         availableTools = 1;
 
         playerTutorial = true;
+        //playerTutorial = false;
 
         //Start-off values
         day = 1;
         mins = 0;
         hour = 7;
+
+        sfxVolume = 1;
+        musicVolume = 1;
     }
 
     private void Update()
@@ -125,7 +140,7 @@ public class DataPermanence : MonoBehaviour
             {
                 allCrops[i].timeAlive += Time.deltaTime * allCrops[i].wateredMultiplier;
             }
-
+        
         // Update the UI with the current spaceship energy
 
         //energyUI.UpdateValue(spaceshipEnergy);

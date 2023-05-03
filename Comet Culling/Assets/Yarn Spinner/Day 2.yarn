@@ -1,0 +1,46 @@
+﻿title: Day_2
+tracking: always
+tags:
+---
+<<set $hasSeeds to false>>
+<<set $affinity to false>>  
+Merchant: Hello there fellow space traveller! It is nice to see you again.  
+
+-> PR1NC3: Hello? Do we know each other? 
+
+Merchant:  Oh, right. I see you’re still affected by that memory issue. What a shame.
+Merchent:  In that case, let me reintroduce myself I am Vas, a travelling merchant. Glad that our paths have crossed again.
+
+-> PR1NC3: I need to get back to my work
+    <<jump Quit>>
+
+-> PR1NC3: A memory issue?  
+
+Vas: Here we go again. You took a pretty hard hit during the crash and your memory drive got damaged, But don’t worry about it right now, your journey is the most important thing.  
+
+-> PR1NC3: (Annoyed) How much do you know about me?  
+
+Vas: A bit? But all the information was given willingly! As you have probably noticed, this is far from our first meeting. We had quite a lot of time to talk. 
+
+-> PR1NC3: So, you’re a merchant?  
+
+Vas: Why, yes! I visit different planets to expand my inventory and it is quite *Vas*t if I do say so myself! 
+
+->PR1NC3: *Annoyed* 
+
+Vas: Ok, ok, not in a mood for jokes, I get it.  
+
+->PR1NC3: OK, show me what you have? Do you want to trade? 
+<<set $hasSeeds to true>>
+<<Trade Player TradeItem>>
+Vas: I wouldn’t feel comfortable asking a friend for payment. Please, just take these seeds. On the house!  Hopefully they will help you continue your journey.  
+
+===
+
+title:Quit
+tracking: always
+tags:
+---
+
+===
+

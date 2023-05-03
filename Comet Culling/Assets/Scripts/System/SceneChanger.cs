@@ -28,6 +28,15 @@ public class SceneChanger : MonoBehaviour
         // Set the position of the player in the new scene
         DataPermanence.Instance.playerStartPosition = startingPosition;
 
+        //Set the time in the new scene
+        //if (DataPermanence.Instance != null)
+        //{
+        //    TimeManager.Day = DataPermanence.Instance.day;
+        //    TimeManager.Hour = DataPermanence.Instance.hour;
+        //    TimeManager.Minute = DataPermanence.Instance.mins;
+        //
+        //}
+
         // Start coroutine to play the fadeout and load the new scene
         StartCoroutine(ChangeLevel(scene));
 
@@ -49,7 +58,7 @@ public class SceneChanger : MonoBehaviour
     IEnumerator ChangeLevel(string scene)
     {
         // Set the trigger for the fade out animation
-        animator.SetTrigger("SceneEnd");
+        animator.SetTrigger("Fade Out");
 
         // Pause the function to play the fade out animation
         yield return new WaitForSeconds(0.5f);

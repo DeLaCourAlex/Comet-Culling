@@ -18,6 +18,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip generatorFeedCrops;
     [SerializeField] AudioClip generatorRecharge;
 
+    public float sfxVolume { private get; set; } = 1;
+    public float musicVolume { private get; set; } = 1;
+
     // Create an instance of the class to allow to call its functions statically
     public static AudioManager Instance;
 
@@ -26,10 +29,22 @@ public class AudioManager : MonoBehaviour
     {
         // Initialize the instance
         Instance = this;
+
+        if (DataPermanence.Instance != null)
+        {
+            sfxVolume = DataPermanence.Instance.sfxVolume;
+            musicVolume = DataPermanence.Instance.musicVolume;
+        }
     }
 
+    private void Update()
+    {
+        // Music is all a bit loud so turn it down even at full volume
+        MusicSource.volume = musicVolume * 0.6f;
+    }
     public void PlayMusic()
     {
+        
         MusicSource.Play();
     }
 
@@ -40,34 +55,35 @@ public class AudioManager : MonoBehaviour
 
     public void playFootsteps()
     {
-        SfxSource.PlayOneShot(footsteps, 0.5f);
+        SfxSource.PlayOneShot(footsteps, 0.8f * sfxVolume);
+        Debug.Log("SfX volume " + DataPermanence.Instance.sfxVolume);
     }
 
     public void playTillingSoil()
     {
-        SfxSource.PlayOneShot(tillingSoil, 0.5f);
+        SfxSource.PlayOneShot(tillingSoil, 0.5f * sfxVolume);
     }
 
     public void playPlantSeed()
     {
-        SfxSource.PlayOneShot(plantSeed, 0.5f);
+        SfxSource.PlayOneShot(plantSeed, 0.5f * sfxVolume);
     }
 
     public void playHarvestCrop()
     {
-        SfxSource.PlayOneShot(harvestCrop, 0.5f);
+        SfxSource.PlayOneShot(harvestCrop, 0.5f * sfxVolume);
     }
 
     public void playWaterCrop()
     {
-        SfxSource.PlayOneShot(waterCrop, 0.5f);
+        SfxSource.PlayOneShot(waterCrop, 0.5f * sfxVolume);
     }
     public void playGeneratorFeedCrops()
     {
-        SfxSource.PlayOneShot(generatorFeedCrops, 0.5f);
+        SfxSource.PlayOneShot(generatorFeedCrops, 0.5f * sfxVolume);
     }
     public void playGeneratorRecharge()
     {
-        SfxSource.PlayOneShot(generatorRecharge, 0.5f);
+        SfxSource.PlayOneShot(generatorRecharge, 0.5f * sfxVolume);
     }
 }

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0d62f10a82349d749847d1b86dc3a6c6
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Pixeloid Mono
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: a5888b94f892d8346bafbe9e0afad6b8, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

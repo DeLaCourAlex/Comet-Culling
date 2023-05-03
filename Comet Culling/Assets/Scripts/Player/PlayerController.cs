@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Yarn;
+using Yarn.Unity;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +14,17 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     BoxCollider2D box;
+
+    //Tool sprite
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite[] spriteArray;
+    [SerializeField] GameObject toolSprite;
+   
+
+    //merchent 
+    [SerializeField] GameObject Dialogue;
+     private DialogueRunner dialogueRunner;
+
 
     // The position of the camera follow 
     // Used to change camera position if the player is in certain parts of the scene
@@ -42,7 +55,7 @@ public class PlayerController : MonoBehaviour
     int staminaUsedHoe = 2;
     int staminaUsedPlanting = 10;
     int staminaUsedWatering = 3;
-    int staminaUsedScythe = 5;
+    int staminaUsedScythe = 1;
 
     // DEATH RELATED VARIABLES
     // Flag that the player is out of stamina and spaceship is out of energy
@@ -58,10 +71,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject tileSelectYes;
     [SerializeField] GameObject tileSelectNo;
     [SerializeField] GameObject cropPlant;
+    [SerializeField] GameObject NPC;
+
+    //Check if screen has been interacted with today
+    bool hasInteractedScreenToday;
+    bool readingCaptainsLog;
+
     int energyCropA = 10;
     int energyCropB = 15;
     bool carryCropA;
     bool carryCropB;
+    // Check if the inventory is open - stops items being used when mouse clicking in the inventory
+    bool inventoryOpen;
+
     // Used to alter the position of the raycast depending on the previous directions of the player
     // Ensures that if the player was facing the crops below them if they turn sideways, they will now be 
     // facing the crop to the bottom right, not directly to the right
@@ -89,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
     // IN GAME TUTORIAL VARIABLES
     // Check if the player is in the tutorial and limit their actions if so
-    [SerializeField] bool inTutorial = true;
+    [SerializeField] bool inTutorial;
 
     // The stage of the tutorial the player is currently in
     public int tutorialNumber { get; private set; } = 0;
@@ -110,21 +132,18 @@ public class PlayerController : MonoBehaviour
     public UI_Inventory ui_Inventory;
     public Inventory inventory;
 
-    //SHOP
-    private ShopManager shopManager;
-    public Shop_UI ui_Shop; 
     // BASIC TEST UI
     // Mostly for debugging/checking things are working
-/*    string cropAText;
-    [SerializeField] TextMeshProUGUI cropAUI;
-    string cropBText;
-    [SerializeField] TextMeshProUGUI cropBUI;*/
-    string currentToolString;
-    [SerializeField] TextMeshProUGUI currentToolUI;
-/*    string staminaText;
-    [SerializeField] TextMeshProUGUI staminaTextUI;
-    string spaceshipEnergyText;
-    [SerializeField] TextMeshProUGUI spaceshipEnergyUI;*/
+    /*    string cropAText;
+        [SerializeField] TextMeshProUGUI cropAUI;
+        string cropBText;
+        [SerializeField] TextMeshProUGUI cropBUI;*/
+    //string currentToolString;
+    //[SerializeField] TextMeshProUGUI currentToolUI;
+    /*    string staminaText;
+        [SerializeField] TextMeshProUGUI staminaTextUI;
+        string spaceshipEnergyText;
+        [SerializeField] TextMeshProUGUI spaceshipEnergyUI;*/
 
     private void Awake()
     {
@@ -134,11 +153,12 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //NPC.SetActive(false);
         // Initialize member objects and components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
-
+        dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
         // Initialize member variables
         stamina = MAX_STAMINA;
         cropsHarvested = new int[2];
@@ -147,10 +167,6 @@ public class PlayerController : MonoBehaviour
         inventory = new Inventory(UseItem);
         ui_Inventory.SetPlayer(this);
 
-        //Instantiates shop and sets it to player 
-        shopManager = new ShopManager();
-        ui_Shop.SetShop(shopManager, inventory, this); 
-        
         //passing in the inventory object onto UI script
         ui_Inventory.SetInventory(inventory);
 
@@ -171,21 +187,24 @@ public class PlayerController : MonoBehaviour
             deathDay = DataPermanence.Instance.deathDay;
             deathHour = DataPermanence.Instance.deathHour;
             deathMinute = DataPermanence.Instance.deathMinute;
+            hasInteractedScreenToday = DataPermanence.Instance.screenInteractedToday;
             // If there are any crops held in the inventory in data permanence
             // add them to player inventory in this scene
             //Adds tools and seeds to the inventory 
+
             inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = 1 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 1 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
 
-            //SHOP TESTING - This called at start
-            inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = 10 });
-            inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = 10 });
+            if (!inTutorial || (inTutorial && availableTools > 1))
+                inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 10 });
 
-            shopManager.UpdateStock(); 
+            if (!inTutorial || (inTutorial && availableTools > 2))
+                inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
 
+            if (!inTutorial || (inTutorial && availableTools > 3))
+                inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
+
+            if (!inTutorial)
+                inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 10 });
 
             //Making sure the correct amount of items are being held across scenes 
             if (DataPermanence.Instance.cropA > 0)
@@ -198,7 +217,7 @@ public class PlayerController : MonoBehaviour
                 inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
                 Debug.Log("inventory DataPermance ammout for crop B" + DataPermanence.Instance.cropB);
             }
-            if (DataPermanence.Instance.hoe > 0)
+            /*if (DataPermanence.Instance.hoe > 0)
             {
                 inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = DataPermanence.Instance.hoe });
                 Debug.Log("inventory DataPermance ammout for hoe" + DataPermanence.Instance.hoe);
@@ -212,7 +231,7 @@ public class PlayerController : MonoBehaviour
             {
                 inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = DataPermanence.Instance.scythe });
                 Debug.Log("inventory DataPermance ammout for scythe" + DataPermanence.Instance.scythe);
-            }
+            }*/
 
             if (DataPermanence.Instance.seedA > 0)
             {
@@ -231,8 +250,16 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 9);
     }
 
-<<<<<<< Updated upstream
-=======
+    [YarnCommand("Trade")]
+    public void Trade(bool TradeItem = true)
+    {
+        if (TradeItem)
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 2 });
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 2 });
+        }
+    }
+
 
     //NPC detection
     bool npc_detection = false;
@@ -254,7 +281,8 @@ public class PlayerController : MonoBehaviour
                 {
 
                     case 2:
-                        dialogueRunner.StartDialogue("TestTalkSprite");
+                        dialogueRunner.StartDialogue("Day_2");
+ 
                         break;
 
                     case 4:
@@ -271,23 +299,15 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
-           
             Debug.Log("collision triggred");
 
         }
-        //else
-        //{
-        //    //dialogueRunner.StopAllCoroutines();
-        //    dialogueRunner.Stop();
-        //}
     }
 
     //exit collision 
     private void OnTriggerExit2D(Collider2D other)
     {
         npc_detection = false;
-        //dialogueRunner.StopAllCoroutines();
-        dialogueRunner.Stop();
 
     }
 
@@ -303,12 +323,11 @@ public class PlayerController : MonoBehaviour
 
 
 
->>>>>>> Stashed changes
     // Update is called once per frame
     // Used to read input, perform calculations, set states etc
     void Update()
     {
-        
+       
 
         // Stop movement during certain animations
         // Get the name of the current animation
@@ -316,7 +335,8 @@ public class PlayerController : MonoBehaviour
         // Check if the current animation should stop movement
         if (currentAnimation == "Player Hoe Down" || currentAnimation == "Player Hoe Sideways" || currentAnimation == "Player Hoe Up" ||
             currentAnimation == "Player Scythe Down" || currentAnimation == "Player Scythe Sideways" || currentAnimation == "Player Scythe Up" ||
-            currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up")
+            currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up" ||
+            readingCaptainsLog)
             canMove = false;
         else
             canMove = true;
@@ -325,80 +345,49 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
             ui_Inventory.OpenInventory();
 
-        //OPEN SHOP TEST
-        if (Input.GetKeyDown(KeyCode.K))
-            ui_Shop.OpenShop();  
-
-        // Read directional input and set the movement vector
-        // Normalize to reduce increased speed when moving diagonally
-        direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
-        // Set the raycast corrector based on the previous and current direction that the player is facing
-        if (Mathf.Abs(directionAnimatorParameter) == 1 && direction.x != 0)
+        // Gameplay action/movement can only happen when the inventory is closed
+        if (!ui_Inventory.isInventoryVisible)
         {
-            if (directionAnimatorParameter == 1)
-                raycastCorrector = new Vector3(0, 0.5f, 0);
-            else if (directionAnimatorParameter == -1)
-                raycastCorrector = new Vector3(0, -0.5f, 0);
-        }
+            // Read directional input and set the movement vector
+            // Normalize to reduce increased speed when moving diagonally
+            if(!readingCaptainsLog)
+                direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        if (directionAnimatorParameter == 0 && direction.y != 0)
-        {
-            if (facingRight)
-                raycastCorrector = new Vector3(0.5f, 0, 0);
-            else if (!facingRight)
-                raycastCorrector = new Vector3(-0.5f, 0, 0);
-        }
+            // Set the raycast corrector based on the previous and current direction that the player is facing
+            if (Mathf.Abs(directionAnimatorParameter) == 1 && direction.x != 0)
+            {
+                if (directionAnimatorParameter == 1)
+                    raycastCorrector = new Vector3(0, 0.5f, 0);
+                else if (directionAnimatorParameter == -1)
+                    raycastCorrector = new Vector3(0, -0.5f, 0);
+            }
 
-        // Set the direction parameter based on the directional input
-        // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
-        // will keep the player facing in the current direction
-        if (direction.y == 1)
-            directionAnimatorParameter = 1;
-        else if (direction.y == -1)
-            directionAnimatorParameter = -1;
-        else if (Mathf.Abs(direction.x) == 1)
-            directionAnimatorParameter = 0;
+            if (directionAnimatorParameter == 0 && direction.y != 0)
+            {
+                if (facingRight)
+                    raycastCorrector = new Vector3(0.5f, 0, 0);
+                else if (!facingRight)
+                    raycastCorrector = new Vector3(-0.5f, 0, 0);
+            }
 
-        // Cycle through the enum of tools
-        // If at either end of the list, cycle around to the other end
-        if (Input.GetButtonDown("Tools Left"))
-        {
-            // If the current weapon is the lowest tool in the enums
-            // Then change it to the highest tool in the enums
-            // Otherwise, go to the next one down
-            if (currentTool <= 0)
-                currentTool = (Tools)availableTools - 1;
-            else
-                currentTool--;
-        }
-        if (Input.GetButtonDown("Tools Right"))
-        {
-            // If the current weapon is the highest tool in the enums
-            // Then change it to the lowest tool in the enums
-            // Otherwise, go to the next one up
-            if (currentTool >= (Tools)availableTools - 1)
-                currentTool = 0;
-            else
-                currentTool++;
+            // Set the direction parameter based on the directional input
+            // Only uses whole numbers to change the parameter - because the directional input is normalized, this ensures that diagonal movement (0.7, 0.7)
+            // will keep the player facing in the current direction
+            if (direction.y == 1)
+                directionAnimatorParameter = 1;
+            else if (direction.y == -1)
+                directionAnimatorParameter = -1;
+            else if (Mathf.Abs(direction.x) == 1)
+                directionAnimatorParameter = 0;
+
+            // Perform any actions and update the player variables in data permanence
+            PerformAction();
         }
 
         if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel"))
             PauseGame();
-        //// When press escape, quit the game
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //    Application.Quit();
 
-        // Set whether the player is carrying a crop or not
-        if (Input.GetButtonDown("No Crops"))
-            ChangeCarriedCrops(false, false);
-/*        if (Input.GetButtonDown("Crop A") && cropsHarvested[0] > 0)
-            ChangeCarriedCrops(true, false);
-        if (Input.GetButtonDown("Crop B") && cropsHarvested[1] > 0)
-            ChangeCarriedCrops(false, true);*/
-
-        // Perform any actions and update the player variables in data permanence
-        PerformAction();
         DataPermanence.Instance.playerStamina = stamina;
         DataPermanence.Instance.cropsHarvested = cropsHarvested;
 
@@ -436,11 +425,11 @@ public class PlayerController : MonoBehaviour
 
                     break;
 
-                /*                case 4:
+                //case 4:
 
-                                    CheckTutorialFiveOver();
+                //    CheckTutorialFiveOver();
 
-                                    break;*/
+                //    break;
 
                 case 5:
 
@@ -467,6 +456,12 @@ public class PlayerController : MonoBehaviour
                     break;
             }
             Debug.Log("In tutorial: " + inTutorial);
+            //updates npc based on day
+            if(NPC != null)
+                DayCycle();
+            //skip tutorial upon key press
+            if (Input.GetKeyDown(KeyCode.Q))
+                SkipOverTutorial();
         }
 
         // Move the camera position further above the player if they're near the top of the crop scene
@@ -572,9 +567,11 @@ public class PlayerController : MonoBehaviour
             CropController cropController = hit.transform.gameObject.GetComponent<CropController>();
             // If the raycast hit a generator/bed, access its spaceship controller
             SpaceshipController spaceshipController = hit.transform.gameObject.GetComponent<SpaceshipController>();
+            CaptainLogs captainLogs = hit.transform.gameObject.GetComponent<CaptainLogs>();
+            BedController bedController = hit.transform.gameObject.GetComponent<BedController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed"))
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || tag == "Bed" || tag == "Screen" || tag == "Player")
             {
                 DisplayCanInteract(false, false, false);
 
@@ -584,9 +581,39 @@ public class PlayerController : MonoBehaviour
                 // Bed related interractions
                 if (Input.GetButtonDown("Action") && (tag == "Bed"))
                 {
-                    GoToSleep();
+                    GoToSleep(ref bedController);
                     if (inTutorial)
                         CheckTutorialFiveOver();
+                }
+                //Screen related interactions
+                if (Input.GetButtonDown("Action") && (tag == "Screen"))
+                {
+                    if (hasInteractedScreenToday && !readingCaptainsLog)
+                    {
+                        readingCaptainsLog = true;
+                        captainLogs.logOpen = true;
+                    }
+
+                    else if (readingCaptainsLog)
+                    {
+                        readingCaptainsLog = false;
+                        captainLogs.logOpen = false;
+                    }
+
+
+                    else if (!hasInteractedScreenToday)
+                    {
+                        captainLogs.hasBeenRead = true;
+                        hasInteractedScreenToday = true;
+                        Debug.Log("Just interacted with screen");
+                        DataPermanence.Instance.screenInteractedToday = true;
+                        readingCaptainsLog = true;
+                        captainLogs.logOpen = true;
+                    }
+
+                    
+                        Debug.Log("Has interacted is true (not good)");
+                    //else //Ask player if they want to read the same log again
                 }
             }
 
@@ -710,7 +737,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Watering");
 
                 // Play the watering sfx
-                AudioManager.Instance.playWaterCrop();
+                if(AudioManager.Instance != null)
+                    AudioManager.Instance.playWaterCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedWatering;
@@ -737,7 +765,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(rayHit.transform.gameObject);
                 // Increase the amount of harvested crops
                 //cropsHarvested[cropType]++;
-                switch(cropType)
+                switch (cropType)
                 {
                     case 0:
 
@@ -751,7 +779,7 @@ public class PlayerController : MonoBehaviour
                         DataPermanence.Instance.cropB++;
                         break;
                 }
-                    
+
 
                 // Reset the crop's tile to untilled dirt
                 TilemapManager.Instance.ResetTile(pos);
@@ -760,7 +788,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Harvesting");
 
                 // Play the scythe sfx
-                AudioManager.Instance.playHarvestCrop();
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.playHarvestCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedScythe;
@@ -790,7 +819,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Tilling");
 
                 // Play the tilling sfx
-                AudioManager.Instance.playTillingSoil();
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.playTillingSoil();
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
@@ -889,7 +919,8 @@ public class PlayerController : MonoBehaviour
                     PlantCrop(boxcastPositionInt, cropElement);
 
                     // Play the planting sfx
-                    AudioManager.Instance.playPlantSeed();
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.playPlantSeed();
 
                     if (!staminaTaken)
                     {
@@ -918,7 +949,8 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropA);
 
             // Play the crops into generator sfx
-            AudioManager.Instance.playGeneratorFeedCrops();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[0]--;
@@ -937,7 +969,8 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropB);
 
             // Play the crops into generator sfx
-            AudioManager.Instance.playGeneratorFeedCrops();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[1]--;
@@ -955,14 +988,16 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargePlayer(ref stamina);
 
             // Play the player recharge sfx
-            if(DataPermanence.Instance.spaceshipEnergy > 0)
+            //if(DataPermanence.Instance.spaceshipEnergy > 0)
+            if (AudioManager.Instance != null)
                 AudioManager.Instance.playGeneratorRecharge();
         }
-            
+
     }
 
-    void GoToSleep()
+    void GoToSleep(ref BedController bed)
     {
+        bed.BedAnimation();
         // Figure out how long the crops grow between now and 7am next day
         // Then convert this into seconds and grow the crops that long
         int hoursGrowth;
@@ -1006,38 +1041,86 @@ public class PlayerController : MonoBehaviour
         TimeManager.Hour = 7;
         TimeManager.Minute = 0;
 
+        hasInteractedScreenToday = false;
     }
 
     //adds a single crop to player upon mouse click and removes a single crop from the inventory
     public void UseItem(Item item)
     {
+        toolSprite.SetActive(true);
         switch (item.itemType)
         {
             case Item.ItemType.cropA:
 
-                if(carryCropA)
+                if (carryCropA)
                     ChangeCarriedCrops(false, false);
                 else
                     ChangeCarriedCrops(true, false);
 
                 ui_Inventory.OpenInventory();
-                //cropsHarvested[0]++;
-                //DataPermanence.Instance.cropA--;
-                //inventory.RemoveItem(new Item { itemType = Item.ItemType.cropA, amount = 1 });
+
                 break;
 
             case Item.ItemType.cropB:
-
-                if(carryCropB)
+                if (carryCropB)
                     ChangeCarriedCrops(true, false);
                 else
                     ChangeCarriedCrops(false, true);
 
                 ui_Inventory.OpenInventory();
-                //cropsHarvested[1]++;
-                //DataPermanence.Instance.cropB--;
-                //inventory.RemoveItem(new Item { itemType = Item.ItemType.cropB, amount = 1 });
+
                 break;
+
+            case Item.ItemType.hoe:
+                currentTool = Tools.hoe;
+                spriteRenderer.sprite = spriteArray[0];
+                DataPermanence.Instance.hoe--;
+
+                ui_Inventory.OpenInventory();
+
+                break;
+
+            case Item.ItemType.wateringCan:
+
+                currentTool = Tools.wateringCan;
+                spriteRenderer.sprite = spriteArray[1];
+                DataPermanence.Instance.wateringCan--;
+
+                ui_Inventory.OpenInventory();
+
+                break;
+
+            case Item.ItemType.scythe:
+
+                currentTool = Tools.scythe;
+                spriteRenderer.sprite = spriteArray[2];
+                DataPermanence.Instance.scythe--;
+
+                ui_Inventory.OpenInventory();
+
+                break;
+
+            case Item.ItemType.seedA:
+
+                currentTool = Tools.seedA;
+                spriteRenderer.sprite = spriteArray[3];
+                DataPermanence.Instance.seedA--;
+
+                ui_Inventory.OpenInventory();
+
+                break;
+
+            case Item.ItemType.seedB:
+
+                currentTool = Tools.seedB;
+                spriteRenderer.sprite = spriteArray[4];
+                DataPermanence.Instance.seedB--;
+
+                ui_Inventory.OpenInventory();
+
+                break;
+
+
         }
     }
 
@@ -1056,7 +1139,7 @@ public class PlayerController : MonoBehaviour
             DataPermanence.Instance.deathHour = deathHour;
             DataPermanence.Instance.deathMinute = deathMinute;
         }
-        
+
         // If resources are gained before death, unset the bool
         if (resourcesDepleted && (DataPermanence.Instance.spaceshipEnergy > 0 || stamina > 0))
             resourcesDepleted = false;
@@ -1064,7 +1147,7 @@ public class PlayerController : MonoBehaviour
         // If one day is passed with no resources, the player dies
         if (resourcesDepleted && TimeManager.Day >= deathDay && TimeManager.Hour >= deathHour && TimeManager.Minute >= deathMinute)
             SceneChanger.Instance.ChangeScene("Game Over", Vector2.zero);
-            
+
 
         DataPermanence.Instance.resourcesDepleted = resourcesDepleted;
     }
@@ -1107,6 +1190,11 @@ public class PlayerController : MonoBehaviour
             if (TilemapManager.Instance != null && !TilemapManager.Instance.IsTilled(tile))
                 return;
 
+        // Add seed A to inventory
+        // THis condition stops it being constantly added every update
+        if (tutorialNumber == 0)
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 10 });
+
         // If all the tiles are tilled we reach this  line - move to the next tutorial stage
         ChangeTutorialStage(2, 1);
     }
@@ -1119,8 +1207,14 @@ public class PlayerController : MonoBehaviour
 
         // Check that the array is neither null nor empty
         // This means that the crops have been planted here
-        if (crops?.Length > 0)
+        if (crops?.Length > 0 && tutorialNumber == 1)
+        {
             ChangeTutorialStage(3, 2);
+            inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
+        }
+
+
+
     }
 
     void CheckTutorialThreeOver()
@@ -1137,13 +1231,16 @@ public class PlayerController : MonoBehaviour
 
         // If all the crops are watered we reach this line - move to the next tutorial stage
         ChangeTutorialStage(3, 3);
+
+
     }
 
     void CheckTutorialFourOver()
     {
         // Check if the player has entered the spaceship in tutorial four
         // If so, move to the next tutorial stage
-        if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        //if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3")
             ChangeTutorialStage(3, 4);
     }
 
@@ -1160,29 +1257,35 @@ public class PlayerController : MonoBehaviour
         //    {
         //        DataPermanence.Instance.allCrops[i].timeAlive = 100;
         //    }
+        if (tutorialNumber == 4)
+            inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
 
         ChangeTutorialStage(4, 5);
+
+
         //}
 
     }
 
     void CheckTutorialSixOver()
     {
-        if(SceneManager.GetActiveScene().name == "AlexTestScene")
+        //if(SceneManager.GetActiveScene().name == "AlexTestScene")
+        if (SceneManager.GetActiveScene().name == "SangitTestScene3")
         {
             GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
 
             if (crops.Length == 0)
                 ChangeTutorialStage(4, 6);
         }
-        
+
     }
 
     void CheckTutorialSevenOver()
     {
         // Check if the player has entered the spaceship in tutorial seven
         // If so, move to the next tutorial stage
-        if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        //if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3")
             ChangeTutorialStage(4, 7);
     }
 
@@ -1199,39 +1302,93 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 9);
             inTutorial = false;
             DataPermanence.Instance.playerTutorial = false;
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
+            //merchent npc shows up after tutorial is over
+
         }
 
     }
 
-    // A seperate function to call this audio manager function
-    // Used to call the function as an animation event
-    // Therefore can not be called directly from the audio manager
-    // Because the player doesn't contain an audio manage component
-    public void footstepsAudio()
+    
+    //enables the NPC depanding on what day
+    private void DayCycle()
     {
+       
+        switch (TimeManager.Day)
+        {
+            case 1:
+               NPC.SetActive(false);
+                break;
+            case 2:
+             
+                NPC.SetActive(true);
+                break;
+            case 3:
+                NPC.SetActive(false);
+                break;
+            case 4:
+             
+                NPC.SetActive(true);
+                break;
+            case 5:
+                NPC.SetActive(false);
+                break;
+            case 6:
+               
+                NPC.SetActive(true);
+                break;
+            case 7:
+                NPC.SetActive(false);
+                break;
+
+        }
+
+
+    }
+
+
+    //Skips over tutorial when key is pressed
+    void SkipOverTutorial()
+    {   
+       TimeManager.Day++;
+       TimeManager.OnDayChanged?.Invoke();
+       ChangeTutorialStage(5, 9);
+    }
+
+
+
+
+
+// A seperate function to call this audio manager function
+// Used to call the function as an animation event
+// Therefore can not be called directly from the audio manager
+// Because the player doesn't contain an audio manage component
+public void footstepsAudio()
+{
+    if (AudioManager.Instance != null)
         AudioManager.Instance.playFootsteps();
-    }
+}
 
-    // Used to display any variables to the screen in place of UI for now
-    // Can add more variables to this as/when we need them and delete it when we have something better
-    void TestUI()
-    {
-        // Display the test variable as UI
-/*        cropAText = "Crop A Held: " + cropsHarvested[0].ToString();
-        cropAUI.text = cropAText;
+// Used to display any variables to the screen in place of UI for now
+// Can add more variables to this as/when we need them and delete it when we have something better
+void TestUI()
+{
+    // Display the test variable as UI
+    /*        cropAText = "Crop A Held: " + cropsHarvested[0].ToString();
+            cropAUI.text = cropAText;
 
-        cropBText = "Crop B Held: " + cropsHarvested[1].ToString();
-        cropBUI.text = cropBText;*/
+            cropBText = "Crop B Held: " + cropsHarvested[1].ToString();
+            cropBUI.text = cropBText;*/
 
-        currentToolString = "Tool Equipped: " + currentTool.ToString();
-        currentToolUI.text = currentToolString;
+    //currentToolString = "Tool Equipped: " + currentTool.ToString();
+    //currentToolUI.text = currentToolString;
 
-/*        staminaText = "Player Stamina: " + stamina.ToString();
-        staminaTextUI.text = staminaText;
+    /*        staminaText = "Player Stamina: " + stamina.ToString();
+            staminaTextUI.text = staminaText;
 
-        Debug.Log("In player, spaceship energy: " + DataPermanence.Instance.spaceshipEnergy);
-        // Set the spaceship energy to a string
-        spaceshipEnergyText = "Spaceship Energy: " + DataPermanence.Instance.spaceshipEnergy.ToString();
-        spaceshipEnergyUI.text = spaceshipEnergyText;*/
-    }
+            Debug.Log("In player, spaceship energy: " + DataPermanence.Instance.spaceshipEnergy);
+            // Set the spaceship energy to a string
+            spaceshipEnergyText = "Spaceship Energy: " + DataPermanence.Instance.spaceshipEnergy.ToString();
+            spaceshipEnergyUI.text = spaceshipEnergyText;*/
+}
 }

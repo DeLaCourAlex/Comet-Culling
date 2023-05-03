@@ -69,11 +69,11 @@ MonoBehaviour:
   m_text: 'Go back outside to harvest the crops.
 
 
-    Press E and Q to select tools.
+    Press "I" to open the inventory.
 
 
     Select
-    the scyth, and harvest the crops using SPACE.'
+    the scyth, and harvest the crops using LEFT MOUSE or SPACE.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -514,11 +514,12 @@ MonoBehaviour:
   m_text: 'Watering your crops allows them to grow faster
 
 
-    Press E and Q to
-    change tools.
+    Press "I" to open
+    the inventory.
 
 
-    Select the watering can, and water all your crops using SPACE.'
+    Select the watering can, and water all your crops individually
+    using LEFT MOUSE or SPACE.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -656,12 +657,13 @@ MonoBehaviour:
   m_text: 'Move using WASD or directional arrows
 
 
-    Press space bar to use the
-    equipped tool.
+    Press "I" to open the inventory
+    and select the hoe. Press LEFT MOUSE or SPACE BAR to use the equipped tool.
 
 
-    Use the hoe to till the highlighted 3x3 square of dirt on
-    the top left corner of the farming area using SPACE.'
+    Use
+    the hoe to till the highlighted 3x3 square of dirt on the top left corner of
+    the farming area using SPACE.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -800,7 +802,7 @@ MonoBehaviour:
 
 
     Interact
-    with the generator using SPACE to feed your crops into the spaceship.
+    with the generator using LEFT MOUSE or SPACE to feed your crops into the spaceship.
 
 
     Feed
@@ -1048,8 +1050,8 @@ MonoBehaviour:
     click on the crop to unequip it.
 
 
-    Interact with the generator  using SPACE
-    to charge your stamina from the ship''s batteries.'
+    Interact with the generator  using LEFT
+    MOUSE or SPACE to charge your stamina from the ship''s batteries.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1186,7 +1188,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: There's not much more to for now until the crops have grown. Look around
     the spaceship if you want, and when you're ready, interact with the bed using
-    SPACE to rest until tomorrow.
+    LEFT MOUSE or SPACE to rest until tomorrow.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1658,6 +1660,7 @@ MonoBehaviour:
   tutorialHighlights:
   - {fileID: 2833360300689589689}
   - {fileID: 7082205017513987052}
+  textBox: {fileID: 0}
   door: {fileID: 0}
   player: {fileID: 0}
 --- !u!1 &4760536020418634962
@@ -1827,7 +1830,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press E and Q to change tools.
+  m_text: 'Press "I" to open the inventory.
 
 
     Select the seed - this will plant
@@ -1835,7 +1838,7 @@ MonoBehaviour:
 
 
     Use this to plant a set of crops on the highlighted
-    tile of the newly tilled area using SPACE.'
+    tile of the newly tilled area using LEFT MOUSE or SPACE.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

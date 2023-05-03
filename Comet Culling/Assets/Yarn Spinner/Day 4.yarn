@@ -1,0 +1,61 @@
+﻿title: Day_4
+tags:
+---
+Vas: Hello! I see you’re up bright and early.  
+->PR1NC3: I need to tend to my crops. 
+
+Vas: Of course, how is that going?  
+
+->PR1NC3: Slow but steady. What brings you here again?  
+
+Vas: I wanted to check up on you!  
+-> PR1NC3: Oho, according to my data, that suggests you like me or something.
+
+Vas: (3rd expression) Of course I do! You’re my friend and I want to make sure you’re ok.
+Vas: It pains me to see you alone. I really hope you can be reunited with them.  
+
+->PR1NC3: … (sad)  
+
+PR1NC3: Yeah me too. They were my crew.  
+
+Vas: I know, but don’t worry! You’re getting closer, I’m sure. And in the meantime, I’ll do my best to keep you company!  
+->PR1NC3: I… I really appreciate it.  
+
+Vas: So, do you want to talk about them? 
+
+-> PR1NC3: Not really… (sad)
+
+Vas: That’s ok. Here, have these seeds, that’s the least I can do to help.
+
+-> PR1NC3: Maybe? I don’t really know what to say.
+
+Vas:  Why don’t you just tell me something about them?
+
+-> PR1NC3: Sally was my captain, Emilia the engineer and Jonah the medic.
+
+Vas: Ok but what were they like?
+
+PR1NC3: …
+
+-> PR1NC3: Sally was… is a really considerate person. She cares about rules but safety of her crew always comes first. 
+   PR1NC3: She was willing to drop whatever she was doing if one of the crewmates needed her.
+
+
+-> PR1NC3: Emilia prefers to spend time on her own and is very dedicated to her research. Jonah wouldn’t have that though. 
+     PR1NC3: He tried to coax her into leaving her lab and socialising more. I think she didn’t mind it half as much as she said she did. 
+
+Vas: See? It’s good to see you smile. It suits you. Did it make you feel better?
+
+-> PR1NC3: I think so? I haven’t spoken to someone about them in a while. It actually feels like they aren’t that far away now.
+
+Vas: I’m glad. Here, take these seeds. Hopefully they will help you find them sooner.
+  <<Trade Player TradeItem>>
+-> PR1NC3: … Thank you Vas.
+   <<set $affinity to true>>
+     <<jump Quit>>
+-> PR1NC3: No need. I am doing ok on my own. I need to get back to work now.
+
+Vas: (angry) If you say so. Take these at least.
+  <<Trade Player TradeItem>>
+
+===
