@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     //merchent 
     [SerializeField] GameObject Dialogue;
      private DialogueRunner dialogueRunner;
-    DialogueUI dialogueUI; 
+
 
     // The position of the camera follow 
     // Used to change camera position if the player is in certain parts of the scene
@@ -250,6 +250,16 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 9);
     }
 
+    [YarnCommand("Trade")]
+    public void Trade(bool TradeItem = true)
+    {
+        if (TradeItem)
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 2 });
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 2 });
+        }
+    }
+
 
     //NPC detection
     bool npc_detection = false;
@@ -271,7 +281,8 @@ public class PlayerController : MonoBehaviour
                 {
 
                     case 2:
-                        dialogueRunner.StartDialogue("TestTalkSprite");
+                        dialogueRunner.StartDialogue("Day_2");
+ 
                         break;
 
                     case 4:
