@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0f095a632ec06cc4ab080df58b303fbf
+guid: 4aa36f9a37551ec4ab01ead789a3025d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,70 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MC idle down_0
+      name: MC idle up_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af733c1edc43cd40b1737caf55d7112
+      internalID: 1653056257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC idle up_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8b2f3c3ee5faf44cb62a391b862ee2d
+      internalID: -825309072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC idle up_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aebfd919e6a6f78469fa38e5fbfeb902
+      internalID: 1328846525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC idle up_3
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b583173f4571694aa548a71eb233a8e
-      internalID: -1645209451
+      spriteID: edca568592df5284bb0fdbd42651dea3
+      internalID: -1896563238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_1
+      name: MC idle up_4
       rect:
         serializedVersion: 2
         x: 0
@@ -152,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efd752eca8e49bd4297928d9cb5ae249
-      internalID: -347672406
+      spriteID: c273cc545fc470e4bb870c9ec96fb7d0
+      internalID: 1641428266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_2
+      name: MC idle up_5
       rect:
         serializedVersion: 2
         x: 0
@@ -173,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f2fbb0a453f48949915ca31aa8f7cc7
-      internalID: 1516091638
+      spriteID: 42d70aae642652f4ea67125026bf1489
+      internalID: 152943254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_3
+      name: MC idle up_6
       rect:
         serializedVersion: 2
         x: 0
@@ -194,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bdd17a51fd3cac4f926f60b284db5d8
-      internalID: 1859479796
+      spriteID: 9e7629b2dcac36542986073940e9d15c
+      internalID: -84375514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_4
+      name: MC idle up_7
       rect:
         serializedVersion: 2
         x: 0
@@ -215,14 +278,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c00fbeace82ba214cad359ed0ce0fccd
-      internalID: -578001842
+      spriteID: 1a554150ee636a94db6466ea7cf0f37b
+      internalID: 1317794645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_5
+      name: MC idle up_8
       rect:
         serializedVersion: 2
         x: 0
@@ -236,8 +299,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 273b597a68f558941a928fda5ac24122
-      internalID: 1373395324
+      spriteID: d795458fabc4dac4abbd39ab7ccb3152
+      internalID: -1127603618
       vertices: []
       indices: 
       edges: []
@@ -253,12 +316,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MC idle down_3: 1859479796
-      MC idle down_2: 1516091638
-      MC idle down_0: -1645209451
-      MC idle down_5: 1373395324
-      MC idle down_4: -578001842
-      MC idle down_1: -347672406
+      MC idle up_8: -1127603618
+      MC idle up_1: -825309072
+      MC idle up_6: -84375514
+      MC idle up_7: 1317794645
+      MC idle up_0: 1653056257
+      MC idle up_4: 1641428266
+      MC idle up_2: 1328846525
+      MC idle up_5: 152943254
+      MC idle up_3: -1896563238
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
