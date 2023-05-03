@@ -34,7 +34,7 @@ public class Merchent : MonoBehaviour
 
     private void Day2Conversation()
     {
-        dialogueRunner.StartDialogue("TestTalkSprite");
+        dialogueRunner.StartDialogue("Day_2");
     }
     private void Day4Conversation()
     {
