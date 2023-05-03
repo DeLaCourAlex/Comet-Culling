@@ -231,6 +231,79 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 9);
     }
 
+<<<<<<< Updated upstream
+=======
+
+    //NPC detection
+    bool npc_detection = false;
+
+    //collision with NPC
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+       
+        if (collision.CompareTag("NPC"))
+        {
+            npc_detection = true;
+            
+            //Npc Detection
+            if (npc_detection)
+            {
+
+                //starts a different node depending on the day 
+                switch (TimeManager.Day)
+                {
+
+                    case 2:
+                        dialogueRunner.StartDialogue("TestTalkSprite");
+                        break;
+
+                    case 4:
+
+                        dialogueRunner.StartDialogue("Day_4");
+                        break;
+
+                    case 6:
+
+                        dialogueRunner.StartDialogue("Day_6");
+                        break;
+
+
+                }
+
+            }
+           
+            Debug.Log("collision triggred");
+
+        }
+        //else
+        //{
+        //    //dialogueRunner.StopAllCoroutines();
+        //    dialogueRunner.Stop();
+        //}
+    }
+
+    //exit collision 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        npc_detection = false;
+        //dialogueRunner.StopAllCoroutines();
+        dialogueRunner.Stop();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
     // Update is called once per frame
     // Used to read input, perform calculations, set states etc
     void Update()

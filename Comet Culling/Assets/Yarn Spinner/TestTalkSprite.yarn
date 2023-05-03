@@ -1,0 +1,38 @@
+﻿title: TestTalkSprite
+tags:
+---
+<<toggleTalksprite Player true true>>
+<<characterEmotion Player "neutral" MerchantTalksprite>>
+Merchant: I am showing neutral emotion right now. 
+
+
+<<characterEmotion Player "neutral" PrinceTalksprite>>
+-> PR1NC3: Neutral. 
+
+<<characterEmotion Player "happy" MerchantTalksprite>>
+Merchant:  Happy.  
+
+<<characterEmotion Player "happy" PrinceTalksprite>>
+-> PR1NC3: Happy. 
+
+<<characterEmotion Player "sad" MerchantTalksprite>>
+Merchant:  Sad.  
+
+<<characterEmotion Player "sad" PrinceTalksprite>>
+-> PR1NC3: Sad. 
+
+<<characterEmotion Player "angry" MerchantTalksprite>>
+Merchant:  Angry. 
+
+<<characterEmotion Player "angry" PrinceTalksprite>>
+-> PR1NC3: Angry. 
+
+<<characterEmotion Player "neutral" MerchantTalksprite>>
+Merchant:  Neutral.  
+
+<<characterEmotion Player "neutral" PrinceTalksprite>>
+-> PR1NC3: Neutral. 
+
+<<toggleTalksprite Player false false>>
+
+===
