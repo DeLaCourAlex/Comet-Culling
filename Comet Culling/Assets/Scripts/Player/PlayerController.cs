@@ -250,6 +250,16 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 9);
     }
 
+    [YarnCommand("Trade")]
+    public void Trade(bool TradeItem = true)
+    {
+        if (TradeItem)
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 2 });
+            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 2 });
+        }
+    }
+
 
     //NPC detection
     bool npc_detection = false;
@@ -261,7 +271,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("NPC"))
         {
             npc_detection = true;
-            
+            Dialogue.SetActive(true);
             //Npc Detection
             if (npc_detection)
             {
@@ -271,7 +281,12 @@ public class PlayerController : MonoBehaviour
                 {
 
                     case 2:
+<<<<<<< Updated upstream
                         dialogueRunner.StartDialogue("TestTalkSprite");
+=======
+                        dialogueRunner.StartDialogue("Day_2");
+ 
+>>>>>>> Stashed changes
                         break;
 
                     case 4:
@@ -303,6 +318,10 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         npc_detection = false;
+<<<<<<< Updated upstream
+=======
+        Dialogue.SetActive(false);
+>>>>>>> Stashed changes
         //dialogueRunner.StopAllCoroutines();
         dialogueRunner.Stop();
 
