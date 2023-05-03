@@ -2,7 +2,7 @@
 tags:
 ---
 //If the player had built affinity with Vas
-
+<<if $affinity>>
 PR1NC3: (happy) Vas! You’re back! 
 
 Vas: Hello there! Did you miss me?  
@@ -53,15 +53,36 @@ Vas: But I will do it as many times as you need it.
 PR1NC3: I don’t know what to say. 
 
 Vas: You don’t need to say anything. Here, take this, that’s the least I can do to help 
+ <<Trade Player TradeItem>>
 
 PR1NC3: Thank you for staying by my side Vas. 
-
-Player gets the seeds, and the conversation quits.  
+   <<jump Quit>>
+//Player gets the seeds, and the conversation quits.  
 
 -> PR1NC3: Never mind, it doesn’t really matter.  
 
 Vas: Ok… If you say so.  
-
+  <<Trade Player TradeItem>>
 //Player gets the seeds, and the conversation quits. 
 
+<<else>>
+
+//If the player has low affinity 
+
+Vas: Hello there. How’s the farming going?  
+
+PR1NC3: The ship is almost charged, I will be leaving soon.  
+
+Vas: Oh, sure. I’m happy to hear that. (clearly not happy to hear that) 
+
+Vas: Where are you heading next?  
+PR1NC3: I will try and get closer to our original target planet. I think it makes sense for them to go there as well.  
+Vas: Sounds like a good idea.  
+
+PR1NC3: Do you have more seeds for me? They would come in helpful.  
+
+Vas: … Yeah, here, have these.  
+   <<Trade Player TradeItem>>
+//Player gets the seeds, conversation quits. 
+<<endif>>
 ===
