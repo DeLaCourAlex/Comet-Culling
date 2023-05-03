@@ -737,7 +737,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Watering");
 
                 // Play the watering sfx
-                //AudioManager.Instance.playWaterCrop();
+                if(AudioManager.Instance != null)
+                    AudioManager.Instance.playWaterCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedWatering;
@@ -787,7 +788,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Harvesting");
 
                 // Play the scythe sfx
-                //AudioManager.Instance.playHarvestCrop();
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.playHarvestCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedScythe;
@@ -817,7 +819,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Tilling");
 
                 // Play the tilling sfx
-                //AudioManager.Instance.playTillingSoil();
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.playTillingSoil();
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
@@ -916,7 +919,8 @@ public class PlayerController : MonoBehaviour
                     PlantCrop(boxcastPositionInt, cropElement);
 
                     // Play the planting sfx
-                    //AudioManager.Instance.playPlantSeed();
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.playPlantSeed();
 
                     if (!staminaTaken)
                     {
@@ -945,7 +949,8 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropA);
 
             // Play the crops into generator sfx
-            //AudioManager.Instance.playGeneratorFeedCrops();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[0]--;
@@ -964,7 +969,8 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropB);
 
             // Play the crops into generator sfx
-            //AudioManager.Instance.playGeneratorFeedCrops();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[1]--;
@@ -983,7 +989,8 @@ public class PlayerController : MonoBehaviour
 
             // Play the player recharge sfx
             //if(DataPermanence.Instance.spaceshipEnergy > 0)
-            //AudioManager.Instance.playGeneratorRecharge();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorRecharge();
         }
 
     }
@@ -1358,7 +1365,8 @@ public class PlayerController : MonoBehaviour
 // Because the player doesn't contain an audio manage component
 public void footstepsAudio()
 {
-    //AudioManager.Instance.playFootsteps();
+    if (AudioManager.Instance != null)
+        AudioManager.Instance.playFootsteps();
 }
 
 // Used to display any variables to the screen in place of UI for now
