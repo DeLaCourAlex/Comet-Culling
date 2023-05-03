@@ -560,7 +560,7 @@ public class PlayerController : MonoBehaviour
             BedController bedController = hit.transform.gameObject.GetComponent<BedController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed") || (tag == "Screen"))
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || tag == "Bed" || tag == "Screen" || tag == "Player")
             {
                 DisplayCanInteract(false, false, false);
 
