@@ -1303,13 +1303,13 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
+    
     void CheckTutorialSevenOver()
     {
         // Check if the player has entered the spaceship in tutorial seven
         // If so, move to the next tutorial stage
         //if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
-        if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3")
+        if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3"|| SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
             ChangeTutorialStage(4, 7);
     }
 
