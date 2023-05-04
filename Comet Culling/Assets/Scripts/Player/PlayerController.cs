@@ -313,18 +313,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     // Update is called once per frame
     // Used to read input, perform calculations, set states etc
     void Update()
@@ -345,7 +333,11 @@ public class PlayerController : MonoBehaviour
 
         //function to open inventory 
         if (Input.GetKeyDown(KeyCode.I))
+        {
             ui_Inventory.OpenInventory();
+            direction = Vector2.zero;
+        }
+            
 
         // Gameplay action/movement can only happen when the inventory is closed
         if (!ui_Inventory.isInventoryVisible)
@@ -1072,25 +1064,37 @@ public class PlayerController : MonoBehaviour
             case Item.ItemType.cropA:
 
                 if (carryCropA)
+                {
                     ChangeCarriedCrops(false, false);
+                    spriteRenderer.sprite = spriteArray[(int)currentTool];
+                }
+                    
                 else
+                {
                     ChangeCarriedCrops(true, false);
+                    spriteRenderer.sprite = spriteArray[5];
+                }
+                    
 
                 ui_Inventory.OpenInventory();
 
-                spriteRenderer.sprite = spriteArray[5];
+                
 
                 break;
 
             case Item.ItemType.cropB:
                 if (carryCropB)
-                    ChangeCarriedCrops(true, false);
+                {
+                    ChangeCarriedCrops(false, false);
+                    spriteRenderer.sprite = spriteArray[(int)currentTool];
+                }
                 else
+                {
                     ChangeCarriedCrops(false, true);
-
+                    spriteRenderer.sprite = spriteArray[6];
+                }
+                    
                 ui_Inventory.OpenInventory();
-
-                spriteRenderer.sprite = spriteArray[6];
 
                 break;
 
@@ -1098,6 +1102,8 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.hoe;
                 spriteRenderer.sprite = spriteArray[0];
                 DataPermanence.Instance.hoe--;
+
+                ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
 
@@ -1109,6 +1115,8 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = spriteArray[2];
                 DataPermanence.Instance.wateringCan--;
 
+                ChangeCarriedCrops(false, false);
+
                 ui_Inventory.OpenInventory();
 
                 break;
@@ -1118,6 +1126,8 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.scythe;
                 spriteRenderer.sprite = spriteArray[3];
                 DataPermanence.Instance.scythe--;
+
+                ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
 
@@ -1129,6 +1139,8 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = spriteArray[1];
                 DataPermanence.Instance.seedA--;
 
+                ChangeCarriedCrops(false, false);
+
                 ui_Inventory.OpenInventory();
 
                 break;
@@ -1138,6 +1150,8 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.seedB;
                 spriteRenderer.sprite = spriteArray[4];
                 DataPermanence.Instance.seedB--;
+
+                ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
 
