@@ -3290,6 +3290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 990559408466366334, guid: f94c9d59cf3dfe34ca2fbbb7e56ce275, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f94c9d59cf3dfe34ca2fbbb7e56ce275, type: 3}
 --- !u!1 &1036257385 stripped
@@ -3297,6 +3301,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 990559408466366334, guid: f94c9d59cf3dfe34ca2fbbb7e56ce275, type: 3}
   m_PrefabInstance: {fileID: 1036257384}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1036257386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036257385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e11e2518a8a04842ae0f90688d29ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1074274611 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5948708692027981081, guid: a02532fbf7af0bf46bacf162f5aa51ca, type: 3}

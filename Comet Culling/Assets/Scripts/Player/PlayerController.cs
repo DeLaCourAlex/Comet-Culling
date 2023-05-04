@@ -1336,7 +1336,7 @@ public class PlayerController : MonoBehaviour
     private void DayCycle()
     {
        
-        switch (TimeManager.Day)
+       /* switch (TimeManager.Day)
         {
             case 1:
                NPC.SetActive(false);
@@ -1364,7 +1364,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
         }
-
+*/
 
     }
 
