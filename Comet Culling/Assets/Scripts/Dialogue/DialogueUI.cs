@@ -13,10 +13,12 @@ public class DialogueUI : MonoBehaviour
     public GameObject princeTalksprite; 
     //private Inventory inventory; 
     Animator npcanimator, princeanimator;
+  /*  [SerializeField] */PlayerController playerController;
+    public bool isTalking; 
 
     void Start()
     {
-        
+        playerController = GetComponent<PlayerController>(); 
         npcanimator = npcTalksprite.GetComponent<Animator>();
         princeanimator = princeTalksprite.GetComponent<Animator>(); 
     }
@@ -31,7 +33,7 @@ public class DialogueUI : MonoBehaviour
         {
             case "happy":
                 //Load happy emotion
-                Debug.Log("HAPPY EMOTION");
+                //Debug.Log("HAPPY EMOTION");
                 animator.SetTrigger("happy");
 
                 break;
@@ -47,7 +49,7 @@ public class DialogueUI : MonoBehaviour
                 break;
             default:
                 //Load neutral emotion
-                Debug.Log("NEUTRAL EMOTION");
+                //Debug.Log("NEUTRAL EMOTION");
                 animator.SetTrigger("neutral");
 
 
@@ -62,15 +64,21 @@ public class DialogueUI : MonoBehaviour
         princeTalksprite.SetActive(prince);
         npcTalksprite.SetActive(npc);
     }
-    //public void AddSeeds()
-    //{
-    //    inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 2 }); 
-    //}
-    // Start is called before the first frame update
+  
+    [YarnCommand("enableMovement")]
+    public void EnableMovement(bool m)
+    {
+        playerController.canMove = m;   
+    }
+    public void HideTalksprites()
+    {
+        ToggleTalksprite(false, false); 
+    }
    
     // Update is called once per frame
     void Update()
     {
-        //DisplayEmotion("neutral");
+        isTalking = princeTalksprite.activeSelf; 
+        //playerController.canMove = !(princeTalksprite.activeSelf && npcTalksprite.activeSelf); 
     }
 }

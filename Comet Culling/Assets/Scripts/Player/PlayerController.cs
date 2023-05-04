@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     //merchent 
     [SerializeField] GameObject Dialogue;
-     private DialogueRunner dialogueRunner;
+    private DialogueRunner dialogueRunner;
     DialogueUI dialogueUI; 
 
     // The position of the camera follow 
@@ -159,6 +159,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
         dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
+        dialogueUI = GetComponent<DialogueUI>();
         // Initialize member variables
         stamina = MAX_STAMINA;
         cropsHarvested = new int[2];
@@ -281,12 +282,9 @@ public class PlayerController : MonoBehaviour
                 {
 
                     case 2:
-<<<<<<< Updated upstream
+
                         dialogueRunner.StartDialogue("TestTalkSprite");
-=======
-                        dialogueRunner.StartDialogue("Day_2");
- 
->>>>>>> Stashed changes
+
                         break;
 
                     case 4:
@@ -318,10 +316,11 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         npc_detection = false;
-<<<<<<< Updated upstream
-=======
+
         Dialogue.SetActive(false);
->>>>>>> Stashed changes
+        dialogueUI.HideTalksprites(); 
+        //dialogueUI.HideTalksprites();
+
         //dialogueRunner.StopAllCoroutines();
         dialogueRunner.Stop();
 
@@ -352,7 +351,7 @@ public class PlayerController : MonoBehaviour
         if (currentAnimation == "Player Hoe Down" || currentAnimation == "Player Hoe Sideways" || currentAnimation == "Player Hoe Up" ||
             currentAnimation == "Player Scythe Down" || currentAnimation == "Player Scythe Sideways" || currentAnimation == "Player Scythe Up" ||
             currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up" ||
-            readingCaptainsLog)
+            readingCaptainsLog || dialogueUI.isTalking)
             canMove = false;
         else
             canMove = true;
@@ -366,7 +365,7 @@ public class PlayerController : MonoBehaviour
         {
             // Read directional input and set the movement vector
             // Normalize to reduce increased speed when moving diagonally
-            if(!readingCaptainsLog)
+            if(!readingCaptainsLog && !dialogueUI.isTalking)
                 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
             // Set the raycast corrector based on the previous and current direction that the player is facing

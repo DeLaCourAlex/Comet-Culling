@@ -1,6 +1,8 @@
 ﻿title: TestTalkSprite
+tracking: always
 tags:
 ---
+<<enableMovement Player false>>
 <<toggleTalksprite Player true true>>
 <<characterEmotion Player "neutral" MerchantTalksprite>>
 Merchant: I am showing neutral emotion right now. 
@@ -34,5 +36,5 @@ Merchant:  Neutral.
 -> PR1NC3: Neutral. 
 
 <<toggleTalksprite Player false false>>
-
+<<enableMovement Player true>>
 ===
