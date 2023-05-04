@@ -2029,25 +2029,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory UI
       objectReference: {fileID: 0}
-    - target: {fileID: 2164512023530885769, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2164512023601431058, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2164512023685078882, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 7527863383091862404}
-    - target: {fileID: 2164512023685078884, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_fontSize
+      value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 2165578862339914699, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
+    - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}

@@ -1464,6 +1464,22 @@ PrefabInstance:
       propertyPath: wateringCanSprite
       value: 
       objectReference: {fileID: 21300000, guid: dc3b1cf70db8c684fa8a490f6c406d4f, type: 3}
+    - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_fontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
+    - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
 --- !u!114 &774603868 stripped
