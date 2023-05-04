@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using Yarn;
 using Yarn.Unity;
+using UnityEditor.SearchService;
 
 public class PlayerController : MonoBehaviour
 {
@@ -1292,7 +1293,8 @@ public class PlayerController : MonoBehaviour
     void CheckTutorialSixOver()
     {
         //if(SceneManager.GetActiveScene().name == "AlexTestScene")
-        if (SceneManager.GetActiveScene().name == "SangitTestScene3")
+        //if (SceneManager.GetActiveScene().name == "SangitTestScene3")
+        if (SceneManager.GetActiveScene().name == "AlexTestScene" || SceneManager.GetActiveScene().name == "SangitTestScene3")
         {
             GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
 
