@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     [Header("Crop Variables")]
     [SerializeField] GameObject[] crops;
     int[] cropsHarvested;
+    bool planting;
 
     // STAMINA RELATED VARIABLES
     public int stamina;
@@ -350,7 +351,7 @@ public class PlayerController : MonoBehaviour
         {
             // Read directional input and set the movement vector
             // Normalize to reduce increased speed when moving diagonally
-            if(!readingCaptainsLog)
+            if(!readingCaptainsLog && canMove)
                 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
             // Set the raycast corrector based on the previous and current direction that the player is facing
@@ -474,7 +475,7 @@ public class PlayerController : MonoBehaviour
         // Animator parameters
 
         // Set the movement animation parameter to detect any movement of the rigidbody
-        animator.SetFloat("Movement", rb.velocity.magnitude);
+        animator.SetFloat("Movement", direction.magnitude);
         // Set the player direction parameter
         animator.SetFloat("Vertical Direction", directionAnimatorParameter);
         // Set the crops that the player is or isn't carrying
@@ -849,12 +850,21 @@ public class PlayerController : MonoBehaviour
         // And leave the function
         for (int i = 0; i < allCrops.Length; i++)
             if (Vector2.Distance(cropPosition, allCrops[i].transform.position) == 0)
+            {
+                planting = false;
                 return;
+            }
+                
 
         // Check that the tile is tilled, then trigger the planting animation
         if (TilemapManager.Instance.IsTilled(pos))
+        {
             // Plant a crop on the tile at the location of the player
             TilemapManager.Instance.PlantCrop(pos, cropPosition, cropElement);
+
+            planting = true;
+        }
+            
     }
 
     // Bring up the display to plant a 3x3 square of crops
@@ -915,19 +925,27 @@ public class PlayerController : MonoBehaviour
                 // Plant the crops for each tile in the 3x3 square that can have a crop planted there
                 if (Input.GetButtonDown("Action") && stamina >= staminaUsedPlanting)
                 {
+                    planting = false;
+
                     // Plant the crop
                     PlantCrop(boxcastPositionInt, cropElement);
 
                     // Play the planting sfx
-                    if (AudioManager.Instance != null)
-                        AudioManager.Instance.playPlantSeed();
-
-                    if (!staminaTaken)
+                    
+                    if (planting)
                     {
-                        // Lower the stamina from the action
-                        stamina -= staminaUsedPlanting;
+                        animator.SetTrigger("Planting");
 
-                        staminaTaken = true;
+                        if (AudioManager.Instance != null)
+                            AudioManager.Instance.playPlantSeed();
+
+                        if (!staminaTaken)
+                        {
+                            // Lower the stamina from the action
+                            stamina -= staminaUsedPlanting;
+
+                            staminaTaken = true;
+                        }
                     }
                 }
             }
@@ -1059,6 +1077,8 @@ public class PlayerController : MonoBehaviour
 
                 ui_Inventory.OpenInventory();
 
+                spriteRenderer.sprite = spriteArray[5];
+
                 break;
 
             case Item.ItemType.cropB:
@@ -1068,6 +1088,8 @@ public class PlayerController : MonoBehaviour
                     ChangeCarriedCrops(false, true);
 
                 ui_Inventory.OpenInventory();
+
+                spriteRenderer.sprite = spriteArray[6];
 
                 break;
 
@@ -1083,7 +1105,7 @@ public class PlayerController : MonoBehaviour
             case Item.ItemType.wateringCan:
 
                 currentTool = Tools.wateringCan;
-                spriteRenderer.sprite = spriteArray[1];
+                spriteRenderer.sprite = spriteArray[2];
                 DataPermanence.Instance.wateringCan--;
 
                 ui_Inventory.OpenInventory();
@@ -1093,7 +1115,7 @@ public class PlayerController : MonoBehaviour
             case Item.ItemType.scythe:
 
                 currentTool = Tools.scythe;
-                spriteRenderer.sprite = spriteArray[2];
+                spriteRenderer.sprite = spriteArray[3];
                 DataPermanence.Instance.scythe--;
 
                 ui_Inventory.OpenInventory();
@@ -1103,7 +1125,7 @@ public class PlayerController : MonoBehaviour
             case Item.ItemType.seedA:
 
                 currentTool = Tools.seedA;
-                spriteRenderer.sprite = spriteArray[3];
+                spriteRenderer.sprite = spriteArray[1];
                 DataPermanence.Instance.seedA--;
 
                 ui_Inventory.OpenInventory();

@@ -1384,6 +1384,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 887097788, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: hoeSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c6e52e60e6f74bd42903aa87bc7af122, type: 3}
+    - target: {fileID: 887097788, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: scytheSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 34dc477395a9e4f488252ecd9a87dda0, type: 3}
+    - target: {fileID: 887097788, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: wateringCanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dc3b1cf70db8c684fa8a490f6c406d4f, type: 3}
     - target: {fileID: 2164512023530885768, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -1440,6 +1452,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3627213237651123379, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: hoeSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c6e52e60e6f74bd42903aa87bc7af122, type: 3}
+    - target: {fileID: 3627213237651123379, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: scytheSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 34dc477395a9e4f488252ecd9a87dda0, type: 3}
+    - target: {fileID: 3627213237651123379, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: wateringCanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dc3b1cf70db8c684fa8a490f6c406d4f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
 --- !u!114 &774603868 stripped
@@ -4543,6 +4567,14 @@ PrefabInstance:
       propertyPath: spaceshipEnergyUI
       value: 
       objectReference: {fileID: 165456504}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: spriteArray.Array.data[5]
+      value: 
+      objectReference: {fileID: 1358016483, guid: c37633450dfbf8e42a554104ebdbc00d, type: 3}
+    - target: {fileID: 7527863383363309035, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
+      propertyPath: spriteArray.Array.data[6]
+      value: 
+      objectReference: {fileID: -1009198576, guid: 13927a8a0604ea74e821f3a249fa6d50, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
 --- !u!4 &7527863383091862403 stripped
@@ -4633,8 +4665,12 @@ PrefabInstance:
       value: AlexTestScene SpaceShip
       objectReference: {fileID: 0}
     - target: {fileID: 7691776405050469887, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}
+      propertyPath: destinationStartingPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691776405050469887, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}
       propertyPath: destinationStartingPosition.y
-      value: -0.4
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}

@@ -32,6 +32,8 @@ public class CropController : MonoBehaviour
 
     public float wateredMultiplier { get; set; }
 
+    bool animationRandomized;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,5 +64,16 @@ public class CropController : MonoBehaviour
         animator.SetBool("Watered", isWatered);
         // Set the crop type depending on its element number
         animator.SetFloat("Element", elementNumber);
+    }  
+
+    public void RandomizeAnimation()
+    {
+        // Start animations on a random frame to avoid artificial synchronicity when re-entering the crop scene
+        if (!animationRandomized)
+        {
+            AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+            animator.Play(state.fullPathHash, 0, Random.Range(0f, 1f));
+            animationRandomized = true;
+        }
     }
 }
