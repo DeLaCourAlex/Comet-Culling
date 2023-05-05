@@ -3417,7 +3417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 124653508487118738, guid: 88f08078bc183be49a79597c781030b5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 124653508487118738, guid: 88f08078bc183be49a79597c781030b5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3974,7 +3974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5246861867281603413, guid: 7684009e0ea3a104492680dee67fdaf1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5246861867281603413, guid: 7684009e0ea3a104492680dee67fdaf1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5102,6 +5102,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8790edfb8e4cb914887150b8b556d719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7527863383091862411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365859108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d907e052e62efe040a3c14169820b002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcTalksprite: {fileID: 1692702938}
+  princeTalksprite: {fileID: 1302868353}
+  isTalking: 0
 --- !u!1001 &7691776404449843900
 PrefabInstance:
   m_ObjectHideFlags: 0
