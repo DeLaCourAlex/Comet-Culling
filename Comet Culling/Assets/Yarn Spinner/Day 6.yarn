@@ -3,51 +3,86 @@ tags:
 ---
 //If the player had built affinity with Vas
 <<if $affinity>>
-PR1NC3: (happy) Vas! You’re back! 
+<<jump VasHighAffinity>>
 
+<<else>>
+<<jump VasLowAffinity>>
+
+<<endif>>
+===
+
+title:VasHighAffinity
+tags:
+---
+<<toggleTalksprite Player true true>>
+
+<<characterEmotion Player "happy" PrinceTalksprite>>
+PR1NC3: Vas! You’re back! 
+
+<<characterEmotion Player "happy" MerchantTalksprite>>
 Vas: Hello there! Did you miss me?  
 
+<<characterEmotion Player "happy" PrinceTalksprite>>
 PR1NC3: Maybe… 
 
-PR1NC3: Anywayy, how are you doing?  
+PR1NC3: Anyway, how are you doing?  
 
+<<characterEmotion Player "neutral" MerchantTalksprite>>
+<<characterEmotion Player "neutral" PrinceTalksprite>>
 Vas: Quite good! Managed to secure some interesting goods. I should be able to sell them for a big sum. 
 
+<<characterEmotion Player "happy" PrinceTalksprite>>
 PR1NC3: I’m glad to hear that!
 
+<<characterEmotion Player "happy" MerchantTalksprite>>
 Vas: How are you? Farming going well? 
 
-PR1NC3: (sad) Yes… I just wanted to talk to you about something.
+<<characterEmotion Player "sad" PrinceTalksprite>>
+PR1NC3: Yes… I just wanted to talk to you about something.
 
+<<characterEmotion Player "neutral" MerchantTalksprite>>
 Vas: What’s going on? 
+
 -> PR1NC3: I remembered something about the incident. 
 
-Vas: (sad) Is that so?
+<<characterEmotion Player "sad" MerchantTalksprite>>
+Vas: Is that so?
 
+<<characterEmotion Player "sad" PrinceTalksprite>>
 PR1NC3: Vas… I think I caused our ship to crash. 
 
 Vas: I knew it would come to this…  
 
+<<characterEmotion Player "neutral" MerchantTalksprite>>
 Vas: Prince, listen. I just want you to remember that no matter what your mind is telling you, it wasn’t your fault.  
+
+<<characterEmotion Player "angry" PrinceTalksprite>>
 PR1NC3: But it was! I messed with the control panel, caused the engine to overheat and we crashed. Everything would be fine if not for me. 
 
 Vas: You didn’t mean to do it. You told me that you couldn't control your body and were forced to follow the commands you had programmed. 
 
+<<characterEmotion Player "sad" PrinceTalksprite>>
 PR1NC3: … 
 
 Vas: It’s your superiors who are at fault, not you.  
 
+<<characterEmotion Player "angry" PrinceTalksprite>>
 PR1NC3: I should have fought stronger to stop myself. 
-Vas: (angry) It’s your superiors who are at fault, not you. Nothing you say will change my opinion on that.  
 
+<<characterEmotion Player "angry" MerchantTalksprite>>
+Vas: It’s your superiors who are at fault, not you. Nothing you say will change my opinion on that.  
+
+<<characterEmotion Player "sad" PrinceTalksprite>>
 PR1NC3: I just… I miss them so much. They were my family and now they’re gone. I cannot stand the thought that I hurt them. 
 
+<<characterEmotion Player "sad" MerchantTalksprite>>
 Vas: I know, but you’re not going to help them by blaming yourself. You will be reunited. 
 
 PR1NC3: How many times did we have this conversation?   
 
 Vas: … Quite a few. It never gets easier, especially seeing you hurt over and over again.  
 
+<<characterEmotion Player "neutral" MerchantTalksprite>>
 Vas: But I will do it as many times as you need it.  
 
 PR1NC3: I don’t know what to say. 
@@ -61,28 +96,41 @@ PR1NC3: Thank you for staying by my side Vas.
 
 -> PR1NC3: Never mind, it doesn’t really matter.  
 
+<<characterEmotion Player "sad" MerchantTalksprite>>
 Vas: Ok… If you say so.  
   <<Trade Player TradeItem>>
+  <<jump Quit>>
 //Player gets the seeds, and the conversation quits. 
 
-<<else>>
 
+
+===
+
+title:VasLowAffinity
+tags:
+---
+<<toggleTalksprite Player true true>>
 //If the player has low affinity 
+<<characterEmotion Player "neutral" PrinceTalksprite>>
+<<characterEmotion Player "neutral" MerchantTalksprite>>
 
 Vas: Hello there. How’s the farming going?  
 
 PR1NC3: The ship is almost charged, I will be leaving soon.  
 
-Vas: Oh, sure. I’m happy to hear that. (clearly not happy to hear that) 
+<<characterEmotion Player "sad" MerchantTalksprite>>
+Vas: Oh, sure. I’m happy to hear that.
 
+<<characterEmotion Player "neutral" MerchantTalksprite>>
 Vas: Where are you heading next?  
 PR1NC3: I will try and get closer to our original target planet. I think it makes sense for them to go there as well.  
 Vas: Sounds like a good idea.  
 
 PR1NC3: Do you have more seeds for me? They would come in helpful.  
 
+<<characterEmotion Player "angry" MerchantTalksprite>>
 Vas: … Yeah, here, have these.  
    <<Trade Player TradeItem>>
+   <<jump Quit>>
 //Player gets the seeds, conversation quits. 
-<<endif>>
 ===

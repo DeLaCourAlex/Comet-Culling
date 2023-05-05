@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using Yarn;
+using Yarn.Unity;
 
 public class Dialogue : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class Dialogue : MonoBehaviour
 
     private int index;
 
-
+ 
 
 
 
