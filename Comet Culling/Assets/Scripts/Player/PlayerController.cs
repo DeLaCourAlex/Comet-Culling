@@ -283,7 +283,7 @@ public class PlayerController : MonoBehaviour
 
                     case 2:
 
-                        dialogueRunner.StartDialogue("TestTalkSprite");
+                        dialogueRunner.StartDialogue("Day_2");
 
                         break;
 
