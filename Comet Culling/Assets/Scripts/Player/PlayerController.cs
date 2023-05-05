@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
 
     //merchent 
     [SerializeField] GameObject Dialogue;
-     private DialogueRunner dialogueRunner;
-
+    private DialogueRunner dialogueRunner;
+    DialogueUI dialogueUI; 
 
     // The position of the camera follow 
     // Used to change camera position if the player is in certain parts of the scene
@@ -162,6 +162,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
         dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
+        dialogueUI = GetComponent<DialogueUI>();
         // Initialize member variables
         stamina = MAX_STAMINA;
         cropsHarvested = new int[2];
@@ -276,7 +277,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("NPC"))
         {
             npc_detection = true;
-            
+            Dialogue.SetActive(true);
             //Npc Detection
             if (npc_detection)
             {
@@ -286,8 +287,9 @@ public class PlayerController : MonoBehaviour
                 {
 
                     case 2:
+
                         dialogueRunner.StartDialogue("Day_2");
- 
+
                         break;
 
                     case 4:
@@ -304,15 +306,28 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
+           
             Debug.Log("collision triggred");
 
         }
+        //else
+        //{
+        //    //dialogueRunner.StopAllCoroutines();
+        //    dialogueRunner.Stop();
+        //}
     }
 
     //exit collision 
     private void OnTriggerExit2D(Collider2D other)
     {
         npc_detection = false;
+
+        Dialogue.SetActive(false);
+        dialogueUI.HideTalksprites(); 
+        //dialogueUI.HideTalksprites();
+
+        //dialogueRunner.StopAllCoroutines();
+        dialogueRunner.Stop();
 
     }
 
@@ -329,7 +344,7 @@ public class PlayerController : MonoBehaviour
         if (currentAnimation == "Player Hoe Down" || currentAnimation == "Player Hoe Sideways" || currentAnimation == "Player Hoe Up" ||
             currentAnimation == "Player Scythe Down" || currentAnimation == "Player Scythe Sideways" || currentAnimation == "Player Scythe Up" ||
             currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up" ||
-            readingCaptainsLog)
+            readingCaptainsLog || dialogueUI.isTalking)
             canMove = false;
         else
             canMove = true;
@@ -347,7 +362,9 @@ public class PlayerController : MonoBehaviour
         {
             // Read directional input and set the movement vector
             // Normalize to reduce increased speed when moving diagonally
+
             if(!readingCaptainsLog && canMove)
+
                 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
             // Set the raycast corrector based on the previous and current direction that the player is facing
@@ -568,7 +585,7 @@ public class PlayerController : MonoBehaviour
             BedController bedController = hit.transform.gameObject.GetComponent<BedController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || tag == "Bed" || tag == "Screen" || tag == "Player")
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed") || (tag == "Screen"))
             {
                 DisplayCanInteract(false, false, false);
 
@@ -734,8 +751,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Watering");
 
                 // Play the watering sfx
-                if(AudioManager.Instance != null)
-                    AudioManager.Instance.playWaterCrop();
+                //AudioManager.Instance.playWaterCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedWatering;
@@ -785,8 +801,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Harvesting");
 
                 // Play the scythe sfx
-                if (AudioManager.Instance != null)
-                    AudioManager.Instance.playHarvestCrop();
+                //AudioManager.Instance.playHarvestCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedScythe;
@@ -816,8 +831,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Tilling");
 
                 // Play the tilling sfx
-                if (AudioManager.Instance != null)
-                    AudioManager.Instance.playTillingSoil();
+                //AudioManager.Instance.playTillingSoil();
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
@@ -927,8 +941,12 @@ public class PlayerController : MonoBehaviour
                     PlantCrop(boxcastPositionInt, cropElement);
 
                     // Play the planting sfx
+
                     
                     if (planting)
+
+                    //AudioManager.Instance.playPlantSeed();
+
                     {
                         animator.SetTrigger("Planting");
 
@@ -963,8 +981,7 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropA);
 
             // Play the crops into generator sfx
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.playGeneratorFeedCrops();
+            //AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[0]--;
@@ -983,8 +1000,7 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropB);
 
             // Play the crops into generator sfx
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.playGeneratorFeedCrops();
+            //AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[1]--;
@@ -1003,8 +1019,7 @@ public class PlayerController : MonoBehaviour
 
             // Play the player recharge sfx
             //if(DataPermanence.Instance.spaceshipEnergy > 0)
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.playGeneratorRecharge();
+            //AudioManager.Instance.playGeneratorRecharge();
         }
 
     }
@@ -1411,8 +1426,7 @@ public class PlayerController : MonoBehaviour
 // Because the player doesn't contain an audio manage component
 public void footstepsAudio()
 {
-    if (AudioManager.Instance != null)
-        AudioManager.Instance.playFootsteps();
+    //AudioManager.Instance.playFootsteps();
 }
 
 // Used to display any variables to the screen in place of UI for now
