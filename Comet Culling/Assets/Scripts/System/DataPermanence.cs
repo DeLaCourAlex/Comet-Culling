@@ -48,6 +48,8 @@ public class DataPermanence : MonoBehaviour
     [HideInInspector] public int seedA;
     [HideInInspector] public int seedB;
 
+    //[HideInInspector] public int currentTool;
+
 
     // Store the position of each crop and its time alive in a list
     public class CropData

@@ -7,7 +7,8 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using Yarn;
 using Yarn.Unity;
-using UnityEditor.SearchService;
+//using UnityEditor.SearchService;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -164,7 +165,7 @@ public class PlayerController : MonoBehaviour
         // Initialize member variables
         stamina = MAX_STAMINA;
         cropsHarvested = new int[2];
-
+        spriteRenderer.sprite = spriteArray[(int)currentTool];
         //instantiates inventory and sets inventory to player
         inventory = new Inventory(UseItem);
         ui_Inventory.SetPlayer(this);
@@ -175,6 +176,7 @@ public class PlayerController : MonoBehaviour
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
+            toolSprite.SetActive(true);
             // Set the player position when entering a new scene
             rb.MovePosition(DataPermanence.Instance.playerStartPosition);
 
@@ -184,6 +186,7 @@ public class PlayerController : MonoBehaviour
             tutorialNumber = DataPermanence.Instance.tutorialNumber;
             availableTools = DataPermanence.Instance.availableTools;
             inTutorial = DataPermanence.Instance.playerTutorial;
+            currentTool = (Tools)DataPermanence.Instance.currentTool;
 
             resourcesDepleted = DataPermanence.Instance.resourcesDepleted;
             deathDay = DataPermanence.Instance.deathDay;
@@ -1067,12 +1070,14 @@ public class PlayerController : MonoBehaviour
                 {
                     ChangeCarriedCrops(false, false);
                     spriteRenderer.sprite = spriteArray[(int)currentTool];
+                    DataPermanence.Instance.currentTool = (int)currentTool;
                 }
                     
                 else
                 {
                     ChangeCarriedCrops(true, false);
                     spriteRenderer.sprite = spriteArray[5];
+                    DataPermanence.Instance.currentTool = 5;
                 }
                     
 
@@ -1087,11 +1092,14 @@ public class PlayerController : MonoBehaviour
                 {
                     ChangeCarriedCrops(false, false);
                     spriteRenderer.sprite = spriteArray[(int)currentTool];
+                    DataPermanence.Instance.currentTool = (int)currentTool;
+
                 }
                 else
                 {
                     ChangeCarriedCrops(false, true);
                     spriteRenderer.sprite = spriteArray[6];
+                    DataPermanence.Instance.currentTool = 6;
                 }
                     
                 ui_Inventory.OpenInventory();
@@ -1102,7 +1110,7 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.hoe;
                 spriteRenderer.sprite = spriteArray[0];
                 DataPermanence.Instance.hoe--;
-
+                DataPermanence.Instance.currentTool = (int)currentTool;
                 ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
@@ -1114,7 +1122,7 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.wateringCan;
                 spriteRenderer.sprite = spriteArray[2];
                 DataPermanence.Instance.wateringCan--;
-
+                DataPermanence.Instance.currentTool = (int)currentTool;
                 ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
@@ -1126,7 +1134,7 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.scythe;
                 spriteRenderer.sprite = spriteArray[3];
                 DataPermanence.Instance.scythe--;
-
+                DataPermanence.Instance.currentTool = (int)currentTool;
                 ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
@@ -1138,7 +1146,7 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.seedA;
                 spriteRenderer.sprite = spriteArray[1];
                 DataPermanence.Instance.seedA--;
-
+                DataPermanence.Instance.currentTool = (int)currentTool;
                 ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
@@ -1150,7 +1158,7 @@ public class PlayerController : MonoBehaviour
                 currentTool = Tools.seedB;
                 spriteRenderer.sprite = spriteArray[4];
                 DataPermanence.Instance.seedB--;
-
+                DataPermanence.Instance.currentTool = (int)currentTool;
                 ChangeCarriedCrops(false, false);
 
                 ui_Inventory.OpenInventory();
