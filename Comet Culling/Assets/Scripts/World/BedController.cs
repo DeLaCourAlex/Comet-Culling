@@ -11,6 +11,10 @@ public class BedController : MonoBehaviour
     // A reference to the player to enable/disable them when sleeping
     [SerializeField] GameObject player;
 
+    // A reference to the time display to enable/disable when sleeping
+    [SerializeField] GameObject timeDisplay;
+    [SerializeField] GameObject dayDisplay;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,23 +33,25 @@ public class BedController : MonoBehaviour
         fadeoutAnimator.SetTrigger("Fade Out");
 
         // Pause the function to play the fade out animation
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         // Set the bed to sleeping, deactivate the player object
         animator.SetTrigger("Sleeping");
         player.SetActive(false);
+        timeDisplay.SetActive(false);
+        dayDisplay.SetActive(false);
 
         // Set the trigger for the fade in animation
         fadeoutAnimator.SetTrigger("Fade In");
 
         // Pass two seconds of sleeping
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
 
         // Set the trigger for the fade out animation
         fadeoutAnimator.SetTrigger("Fade Out");
 
         // Pause the function to play the fade out animation
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         // Set the trigger for the fade in animation
         fadeoutAnimator.SetTrigger("Fade In");
@@ -53,5 +59,7 @@ public class BedController : MonoBehaviour
         // Set the bed to awake, reactivate the player object
         animator.SetTrigger("Awake");
         player.SetActive(true);
+        timeDisplay.SetActive(true);
+        dayDisplay.SetActive(true);
     }
 }

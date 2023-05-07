@@ -220,6 +220,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a02532fbf7af0bf46bacf162f5aa51ca, type: 3}
+--- !u!1 &12399522 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1192982387, guid: a02532fbf7af0bf46bacf162f5aa51ca, type: 3}
+  m_PrefabInstance: {fileID: 12399521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &12399523 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 744925874, guid: a02532fbf7af0bf46bacf162f5aa51ca, type: 3}
+  m_PrefabInstance: {fileID: 12399521}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &73036413
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +343,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 7527863383091862403}
+    - target: {fileID: 8909697268537827382, guid: c035161a85f963943b5f5a2a04568fd5, type: 3}
+      propertyPath: dayDisplay
+      value: 
+      objectReference: {fileID: 12399522}
+    - target: {fileID: 8909697268537827382, guid: c035161a85f963943b5f5a2a04568fd5, type: 3}
+      propertyPath: timeDisplay
+      value: 
+      objectReference: {fileID: 12399523}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c035161a85f963943b5f5a2a04568fd5, type: 3}
 --- !u!1001 &768229455

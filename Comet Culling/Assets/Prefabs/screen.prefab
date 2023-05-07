@@ -568,7 +568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Captain\u2019s log: \r\nHello there dear friends. The ship is finally
+  m_text: "Captain\u2019s log: \r\n\nHello there dear friends. The ship is finally
     charged. I know it took me some time, but we\u2019ll be back on our way soon,
     so please don\u2019t fret.  Yesterday, I talked to Vas about what happened, opened
     up a little. The incident has been on my mind ever since andI just wanted to
@@ -718,7 +718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Captain\u2019s log: \r\nCaptain Sally speaking (wow it still feels weird
+  m_text: "Captain\u2019s log 1:\n\nCaptain Sally speaking (wow it still feels weird
     to say). It is day 3 of our mission. The tasks are being completed on schedule.
     No current delays or problems to report. The operation is going smoothly. The
     crew\u2026 The crew is adjusting to the current situation.  Commander Emilia
@@ -868,8 +868,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Captain\u2019s Log: \r\nI decided to stop counting time in days, as my
-    clock is no longer synchronised with Earth and each planet I visit has different
+  m_text: "Captain\u2019s Log: \r\n\nI decided to stop counting time in days, as
+    my clock is no longer synchronised with Earth and each planet I visit has different
     daily cycles. Today I have left planet no. 74. They started slowly blurring together.
     The pod\u2019s energy capacity is still very small, so the constant layovers
     are a necessity. I have established a pattern allowing me to recharge the ship
@@ -1672,16 +1672,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Captain\u2019s log: \r\nCaptain Sally here. Today we held a little party
-    to celebrate a full year in space. \r\nJonah and PR1NC3 prepared some food for
-    all of us to enjoy. Well, the 3 of us, but we made sure our little android still
-    felt included. We found some old batteries in the storage and while it felt like
-    a stupid idea, they turned out to be an actual snack for them. I think they had
-    a similar effect as caffeine? They became very energetic and jittery. Emilia
-    will probably spend the upcoming days researching it.\r\n\r\nJonah has outdone
-    himself this time. Of course we had no way of making an actual cake, but with
-    PR1NC3\u2019s help, he has created a concoction that tasted surprisingly close
-    to one. Even if it looked like sludge.\r\n\r\nWhile it\u2019s hard to comprehend
+  m_text: "Captain\u2019s log 3:\n \r\nCaptain Sally here. Today we held a little
+    party to celebrate a full year in space. \r\nJonah and PR1NC3 prepared some food
+    for all of us to enjoy. Well, the 3 of us, but we made sure our little android
+    still felt included. We found some old batteries in the storage and while it
+    felt like a stupid idea, they turned out to be an actual snack for them. I think
+    they had a similar effect as caffeine? They became very energetic and jittery.
+    Emilia will probably spend the upcoming days researching it.\r\n\r\nJonah has
+    outdone himself this time. Of course we had no way of making an actual cake,
+    but with PR1NC3\u2019s help, he has created a concoction that tasted surprisingly
+    close to one. Even if it looked like sludge.\r\n\r\nWhile it\u2019s hard to comprehend
     that it\u2019s already been a year, we have adapted to living on the ship quite
     well. Each crewmate has found their routine and incorporated each other into
     them. We work like a well oiled machine. Thanks to that, I believe we should
@@ -2124,7 +2124,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Captain\u2019s log:\r\nCaptain Sally reporting. Today marks the first
+  m_text: "Captain\u2019s log 2:\r\n\nCaptain Sally reporting. Today marks the first
     month of the mission. \r\n\r\nI saw Emilia and Jonah hanging out together in
     her lab. Surprising, as his attempts to sneak in and chat her up usually ended
     up with him being shouted at and chased out with a wrench. I\u2019m glad he finally
