@@ -1255,10 +1255,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1804191852, guid: f94c9d59cf3dfe34ca2fbbb7e56ce275, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 990559408466366306, guid: f94c9d59cf3dfe34ca2fbbb7e56ce275, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -1303,10 +1299,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 990559408466366307, guid: f94c9d59cf3dfe34ca2fbbb7e56ce275, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a741cbec5d286e046b2af65cd7b0cdfd, type: 3}
     - target: {fileID: 990559408466366334, guid: f94c9d59cf3dfe34ca2fbbb7e56ce275, type: 3}
       propertyPath: m_Name
       value: NPC

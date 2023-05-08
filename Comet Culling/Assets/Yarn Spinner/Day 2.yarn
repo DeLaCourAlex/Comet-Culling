@@ -21,12 +21,12 @@ Merchant:  In that case, let me reintroduce myself I am Vas, a travelling mercha
     <<jump Quit>>
 
 -> PR1NC3: A memory issue?  
-
+<<HighAffinity NPC Like>>
 Vas: Here we go again. You took a pretty hard hit during the crash and your memory drive got damaged, But don’t worry about it right now, your journey is the most important thing.  
 
 <<characterEmotion Player "angry" PrinceTalksprite>>
 -> PR1NC3: How much do you know about me?  
-
+<<LowAffinity NPC Hate>>
 Vas: A bit? But all the information was given willingly! As you have probably noticed, this is far from our first meeting. We had quite a lot of time to talk. 
 
 <<characterEmotion Player "neutral" PrinceTalksprite>>
