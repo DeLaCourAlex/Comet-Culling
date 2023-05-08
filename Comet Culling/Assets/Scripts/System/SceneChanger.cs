@@ -61,7 +61,7 @@ public class SceneChanger : MonoBehaviour
         animator.SetTrigger("Fade Out");
 
         // Pause the function to play the fade out animation
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         // Load the new scene
         SceneManager.LoadScene(scene);

@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
         // Initialize member variables
         stamina = MAX_STAMINA;
         cropsHarvested = new int[2];
-        spriteRenderer.sprite = spriteArray[(int)currentTool];
+        
         //instantiates inventory and sets inventory to player
         inventory = new Inventory(UseItem);
         ui_Inventory.SetPlayer(this);
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
         // Initialize variables stored in data permanence
         if (DataPermanence.Instance != null)
         {
-            toolSprite.SetActive(true);
+            
             // Set the player position when entering a new scene
             rb.MovePosition(DataPermanence.Instance.playerStartPosition);
 
@@ -251,6 +251,9 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+
+        spriteRenderer.sprite = spriteArray[(int)currentTool];
+        toolSprite.SetActive(true);
 
         if (!inTutorial)
             ChangeTutorialStage(5, 9);
@@ -585,7 +588,7 @@ public class PlayerController : MonoBehaviour
             BedController bedController = hit.transform.gameObject.GetComponent<BedController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || (tag == "Bed") || (tag == "Screen"))
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || tag == "Bed" || tag == "Screen" || tag == "Player")
             {
                 DisplayCanInteract(false, false, false);
 
