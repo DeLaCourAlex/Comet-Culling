@@ -222,6 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3105630228869542806}
   - component: {fileID: 1042656565457406025}
+  - component: {fileID: 713666986}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -255,6 +256,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5179cb50e898d974ca85d46ef66e5b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaBar: {fileID: 359516327013870912}
+  energyBar: {fileID: 5216824093945284656}
+--- !u!114 &713666986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105630228869542793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9b70cc4de002240bba51207982ee06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   staminaBar: {fileID: 359516327013870912}
