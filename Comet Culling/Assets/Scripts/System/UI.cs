@@ -17,16 +17,16 @@ public class UI : MonoBehaviour
         animatorStamina = staminaBar.GetComponent<Animator>();
         animatorEnergy = energyBar.GetComponent<Animator>();
     }
-
+ 
     private void Update()
     {
         if (animatorStamina != null)
         {
             animatorStamina.SetFloat("Value", DataPermanence.Instance.playerStamina / 10);
-/*            Debug.Log("UPDATING STAMINA UI");*/
+            /*            Debug.Log("UPDATING STAMINA UI");*/
             //Debug.Log("Stamina: " + DataPermanence.Instance.playerStamina / 10);
         }
-            
+
 
         if (animatorEnergy != null)
         {
@@ -37,10 +37,10 @@ public class UI : MonoBehaviour
 
     }
     // Update is called once per frame
-/*    void Update()
-    {
-        // Set the attribute in the animator to display how full the UI bar is
-        animator.SetFloat("Value", attributeValue);
-        Debug.Log("Value: " + attributeValue);
-    }*/
+    /*    void Update()
+        {
+            // Set the attribute in the animator to display how full the UI bar is
+            animator.SetFloat("Value", attributeValue);
+            Debug.Log("Value: " + attributeValue);
+        }*/
 }
