@@ -33,7 +33,7 @@ Vas: I know, but don’t worry! You’re getting closer, I’m sure. And in the 
 
 <<characterEmotion Player "neutral" PrinceTalksprite>>
 ->PR1NC3: I… I really appreciate it.  
-
+<<HighAffinity NPC Like>>
 <<characterEmotion Player "sad" MerchantTalksprite>>
 Vas: So, do you want to talk about them? 
 
@@ -42,7 +42,7 @@ Vas: So, do you want to talk about them?
     <<jump NoCrewInfo>>
 -> PR1NC3: Maybe? I don’t really know what to say.
     <<characterEmotion Player "neutral" PrinceTalksprite>>
-
+<<LowAffinity NPC Hate>>
 <<characterEmotion Player "neutral" MerchantTalksprite>>
 Vas:  Why don’t you just tell me something about them?
 
@@ -54,32 +54,34 @@ PR1NC3: …
 
 <<characterEmotion Player "sad" PrinceTalksprite>>
 -> PR1NC3: Sally was… is a really considerate person. She cares about rules but safety of her crew always comes first. 
-
+<<HighAffinity NPC Like>>
 <<characterEmotion Player "neutral" PrinceTalksprite>>
    PR1NC3: She was willing to drop whatever she was doing if one of the crewmates needed her.
-
+<<HighAffinity NPC Like>>
 <<characterEmotion Player "happy" PrinceTalksprite>>
 -> PR1NC3: Emilia prefers to spend time on her own and is very dedicated to her research. Jonah wouldn’t have that though. 
      PR1NC3: He tried to coax her into leaving her lab and socialising more. I think she didn’t mind it half as much as she said she did. 
-
+<<HighAffinity NPC Like>>
 <<characterEmotion Player "happy" MerchantTalksprite>>
 Vas: See? It’s good to see you smile. It suits you. Did it make you feel better?
 
 <<characterEmotion Player "neutral" PrinceTalksprite>>
 <<characterEmotion Player "neutral" MerchantTalksprite>>
 -> PR1NC3: I think so? I haven’t spoken to someone about them in a while. It actually feels like they aren’t that far away now.
-
+<<LowAffinity NPC Hate>>
 <<characterEmotion Player "happy" MerchantTalksprite>>
 Vas: I’m glad. Here, take these seeds. Hopefully they will help you find them sooner.
   <<Trade Player TradeItem>>
 
 <<characterEmotion Player "happy" PrinceTalksprite>>
 -> PR1NC3: … Thank you Vas.
+
    <<set $affinity to true>>
      <<jump Quit>>
 
 -> PR1NC3: No need. I am doing ok on my own. I need to get back to work now.
 <<characterEmotion Player "neutral" PrinceTalksprite>>
+
 
 <<characterEmotion Player "angry" MerchantTalksprite>>
 Vas: If you say so. Take these at least.
