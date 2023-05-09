@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
             availableTools = DataPermanence.Instance.availableTools;
             inTutorial = DataPermanence.Instance.playerTutorial;
             currentTool = (Tools)DataPermanence.Instance.currentTool;
-
+            Debug.Log("In player start, tutorial number " + tutorialNumber);
             resourcesDepleted = DataPermanence.Instance.resourcesDepleted;
             deathDay = DataPermanence.Instance.deathDay;
             deathHour = DataPermanence.Instance.deathHour;
@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour
         toolSprite.SetActive(true);
 
         if (!inTutorial)
-            ChangeTutorialStage(5, 9);
+            ChangeTutorialStage(5, 11);
     }
 
     [YarnCommand("Trade")]
@@ -271,13 +271,13 @@ public class PlayerController : MonoBehaviour
 
 
     //NPC detection
-    bool npc_detection = false;
+    public bool npc_detection = false;
 
     //collision with NPC
     private void OnTriggerEnter2D(Collider2D collision)
     {
        
-        if (collision.CompareTag("NPC"))
+        if (collision.CompareTag("NPC") && (!inTutorial || tutorialNumber == 7))
         {
             npc_detection = true;
             Dialogue.SetActive(true);
@@ -331,7 +331,6 @@ public class PlayerController : MonoBehaviour
 
         //dialogueRunner.StopAllCoroutines();
         dialogueRunner.Stop();
-
     }
 
     // Update is called once per frame
@@ -442,35 +441,36 @@ public class PlayerController : MonoBehaviour
 
                     break;
 
-                //case 4:
+                case 4:
 
-                //    CheckTutorialFiveOver();
-
-                //    break;
-
-                case 5:
-
-                    CheckTutorialSixOver();
+                    CheckTutorialFiveAOver();
 
                     break;
 
                 case 6:
 
-                    CheckTutorialSevenOver();
-
-                    break;
-
-                case 7:
-
-                    CheckTutorialEightOver();
+                    CheckTutorialSixOver();
 
                     break;
 
                 case 8:
 
+                    CheckTutorialSevenBOver();
+
+                    break;
+
+                case 9:
+
+                    CheckTutorialEightOver();
+
+                    break;
+
+                case 10:
+
                     CheckTutorialOver();
 
                     break;
+
             }
             Debug.Log("In tutorial: " + inTutorial);
             //updates npc based on day
@@ -598,13 +598,19 @@ public class PlayerController : MonoBehaviour
                 // Bed related interractions
                 if (Input.GetButtonDown("Action") && (tag == "Bed"))
                 {
+                    if (inTutorial && tutorialNumber != 5)
+                        break;
+
                     GoToSleep(ref bedController);
                     if (inTutorial)
-                        CheckTutorialFiveOver();
+                        CheckTutorialFiveBOver();
                 }
                 //Screen related interactions
                 if (Input.GetButtonDown("Action") && (tag == "Screen"))
                 {
+                    if (inTutorial && tutorialNumber != 4)
+                        break;
+
                     if (hasInteractedScreenToday && !readingCaptainsLog)
                     {
                         readingCaptainsLog = true;
@@ -1303,11 +1309,12 @@ public class PlayerController : MonoBehaviour
         // Check if the player has entered the spaceship in tutorial four
         // If so, move to the next tutorial stage
         //if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
-        if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3")
+        if (tutorialNumber == 3 && (SceneManager.GetActiveScene().name == "Sangit SpaceShip 3" || SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip"))
             ChangeTutorialStage(3, 4);
     }
 
-    void CheckTutorialFiveOver()
+    // use screen
+    void CheckTutorialFiveAOver()
     {
         // TODO: add functionality here to sleep and move to the next day, grow crops, etc
 
@@ -1320,10 +1327,31 @@ public class PlayerController : MonoBehaviour
         //    {
         //        DataPermanence.Instance.allCrops[i].timeAlive = 100;
         //    }
-        if (tutorialNumber == 4)
+        if (tutorialNumber == 4 && hasInteractedScreenToday && !readingCaptainsLog)
+            ChangeTutorialStage(4, 5);
+
+
+        //}
+
+    }
+    // sleep
+    void CheckTutorialFiveBOver()
+    {
+        // TODO: add functionality here to sleep and move to the next day, grow crops, etc
+
+        // TEMPORARY CODE TO FULLY GROW ALL CROPS AND MOVE TO NEXT PHASE OF TUTORIAL
+        //if (Input.GetButtonDown("Action"))
+        //{
+        //    // Cycle through the list of crops in data permanence
+        //    // Set them all to an age where they're fully grown
+        //    for (int i = 0; i < DataPermanence.Instance.allCrops.Count; i++)
+        //    {
+        //        DataPermanence.Instance.allCrops[i].timeAlive = 100;
+        //    }
+        if (tutorialNumber == 5)
             inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
 
-        ChangeTutorialStage(4, 5);
+        ChangeTutorialStage(4, 6);
 
 
         //}
@@ -1339,31 +1367,39 @@ public class PlayerController : MonoBehaviour
             GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
 
             if (crops.Length == 0)
-                ChangeTutorialStage(4, 6);
+                ChangeTutorialStage(4, 7);
         }
 
     }
-    
-    void CheckTutorialSevenOver()
+
+    [YarnCommand("TutSeven")]
+    void CheckTutorialSevenAOver()
+    {
+        // Check if the player has spoken to Vas
+        // If so, move to the next tutorial stage
+        //if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        ChangeTutorialStage(4, 8);
+    }
+    void CheckTutorialSevenBOver()
     {
         // Check if the player has entered the spaceship in tutorial seven
         // If so, move to the next tutorial stage
         //if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
         if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3"|| SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
-            ChangeTutorialStage(4, 7);
+            ChangeTutorialStage(4, 9);
     }
 
     void CheckTutorialEightOver()
     {
         if (DataPermanence.Instance.cropA == 8)
-            ChangeTutorialStage(4, 8);
+            ChangeTutorialStage(4, 10);
     }
 
     void CheckTutorialOver()
     {
-        if (tutorialNumber == 8 && DataPermanence.Instance.spaceshipEnergy == 0)
+        if (tutorialNumber == 10 && DataPermanence.Instance.spaceshipEnergy == 0)
         {
-            ChangeTutorialStage(5, 9);
+            ChangeTutorialStage(5, 11);
             inTutorial = false;
             DataPermanence.Instance.playerTutorial = false;
             inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });

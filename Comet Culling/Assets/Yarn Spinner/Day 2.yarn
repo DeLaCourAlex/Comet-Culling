@@ -1,6 +1,7 @@
 ﻿title: Day_2
 tags:
 ---
+<<enableMovement Player false>>
 <<set $hasSeeds to false>>
 <<set $affinity to false>>  
 <<toggleTalksprite Player true true>>
@@ -47,11 +48,15 @@ Vas: Ok, ok, not in a mood for jokes, I get it.
 <<Trade Player TradeItem>>
 Vas: I wouldn’t feel comfortable asking a friend for payment. Please, just take these seeds. On the house!  Hopefully they will help you continue your journey.  
 <<toggleTalksprite Player false false>>
+<<TutSeven Player>>
+<<enableMovement Player true>>
 ===
 
 title:Quit
 tags:
 ---
+<<TutSeven Player>>
+<<enableMovement Player true>>
 <<toggleTalksprite Player false false>>
 ===
 

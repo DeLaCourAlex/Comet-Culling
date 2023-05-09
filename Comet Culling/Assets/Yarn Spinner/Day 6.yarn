@@ -1,6 +1,7 @@
 ﻿title: Day_6
 tags:
 ---
+<<enableMovement Player false>>
 //If the player had built affinity with Vas
 <<if $affinity>>
 <<jump VasHighAffinity>>
@@ -14,6 +15,7 @@ tags:
 title:VasHighAffinity
 tags:
 ---
+<<enableMovement Player false>>
 <<toggleTalksprite Player true true>>
 
 <<characterEmotion Player "happy" PrinceTalksprite>>
@@ -102,13 +104,14 @@ Vas: Ok… If you say so.
   <<jump Quit>>
 //Player gets the seeds, and the conversation quits. 
 
-
+<<enableMovement Player true>>
 
 ===
 
 title:VasLowAffinity
 tags:
 ---
+<<enableMovement Player false>>
 <<toggleTalksprite Player true true>>
 //If the player has low affinity 
 <<characterEmotion Player "neutral" PrinceTalksprite>>
@@ -133,4 +136,5 @@ Vas: … Yeah, here, have these.
    <<Trade Player TradeItem>>
    <<jump Quit>>
 //Player gets the seeds, conversation quits. 
+<<enableMovement Player true>>
 ===

@@ -14,7 +14,9 @@ public class TutorialManager : MonoBehaviour
     // This can be activated and deactivated to stop the player moving between scenes
     // depending on the stage of the tutorial
     BoxCollider2D doorCollider;
+    //BoxCollider2D screenCollider;
     [SerializeField] GameObject door;
+    //[SerializeField] GameObject screen;
 
     // Store a reference to the player controller to know when to move between tutorials
     [SerializeField] GameObject player;
@@ -25,6 +27,7 @@ public class TutorialManager : MonoBehaviour
         playerController = player.GetComponent<PlayerController>();
 
         doorCollider = door.GetComponent<BoxCollider2D>();
+        //screenCollider = screen.GetComponent<BoxCollider2D>();
         //doorCollider.enabled = false;
     }
 
@@ -59,14 +62,34 @@ public class TutorialManager : MonoBehaviour
 
         // Determine whether the door collider is enabled or not
         // And therefor if the player can leave the current scene
-        if (currentScene == "AlexTestScene" && (playerController.tutorialNumber == 3 || playerController.tutorialNumber == 6) ||
-            currentScene == "AlexTestScene SpaceShip" & playerController.tutorialNumber == 5)
+        if (currentScene == "AlexTestScene" && (playerController.tutorialNumber == 3 || playerController.tutorialNumber == 8) ||
+            currentScene == "AlexTestScene SpaceShip" && playerController.tutorialNumber == 6)
             doorCollider.enabled = true;
         else
             doorCollider.enabled = false;
 
-        if(playerController.tutorialNumber == 9)
+        /*if(screen != null)
         {
+            if (playerController.tutorialNumber == 5)
+                screenCollider.enabled = false;
+            else
+                screenCollider.enabled = true;
+        }*/
+
+        if (playerController.tutorialNumber == 7 && playerController.npc_detection)
+        {
+            tutorialText[7].SetActive(false);
+            textBox.SetActive(false);
+        }
+        else
+        {
+            textBox.SetActive(true);
+        }
+        Debug.Log("In TUtorial, number " + playerController.tutorialNumber);
+
+        if (playerController.tutorialNumber == 11)
+        {
+            Debug.Log("Ending tutorial");
             doorCollider.enabled = true;
             textBox.SetActive(false);
             enabled = false;

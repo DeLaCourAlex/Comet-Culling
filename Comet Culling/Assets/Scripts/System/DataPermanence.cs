@@ -158,7 +158,7 @@ public class DataPermanence : MonoBehaviour
     public void PlayerStartNoTutorial()
     {
         playerTutorial = false;
-        tutorialNumber = 9;
+        tutorialNumber = 11;
         availableTools = 5;
 
     }

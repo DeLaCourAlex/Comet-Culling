@@ -1,6 +1,7 @@
 ﻿title: Day_4
 tags:
 ---
+<<enableMovement Player false>>
 <<toggleTalksprite Player true true>>
 
 <<characterEmotion Player "happy" MerchantTalksprite>>
@@ -88,7 +89,7 @@ Vas: If you say so. Take these at least.
   <<Trade Player TradeItem>>
 
 <<jump Quit>>
-
+<<enableMovement Player true>>
 ===
 title:NoCrewInfo
 tags:
@@ -96,5 +97,6 @@ tags:
 <<characterEmotion Player "neutral" MerchantTalksprite>>
 Vas: That’s ok. Here, have these seeds, that’s the least I can do to help.
 <<Trade Player TradeItem>>
+<<enableMovement Player true>>
 <<jump Quit>>
 ===

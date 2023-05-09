@@ -1,6 +1,7 @@
 ﻿title: Day_6_LA
 tags:
 ---
+<<enableMovement Player false>>
 //If the player has low affinity 
 
 Vas: Hello there. How’s the farming going?  
@@ -21,5 +22,5 @@ Vas: … Yeah, here, have these.
 
 
 
-
+<<enableMovement Player true>>
 ===

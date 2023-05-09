@@ -10,33 +10,37 @@ public class NPCDayCycle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (TimeManager.Day)
+        if(NPC != null)
         {
-            case 1:
-                NPC.SetActive(false);
-                break;
-            case 2:
+            switch (TimeManager.Day)
+            {
+                case 1:
+                    NPC.SetActive(false);
+                    break;
+                case 2:
 
-                NPC.SetActive(true);
-                break;
-            case 3:
-                NPC.SetActive(false);
-                break;
-            case 4:
+                    NPC.SetActive(true);
+                    break;
+                case 3:
+                    NPC.SetActive(false);
+                    break;
+                case 4:
 
-                NPC.SetActive(true);
-                break;
-            case 5:
-                NPC.SetActive(false);
-                break;
-            case 6:
+                    NPC.SetActive(true);
+                    break;
+                case 5:
+                    NPC.SetActive(false);
+                    break;
+                case 6:
 
-                NPC.SetActive(true);
-                break;
-            case 7:
-                NPC.SetActive(false);
-                break;
+                    NPC.SetActive(true);
+                    break;
+                case 7:
+                    NPC.SetActive(false);
+                    break;
 
+            }
         }
+        
     }
 }
