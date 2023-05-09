@@ -6,6 +6,7 @@ public class ToggleUI : MonoBehaviour
 {
     public GameObject staminaBar;
     public GameObject energyBar;
+    public GameObject blurScreen;
 
     //activates UI objects while in dialogue
     [YarnCommand("ActivateUI")]
@@ -13,6 +14,7 @@ public class ToggleUI : MonoBehaviour
     {
         staminaBar.SetActive(true);
         energyBar.SetActive(true);
+        blurScreen.SetActive(false);
     }
     //deactivates UI objects after completing dialogue
     [YarnCommand("DeactivateUI")]
@@ -20,6 +22,7 @@ public class ToggleUI : MonoBehaviour
     {
         staminaBar.SetActive(false);
         energyBar.SetActive(false);
+        blurScreen.SetActive(true);
     }
 
    
