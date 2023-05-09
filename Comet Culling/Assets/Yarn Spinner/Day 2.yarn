@@ -1,11 +1,12 @@
 ﻿title: Day_2
 tags:
 ---
+
 <<set $hasSeeds to false>>
 <<set $affinity to false>>  
 <<DeactivateUI UI>>
 <<toggleTalksprite Player true true>>
-
+<<enableMovement Player false>>
 <<characterEmotion Player "neutral" MerchantTalksprite>>
 Merchant: Hello there fellow space traveller! It is nice to see you again.  
 
@@ -49,6 +50,7 @@ Vas: Ok, ok, not in a mood for jokes, I get it.
 Vas: I wouldn’t feel comfortable asking a friend for payment. Please, just take these seeds. On the house!  Hopefully they will help you continue your journey.  
 <<toggleTalksprite Player false false>>
 <<ActivateUI UI>>
+<<enableMovement Player true>>
 ===
 
 title:Quit
@@ -56,5 +58,6 @@ tags:
 ---
 <<ActivateUI UI>>
 <<toggleTalksprite Player false false>>
+<<enableMovement Player true>>
 ===
 
