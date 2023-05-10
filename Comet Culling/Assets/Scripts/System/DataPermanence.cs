@@ -130,6 +130,8 @@ public class DataPermanence : MonoBehaviour
 
         sfxVolume = 1;
         musicVolume = 1;
+
+        playerStartPosition = new Vector2(-3, 3);
     }
 
     private void Update()

@@ -20,6 +20,10 @@ public class DoorScript : MonoBehaviour
         // If colliding object is a player, move to the desired scene
         if (player != null)
         {
+            // Play the door audio
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playDoor();
+
             player.canMove = false;
             SceneChanger.Instance.ChangeScene(destinationScene, destinationStartingPosition);
         }

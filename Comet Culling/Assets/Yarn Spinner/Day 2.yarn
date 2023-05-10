@@ -51,6 +51,7 @@ Vas: I wouldn’t feel comfortable asking a friend for payment. Please, just tak
 <<toggleTalksprite Player false false>>
 <<ActivateUI UI>>
 <<enableMovement Player true>>
+<<TutSeven Player>>
 ===
 
 title:Quit
@@ -59,5 +60,6 @@ tags:
 <<ActivateUI UI>>
 <<toggleTalksprite Player false false>>
 <<enableMovement Player true>>
+<<TutSeven Player>>
 ===
 

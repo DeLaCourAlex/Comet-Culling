@@ -55,6 +55,8 @@ MonoBehaviour:
   waterCrop: {fileID: 8300000, guid: dc883ba213d172e4b8e60bc0ff9540b6, type: 3}
   generatorFeedCrops: {fileID: 8300000, guid: 981b615babc18594f82caa80b1292dc3, type: 3}
   generatorRecharge: {fileID: 8300000, guid: d74b9995a9e4ab840a58a09bfd862ca8, type: 3}
+  door: {fileID: 8300000, guid: 542798dac7e3e514899c1a80be05d90f, type: 3}
+  generatorError: {fileID: 8300000, guid: b3946b5e171a12f458127bb58c119f45, type: 3}
 --- !u!82 &1512638720150704263
 AudioSource:
   m_ObjectHideFlags: 0
