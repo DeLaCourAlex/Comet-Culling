@@ -1468,7 +1468,8 @@ public class PlayerController : MonoBehaviour
     {   
        TimeManager.Day++;
        TimeManager.OnDayChanged?.Invoke();
-       ChangeTutorialStage(5, 9);
+       ChangeTutorialStage(5, 11);
+        inTutorial= false;
     }
 
 
