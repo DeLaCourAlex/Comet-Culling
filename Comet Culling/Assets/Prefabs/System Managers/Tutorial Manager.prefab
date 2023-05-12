@@ -66,14 +66,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Go back outside to harvest the crops.
-
-
-    Press "I" to open the inventory.
-
-
-    Select
-    the scyth, and harvest the crops using LEFT MOUSE or SPACE.'
+  m_text: "Status update: \nEnergy sources have matured and are ready for harvesting.
+    \r\n\rReturn to the outside area. \r\n\r\nNeeded tool has been placed in the
+    inventory. Press \u201CI\u201D for access. \r\n\r\nSelect the new tool and proceed.
+    \r\nREMINDER: Press \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT MOUSE CLICK\u201D
+    to use the item.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -155,7 +152,7 @@ GameObject:
   - component: {fileID: 5287944028939596875}
   - component: {fileID: 8104842813065805302}
   m_Layer: 5
-  m_Name: Tutorial Four
+  m_Name: Tutorial 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +253,7 @@ GameObject:
   - component: {fileID: 8000080938628098983}
   - component: {fileID: 6879422419553581265}
   m_Layer: 5
-  m_Name: Tutorial Five B
+  m_Name: Tutorial 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,7 +354,7 @@ GameObject:
   - component: {fileID: 1541456568932587335}
   - component: {fileID: 8491814059070139609}
   m_Layer: 5
-  m_Name: Tutorial One
+  m_Name: Tutorial 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,15 +508,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Watering your crops allows them to grow faster
-
-
-    Press "I" to open
-    the inventory.
-
-
-    Select the watering can, and water all your crops individually
-    using LEFT MOUSE or SPACE.'
+  m_text: "Status update:\r \nOrganic energy sources are in need of hydration. \r\nNeeded
+    tool has been placed in the inventory. Press \u201CI\u201D for access. \r\n\nEnergy
+    sources need to be watered individually. \r\nSelect the new tool and proceed.
+    \r\nREMINDER: Press \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT MOUSE CLICK\u201D
+    to use the item.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -654,16 +647,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Move using WASD or directional arrows
-
-
-    Press "I" to open the inventory
-    and select the hoe. Press LEFT MOUSE or SPACE BAR to use the equipped tool.
-
-
-    Use
-    the hoe to till the highlighted 3x3 square of dirt on the top left corner of
-    the farming area using SPACE.'
+  m_text: "Status update: \n\rLanded on Planet B2C9-A35. \r \nShip Energy Level:
+    0%. Recharge to continue the voyage. \r\n\nMovement Functionality: ON. Use WASD
+    to move.\nPlease proceed to cultivating organic energy sources.\n\nNeeded tool
+    has been placed in the inventory.\nFor access, press \"I\". Use the mouse to
+    navigate the inventory and click on the tool.\n\nScanning\u2026 Optimal farming
+    area detected. Proceed towards it.\n\rPress \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT
+    MOUSE CLICK\u201D to use the item.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -732,6 +722,107 @@ MonoBehaviour:
   m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &2318486326373442803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5549578913121134102}
+  - component: {fileID: 2208675799505863851}
+  - component: {fileID: 7521543973420571304}
+  - component: {fileID: 3670207561231454590}
+  m_Layer: 5
+  m_Name: Tutorial 12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5549578913121134102
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318486326373442803}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5870757501111900455}
+  m_Father: {fileID: 7839328275626162809}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 5, y: 30}
+  m_SizeDelta: {x: 5, y: 45}
+  m_Pivot: {x: 0, y: 0}
+--- !u!223 &2208675799505863851
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318486326373442803}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 1
+  m_TargetDisplay: 0
+--- !u!114 &7521543973420571304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318486326373442803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 480, y: 270}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!114 &3670207561231454590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318486326373442803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &2611454942904262296
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,15 +889,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press "I" to open the inventory and click on the crop to equip it.
-
-
-    Interact
-    with the generator using LEFT MOUSE or SPACE to feed your crops into the spaceship.
-
-
-    Feed
-    one of your harvested crops in to charge the generator.'
+  m_text: "Harvested energy sources have been placed in the inventory. \r\n\r\n Press
+    \u201CI\u201D for access and select them.\r\n\r\nCommencing ship recharge. \r\nInteract
+    with the generator to feed it the organic matter.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -888,7 +973,7 @@ GameObject:
   - component: {fileID: 2184343408415237247}
   - component: {fileID: 3990660145469413746}
   m_Layer: 5
-  m_Name: Tutorial Five A
+  m_Name: Tutorial 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1147,12 +1232,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Now that the ship has some energy, Press "I" to open the inventory and
-    click on the crop to unequip it.
-
-
-    Interact with the generator  using LEFT
-    MOUSE or SPACE to charge your stamina from the ship''s batteries.'
+  m_text: "Status update: \nShip energy levels up.\n\nWarning: Low stamina.\n\nPress
+    \"I\" and deselect ogranic matter.\nThen interact the generator to charge using
+    ship\u2019s energy\r."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1287,9 +1369,145 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: There's not much more to for now until the crops have grown. Look around
-    the spaceship if you want, and when you're ready, interact with the bed using
-    LEFT MOUSE or SPACE to rest until tomorrow.
+  m_text: "Wait until the organic energy sources have matured.\r\n\r\nInteract with
+    the bed to rest until tomorrow.  \r"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 2533359615
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
+  m_fontSizeMax: 12
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 1
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3747784041270600264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5870757501111900455}
+  - component: {fileID: 1941469837927186483}
+  - component: {fileID: 7412703689509629542}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5870757501111900455
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3747784041270600264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5549578913121134102}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -18.359802, y: -103}
+  m_SizeDelta: {x: 732.5542, y: 161.0674}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1941469837927186483
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3747784041270600264}
+  m_CullTransparentMesh: 1
+--- !u!114 &7412703689509629542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3747784041270600264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "Stamina levels up.\r\n\nShip levels insufficient for continuing the voyage.
+    \r\n\r\nReturn to cultivating organic fuel. \r\nPredicted time until full battery:
+    6 days \r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1371,7 +1589,7 @@ GameObject:
   - component: {fileID: 8826052303802459814}
   - component: {fileID: 9073797304274045466}
   m_Layer: 5
-  m_Name: Tutorial Eight
+  m_Name: Tutorial 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1472,7 +1690,7 @@ GameObject:
   - component: {fileID: 9161310638431384983}
   - component: {fileID: 8556632652504202116}
   m_Layer: 5
-  m_Name: Tutorial Three
+  m_Name: Tutorial 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1626,8 +1844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Let's go explore inside the spaceship while you wait for these crops to
-    go.
+  m_text: "Status update: \nEnergy sources growth in progress. \r\nEnter the spaceship.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1739,6 +1956,7 @@ Transform:
   - {fileID: 6166243623977025258}
   - {fileID: 6611232401888812359}
   - {fileID: 7245457739375370852}
+  - {fileID: 5549578913121134102}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1779,7 +1997,7 @@ GameObject:
   - component: {fileID: 3985337811535858700}
   - component: {fileID: 4898481606041762258}
   m_Layer: 5
-  m_Name: Tutorial Six
+  m_Name: Tutorial 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1880,7 +2098,7 @@ GameObject:
   - component: {fileID: 6376045292195890037}
   - component: {fileID: 1730981964178903760}
   m_Layer: 5
-  m_Name: Tutorial Seven A
+  m_Name: Tutorial 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2034,15 +2252,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press "I" to open the inventory.
-
-
-    Select the seed - this will plant
-    nine crops in a 3x3 grid.
-
-
-    Use this to plant a set of crops on the highlighted
-    tile of the newly tilled area using LEFT MOUSE or SPACE.'
+  m_text: "Inventory updated. Press \u201CI\u201D for access. \r\n \r\nSelect the
+    seed. When used, it will plant nine crops in a 3x3 grid. Plant these in the selected
+    patch of soil.\n\nREMINDER: Press \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT MOUSE
+    CLICK\u201D to use the item.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2124,7 +2337,7 @@ GameObject:
   - component: {fileID: 8302263210263331003}
   - component: {fileID: 8608769834722549136}
   m_Layer: 5
-  m_Name: Tutorial Seven B
+  m_Name: Tutorial 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2379,9 +2592,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: That screen looks like it's trying to transmit a message. Every day you
-    have a new captains log to read. Interact with the screen by pressing LEFT MOUSE
-    or SPACE.
+  m_text: "Status update: \r\nMessage transmission in progress. \r\n\r\nInteract
+    with the control panel by pressing LEFT MOUSE or SPACE to access.\r\n\r\nREMINDER:
+    each day a new message is added. Do not forget to check them. \r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2516,11 +2729,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'All this hard work has used up your stamina.
-
-
-    Return to the spaceship
-    to recharge.'
+  m_text: "Warning: Low stamina \r\n\r\nReturn to the ship and recharge. \r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2760,8 +2969,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: That dude next to  your spaceship looks like he might have some useful
-    information. Approach him to strike up a conversation.
+  m_text: "Status update: \r\nNew presence detected in close proximity to the ship.
+    \r\n\r\nApproach them to initiate contact.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2843,7 +3052,7 @@ GameObject:
   - component: {fileID: 3574423718900393047}
   - component: {fileID: 1428787265491203537}
   m_Layer: 5
-  m_Name: Tutorial Two
+  m_Name: Tutorial 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2944,7 +3153,7 @@ GameObject:
   - component: {fileID: 2936126816721493198}
   - component: {fileID: 4896214626587164127}
   m_Layer: 5
-  m_Name: Tutorial Nine
+  m_Name: Tutorial 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

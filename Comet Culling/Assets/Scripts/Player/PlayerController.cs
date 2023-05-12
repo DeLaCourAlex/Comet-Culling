@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour
         toolSprite.SetActive(true);
 
         if (!inTutorial)
-            ChangeTutorialStage(5, 11);
+            ChangeTutorialStage(5, 12);
     }
 
     [YarnCommand("Trade")]
@@ -346,6 +346,7 @@ public class PlayerController : MonoBehaviour
         if (currentAnimation == "Player Hoe Down" || currentAnimation == "Player Hoe Sideways" || currentAnimation == "Player Hoe Up" ||
             currentAnimation == "Player Scythe Down" || currentAnimation == "Player Scythe Sideways" || currentAnimation == "Player Scythe Up" ||
             currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up" ||
+            currentAnimation == "Player Seed Down" || currentAnimation == "Player Seed Sideways" || currentAnimation == "Player Seed Up" ||
             readingCaptainsLog || dialogueUI.isTalking)
             canMove = false;
         else
@@ -420,53 +421,59 @@ public class PlayerController : MonoBehaviour
             {
                 case 0:
 
-                    CheckTutorialOneOver();
+                    CheckTutorial1Over();
 
                     break;
 
                 case 1:
 
-                    CheckTutorialTwoOver();
+                    CheckTutorial2Over();
 
                     break;
 
                 case 2:
 
-                    CheckTutorialThreeOver();
+                    CheckTutorial3Over();
 
                     break;
 
                 case 3:
 
-                    CheckTutorialFourOver();
+                    CheckTutorial4Over();
 
                     break;
 
                 case 4:
 
-                    CheckTutorialFiveAOver();
+                    CheckTutorial5Over();
 
                     break;
 
                 case 6:
 
-                    CheckTutorialSixOver();
+                    CheckTutorial7Over();
 
                     break;
 
                 case 8:
 
-                    CheckTutorialSevenBOver();
+                    CheckTutorial9Over();
 
                     break;
 
                 case 9:
 
-                    CheckTutorialEightOver();
+                    CheckTutorial10Over();
 
                     break;
 
                 case 10:
+
+                    CheckTutorial11Over();
+
+                    break;
+
+                case 11:
 
                     CheckTutorialOver();
 
@@ -589,7 +596,7 @@ public class PlayerController : MonoBehaviour
             BedController bedController = hit.transform.gameObject.GetComponent<BedController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || tag == "Bed" || tag == "Screen" || tag == "Player")
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || tag == "Bed" || tag == "Screen" || tag == "Player" || tag == "NPC")
             {
                 DisplayCanInteract(false, false, false);
 
@@ -604,7 +611,7 @@ public class PlayerController : MonoBehaviour
 
                     GoToSleep(ref bedController);
                     if (inTutorial)
-                        CheckTutorialFiveBOver();
+                        CheckTutorial6Over();
                 }
                 //Screen related interactions
                 if (Input.GetButtonDown("Action") && (tag == "Screen"))
@@ -1268,7 +1275,7 @@ public class PlayerController : MonoBehaviour
 
     // Check if the first phase of the tutorial is over
     // This is done by checking if all the necessary tiles have been tilled
-    void CheckTutorialOneOver()
+    void CheckTutorial1Over()
     {
         // If any of the 9 tiles are untilled, leave this function - this stage of the tutorial is incomplete
         foreach (Vector3Int tile in tutorialTiles)
@@ -1284,7 +1291,7 @@ public class PlayerController : MonoBehaviour
         ChangeTutorialStage(2, 1);
     }
 
-    void CheckTutorialTwoOver()
+    void CheckTutorial2Over()
     {
         // Get an array of all crops in the scene
         // This will only be the 3x3 tutorial square of crops at this point
@@ -1302,7 +1309,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void CheckTutorialThreeOver()
+    void CheckTutorial3Over()
     {
         // Get an array of all crops in the scene
         // This will only be the 3x3 tutorial square of crops at this point
@@ -1320,7 +1327,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void CheckTutorialFourOver()
+    void CheckTutorial4Over()
     {
         // Check if the player has entered the spaceship in tutorial four
         // If so, move to the next tutorial stage
@@ -1330,7 +1337,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // use screen
-    void CheckTutorialFiveAOver()
+    void CheckTutorial5Over()
     {
         // TODO: add functionality here to sleep and move to the next day, grow crops, etc
 
@@ -1351,7 +1358,7 @@ public class PlayerController : MonoBehaviour
 
     }
     // sleep
-    void CheckTutorialFiveBOver()
+    void CheckTutorial6Over()
     {
         // TODO: add functionality here to sleep and move to the next day, grow crops, etc
 
@@ -1374,7 +1381,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void CheckTutorialSixOver()
+    void CheckTutorial7Over()
     {
         //if(SceneManager.GetActiveScene().name == "AlexTestScene")
         //if (SceneManager.GetActiveScene().name == "SangitTestScene3")
@@ -1389,14 +1396,14 @@ public class PlayerController : MonoBehaviour
     }
 
     [YarnCommand("TutSeven")]
-    void CheckTutorialSevenAOver()
+    void CheckTutorial8Over()
     {
         // Check if the player has spoken to Vas
         // If so, move to the next tutorial stage
         //if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
         ChangeTutorialStage(4, 8);
     }
-    void CheckTutorialSevenBOver()
+    void CheckTutorial9Over()
     {
         // Check if the player has entered the spaceship in tutorial seven
         // If so, move to the next tutorial stage
@@ -1405,17 +1412,22 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(4, 9);
     }
 
-    void CheckTutorialEightOver()
+    void CheckTutorial10Over()
     {
         if (DataPermanence.Instance.cropA == 8)
             ChangeTutorialStage(4, 10);
     }
 
-    void CheckTutorialOver()
+    void CheckTutorial11Over()
     {
         if (tutorialNumber == 10 && DataPermanence.Instance.spaceshipEnergy == 0)
+            ChangeTutorialStage(4, 11);
+    }
+    void CheckTutorialOver()
+    {
+        if (tutorialNumber == 11 && (SceneManager.GetActiveScene().name == "AlexTestScene" || SceneManager.GetActiveScene().name == "SangitTestScene3"))
         {
-            ChangeTutorialStage(5, 11);
+            ChangeTutorialStage(5, 12);
             inTutorial = false;
             DataPermanence.Instance.playerTutorial = false;
             inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
@@ -1468,7 +1480,7 @@ public class PlayerController : MonoBehaviour
     {   
        TimeManager.Day++;
        TimeManager.OnDayChanged?.Invoke();
-       ChangeTutorialStage(5, 11);
+       ChangeTutorialStage(5, 12);
         inTutorial= false;
     }
 

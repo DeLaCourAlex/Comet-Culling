@@ -63,7 +63,7 @@ public class TutorialManager : MonoBehaviour
         // Determine whether the door collider is enabled or not
         // And therefor if the player can leave the current scene
         if (currentScene == "AlexTestScene" && (playerController.tutorialNumber == 3 || playerController.tutorialNumber == 8) ||
-            currentScene == "AlexTestScene SpaceShip" && playerController.tutorialNumber == 6)
+            currentScene == "AlexTestScene SpaceShip" && (playerController.tutorialNumber == 6 || playerController.tutorialNumber == 11))
             doorCollider.enabled = true;
         else
             doorCollider.enabled = false;
@@ -87,7 +87,7 @@ public class TutorialManager : MonoBehaviour
         }
         Debug.Log("In TUtorial, number " + playerController.tutorialNumber);
 
-        if (playerController.tutorialNumber == 11)
+        if (playerController.tutorialNumber == 12)
         {
             Debug.Log("Ending tutorial");
             doorCollider.enabled = true;
