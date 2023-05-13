@@ -3423,17 +3423,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5073324970510871710, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_text
-      value: "Status update: \n\rLanded on Planet B2C9-A35. \r \nShip Energy Level:
-        0%. Recharge to continue the voyage. \r\n\nMovement Functionality: ON. Use
-        WASD to move.\nPlease proceed to cultivating organic energy sources.\n\nNeeded
-        tool has been placed in the inventory.\nFor access, press \"I\". Use the
+      value: "Status update: Landed on planet B2C9-A35. Ship Energy Level: 0%. Recharge
+        to continue the voyage.\n\nMovement Functionality: ON. Use WASD to move.\n\nNecessary
+        tool has been placed in the inventory. For access, press \"TAB\". Use the
         mouse to navigate the inventory and click on the tool.\n\nScanning\u2026
         Optimal farming area detected. Proceed towards it.\n\rPress \u200B\u200B\u201CSPACE\u201D/
         \u201CLEFT MOUSE CLICK\u201D to use the item.\r"
       objectReference: {fileID: 0}
     - target: {fileID: 5073324970510871710, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_fontSize
-      value: 4.65
+      value: 5.7
       objectReference: {fileID: 0}
     - target: {fileID: 5073324970510871710, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_sharedMaterial
@@ -3594,7 +3593,7 @@ PrefabInstance:
     - target: {fileID: 5738249969380789771, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_text
       value: "Status update: \nShip energy levels up.\n\nWarning: Low stamina.\n\nPress
-        \"I\" and deselect ogranic matter.\nThen interact the generator to charge
+        \"TAB\" and deselect ogranic matter.\nThen interact the generator to charge
         using ship\u2019s energy\r"
       objectReference: {fileID: 0}
     - target: {fileID: 5738249969380789771, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
@@ -3723,7 +3722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7533826108899363688, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_text
-      value: "Inventory updated. Press \u201CI\u201D for access. \r\n \r\nSelect
+      value: "Inventory updated. Press \u201CTAB\u201D for access. \r\n \r\nSelect
         the seed. When used, it will plant nine crops in a 3x3 grid. Plant these
         in the selected patch of soil.\n\nREMINDER: Press \u200B\u200B\u201CSPACE\u201D/
         \u201CLEFT MOUSE CLICK\u201D to use the item.\r"
@@ -4285,12 +4284,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1861903588738238727, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
       propertyPath: m_Volume
-      value: 0.076
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1861903588738238727, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: fab11ca1f8f653249b52e6b8d7ab7ed8, type: 3}
+      objectReference: {fileID: 8300000, guid: 1ab9da8903beb384e802aebf38c138e8, type: 3}
     - target: {fileID: 3552294331072754220, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -4359,8 +4358,113 @@ PrefabInstance:
       propertyPath: generatorFeedCrops
       value: 
       objectReference: {fileID: 8300000, guid: 464db1f99676a07439c674134fc2f1c1, type: 3}
+    - target: {fileID: 6112277206919301741, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+      propertyPath: MusicSourceCorrupted
+      value: 
+      objectReference: {fileID: 2846517256856503149}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+--- !u!1 &2846517256856503148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 246390713441238868, guid: 4353335bd186fc04383bb6ab0f5da0a4, type: 3}
+  m_PrefabInstance: {fileID: 2846517256856503147}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2846517256856503149
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2846517256856503148}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 36c1944c358709144a0d31b7fd78d65d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &3105630230338781254
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4885,7 +4989,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7691776405050469886, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.2300873
+      value: 1.1437033
       objectReference: {fileID: 0}
     - target: {fileID: 7691776405050469886, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4893,7 +4997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7691776405050469886, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.6433997
+      value: -1.6347
       objectReference: {fileID: 0}
     - target: {fileID: 7691776405050469886, guid: eac62143d5ebba54f9d68fded8ae3707, type: 3}
       propertyPath: m_LocalPosition.z

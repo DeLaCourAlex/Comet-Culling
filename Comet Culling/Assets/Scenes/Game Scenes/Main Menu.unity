@@ -299,18 +299,19 @@ MonoBehaviour:
 
     Beau Klock
 
-    Chris
+    Chris Paterson
 
     Garfield
+    Greenwood
 
 
     Audio:
 
-    Aaron
-    Durning
+    Aaron Durning
 
 
-    Special thanks to our mentors Rockstar Games!'
+    Special thanks to our mentors
+    Rockstar Games and our Abertay tutor Christos Michalakos'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: -2387695313624467728, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
@@ -337,7 +338,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10.5
+  m_fontSize: 10
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1

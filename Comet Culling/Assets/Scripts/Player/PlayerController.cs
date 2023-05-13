@@ -353,15 +353,15 @@ public class PlayerController : MonoBehaviour
             canMove = true;
 
         //function to open inventory 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetButtonDown("Inventory") && !pauseScreen.activeSelf)
         {
             ui_Inventory.OpenInventory();
             direction = Vector2.zero;
         }
             
 
-        // Gameplay action/movement can only happen when the inventory is closed
-        if (!ui_Inventory.isInventoryVisible)
+        // Gameplay action/movement can only happen when the inventory is closed and the game is not paused
+        if (!ui_Inventory.isInventoryVisible && !pauseScreen.activeSelf)
         {
             // Read directional input and set the movement vector
             // Normalize to reduce increased speed when moving diagonally
@@ -1246,8 +1246,15 @@ public class PlayerController : MonoBehaviour
 
     void PauseGame()
     {
+        // Enable the pause screen and menu
         pauseScreen.SetActive(true);
+        
+        // Pause the game's timescale
         Time.timeScale = 0f;
+
+        // close the inventory when pausing if it's open
+        if(ui_Inventory.isInventoryVisible)
+            ui_Inventory.OpenInventory();
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)

@@ -647,13 +647,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Status update: \n\rLanded on Planet B2C9-A35. \r \nShip Energy Level:
-    0%. Recharge to continue the voyage. \r\n\nMovement Functionality: ON. Use WASD
-    to move.\nPlease proceed to cultivating organic energy sources.\n\nNeeded tool
-    has been placed in the inventory.\nFor access, press \"I\". Use the mouse to
-    navigate the inventory and click on the tool.\n\nScanning\u2026 Optimal farming
-    area detected. Proceed towards it.\n\rPress \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT
-    MOUSE CLICK\u201D to use the item.\r"
+  m_text: "Status update: \n\rLanded on Planet B2C9-A35. \r Ship Energy Level 0%.
+    Recharge to continue the voyage. \r\n\nMovement Functionality: ON. Use WASD to
+    move.\n\nNecessary tool has been placed in the inventory. For access, press \"I\".
+    Use the mouse to navigate the inventory and click on the tool.\n\nScanning\u2026
+    Optimal farming area detected. Proceed towards it.\n\rPress \u200B\u200B\u201CSPACE\u201D/
+    \u201CLEFT MOUSE CLICK\u201D to use the item.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

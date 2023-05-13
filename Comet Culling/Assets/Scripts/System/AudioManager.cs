@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     // Seperate components for sfx and music
     [SerializeField] AudioSource SfxSource;
     [SerializeField] AudioSource MusicSource;
+    [SerializeField] AudioSource MusicSourceCorrupted;
 
     [SerializeField] AudioClip footsteps;
     [SerializeField] AudioClip tillingSoil;
@@ -43,6 +44,14 @@ public class AudioManager : MonoBehaviour
     {
         // Music is all a bit loud so turn it down even at full volume
         MusicSource.volume = musicVolume * 0.6f;
+
+        if (MusicSourceCorrupted != null && TimeManager.Day >= 5)
+        {
+            MusicSource.Stop();
+            if(!MusicSourceCorrupted.isPlaying)
+                MusicSourceCorrupted.Play();
+        }
+            
     }
     public void PlayMusic()
     {
