@@ -13,10 +13,6 @@ public class ScriptableTile : ScriptableObject
     // The tile that this data will attach to
     public TileBase tile;
 
-    // Sprites to display if a dirt tile has been tilled or not
-    //[SerializeField] Sprite tilledDirt;
-    //[SerializeField] Sprite untilledDirt;
-
     // Used to perform a check to see if the current tile is tilled
     public bool isTilled;
 

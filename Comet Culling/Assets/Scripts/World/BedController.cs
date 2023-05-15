@@ -1,3 +1,6 @@
+// Bed controller - mostly used to play the sleep animation
+// Actual changing of time and date when sleeping is done in the player controller
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

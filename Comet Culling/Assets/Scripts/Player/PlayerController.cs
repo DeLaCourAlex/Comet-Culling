@@ -413,13 +413,8 @@ public class PlayerController : MonoBehaviour
                         dialogueRunner.StartDialogue("Day_6");
                         break;
 
-
                 }
-
             }
-
-            Debug.Log("collision triggred");
-
         }
     }
 

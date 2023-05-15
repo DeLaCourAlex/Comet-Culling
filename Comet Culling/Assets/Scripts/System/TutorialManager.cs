@@ -1,3 +1,5 @@
+// Functionality to move between the various stages of the tutorial
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,9 +16,7 @@ public class TutorialManager : MonoBehaviour
     // This can be activated and deactivated to stop the player moving between scenes
     // depending on the stage of the tutorial
     BoxCollider2D doorCollider;
-    //BoxCollider2D screenCollider;
     [SerializeField] GameObject door;
-    //[SerializeField] GameObject screen;
 
     // Store a reference to the player controller to know when to move between tutorials
     [SerializeField] GameObject player;
@@ -25,10 +25,7 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         playerController = player.GetComponent<PlayerController>();
-
         doorCollider = door.GetComponent<BoxCollider2D>();
-        //screenCollider = screen.GetComponent<BoxCollider2D>();
-        //doorCollider.enabled = false;
     }
 
     private void Update()
@@ -68,14 +65,7 @@ public class TutorialManager : MonoBehaviour
         else
             doorCollider.enabled = false;
 
-        /*if(screen != null)
-        {
-            if (playerController.tutorialNumber == 5)
-                screenCollider.enabled = false;
-            else
-                screenCollider.enabled = true;
-        }*/
-
+        // Disable the text box when talking to the NPC
         if (playerController.tutorialNumber == 7 && playerController.npc_detection)
         {
             tutorialText[7].SetActive(false);
@@ -85,11 +75,10 @@ public class TutorialManager : MonoBehaviour
         {
             textBox.SetActive(true);
         }
-        Debug.Log("In TUtorial, number " + playerController.tutorialNumber);
 
+        // Disable the tutorial at the end
         if (playerController.tutorialNumber == 12)
         {
-            Debug.Log("Ending tutorial");
             doorCollider.enabled = true;
             textBox.SetActive(false);
             enabled = false;

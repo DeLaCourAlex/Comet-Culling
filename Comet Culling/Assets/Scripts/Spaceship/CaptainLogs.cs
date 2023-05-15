@@ -1,15 +1,26 @@
+// Contain functionality to display the correct captains log
+// Every time that one is read, the next day a new log is available
+// If a log is not read, a new log is not available the next day
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CaptainLogs : MonoBehaviour
 {
+    // An array of the various captains logs text blocks
     [SerializeField] GameObject[] captainsLog;
     [SerializeField] GameObject background;
-    bool[] isLogAvailable = new bool[7]; //Array of bools that'll determine whether captain log is available or not
-    public bool hasBeenRead; //Bool to check if player has read the log of each day
+
+    //Array of bools that'll determine whether captain log is available or not
+    bool[] isLogAvailable = new bool[7];
+    //Bool to check if player has read the log of each day
+    public bool hasBeenRead; 
+    // Bool to check if the player is currently reading a log
     public bool logOpen;
+
     int availableLogs; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +28,7 @@ public class CaptainLogs : MonoBehaviour
         {
             availableLogs = DataPermanence.Instance.availableLogs;
             isLogAvailable = DataPermanence.Instance.isLogAvailable;
+            hasBeenRead = DataPermanence.Instance.hasBeenRead;
         }
             
     }
@@ -53,6 +65,7 @@ public class CaptainLogs : MonoBehaviour
         // Update the available logs in data permanence
         DataPermanence.Instance.availableLogs = availableLogs;
         DataPermanence.Instance.isLogAvailable = isLogAvailable;
+        DataPermanence.Instance.hasBeenRead = hasBeenRead;
         background.SetActive(logOpen);
     }
 
@@ -62,12 +75,18 @@ public class CaptainLogs : MonoBehaviour
         {
             if (isLogAvailable[i] && logOpen)
             {
+                // If Vas is at max affinity, gain the secret final captains log
                 if (i == 6 && DataPermanence.Instance.highAffinity)
-                    i++;
+                {
+                    i = 7;
+                    isLogAvailable[7] = true;
+                }
 
+                // Otherwise, activate the current available log
                 captainsLog[i].SetActive(true);
             } 
 
+            // Deactivate the rest of the logs
             else
                 captainsLog[i].SetActive(false);
         }

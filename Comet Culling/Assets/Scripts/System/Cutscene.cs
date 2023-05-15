@@ -7,28 +7,36 @@ using UnityEngine.SceneManagement;
 
 public class Cutscene : MonoBehaviour
 {
+    // A reference to the cutscenes animator component
     Animator animator;
 
     private void Start()
     {
+        // Initialize components
         animator = GetComponent<Animator>();
     }
 
     public void Update()
     {
+        // When "action" key is pressed, go to the next panel
+        // Or change scene if on the last panel of each cutscene
         if (Input.GetButtonDown("Action"))
         {
+            // Move from intro cutscene to main game at the end of intro panel
             if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Intro Panel 3")
                 StartCoroutine(FinishCutscene(2));
+            // Move from end cutscene back to the main menu at the end of the end cutscene
             else if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "End Panel 5")
                 StartCoroutine(FinishCutscene(0));
+            // Move to the next panel of the cutscene
             else
                 StartCoroutine(ChangePanel());
         }
             
     }
 
-    // Use a coroutine to start the fade out and then change the scene after a brief delay
+
+    // Use a coroutine to move to the next panel after a very brief pause
     IEnumerator ChangePanel()
     {
         // Pause the function to play the fade out animation
@@ -38,6 +46,7 @@ public class Cutscene : MonoBehaviour
         animator.SetTrigger("Next");
     }
 
+    // Move to another scene at the end of a cutscene
     IEnumerator FinishCutscene(int nextScene)
     {
         // Pause the function to play the fade out animation
