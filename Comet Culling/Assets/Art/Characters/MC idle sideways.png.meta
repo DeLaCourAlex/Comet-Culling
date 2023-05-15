@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f397ac820efe1074e99097245fcc870f
+guid: 7c20bdef4e6831b49aa9782d1eb8cef5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MC idle down_0
+      name: MC idle sideways_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b70947781f591a47845b9d90044275a
-      internalID: -1190476694
+      spriteID: 8ce5839e75a72b94f91044705cf224e7
+      internalID: 457355705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_1
+      name: MC idle sideways_1
       rect:
         serializedVersion: 2
         x: 0
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54d1531e98400d04a858ba430498198d
-      internalID: 212102074
+      spriteID: ce0655ced6439a6409302413313341e6
+      internalID: -812353926
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_2
+      name: MC idle sideways_2
       rect:
         serializedVersion: 2
         x: 0
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 020fac5403332b44ea6978a4a4a247cf
-      internalID: 461059756
+      spriteID: 678d6ac141532c44688bb228ee077d40
+      internalID: -429545222
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_3
+      name: MC idle sideways_3
       rect:
         serializedVersion: 2
         x: 0
@@ -194,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcee1b6f173df1c4ebad5555f49797c2
-      internalID: 943062785
+      spriteID: 77d429c829d4de941808717b36ccf6b3
+      internalID: 1658973975
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_4
+      name: MC idle sideways_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b86ee85c75e3b440ae9725b73e22968
-      internalID: -1600324300
+      spriteID: 6ae98e959dd6f70458cf7a0bec66fb6a
+      internalID: 1579606840
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC idle down_5
+      name: MC idle sideways_5
       rect:
         serializedVersion: 2
         x: 0
@@ -236,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7848edf43780db747ba30b702501490f
-      internalID: -1815875231
+      spriteID: cc2a23a36d7ca6b40b116cf67ef765ca
+      internalID: 961155565
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MC idle down_3: 943062785
-      MC idle down_2: 461059756
-      MC idle down_0: -1190476694
-      MC idle down_5: -1815875231
-      MC idle down_4: -1600324300
-      MC idle down_1: 212102074
+      MC idle sideways_5: 961155565
+      MC idle sideways_2: -429545222
+      MC idle sideways_4: 1579606840
+      MC idle sideways_1: -812353926
+      MC idle sideways_0: 457355705
+      MC idle sideways_3: 1658973975
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

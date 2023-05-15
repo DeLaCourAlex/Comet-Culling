@@ -27,7 +27,11 @@ public class Cutscene : MonoBehaviour
                 StartCoroutine(FinishCutscene(2));
             // Move from end cutscene back to the main menu at the end of the end cutscene
             else if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "End Panel 5")
+            {
+                DataPermanence.Instance.RestartGame();
                 StartCoroutine(FinishCutscene(0));
+            }
+                
             // Move to the next panel of the cutscene
             else
                 StartCoroutine(ChangePanel());
