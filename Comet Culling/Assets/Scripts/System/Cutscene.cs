@@ -18,8 +18,10 @@ public class Cutscene : MonoBehaviour
     {
         if (Input.GetButtonDown("Action"))
         {
-            if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Final Panel")
-                StartCoroutine(FinishCutscene());
+            if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Intro Panel 3")
+                StartCoroutine(FinishCutscene(2));
+            else if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "End Panel 5")
+                StartCoroutine(FinishCutscene(0));
             else
                 StartCoroutine(ChangePanel());
         }
@@ -36,17 +38,12 @@ public class Cutscene : MonoBehaviour
         animator.SetTrigger("Next");
     }
 
-    IEnumerator FinishCutscene()
+    IEnumerator FinishCutscene(int nextScene)
     {
         // Pause the function to play the fade out animation
         yield return new WaitForSeconds(0.25f);
 
         // Move to the next scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    public void FinishCutsceneEvent()
-    {
-        StartCoroutine(FinishCutscene());
+        SceneManager.LoadScene(nextScene);
     }
 }

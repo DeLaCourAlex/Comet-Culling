@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test Scenes/Sangit SpaceShip 3.unity
     guid: f975fa91a44c0524e86a08df7ecf7cc6
   - enabled: 1
+    path: Assets/Scenes/Game Scenes/End Cutscene.unity
+    guid: 244ed02d909ac084aaa8e08d7eb839bb
+  - enabled: 1
     path: Assets/Scenes/Game Scenes/Ending.unity
     guid: d45fade213b3feb4fb2822a62841bd0f
   - enabled: 1
