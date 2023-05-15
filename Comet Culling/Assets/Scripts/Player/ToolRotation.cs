@@ -1,4 +1,5 @@
 // Flip the tool icon to make sure it doesn't change with the player's rotation
+// Probably not the best way to do this but a quick fix that worked so we kept it in
 
 using System.Collections;
 using System.Collections.Generic;

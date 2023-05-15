@@ -1,3 +1,5 @@
+// Control the background parallax, moving layers and different speeds
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -76,12 +76,12 @@ Vas: I’m glad. Here, take these seeds. Hopefully they will help you find them 
 
 <<characterEmotion Player "happy" PrinceTalksprite>>
 -> PR1NC3: … Thank you Vas.
-
-   <<set $affinity to true>>
-     <<jump Quit>>
+<<ToggleAffinity NPC true>>
+    <<jump Quit>>
 
 -> PR1NC3: No need. I am doing ok on my own. I need to get back to work now.
 <<characterEmotion Player "neutral" PrinceTalksprite>>
+<<ToggleAffinity NPC false>>
 
 
 <<characterEmotion Player "angry" MerchantTalksprite>>

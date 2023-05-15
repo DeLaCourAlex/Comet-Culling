@@ -1,30 +1,44 @@
+// Contain functionality to display the correct captains log
+// Every time that one is read, the next day a new log is available
+// If a log is not read, a new log is not available the next day
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CaptainLogs : MonoBehaviour
 {
+    // An array of the various captains logs text blocks
     [SerializeField] GameObject[] captainsLog;
     [SerializeField] GameObject background;
-    bool[] isLogAvailable = new bool[7]; //Array of bools that'll determine whether captain log is available or not
-    public bool hasBeenRead; //Bool to check if player has read the log of each day
+
+    //Array of bools that'll determine whether captain log is available or not
+    bool[] isLogAvailable = new bool[7];
+    //Bool to check if player has read the log of each day
+    public bool hasBeenRead; 
+    // Bool to check if the player is currently reading a log
     public bool logOpen;
+
     int availableLogs; 
+
     // Start is called before the first frame update
     void Start()
     {
-     //for(int i = 0; i < 7; ++i) //Set whole array to false upon start
-     //   {
-     //       isLogAvailable[i] = false; 
-     //   }
-        //hasBeenRead = false;
-        //availableLogs = 0; 
+        if (DataPermanence.Instance != null)
+        {
+            availableLogs = DataPermanence.Instance.availableLogs;
+            isLogAvailable = DataPermanence.Instance.isLogAvailable;
+            hasBeenRead = DataPermanence.Instance.hasBeenRead;
+        }
+            
     }
 
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < 7; ++i) //Go through the array of bools
+        
+
+        for (int i = 0; i < 7; ++i) //Go through the array of bools
         {
             if (TimeManager.Day == (i + 1) && hasBeenRead) //If the day number == the index + 1 && it has been read
             {
@@ -41,14 +55,17 @@ public class CaptainLogs : MonoBehaviour
         }
         if (hasBeenRead) //If the log has been read
         {
-            Debug.Log("The captain log has been read today"); 
             availableLogs++; //Add to the available logs counter
-            Debug.Log("Available log counter:" + availableLogs);
 
             hasBeenRead = false; //Immediately toggle hasBeenRead off so it doesn't update this counter more times
         }
+
         DisplayLogs();
 
+        // Update the available logs in data permanence
+        DataPermanence.Instance.availableLogs = availableLogs;
+        DataPermanence.Instance.isLogAvailable = isLogAvailable;
+        DataPermanence.Instance.hasBeenRead = hasBeenRead;
         background.SetActive(logOpen);
     }
 
@@ -58,10 +75,18 @@ public class CaptainLogs : MonoBehaviour
         {
             if (isLogAvailable[i] && logOpen)
             {
-                Debug.Log("This is day's " + TimeManager.Day + "'s log, corresponds to index " + i + ", is set to true");
+                // If Vas is at max affinity, gain the secret final captains log
+                if (i == 6 && DataPermanence.Instance.highAffinity)
+                {
+                    i = 7;
+                    isLogAvailable[7] = true;
+                }
+
+                // Otherwise, activate the current available log
                 captainsLog[i].SetActive(true);
             } 
 
+            // Deactivate the rest of the logs
             else
                 captainsLog[i].SetActive(false);
         }

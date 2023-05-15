@@ -1,3 +1,6 @@
+// Access all the tiles in the farming scene
+// Can move between tilled or not, and whether there is a crop planted there
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +13,7 @@ public class TilemapManager : MonoBehaviour
 
     // A reference to the tilemap
     public Tilemap tilemap;
+
     // References to the untilled and tilled tile
     [SerializeField] Tile untilledTile;
     [SerializeField] Tile tilledTile;

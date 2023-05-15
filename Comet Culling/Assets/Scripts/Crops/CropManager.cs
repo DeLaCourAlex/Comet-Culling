@@ -1,5 +1,5 @@
 // Used for any scenes which contains crops
-// Takes all the crop data from the data permanence class and uses it to initialize crops
+// Takes all the crop data from the data permanence class and uses it to initialize crops when entering from another scene
 
 using System.Collections;
 using System.Collections.Generic;

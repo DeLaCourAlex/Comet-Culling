@@ -28,15 +28,6 @@ public class SceneChanger : MonoBehaviour
         // Set the position of the player in the new scene
         DataPermanence.Instance.playerStartPosition = startingPosition;
 
-        //Set the time in the new scene
-        //if (DataPermanence.Instance != null)
-        //{
-        //    TimeManager.Day = DataPermanence.Instance.day;
-        //    TimeManager.Hour = DataPermanence.Instance.hour;
-        //    TimeManager.Minute = DataPermanence.Instance.mins;
-        //
-        //}
-
         // Start coroutine to play the fadeout and load the new scene
         StartCoroutine(ChangeLevel(scene));
 

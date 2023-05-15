@@ -48,9 +48,6 @@ public class DataPermanence : MonoBehaviour
     [HideInInspector] public int seedA;
     [HideInInspector] public int seedB;
 
-    //[HideInInspector] public int currentTool;
-
-
     // Store the position of each crop and its time alive in a list
     public class CropData
     {
@@ -81,22 +78,25 @@ public class DataPermanence : MonoBehaviour
 
     [HideInInspector] public int spaceshipEnergy;
 
+    //NPC VARIABLES
+    [HideInInspector] public bool NPCAffinity;
+    Affinity affinity;
+
     //CAPTAIN LOG VARIABLES
     [HideInInspector] public bool screenInteractedToday;
-
+    [HideInInspector] public bool highAffinity;
+    [HideInInspector] public int availableLogs;
+    [HideInInspector] public bool[] isLogAvailable = new bool[7];
+    [HideInInspector] public bool hasBeenRead;
 
     // TIME/DAY VARIABLES
     [HideInInspector] public int day;
     [HideInInspector] public int hour;
     [HideInInspector] public int mins;
 
+    // AUDIO LEVEL VARIABLES
     [HideInInspector] public float sfxVolume;
     [HideInInspector] public float musicVolume;
-
-    // ADD VARIABLES TO SET ELSEWHERE HERE AS NEEDED
-    // UI to display the spaceships energy
-    //[Header("UI References")]
-    //[SerializeField] UI energyUI;
 
     // Called when the object containing the script is initialized
     private void Awake()
@@ -114,24 +114,22 @@ public class DataPermanence : MonoBehaviour
         // Keeps the instance alive moving between scenes
         DontDestroyOnLoad(gameObject);
 
+        // Initalize some variables to start of game values
         cropsHarvested = new int[2];
         playerStamina = 100;
         spaceshipEnergy = 0;
         screenInteractedToday = false; 
         availableTools = 1;
-
         playerTutorial = true;
-        //playerTutorial = false;
-
-        //Start-off values
+        NPCAffinity = false;
         day = 1;
         mins = 0;
         hour = 7;
-
         sfxVolume = 1;
         musicVolume = 1;
-
         playerStartPosition = new Vector2(-3, 3);
+        seedA = 10;
+        seedB = 10;
     }
 
     private void Update()
@@ -144,12 +142,11 @@ public class DataPermanence : MonoBehaviour
             {
                 allCrops[i].timeAlive += Time.deltaTime * allCrops[i].wateredMultiplier;
             }
-        
-        // Update the UI with the current spaceship energy
 
-        //energyUI.UpdateValue(spaceshipEnergy);
+        NPCAffinity = affinity; 
     }
 
+    // various starting variables depending on if the player starts the game in the tutorial or not
     public void PlayerStartTutorial()
     {
         playerTutorial = true;
@@ -165,11 +162,9 @@ public class DataPermanence : MonoBehaviour
 
     }
 
+    // Destroy the data permanence instance when restarting the game
     public void RestartGame()
     {
         Destroy(gameObject);
     }
-
-    /*availableTools; tutorialNumber; playerTutorial; playerStamina; cropsHarvested; playerStartPosition;
-        cropB; cropA; deathMinute;deathHour; deathDay; resourcesDepleted;*/
 }

@@ -1,6 +1,5 @@
 // Contains basic functionality for crops to grow over time
-// Right now just a basic timer
-// Will add stages of growth, times to reach each stage both watered and not, etc
+// Including growing at different speeds if watered
 
 using System.Collections;
 using System.Collections.Generic;
@@ -12,26 +11,29 @@ public class CropController : MonoBehaviour
     Animator animator;
 
     // The age at which a crop is grown
-    [SerializeField] float timeToGrow; 
+    [SerializeField] float timeToGrow;
     // The age at which a crop is grown when watered
-    [SerializeField] float timeToGrowWatered; 
+    [SerializeField] float timeToGrowWatered;
     [SerializeField] float energyGiven;
 
-    // Used to determine if the crop type from other scripts
+    // Used to determine the crop type - set from the player controller
     [field: SerializeField] public int elementNumber { get; set; }
 
     // The time since the crop was planted
     // Used to determine if it can be harvested or not
     public float timeAlive { get; set; } = 0;
-    
+
     // If the crop is watered
     // If so, if grows faster
     public bool isWatered { get; set; }
 
+    // Check if the crop is grown and harvestable
     public bool isGrown { get; private set; }
 
+    // The watered multiplier allows crops to grow faster when watered
     public float wateredMultiplier { get; set; }
 
+    // Used to randomize the crop animations
     bool animationRandomized;
 
     // Start is called before the first frame update
@@ -64,11 +66,13 @@ public class CropController : MonoBehaviour
         animator.SetBool("Watered", isWatered);
         // Set the crop type depending on its element number
         animator.SetFloat("Element", elementNumber);
-    }  
+    }
 
     public void RandomizeAnimation()
     {
         // Start animations on a random frame to avoid artificial synchronicity when re-entering the crop scene
+        // Because the fully grown animation isn't the first animation in the animation states, the animationRandomized bool is used as a
+        // flag for a function that is called as an animation event to make sure it's only called once
         if (!animationRandomized)
         {
             AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);

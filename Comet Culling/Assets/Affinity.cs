@@ -8,6 +8,13 @@ public class Affinity : MonoBehaviour
 {
     public GameObject AffinityText;
 
+    public bool affinity;
+    [YarnCommand("ToggleAffinity")]
+    public void toggleAffinity(bool affinity_)
+    {
+        affinity = affinity_;
+    }
+
     //activate affnity text when complete dialogue
     [YarnCommand("HighAffinity")]
     public void High_affinityFunc(bool Like)
@@ -15,6 +22,8 @@ public class Affinity : MonoBehaviour
         if (Like)
         {
             AffinityText.SetActive(true);
+            DataPermanence.Instance.highAffinity = true;
+            Debug.Log("High affinity");
         }
      }
 
@@ -25,6 +34,19 @@ public class Affinity : MonoBehaviour
         if (Hate)
         {
             AffinityText.SetActive(false);
+            DataPermanence.Instance.highAffinity = false;
+            Debug.Log("Low affinity");
         }
+    }
+    [YarnCommand("GetAffinity")]
+    public bool getAffinity()
+    {
+        return affinity;
+
+    }
+
+    private void Update()
+    {
+        Debug.Log("AFFINITY IS SET TO: " + affinity);
     }
 }
