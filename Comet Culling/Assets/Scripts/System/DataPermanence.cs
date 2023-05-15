@@ -83,7 +83,9 @@ public class DataPermanence : MonoBehaviour
 
     //CAPTAIN LOG VARIABLES
     [HideInInspector] public bool screenInteractedToday;
-
+    [HideInInspector] public bool highAffinity;
+    [HideInInspector] public int availableLogs;
+    [HideInInspector] public bool[] isLogAvailable = new bool[7];
 
     // TIME/DAY VARIABLES
     [HideInInspector] public int day;
@@ -132,6 +134,9 @@ public class DataPermanence : MonoBehaviour
         musicVolume = 1;
 
         playerStartPosition = new Vector2(-3, 3);
+
+        seedA = 10;
+        seedB = 10;
     }
 
     private void Update()

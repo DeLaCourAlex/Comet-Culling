@@ -11,6 +11,8 @@ public class Merchent : MonoBehaviour
     [SerializeField] GameObject Panel;
     [SerializeField] GameObject Shop;
     [SerializeField] GameObject Dialogue;
+
+    
     //public DialogueRunner dialogueRunner;
     private DialogueRunner dialogueRunner;
 
@@ -123,4 +125,8 @@ public class Merchent : MonoBehaviour
 
 
     }
-    }
+
+  
+
+
+}

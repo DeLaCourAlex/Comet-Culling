@@ -13,18 +13,20 @@ public class CaptainLogs : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     //for(int i = 0; i < 7; ++i) //Set whole array to false upon start
-     //   {
-     //       isLogAvailable[i] = false; 
-     //   }
-        //hasBeenRead = false;
-        //availableLogs = 0; 
+        if (DataPermanence.Instance != null)
+        {
+            availableLogs = DataPermanence.Instance.availableLogs;
+            isLogAvailable = DataPermanence.Instance.isLogAvailable;
+        }
+            
     }
 
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < 7; ++i) //Go through the array of bools
+        
+
+        for (int i = 0; i < 7; ++i) //Go through the array of bools
         {
             if (TimeManager.Day == (i + 1) && hasBeenRead) //If the day number == the index + 1 && it has been read
             {
@@ -48,7 +50,8 @@ public class CaptainLogs : MonoBehaviour
             hasBeenRead = false; //Immediately toggle hasBeenRead off so it doesn't update this counter more times
         }
         DisplayLogs();
-
+        DataPermanence.Instance.availableLogs = availableLogs;
+        DataPermanence.Instance.isLogAvailable = isLogAvailable;
         background.SetActive(logOpen);
     }
 
@@ -58,7 +61,9 @@ public class CaptainLogs : MonoBehaviour
         {
             if (isLogAvailable[i] && logOpen)
             {
-                Debug.Log("This is day's " + TimeManager.Day + "'s log, corresponds to index " + i + ", is set to true");
+                if (i == 6 && DataPermanence.Instance.highAffinity)
+                    i++;
+
                 captainsLog[i].SetActive(true);
             } 
 
