@@ -908,12 +908,10 @@ public class PlayerController : MonoBehaviour
                             if (cropElement == 0)
                             {
                                 inventory.RemoveItem(new Item { itemType = Item.ItemType.seedA, amount = 1 });
-                                DataPermanence.Instance.seedA--;
                             }
                             else if (cropElement == 1)
                             {
                                 inventory.RemoveItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
-                                DataPermanence.Instance.seedB--;
                             }
 
                             staminaTaken = true;

@@ -28,10 +28,13 @@ public class CropController : MonoBehaviour
     // If so, if grows faster
     public bool isWatered { get; set; }
 
+    // Check if the crop is grown and harvestable
     public bool isGrown { get; private set; }
 
+    // The watered multiplier allows crops to grow faster when watered
     public float wateredMultiplier { get; set; }
 
+    // Used to randomize the crop animations
     bool animationRandomized;
 
     // Start is called before the first frame update
@@ -69,6 +72,8 @@ public class CropController : MonoBehaviour
     public void RandomizeAnimation()
     {
         // Start animations on a random frame to avoid artificial synchronicity when re-entering the crop scene
+        // Because the fully grown animation isn't the first animation in the animation states, the animationRandomized bool is used as a
+        // flag for a function that is called as an animation event to make sure it's only called once
         if (!animationRandomized)
         {
             AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);

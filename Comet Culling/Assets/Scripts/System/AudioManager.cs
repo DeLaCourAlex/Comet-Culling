@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip door;
     [SerializeField] AudioClip generatorError;
 
+    // Volume is changed in the options menu
     public float sfxVolume { private get; set; } = 1;
     public float musicVolume { private get; set; } = 1;
 
@@ -53,21 +54,24 @@ public class AudioManager : MonoBehaviour
         }
             
     }
+
+    // Play the current music
     public void PlayMusic()
     {
         
         MusicSource.Play();
     }
 
+    // Stop the current music
     public void StopMusic()
     {
         MusicSource.Stop();
     }
 
+    // Functions to play the various SFX
     public void playFootsteps()
     {
         SfxSource.PlayOneShot(footsteps, 0.8f * sfxVolume);
-        Debug.Log("SfX volume " + DataPermanence.Instance.sfxVolume);
     }
 
     public void playTillingSoil()

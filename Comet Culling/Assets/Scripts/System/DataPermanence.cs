@@ -81,6 +81,10 @@ public class DataPermanence : MonoBehaviour
 
     [HideInInspector] public int spaceshipEnergy;
 
+    //NPC
+    [HideInInspector] public bool NPCAffinity;
+    Affinity affinity;
+
     //CAPTAIN LOG VARIABLES
     [HideInInspector] public bool screenInteractedToday;
     [HideInInspector] public bool highAffinity;
@@ -124,7 +128,7 @@ public class DataPermanence : MonoBehaviour
 
         playerTutorial = true;
         //playerTutorial = false;
-
+        NPCAffinity = false;
         //Start-off values
         day = 1;
         mins = 0;
@@ -149,9 +153,9 @@ public class DataPermanence : MonoBehaviour
             {
                 allCrops[i].timeAlive += Time.deltaTime * allCrops[i].wateredMultiplier;
             }
-        
-        // Update the UI with the current spaceship energy
 
+        // Update the UI with the current spaceship energy
+        NPCAffinity = affinity; 
         //energyUI.UpdateValue(spaceshipEnergy);
     }
 

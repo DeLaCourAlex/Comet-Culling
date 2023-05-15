@@ -43,13 +43,14 @@ public class CaptainLogs : MonoBehaviour
         }
         if (hasBeenRead) //If the log has been read
         {
-            Debug.Log("The captain log has been read today"); 
             availableLogs++; //Add to the available logs counter
-            Debug.Log("Available log counter:" + availableLogs);
 
             hasBeenRead = false; //Immediately toggle hasBeenRead off so it doesn't update this counter more times
         }
+
         DisplayLogs();
+
+        // Update the available logs in data permanence
         DataPermanence.Instance.availableLogs = availableLogs;
         DataPermanence.Instance.isLogAvailable = isLogAvailable;
         background.SetActive(logOpen);

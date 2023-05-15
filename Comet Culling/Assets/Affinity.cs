@@ -38,6 +38,15 @@ public class Affinity : MonoBehaviour
             Debug.Log("Low affinity");
         }
     }
+    [YarnCommand("GetAffinity")]
+    public bool getAffinity()
+    {
+        return affinity;
 
-   
+    }
+
+    private void Update()
+    {
+        Debug.Log("AFFINITY IS SET TO: " + affinity);
+    }
 }
