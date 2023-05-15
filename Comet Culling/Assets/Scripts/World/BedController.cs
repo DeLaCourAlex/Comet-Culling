@@ -15,6 +15,9 @@ public class BedController : MonoBehaviour
     [SerializeField] GameObject timeDisplay;
     [SerializeField] GameObject dayDisplay;
 
+    // a reference to the tutorial displays
+    [SerializeField] GameObject tutorial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,10 @@ public class BedController : MonoBehaviour
     // Use a coroutine to start the fade out and then change the scene after a brief delay
     IEnumerator Sleep()
     {
+        dayDisplay.SetActive(false);
+        if (tutorial != null)
+            tutorial.SetActive(false);
+
         // Set the trigger for the fade out animation
         fadeoutAnimator.SetTrigger("Fade Out");
 
@@ -39,7 +46,6 @@ public class BedController : MonoBehaviour
         animator.SetTrigger("Sleeping");
         player.SetActive(false);
         timeDisplay.SetActive(false);
-        dayDisplay.SetActive(false);
 
         // Set the trigger for the fade in animation
         fadeoutAnimator.SetTrigger("Fade In");
@@ -61,5 +67,7 @@ public class BedController : MonoBehaviour
         player.SetActive(true);
         timeDisplay.SetActive(true);
         dayDisplay.SetActive(true);
+        if (tutorial != null)
+            tutorial.SetActive(true);
     }
 }

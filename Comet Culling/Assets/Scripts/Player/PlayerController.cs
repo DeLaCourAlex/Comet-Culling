@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
             availableTools = DataPermanence.Instance.availableTools;
             inTutorial = DataPermanence.Instance.playerTutorial;
             currentTool = (Tools)DataPermanence.Instance.currentTool;
-
+            Debug.Log("In player start, tutorial number " + tutorialNumber);
             resourcesDepleted = DataPermanence.Instance.resourcesDepleted;
             deathDay = DataPermanence.Instance.deathDay;
             deathHour = DataPermanence.Instance.deathHour;
@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour
         toolSprite.SetActive(true);
 
         if (!inTutorial)
-            ChangeTutorialStage(5, 9);
+            ChangeTutorialStage(5, 12);
     }
 
     [YarnCommand("Trade")]
@@ -271,13 +271,13 @@ public class PlayerController : MonoBehaviour
 
 
     //NPC detection
-    bool npc_detection = false;
+    public bool npc_detection = false;
 
     //collision with NPC
     private void OnTriggerEnter2D(Collider2D collision)
     {
        
-        if (collision.CompareTag("NPC"))
+        if (collision.CompareTag("NPC") && (!inTutorial || tutorialNumber == 7))
         {
             npc_detection = true;
             Dialogue.SetActive(true);
@@ -331,7 +331,6 @@ public class PlayerController : MonoBehaviour
 
         //dialogueRunner.StopAllCoroutines();
         dialogueRunner.Stop();
-
     }
 
     // Update is called once per frame
@@ -347,28 +346,30 @@ public class PlayerController : MonoBehaviour
         if (currentAnimation == "Player Hoe Down" || currentAnimation == "Player Hoe Sideways" || currentAnimation == "Player Hoe Up" ||
             currentAnimation == "Player Scythe Down" || currentAnimation == "Player Scythe Sideways" || currentAnimation == "Player Scythe Up" ||
             currentAnimation == "Player Watering Can Down" || currentAnimation == "Player Watering Can Sideways" || currentAnimation == "Player Watering Can Up" ||
+            currentAnimation == "Player Seed Down" || currentAnimation == "Player Seed Sideways" || currentAnimation == "Player Seed Up" ||
             readingCaptainsLog || dialogueUI.isTalking)
             canMove = false;
         else
             canMove = true;
 
         //function to open inventory 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetButtonDown("Inventory") && !pauseScreen.activeSelf)
         {
             ui_Inventory.OpenInventory();
             direction = Vector2.zero;
         }
             
 
-        // Gameplay action/movement can only happen when the inventory is closed
-        if (!ui_Inventory.isInventoryVisible)
+        // Gameplay action/movement can only happen when the inventory is closed and the game is not paused
+        if (!ui_Inventory.isInventoryVisible && !pauseScreen.activeSelf)
         {
             // Read directional input and set the movement vector
             // Normalize to reduce increased speed when moving diagonally
 
-            if(!readingCaptainsLog && canMove)
-
+            if (!readingCaptainsLog && canMove)
                 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            else
+                direction = Vector2.zero;
 
             // Set the raycast corrector based on the previous and current direction that the player is facing
             if (Mathf.Abs(directionAnimatorParameter) == 1 && direction.x != 0)
@@ -420,57 +421,64 @@ public class PlayerController : MonoBehaviour
             {
                 case 0:
 
-                    CheckTutorialOneOver();
+                    CheckTutorial1Over();
 
                     break;
 
                 case 1:
 
-                    CheckTutorialTwoOver();
+                    CheckTutorial2Over();
 
                     break;
 
                 case 2:
 
-                    CheckTutorialThreeOver();
+                    CheckTutorial3Over();
 
                     break;
 
                 case 3:
 
-                    CheckTutorialFourOver();
+                    CheckTutorial4Over();
 
                     break;
 
-                //case 4:
+                case 4:
 
-                //    CheckTutorialFiveOver();
-
-                //    break;
-
-                case 5:
-
-                    CheckTutorialSixOver();
+                    CheckTutorial5Over();
 
                     break;
 
                 case 6:
 
-                    CheckTutorialSevenOver();
-
-                    break;
-
-                case 7:
-
-                    CheckTutorialEightOver();
+                    CheckTutorial7Over();
 
                     break;
 
                 case 8:
 
+                    CheckTutorial9Over();
+
+                    break;
+
+                case 9:
+
+                    CheckTutorial10Over();
+
+                    break;
+
+                case 10:
+
+                    CheckTutorial11Over();
+
+                    break;
+
+                case 11:
+
                     CheckTutorialOver();
 
                     break;
+
             }
             Debug.Log("In tutorial: " + inTutorial);
             //updates npc based on day
@@ -588,7 +596,7 @@ public class PlayerController : MonoBehaviour
             BedController bedController = hit.transform.gameObject.GetComponent<BedController>();
 
             // Can not perform actions whilst carrying crops or interacting with grass tiles
-            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || tag == "Bed" || tag == "Screen" || tag == "Player")
+            if (carryCropA || carryCropB || tag == "Generator" || tag == "Grass Tile" || tag == "Untagged" || tag == "Bed" || tag == "Screen" || tag == "Player" || tag == "NPC")
             {
                 DisplayCanInteract(false, false, false);
 
@@ -598,13 +606,19 @@ public class PlayerController : MonoBehaviour
                 // Bed related interractions
                 if (Input.GetButtonDown("Action") && (tag == "Bed"))
                 {
+                    if (inTutorial && tutorialNumber != 5)
+                        break;
+
                     GoToSleep(ref bedController);
                     if (inTutorial)
-                        CheckTutorialFiveOver();
+                        CheckTutorial6Over();
                 }
                 //Screen related interactions
                 if (Input.GetButtonDown("Action") && (tag == "Screen"))
                 {
+                    if (inTutorial && tutorialNumber != 4)
+                        break;
+
                     if (hasInteractedScreenToday && !readingCaptainsLog)
                     {
                         readingCaptainsLog = true;
@@ -754,7 +768,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Watering");
 
                 // Play the watering sfx
-                //AudioManager.Instance.playWaterCrop();
+                if(AudioManager.Instance != null)
+                    AudioManager.Instance.playWaterCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedWatering;
@@ -804,7 +819,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Harvesting");
 
                 // Play the scythe sfx
-                //AudioManager.Instance.playHarvestCrop();
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.playHarvestCrop();
 
                 // Lower the stamina from the action
                 stamina -= staminaUsedScythe;
@@ -834,7 +850,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Tilling");
 
                 // Play the tilling sfx
-                //AudioManager.Instance.playTillingSoil();
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.playTillingSoil();
 
                 // Show that we can't perform this interaction
                 DisplayCanInteract(false, true, false);
@@ -945,11 +962,7 @@ public class PlayerController : MonoBehaviour
 
                     // Play the planting sfx
 
-                    
                     if (planting)
-
-                    //AudioManager.Instance.playPlantSeed();
-
                     {
                         animator.SetTrigger("Planting");
 
@@ -984,7 +997,8 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropA);
 
             // Play the crops into generator sfx
-            //AudioManager.Instance.playGeneratorFeedCrops();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[0]--;
@@ -1003,7 +1017,8 @@ public class PlayerController : MonoBehaviour
             spaceship.ChargeSpaceship(energyCropB);
 
             // Play the crops into generator sfx
-            //AudioManager.Instance.playGeneratorFeedCrops();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorFeedCrops();
 
             // Remove crop from the player's inventory
             //cropsHarvested[1]--;
@@ -1015,14 +1030,28 @@ public class PlayerController : MonoBehaviour
                 carryCropB = false;
         }
 
+        // if not feeding crops and unable to charge player, play error noise
+/*        else if(!carryCropA && !carryCropB && spaceship.spaceshipEnergy <= 0)
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorError();*/
+
         // Charge the player from the spaceship
         else
         {
-            spaceship.ChargePlayer(ref stamina);
+            if(spaceship.spaceshipEnergy <= 0 || stamina >= 100)
+            {
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.playGeneratorError();
+
+                return;
+            }
+                
+             spaceship.ChargePlayer(ref stamina);
 
             // Play the player recharge sfx
             //if(DataPermanence.Instance.spaceshipEnergy > 0)
-            //AudioManager.Instance.playGeneratorRecharge();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.playGeneratorRecharge();
         }
 
     }
@@ -1217,8 +1246,15 @@ public class PlayerController : MonoBehaviour
 
     void PauseGame()
     {
+        // Enable the pause screen and menu
         pauseScreen.SetActive(true);
+        
+        // Pause the game's timescale
         Time.timeScale = 0f;
+
+        // close the inventory when pausing if it's open
+        if(ui_Inventory.isInventoryVisible)
+            ui_Inventory.OpenInventory();
     }
 
     void ChangeCarriedCrops(bool cropA, bool cropB)
@@ -1246,7 +1282,7 @@ public class PlayerController : MonoBehaviour
 
     // Check if the first phase of the tutorial is over
     // This is done by checking if all the necessary tiles have been tilled
-    void CheckTutorialOneOver()
+    void CheckTutorial1Over()
     {
         // If any of the 9 tiles are untilled, leave this function - this stage of the tutorial is incomplete
         foreach (Vector3Int tile in tutorialTiles)
@@ -1262,7 +1298,7 @@ public class PlayerController : MonoBehaviour
         ChangeTutorialStage(2, 1);
     }
 
-    void CheckTutorialTwoOver()
+    void CheckTutorial2Over()
     {
         // Get an array of all crops in the scene
         // This will only be the 3x3 tutorial square of crops at this point
@@ -1280,7 +1316,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void CheckTutorialThreeOver()
+    void CheckTutorial3Over()
     {
         // Get an array of all crops in the scene
         // This will only be the 3x3 tutorial square of crops at this point
@@ -1298,16 +1334,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void CheckTutorialFourOver()
+    void CheckTutorial4Over()
     {
         // Check if the player has entered the spaceship in tutorial four
         // If so, move to the next tutorial stage
         //if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
-        if (tutorialNumber == 3 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3")
+        if (tutorialNumber == 3 && (SceneManager.GetActiveScene().name == "Sangit SpaceShip 3" || SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip"))
             ChangeTutorialStage(3, 4);
     }
 
-    void CheckTutorialFiveOver()
+    // use screen
+    void CheckTutorial5Over()
     {
         // TODO: add functionality here to sleep and move to the next day, grow crops, etc
 
@@ -1320,17 +1357,38 @@ public class PlayerController : MonoBehaviour
         //    {
         //        DataPermanence.Instance.allCrops[i].timeAlive = 100;
         //    }
-        if (tutorialNumber == 4)
+        if (tutorialNumber == 4 && hasInteractedScreenToday && !readingCaptainsLog)
+            ChangeTutorialStage(4, 5);
+
+
+        //}
+
+    }
+    // sleep
+    void CheckTutorial6Over()
+    {
+        // TODO: add functionality here to sleep and move to the next day, grow crops, etc
+
+        // TEMPORARY CODE TO FULLY GROW ALL CROPS AND MOVE TO NEXT PHASE OF TUTORIAL
+        //if (Input.GetButtonDown("Action"))
+        //{
+        //    // Cycle through the list of crops in data permanence
+        //    // Set them all to an age where they're fully grown
+        //    for (int i = 0; i < DataPermanence.Instance.allCrops.Count; i++)
+        //    {
+        //        DataPermanence.Instance.allCrops[i].timeAlive = 100;
+        //    }
+        if (tutorialNumber == 5)
             inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
 
-        ChangeTutorialStage(4, 5);
+        ChangeTutorialStage(4, 6);
 
 
         //}
 
     }
 
-    void CheckTutorialSixOver()
+    void CheckTutorial7Over()
     {
         //if(SceneManager.GetActiveScene().name == "AlexTestScene")
         //if (SceneManager.GetActiveScene().name == "SangitTestScene3")
@@ -1339,31 +1397,44 @@ public class PlayerController : MonoBehaviour
             GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
 
             if (crops.Length == 0)
-                ChangeTutorialStage(4, 6);
+                ChangeTutorialStage(4, 7);
         }
 
     }
-    
-    void CheckTutorialSevenOver()
+
+    [YarnCommand("TutSeven")]
+    void CheckTutorial8Over()
+    {
+        // Check if the player has spoken to Vas
+        // If so, move to the next tutorial stage
+        //if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
+        ChangeTutorialStage(4, 8);
+    }
+    void CheckTutorial9Over()
     {
         // Check if the player has entered the spaceship in tutorial seven
         // If so, move to the next tutorial stage
         //if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
         if (tutorialNumber == 6 && SceneManager.GetActiveScene().name == "Sangit SpaceShip 3"|| SceneManager.GetActiveScene().name == "AlexTestScene SpaceShip")
-            ChangeTutorialStage(4, 7);
+            ChangeTutorialStage(4, 9);
     }
 
-    void CheckTutorialEightOver()
+    void CheckTutorial10Over()
     {
         if (DataPermanence.Instance.cropA == 8)
-            ChangeTutorialStage(4, 8);
+            ChangeTutorialStage(4, 10);
     }
 
+    void CheckTutorial11Over()
+    {
+        if (tutorialNumber == 10 && DataPermanence.Instance.spaceshipEnergy == 0)
+            ChangeTutorialStage(4, 11);
+    }
     void CheckTutorialOver()
     {
-        if (tutorialNumber == 8 && DataPermanence.Instance.spaceshipEnergy == 0)
+        if (tutorialNumber == 11 && (SceneManager.GetActiveScene().name == "AlexTestScene" || SceneManager.GetActiveScene().name == "SangitTestScene3"))
         {
-            ChangeTutorialStage(5, 9);
+            ChangeTutorialStage(5, 12);
             inTutorial = false;
             DataPermanence.Instance.playerTutorial = false;
             inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
@@ -1416,7 +1487,8 @@ public class PlayerController : MonoBehaviour
     {   
        TimeManager.Day++;
        TimeManager.OnDayChanged?.Invoke();
-       ChangeTutorialStage(5, 9);
+       ChangeTutorialStage(5, 12);
+        inTutorial= false;
     }
 
 
@@ -1429,7 +1501,8 @@ public class PlayerController : MonoBehaviour
 // Because the player doesn't contain an audio manage component
 public void footstepsAudio()
 {
-    //AudioManager.Instance.playFootsteps();
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.playFootsteps();
 }
 
 // Used to display any variables to the screen in place of UI for now

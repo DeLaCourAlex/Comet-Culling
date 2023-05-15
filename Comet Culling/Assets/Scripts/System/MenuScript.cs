@@ -44,7 +44,7 @@ public class MenuScript : MonoBehaviour
 
         else if (!tutorial)
         {
-            DataPermanence.Instance.tutorialNumber = 9;
+            DataPermanence.Instance.tutorialNumber = 12;
             DataPermanence.Instance.spaceshipEnergy = 100;
         }
             

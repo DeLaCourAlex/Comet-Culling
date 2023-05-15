@@ -13,7 +13,7 @@ public class DialogueUI : MonoBehaviour
     public GameObject princeTalksprite; 
     //private Inventory inventory; 
     Animator npcanimator, princeanimator;
-  /*  [SerializeField] */PlayerController playerController;
+  /*  [SerializeField]*/ PlayerController playerController;
     public bool isTalking; 
 
     void Start()

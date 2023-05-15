@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     // Seperate components for sfx and music
     [SerializeField] AudioSource SfxSource;
     [SerializeField] AudioSource MusicSource;
+    [SerializeField] AudioSource MusicSourceCorrupted;
 
     [SerializeField] AudioClip footsteps;
     [SerializeField] AudioClip tillingSoil;
@@ -17,6 +18,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip waterCrop;
     [SerializeField] AudioClip generatorFeedCrops;
     [SerializeField] AudioClip generatorRecharge;
+    [SerializeField] AudioClip door;
+    [SerializeField] AudioClip generatorError;
 
     public float sfxVolume { private get; set; } = 1;
     public float musicVolume { private get; set; } = 1;
@@ -41,6 +44,14 @@ public class AudioManager : MonoBehaviour
     {
         // Music is all a bit loud so turn it down even at full volume
         MusicSource.volume = musicVolume * 0.6f;
+
+        if (MusicSourceCorrupted != null && TimeManager.Day >= 5)
+        {
+            MusicSource.Stop();
+            if(!MusicSourceCorrupted.isPlaying)
+                MusicSourceCorrupted.Play();
+        }
+            
     }
     public void PlayMusic()
     {
@@ -66,7 +77,7 @@ public class AudioManager : MonoBehaviour
 
     public void playPlantSeed()
     {
-        SfxSource.PlayOneShot(plantSeed, 0.5f * sfxVolume);
+        SfxSource.PlayOneShot(plantSeed, 0.3f * sfxVolume);
     }
 
     public void playHarvestCrop()
@@ -76,7 +87,7 @@ public class AudioManager : MonoBehaviour
 
     public void playWaterCrop()
     {
-        SfxSource.PlayOneShot(waterCrop, 0.5f * sfxVolume);
+        SfxSource.PlayOneShot(waterCrop, 0.7f * sfxVolume);
     }
     public void playGeneratorFeedCrops()
     {
@@ -85,5 +96,15 @@ public class AudioManager : MonoBehaviour
     public void playGeneratorRecharge()
     {
         SfxSource.PlayOneShot(generatorRecharge, 0.5f * sfxVolume);
+    }
+
+    public void playGeneratorError()
+    {
+        SfxSource.PlayOneShot(generatorError, 0.7f * sfxVolume);
+    }
+
+    public void playDoor()
+    {
+        SfxSource.PlayOneShot(door, 0.7f * sfxVolume);
     }
 }

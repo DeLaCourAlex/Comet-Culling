@@ -85,7 +85,7 @@ public class TimeManager : MonoBehaviour
             if (Day > MAX_DAYS)
             {
                 Debug.Log("Reached final day, trigger endscene");
-                SceneChanger.Instance.ChangeScene("Ending", Vector2.zero);
+                SceneChanger.Instance.ChangeScene("End Cutscene", Vector2.zero);
             }
 
             timer = minuteToRealTime; //Reset timer

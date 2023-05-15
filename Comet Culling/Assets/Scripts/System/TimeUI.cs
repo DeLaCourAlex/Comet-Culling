@@ -16,6 +16,12 @@ public class TimeUI : MonoBehaviour
 
     }
 
+    public void Update()
+    {
+        UpdateTime();
+        UpdateDate();
+    }
+
     private void OnEnable()
     {
         TimeManager.OnMinuteChanged += UpdateTime;
@@ -42,6 +48,9 @@ public class TimeUI : MonoBehaviour
 
         if(dateText != null)
             dateText.text = $"Day {TimeManager.Day}";
+
+        Debug.Log("time in data permanence: " + DataPermanence.Instance.day);
+        Debug.Log("Time in time manager: " + TimeManager.Day);
 
     }
 }
