@@ -280,17 +280,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Producer:
+  m_text: 'Production and Narrative:
 
     Anna Pandel
 
 
     Programming:
 
-    Shangit Cruze
+    Shangit
+    Cruze
 
-    Alexander
-    de la Cour
+    Alexander de la Cour
 
     Bruno Rosenbaum
 
@@ -299,19 +299,22 @@ MonoBehaviour:
 
     Beau Klock
 
-    Chris Paterson
+    Chris
+    Paterson
 
-    Garfield
-    Greenwood
+    Bruno Rosenbaum
+
+    Garfield Greenwood
 
 
     Audio:
 
-    Aaron Durning
+    Aaron
+    Durning
 
 
-    Special thanks to our mentors
-    Rockstar Games and our Abertay tutor Christos Michalakos'
+    Special thanks to our mentors Rockstar Games, our Abertay tutor
+    Christos Michalakos and module leads Martin Lynagh and Robin Griffiths'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: -2387695313624467728, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
@@ -338,12 +341,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
+  m_fontSize: 16.15
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 10
-  m_fontSizeMax: 14
+  m_fontSizeMax: 20
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -374,7 +377,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -11.553879, y: 0, z: 0.49337772, w: 0}
+  m_margin: {x: -75.054184, y: -46.69139, z: -66.74236, w: -63.500397}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -901,7 +904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &300099451
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3191,7 +3194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 407}
+  m_AnchoredPosition: {x: 0, y: 437}
   m_SizeDelta: {x: 351.924, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1613104599
@@ -3907,7 +3910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -363}
+  m_AnchoredPosition: {x: 0, y: -415}
   m_SizeDelta: {x: 147.207, y: 36.801}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946671508
@@ -4032,7 +4035,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1971552426
 RectTransform:
   m_ObjectHideFlags: 0

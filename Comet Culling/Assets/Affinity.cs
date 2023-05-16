@@ -18,7 +18,7 @@ public class Affinity : MonoBehaviour
     {
         NPCAffinity = DataPermanence.Instance.NPCAffinity;
         dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
-        dialogueRunner.AddFunction<bool>("get_Affinity", getAffinity);
+        //dialogueRunner.AddFunction<bool>("get_Affinity", getAffinity);
         variableStorage = GameObject.FindObjectOfType<InMemoryVariableStorage>();
         //UpdateAffinity();
     }
