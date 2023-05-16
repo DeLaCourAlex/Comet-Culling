@@ -17,7 +17,7 @@ public class Inventory
     {
         this.useItemAction = useItemAction;
         itemList = new List<Item>();
-        //AddItem(new Item { itemType = Item.ItemType.cropA, amount = 3});
+       
         Debug.Log("Inventory is working");
         Debug.Log(itemList.Count);
 
@@ -59,7 +59,7 @@ public class Inventory
             {
                 inventoryItem.amount -= item.amount;
                 itemInInventory = inventoryItem;
-                //itemList.Remove(itemInInventory);
+               
             }
         }
 

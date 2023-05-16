@@ -3186,6 +3186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AffinityText: {fileID: 1164974810}
+  NPCAffinity: 0
 --- !u!4 &1098797222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 501646162173470325, guid: cef208b3e0c60e548a0a07a3eadeec23, type: 3}
@@ -5280,6 +5281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AffinityText: {fileID: 1164974810}
+  NPCAffinity: 0
 --- !u!1001 &7691776404449843900
 PrefabInstance:
   m_ObjectHideFlags: 0

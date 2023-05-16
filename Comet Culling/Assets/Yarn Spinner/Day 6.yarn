@@ -3,19 +3,8 @@ tags:
 ---
 <<enableMovement Player false>>
 //If the player had built affinity with Vas
-<<if $GetAffinity>>
-<<jump VasHighAffinity>>
 
-<<else>>
-<<jump VasLowAffinity>>
 
-<<endif>>
-===
-
-title:VasHighAffinity
-tags:
----
-<<enableMovement Player false>>
 <<toggleTalksprite Player true true>>
 
 <<characterEmotion Player "happy" PrinceTalksprite>>
@@ -106,35 +95,4 @@ Vas: Ok… If you say so.
 
 <<enableMovement Player true>>
 
-===
-
-title:VasLowAffinity
-tags:
----
-<<enableMovement Player false>>
-<<toggleTalksprite Player true true>>
-//If the player has low affinity 
-<<characterEmotion Player "neutral" PrinceTalksprite>>
-<<characterEmotion Player "neutral" MerchantTalksprite>>
-
-Vas: Hello there. How’s the farming going?  
-
-PR1NC3: The ship is almost charged, I will be leaving soon.  
-
-<<characterEmotion Player "sad" MerchantTalksprite>>
-Vas: Oh, sure. I’m happy to hear that.
-
-<<characterEmotion Player "neutral" MerchantTalksprite>>
-Vas: Where are you heading next?  
-PR1NC3: I will try and get closer to our original target planet. I think it makes sense for them to go there as well.  
-Vas: Sounds like a good idea.  
-
-PR1NC3: Do you have more seeds for me? They would come in helpful.  
-
-<<characterEmotion Player "angry" MerchantTalksprite>>
-Vas: … Yeah, here, have these.  
-   <<Trade Player TradeItem>>
-   <<jump Quit>>
-//Player gets the seeds, conversation quits. 
-<<enableMovement Player true>>
 ===

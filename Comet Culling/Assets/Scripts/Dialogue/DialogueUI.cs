@@ -8,12 +8,10 @@ using Yarn.Unity;
 
 public class DialogueUI : MonoBehaviour
 {
-    //public Animation princeNeutral; 
     public GameObject npcTalksprite;
     public GameObject princeTalksprite; 
-    //private Inventory inventory; 
     Animator npcanimator, princeanimator;
-  /*  [SerializeField]*/ PlayerController playerController;
+    PlayerController playerController;
     public bool isTalking; 
 
     void Start()
@@ -27,13 +25,11 @@ public class DialogueUI : MonoBehaviour
     //I can run stuff like characterEmotion characterEmotion("happy") in a yarn script; 
     public void DisplayEmotion(string emotion, Animator animator)
     {
-        //npcTestSprite.SetActive(true);
-
+        
         switch (emotion)
         {
             case "happy":
                 //Load happy emotion
-                //Debug.Log("HAPPY EMOTION");
                 animator.SetTrigger("happy");
 
                 break;
@@ -49,7 +45,6 @@ public class DialogueUI : MonoBehaviour
                 break;
             default:
                 //Load neutral emotion
-                //Debug.Log("NEUTRAL EMOTION");
                 animator.SetTrigger("neutral");
 
 
@@ -79,6 +74,6 @@ public class DialogueUI : MonoBehaviour
     void Update()
     {
         isTalking = princeTalksprite.activeSelf; 
-        //playerController.canMove = !(princeTalksprite.activeSelf && npcTalksprite.activeSelf); 
+       
     }
 }

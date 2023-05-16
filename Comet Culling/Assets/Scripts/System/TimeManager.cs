@@ -56,8 +56,7 @@ public class TimeManager : MonoBehaviour
             DataPermanence.Instance.day = Day;
             DataPermanence.Instance.hour = Hour;
             DataPermanence.Instance.mins = Minute;
-            //Debug.Log("Data permanence time: " + DataPermanence.Instance.hour + ":" + DataPermanence.Instance.mins);
-            //Debug.Log("Data permanence day: " + DataPermanence.Instance.day);
+           
         }
 
         if (timer <= 0) //If it's = 0, it means our time has elapsed (from 0.5 to 0)
@@ -84,7 +83,7 @@ public class TimeManager : MonoBehaviour
 
             if (Day > MAX_DAYS)
             {
-                //Debug.Log("Reached final day, trigger endscene");
+               
                 SceneChanger.Instance.ChangeScene("End Cutscene", Vector2.zero);
             }
 
