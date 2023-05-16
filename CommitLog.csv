@@ -1,0 +1,330 @@
+fea061e,AlexDeLaCour,fixed disappearing player,,3 minutes ago
+4eb3751,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,18 minutes ago
+16a8f01,Shangit Cruze,updated day 4 dialogue,,18 minutes ago
+81e4aa4,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,37 minutes ago
+eac87bd,AlexDeLaCour,Fixed audio bug,And fixed tutorial text error
+added colliders to spaceship legs
+,37 minutes ago
+75337a9,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,40 minutes ago
+3140421,Shangit Cruze,changed day 4 dialogue text,,41 minutes ago
+06fd12c,AlexDeLaCour,changed crop energy,,82 minutes ago
+0a9ed01,AlexDeLaCour,changed crop growth time,,83 minutes ago
+c8e6835,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,2 hours ago
+3994868,AlexDeLaCour,Fixed crop growth,Watered crops now grow much quicker than unwatered
+,2 hours ago
+481ff76,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,2 hours ago
+bbb2349,Shangit Cruze,fixed blur screen issue,,2 hours ago
+1fd26b2,AlexDeLaCour,added NPC animation,,3 hours ago
+7472782,Shangit Cruze,commented some code,,3 hours ago
+7ee1eeb,Shangit Cruze,pushing old build to fix dialogue,,6 hours ago
+0144c17,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,6 hours ago
+0979059,brunorosenbaum11,Organizing and cleaning,,6 hours ago
+7f627ed,AlexDeLaCour,fixed seed bug between scenes,,6 hours ago
+6fda4c7,AlexDeLaCour,updated merchant trade issue,keeping new seeds in data permanence
+,7 hours ago
+a59823c,AlexDeLaCour,Altered credits scene,,7 hours ago
+7c84d1a,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,8 hours ago
+b6ee1f7,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,8 hours ago
+01e42dc,AlexDeLaCour,final bug fixing,,8 hours ago
+92dcc33,Shangit Cruze,fixed dialogue,,8 hours ago
+69165e8,Shangit Cruze,changed affinity script,,9 hours ago
+7e42ce8,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon 21:24
+cbb0634,AlexDeLaCour,fixed end game data permanence,Now restarts data permanence when completing game
+also added in new idle animation
+,Mon 21:23
+9fb8bb0,AlexDeLaCour,added intro music,,Mon 20:49
+f47b362,AlexDeLaCour,cleaning up scripts,,Mon 20:47
+2896834,AlexDeLaCour,more affinity,,Mon 18:19
+cb1a6ee,AlexDeLaCour,working on affinity,,Mon 17:50
+fa6fa1d,AlexDeLaCour,Fixed stuff,,Mon 15:49
+8289f8c,brunorosenbaum11,Dialogue backup,,Mon 15:09
+fa9a425,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon 13:45
+b6b0cbf,AlexDeLaCour,added text boxes to main screen,and updated npc animations
+,Mon 13:45
+7726195,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon 13:31
+c1492b9,sangitcruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon 13:23
+95606df,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon 13:20
+edba657,brunorosenbaum11,Options view and time UI settings,,Mon 13:20
+1439d60,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Sun 17:52
+855c075,AlexDeLaCour,added ending cutscene,,Sun 17:52
+bbe5fa8,Shangit Cruze,added new dialogue sprites,,Sat 19:10
+4bd3f90,AlexDeLaCour,added new music,also changed inventory input, closed inventory when pausing, updated credits and tutorial text
+,Sat 10:09
+a180089,AlexDeLaCour,added new tutorial text,along with final tutorial stage, couple of minor bug fixes
+,Fri 15:24
+d84a20e,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed May 10 15:02
+cea7fda,AlexDeLaCour,added introductory cutscene,also added credits scene, changed in game fonts, fixed a couple of bugs
+,Wed May 10 15:02
+4db58ed,Shangit Cruze,updated prefab UI,,Tue May 9 18:30
+f36a76d,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue May 9 18:25
+248be61,Shangit Cruze,toggle Ui turns on Dialogue Box,,Tue May 9 18:25
+161a120,AlexDeLaCour,yarn fix,,Tue May 9 13:17
+a6be9e5,sangitcruze,updated NPC sprite,,Tue May 9 13:17
+a7350bc,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue May 9 13:15
+87ccbfe,AlexDeLaCour,updated tutorial system to include merchant and captains logs,,Tue May 9 13:14
+6faf009,sangitcruze,screen now blurs when talking to NPC,,Tue May 9 12:56
+8f6b478,sangitcruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue May 9 12:40
+d60f2d3,sangitcruze,UI now deactivates while in dialogue,,Tue May 9 12:39
+8e8956f,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue May 9 11:09
+c397d1f,AlexDeLaCour,beginning to fix up tutorial with new features,,Tue May 9 11:08
+01a88bc,Shangit Cruze,added a indication to let the player know that the Merchant affinity is affected by dialogue choice,,Mon May 8 21:39
+2674374,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon May 8 10:10
+ffd3056,Shangit Cruze,fixed NPC bug and rescaled inventory  sizesize,,Mon May 8 10:10
+2baa7b8,AlexDeLaCour,Fixed captains logs,Also shortened the sleeping animation and got rid of day/time display while sleeping
+,Sun May 7 10:47
+8bd0df4,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Fri May 5 16:02
+07d7b22,AlexDeLaCour,minor pre-meeting bug fixes,,Fri May 5 16:02
+e9b4ba6,brunorosenbaum11,Fixed player prefab bug,,Fri May 5 16:02
+5bd65cf,brunorosenbaum11,Merge branch 'Bruno's-branch',,Fri May 5 15:47
+fa5ace7,brunorosenbaum11,Dialogues updated,,Fri May 5 15:41
+9412ec7,AlexDeLaCour,refixed bugs,can now deselect crops which goes back to previously selected tool. Also fixed unstoppable movement when opening inventory
+,Thu May 4 22:38
+45c1338,Shangit Cruze,fixed tutorial 7,,Thu May 4 22:29
+b3524d4,Shangit Cruze,fix bug where you were unable to change scenes after harvesting crops,,Thu May 4 22:22
+11e6efe,Shangit Cruze,updated font type and size in inventory,,Thu May 4 22:12
+08818d6,AlexDeLaCour,Fixed npc show up times,And moved functionality to npc game object
+,Thu May 4 21:50
+3362154,AlexDeLaCour,Changed camera inside spaceship,,Thu May 4 20:50
+689f966,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Thu May 4 20:39
+49f8dba,AlexDeLaCour,Added new art, bug fixes,Added new spaceship tiles and tool icons, fixed giant seed icon
+Added crop animation randomizer
+Smaller UI
+refixed (;_;) bug fixes that were lost during one of the merges
+,Thu May 4 20:38
+5ccb8bc,brunorosenbaum11,Talksprites working,,Thu May 4 16:27
+734e535,Shangit Cruze,changed font type and size to fit with inventory,,Thu May 4 11:01
+62f54e3,Shangit Cruze,update: the issue where the NPC appears everyday has been fixed,,Thu May 4 10:47
+4dcfda5,brunorosenbaum11,Sangit backup,,Wed May 3 20:00
+da5f148,brunorosenbaum11,Prefab update,,Wed May 3 14:35
+3df2818,brunorosenbaum11,Merge branch 'main' into Bruno's-branch,,Wed May 3 14:18
+a9870c2,brunorosenbaum11,Talksprite commit branch,,Wed May 3 14:17
+f77b250,AlexDeLaCour,alpha build ready,,Wed May 3 12:51
+1ee2dea,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed May 3 12:23
+a9ec749,AlexDeLaCour,Fixed minor spaceship level changer bug,,Wed May 3 12:23
+8d6b0be,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed May 3 12:22
+d801333,Shangit Cruze,updated code so its nit broken,,Wed May 3 12:22
+6a5d49c,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed May 3 11:56
+8bc3b0b,AlexDeLaCour,added new animations,Idle up, down and sideways
+,Wed May 3 11:56
+ac356a3,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed May 3 11:46
+a39055a,Shangit Cruze,dialogue with affinity,,Wed May 3 11:06
+5446519,brunorosenbaum11,Talksprites v1,,Tue May 2 21:45
+4d571e7,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue May 2 17:55
+af16973,Shangit Cruze,added dialogue which work based on day count,,Tue May 2 17:54
+2319dcd,AlexDeLaCour,added captains logs,,Tue May 2 13:49
+84f562a,AlexDeLaCour,changed some art,swapped out the spaceship energy bar for new one, fixed potential null ref ex for npc when in spaceship
+,Tue May 2 09:22
+eb61358,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon May 1 18:10
+6768f96,Shangit Cruze,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon May 1 18:10
+9bade10,AlexDeLaCour,Added options,Music and sfx volume as well as the choice to start with or without the in game tutorial
+,Sun Apr 30 12:34
+4481bda,AlexDeLaCour,added sleeping animation,Sleeping animation along with screen fade in and fade out. Further bug fixes including keeping day and equipped tool between scenes
+,Sat Apr 29 10:41
+da01ce0,Shangit Cruze,added NPC dialogue, added the NPC, Yarn spinner plugin and changed a couple of stuff in player controller plus few changes in the scene .
+,Fri Apr 28 14:51
+c733643,AlexDeLaCour,New animations and bug fixes,Added seed animations plus various up and down interaction animations and some spaceship interior animations. Fixed most of my bugs from the bug report.
+,Fri Apr 28 14:08
+669d2c1,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed Apr 26 17:45
+856d947,brunorosenbaum11,Captain logs, time and stamina bugfixes,,Wed Apr 26 17:45
+f69ddf5,ShenDoodles,Sounds added,Plant sound is way too loud, needs to be turned down a bit
+,Wed Apr 26 14:20
+87910a1,brunorosenbaum11,Talksprites and dialogue box assets,,Sun Apr 23 19:25
+0b66b18,brunorosenbaum11,Shop (scratched progress),Could not be implemented due to time constraints.
+,Fri Apr 21 20:31
+db87476,AlexDeLaCour,Alpha build ready,Implemented Sangits inventory system into the tutorial
+,Wed Apr 19 12:39
+06663fb,Shangit Cruze,added item disc and pop up sprite and tools to inventory,,Wed Apr 19 12:01
+c8785a0,brunorosenbaum11,Merge branch 'main' into Bruno's-branch,,Tue Apr 18 21:14
+bb2017f,brunorosenbaum11,Started working on shop,,Tue Apr 18 21:13
+351734d,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue Apr 18 17:51
+663a810,AlexDeLaCour,Added audio functionality,An audio manager along with some (VERY) placeholder audio assets
+,Tue Apr 18 17:51
+220ced8,sangitcruze,added inventory changes,,Tue Apr 18 14:48
+6bc1d1e,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue Apr 18 11:12
+d219994,AlexDeLaCour,Added game states,Added main menu, pause screen (with option to resume game, go to main menu or quit) as well as end game states for dying or completing the game.
+,Mon Apr 17 20:30
+58d5ac0,AlexDeLaCour,Fixed some issues, imported new art,Fixed UI and tutorial anchoring/screen positioning
+Fixed/improved tile selection
+Added crop animation art and implemented them
+,Thu Apr 13 12:58
+5716754,brunorosenbaum11,Revert "Fixed parallax",This reverts commit c3cc28bb544985d7eb65cb32848b3d6210ef4fd8.
+,Tue Apr 11 19:33
+583560e,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Mon Apr 3 17:36
+c3cc28b,AlexDeLaCour,Fixed parallax,,Thu Mar 23 19:00
+8061eb2,AlexDeLaCour,Merged everything,The tutorial system and the inventory system are now merged into main, along with parallax, bed/generator separation and the spaceship interior sprites.
+,Thu Mar 23 18:06
+11cdc92,AlexDeLaCour,Merge branch 'Alex-trying-to-fix-scary-merge-commits',,Thu Mar 23 13:53
+a647d02,AlexDeLaCour,Please don't break the game,,Thu Mar 23 13:31
+bd61a28,Shangit Cruze,Merge pull request #8 from DeLaCourAlex/Shangit,Shangit,Thu Mar 23 13:16
+82b92aa,Shangit Cruze,Merge branch 'main' into Shangit,,Thu Mar 23 13:16
+ba0f2c9,Shangit Cruze,working inventory with different scenes,,Thu Mar 23 13:02
+de5e7dc,AlexDeLaCour,Fixed day display bug,Day now updates on screen after the player has slept
+,Thu Mar 23 09:07
+17d8dda,AlexDeLaCour,Added Bruno's stuff,Also added UI elements for stamina and spaceship energy
+,Wed Mar 22 13:20
+2208c25,Shangit Cruze,fully working inventory and use item function,,Wed Mar 22 11:16
+b03c3a1,AlexDeLaCour,Added some art assets to spaceship,and added basic bed prefab
+,Wed Mar 22 09:14
+fdd7b26,AlexDeLaCour,Added parallax background,,Tue Mar 21 18:55
+551b329,sangitcruze,updated useitem function,,Tue Mar 21 16:29
+d14a66f,Alex de la Cour,Merge pull request #6 from DeLaCourAlex/In-game-tutorial,In game tutorial,Tue Mar 21 15:59
+a6a71ea,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling into In-game-tutorial,,Tue Mar 21 15:58
+585606e,Shangit Cruze,added comments,,Mon Mar 20 22:41
+e156a42,AlexDeLaCour,Finished setting up tutorial,Basic tutorial -takes away some player agency but runs them through all the necessary stages - tilling, planting, watering and harvesting, as well as the codependency system of feeding crops to energise the spaceship and using the spaceship to increase stamina.
+
+Code needs some clearing up as does the whole project.
+
+A couple of tutorial stages are incomplete as branch needs to be merged with recent changes on main
+,Mon Mar 20 14:56
+b437476,brunorosenbaum11,Advance days as player goes to bed,,Sun Mar 19 19:59
+ef0c88a,Shangit Cruze,working inventory,,Sat Mar 18 15:27
+95081da,Shangit Cruze,Merge branch 'main' into Shangit,,Sat Mar 18 11:35
+1e79d1e,Shangit Cruze,Inventory open/close with key press,,Fri Mar 17 15:37
+cfa3330,brunorosenbaum11,Solved energy bed separation bug,,Fri Mar 17 14:21
+0d19703,Shangit Cruze,update,,Fri Mar 17 13:11
+7243fe5,Shangit Cruze,item stacking implementation(not yet working),,Thu Mar 16 21:30
+026d03a,brunorosenbaum11,Added  withering logic,,Thu Mar 16 21:00
+d0fe87c,AlexDeLaCour,Began implementing in game tutorial,Added the first two stages of the tutorial - tilling the first tiles and planting the first crops, including pop up instruction boxes and highlight areas of the map to show where to work.
+,Thu Mar 16 14:07
+b58852b,AlexDeLaCour,Added 9 tile crop planting,Also improved player controller script - now more streamlined, especially the interaction function
+,Thu Mar 16 10:38
+a226d9f,brunorosenbaum11,Bed generator separation,,Wed Mar 15 21:24
+1a97e25,brunorosenbaum11,Fixed a time issue,,Wed Mar 15 21:11
+21edc6f,brunorosenbaum11,Merge branch 'main' into Bruno's-branch,,Wed Mar 15 21:09
+4a98d0d,brunorosenbaum11,Worked on time + bed bug,,Wed Mar 15 20:56
+6c2795a,AlexDeLaCour,Working on planting 9 crops with one seed,Began work. Currently able to plant crops as needed
+Still need to work on the highlight system to show on which tiles the crops will be planted
+,Tue Mar 14 15:16
+7aaa76a,brunorosenbaum11,Updated time and date,,Tue Mar 14 12:05
+23870cf,AlexDeLaCour,Improved grid selection system,Added a corrector to slightly alter raycast position depending on the player's previous direction
+Also tweaked some features - camera size and player movement speed
+Added colliders around the main map
+,Mon Mar 13 16:43
+2e49807,Shangit Cruze,update,,Sun Mar 12 21:45
+dd57b30,Shangit Cruze,restarted inventory system,,Sun Mar 12 17:01
+597a8d4,Shangit Cruze,cleaned up code,,Thu Mar 9 21:07
+153abcf,sangitcruze,updated code,,Thu Mar 9 11:56
+9dbd7e6,AlexDeLaCour,Added art assets, merged Alex and Bruno's branches,Added player sprite art - not animated
+Added crops A and B art, normal watered and grown, not animated
+Added spaceship sprite, moved generator functionality inside the spaceship
+,Tue Mar 7 18:55
+0673c7d,AlexDeLaCour,Implemented time system in main scene,,Tue Mar 7 13:22
+095bc0f,AlexDeLaCour,Merge branch 'Alex's-Branch-Improved-Tile-Interaction',,Tue Mar 7 13:11
+098a9aa,AlexDeLaCour,Just added some comments,,Tue Mar 7 12:56
+0f7d86d,AlexDeLaCour,Added some art,Added art for tiles
+,Tue Mar 7 12:20
+1128a25,Shangit Cruze,update function,,Mon Mar 6 21:41
+8a12503,Shangit Cruze,changed some stack code,,Mon Mar 6 16:37
+47fc186,brunorosenbaum11,Time class added,,Mon Mar 6 12:54
+9a2e79f,Shangit Cruze,Update InventoryManager.cs,,Sun Mar 5 23:04
+ca89860,Shangit Cruze,item stacking new code,,Sun Mar 5 22:48
+35d8aba,AlexDeLaCour,Added ability to recharge spaceship,Can feed any harvested seeds into the spaceship to recharge its energy
+Different crops recharge more or less energy
+Also decrements the crops harvested when feeding to the spaceship
+Added player stamina, spaceship energy and crops harvested to data permanence
+,Sat Mar 4 11:20
+f1fe303,AlexDeLaCour,Adding crop variety,Greatly improved/cleaned up player controller and interaction function
+Added ability to plant and harvest two crop types
+Added ability to carry a harvested crop - this will be improved to feed the crop to the engine
+,Thu Mar 2 20:24
+1015276,AlexDeLaCour,Tile interaction display,Can now see what tile will be interacted with
+It also displays, depending on the tile and the tool selected, whether this tile can be interacted with or not
+,Wed Mar 1 15:34
+99c77a0,AlexDeLaCour,Merge branch 'Alex's-Branch-Improved-Tile-Interaction',,Tue Feb 28 12:30
+1005165,sangitcruze,Update InventoryManager.cs,,Tue Feb 28 12:29
+5edfef2,AlexDeLaCour,Starting new branch,,Tue Feb 28 12:29
+23fe3e9,brunorosenbaum11,Merge branch 'Bruno's-branch',,Tue Feb 28 12:21
+bbedc5e,brunorosenbaum11,Crop prefabs made,,Tue Feb 28 12:20
+47ff53a,sangitcruze,trying to add stack but falling (help me),,Tue Feb 28 12:19
+6408677,brunorosenbaum11,Merge branch 'Bruno's-branch',,Tue Feb 28 11:41
+9fb429e,Shangit Cruze,implemeting stackable items,,Tue Feb 28 09:56
+4ca907d,brunorosenbaum11,Spaceship recharging,,Mon Feb 27 21:12
+140065c,Shangit Cruze,fixed exp and heath values, which shows up correctly when i click on items,,Sat Feb 25 18:06
+0fac96f,Shangit Cruze,fixed merge issue,,Wed Feb 22 17:37
+ce4a6f5,sangitcruze,chnaged player script to playercontroller,,Wed Feb 22 15:19
+875c869,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue Feb 21 14:02
+9883f2c,AlexDeLaCour,Slightly altered UI position,,Tue Feb 21 14:02
+0b9758c,brunorosenbaum11,Stamina recovery codependency mechanic,,Tue Feb 21 14:01
+ab226c0,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue Feb 21 13:29
+9530ebc,brunorosenbaum11,Merge branch 'Bruno's-branch',,Tue Feb 21 13:29
+0c3ae3e,Bruno Rosenbaum,Merge pull request #3 from DeLaCourAlex/Bruno's-branch,Spaceship wip,Tue Feb 21 13:28
+4cc5db7,Bruno Rosenbaum,Merge branch 'main' into Bruno's-branch,,Tue Feb 21 13:28
+19ad1b6,brunorosenbaum11,Spaceship wip,,Tue Feb 21 13:25
+56c823a,AlexDeLaCour,Improved interactions,Changed boxcast to raycast so the player interacts with whatever is directly ahead of them instead of all around them
+,Tue Feb 21 12:21
+375faf4,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Tue Feb 21 11:53
+d0cf6ac,AlexDeLaCour,Beginning to change interaction set up,Introducing ray cast to interact with tiles, crops etc
+,Tue Feb 21 11:52
+62afa01,sangitcruze,Merge branch 'Shangit',,Tue Feb 21 11:50
+08ead97,AlexDeLaCour,Merge branch 'main' into Alex's-Branch-Scriptable-Tile,,Mon Feb 20 17:25
+7a28c3d,AlexDeLaCour,Improved actions/interactions,Changed the actions to one big function with a switch statement to determine what action to perform
+Added dummy functionality to cycle through the tools and use which ever is selected
+Added placeholder animations for hoe/planting/harvesting crops, play different animation depending on which action is taken
+,Mon Feb 20 17:15
+aecf97b,ShenDoodles,Added interactible painter tilemap and manager script,,Mon Feb 20 00:31
+ac35dea,AlexDeLaCour,Improving grid system,Added tilled dirt tiles to data permanence
+Fine tuning the collision/boxcast used for tilling, planting/harvesting etc
+,Fri Feb 17 17:22
+0aa01f8,Shangit Cruze,added sound effects,,Fri Feb 17 14:29
+dac0adf,Shangit Cruze,working removable items and useable items,,Fri Feb 17 12:39
+6ae2c80,Shangit Cruze,inventory usable items (overlapping HP),,Fri Feb 17 12:20
+0a7d74d,Shangit Cruze,Added remove item option and health bar,,Thu Feb 16 22:03
+27c6b1f,AlexDeLaCour,Working on crop planting system,Currently have some scriptable tiles
+Dirt tiles can be tilled, and then crops can be planted on tilled dirt tiles
+Crops plant in the center of the tile
+Only one crop can be planted on a tile
+When a crop is harvested, the dirt tile becomes untilled
+
+todo: keep tilled tiles through data permanence
+,Thu Feb 16 17:37
+40ee5f6,Shangit Cruze,inventory working,,Wed Feb 15 22:45
+17d12eb,Shangit Cruze,made prefabs that should work with inventory,,Wed Feb 15 20:58
+0b47295,Shangit Cruze,inventory buttons working,,Wed Feb 15 20:02
+e3525b4,sangitcruze,added inventory canvas,,Wed Feb 15 18:42
+ffdd839,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed Feb 15 15:37
+f6692db,brunorosenbaum11,Deleted script will rebranch,,Wed Feb 15 15:37
+2f3ef71,AlexDeLaCour,Continuing on scriptable tiles,,Wed Feb 15 15:36
+71d5d24,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed Feb 15 15:25
+b33e8d7,AlexDeLaCour,Beginning to add scriptable tiles,Also tweaked crops - age changes depending on if they're watered in data permanence as well as in the farming scene
+,Wed Feb 15 15:25
+a702b52,brunorosenbaum11,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Wed Feb 15 15:23
+7de2059,brunorosenbaum11,Folders commit,,Wed Feb 15 15:23
+2001ee3,AlexDeLaCour,Added ability to water crops,Crops now grow faster when watered (at the moment, 2x speed)
+Can only harvest the crops when they are fully grown
+Including placeholder animation for watering crops
+,Wed Feb 15 13:24
+8edab13,AlexDeLaCour,Added placeholder watering sprite sheet,,Wed Feb 15 12:28
+f0e77b7,AlexDeLaCour,Added basic crop planting/harvesting,Can plant and harvest a crop
+Crops have a lifecycle counter that keeps track of how long they've been alive
+This updates even when we leave the scene in which they're instantiated
+Their position is also saved so that they can be respawned in the scene with the correct age and in the correct position
+Can also harvest them, deleting them and keeping track of how many crops are harvested
+,Tue Feb 14 18:21
+7a81071,AlexDeLaCour,Added walk and idle animation transitions,Added extremely basic placeholder assets for 4 directional walk and 4 directional idle animations
+Created said animations, and an animator controller
+Added code to transition between idle and walk animations, as well as to set the direction the player is facing
+,Sun Feb 12 14:32
+b7b84d4,AlexDeLaCour,Added follow camera,Follow camera saved as a prefab - includes main camera and cinemachine virtual camera brain.
+Camera follows the player location with a bit of leeway
+Values of the follow camera will almost certainly be altered once we start adding the art and know the sizes we're working with
+,Fri Feb 10 11:27
+469fd67,AlexDeLaCour,Added fade in/out, basic grid system,Added a fade out and in between scenes, and a bool to stop player movement during the fadeout
+Moved scene changing functionality out of the player controller and into a separate script and made a scene changer prefab.
+Added a basic grid system - plenty to be improved on there and there's probably better ways to approach the problem but it's a good(ish) starting point.
+,Thu Feb 9 22:09
+4f32360,AlexDeLaCour,Merge branch 'main' of https://github.com/DeLaCourAlex/Comet-Culling,,Thu Feb 9 15:40
+edfe97b,AlexDeLaCour,Added data permanence,Added functionality to store data between scenes
+along with some test/debug variables, functions and UI to display to the screen in build mode which we can get rid of down the line but should keep for now
+,Thu Feb 9 15:40
+b010e7b,ShenDoodles,Upgraded project to newest 2021 version,,Thu Feb 9 15:29
+c68def3,AlexDeLaCour,Added door, started on data persistance,Added a door prefab, which triggers movement between scenes. Also added a second Alex test scene to simulate inside the space ship.
+Began working on storing player variables using a data manager when moving between scenes
+,Wed Feb 8 13:20
+f29caf3,AlexDeLaCour,Character movement and cinemachine,Added cinemachine package to the project for follow camera
+Made player prefab with PlayerController script featuring top down movement
+,Wed Feb 8 12:01
+e9748a5,AlexDeLaCour,Initial commit,Project created
+Folders created for various asset types (audio, art, animation, prefabs, scripts, scenes)
+Test scenes created for each programmer to use
+,Wed Feb 8 09:54
+473f243,AlexDeLaCour,Initial commit,,Wed Feb 8 09:52

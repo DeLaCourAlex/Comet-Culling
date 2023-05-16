@@ -195,9 +195,6 @@ public class PlayerController : MonoBehaviour
 
             if (inTutorial)
             {
-                if (availableTools > 1)
-                    inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 10 });
-
                 if (availableTools > 2)
                     inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
 
@@ -353,10 +350,6 @@ public class PlayerController : MonoBehaviour
                     break;
 
             }
-
-            //skip tutorial upon key press
-            if (Input.GetKeyDown(KeyCode.Q))
-                SkipOverTutorial();
         }
 
         // Move the camera position further above the player if they're near the top of the crop scene
@@ -905,10 +898,12 @@ public class PlayerController : MonoBehaviour
                             if (cropElement == 0)
                             {
                                 inventory.RemoveItem(new Item { itemType = Item.ItemType.seedA, amount = 1 });
+                                DataPermanence.Instance.seedA--;
                             }
                             else if (cropElement == 1)
                             {
                                 inventory.RemoveItem(new Item { itemType = Item.ItemType.seedB, amount = 1 });
+                                DataPermanence.Instance.seedB--;
                             }
 
                             staminaTaken = true;
@@ -1139,7 +1134,6 @@ public class PlayerController : MonoBehaviour
                 // Set the current tool to seed A
                 currentTool = Tools.seedA;
                 spriteRenderer.sprite = spriteArray[1];
-                DataPermanence.Instance.seedA--;
                 DataPermanence.Instance.currentTool = (int)currentTool;
                 // Any equipped crops are unequipped
                 ChangeCarriedCrops(false, false);
@@ -1154,7 +1148,6 @@ public class PlayerController : MonoBehaviour
                 // Set the current tool to seed B
                 currentTool = Tools.seedB;
                 spriteRenderer.sprite = spriteArray[4];
-                DataPermanence.Instance.seedB--;
                 DataPermanence.Instance.currentTool = (int)currentTool;
                 // Any equipped crops are unequipped
                 ChangeCarriedCrops(false, false);
@@ -1245,7 +1238,11 @@ public class PlayerController : MonoBehaviour
         // Add seed A to inventory
         // THis condition stops it being constantly added every update
         if (tutorialNumber == 0)
+        {
             inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 10 });
+            DataPermanence.Instance.seedA += 10;
+        }
+            
 
         // If all the tiles are tilled we reach this  line - move to the next tutorial stage
         ChangeTutorialStage(2, 1);
@@ -1371,7 +1368,6 @@ public class PlayerController : MonoBehaviour
             ChangeTutorialStage(5, 12);
             inTutorial = false;
             DataPermanence.Instance.playerTutorial = false;
-            inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 10 });
         }
     }
 
