@@ -435,6 +435,8 @@ public class PlayerController : MonoBehaviour
         {
             inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 2 });
             inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 2 });
+            DataPermanence.Instance.seedA += 2;
+            DataPermanence.Instance.seedB += 2;
         }
     }
 
