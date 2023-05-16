@@ -180,7 +180,20 @@ public class PlayerController : MonoBehaviour
 
             inventory.AddItem(new Item { itemType = Item.ItemType.hoe, amount = 1 });
 
-            if(inTutorial)
+            //Making sure the correct amount of items are being held across scenes 
+            if (DataPermanence.Instance.cropA > 0)
+                inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = DataPermanence.Instance.cropA });
+
+            if (DataPermanence.Instance.cropB > 0)
+                inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
+
+            if (DataPermanence.Instance.seedA > 0)
+                inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = DataPermanence.Instance.seedA });
+
+            if (DataPermanence.Instance.seedB > 0)
+                inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = DataPermanence.Instance.seedB });
+
+            if (inTutorial)
             {
                 if (availableTools > 1)
                     inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 10 });
@@ -196,19 +209,6 @@ public class PlayerController : MonoBehaviour
             {
                 inventory.AddItem(new Item { itemType = Item.ItemType.wateringCan, amount = 1 });
                 inventory.AddItem(new Item { itemType = Item.ItemType.scythe, amount = 1 });
-
-                //Making sure the correct amount of items are being held across scenes 
-                if (DataPermanence.Instance.cropA > 0)
-                    inventory.AddItem(new Item { itemType = Item.ItemType.cropA, amount = DataPermanence.Instance.cropA });
-
-                if (DataPermanence.Instance.cropB > 0)
-                    inventory.AddItem(new Item { itemType = Item.ItemType.cropB, amount = DataPermanence.Instance.cropB });
-
-                if (DataPermanence.Instance.seedA > 0)
-                    inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = DataPermanence.Instance.seedA });
-
-                if (DataPermanence.Instance.seedB > 0)
-                    inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = DataPermanence.Instance.seedB });
             }
 
             
@@ -434,6 +434,8 @@ public class PlayerController : MonoBehaviour
         {
             inventory.AddItem(new Item { itemType = Item.ItemType.seedA, amount = 2 });
             inventory.AddItem(new Item { itemType = Item.ItemType.seedB, amount = 2 });
+            DataPermanence.Instance.seedA += 2;
+            DataPermanence.Instance.seedB += 2;
         }
     }
 
