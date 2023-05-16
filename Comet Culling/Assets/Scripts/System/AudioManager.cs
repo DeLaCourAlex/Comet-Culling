@@ -49,7 +49,8 @@ public class AudioManager : MonoBehaviour
         if (MusicSourceCorrupted != null && TimeManager.Day >= 5)
         {
             MusicSource.Stop();
-            if(!MusicSourceCorrupted.isPlaying)
+            MusicSourceCorrupted.volume = musicVolume * 0.6f;
+            if (!MusicSourceCorrupted.isPlaying)
                 MusicSourceCorrupted.Play();
         }
             

@@ -68,9 +68,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Status update: \nEnergy sources have matured and are ready for harvesting.
     \r\n\rReturn to the outside area. \r\n\r\nNeeded tool has been placed in the
-    inventory. Press \u201CI\u201D for access. \r\n\r\nSelect the new tool and proceed.
-    \r\nREMINDER: Press \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT MOUSE CLICK\u201D
-    to use the item.\r"
+    inventory. Press \u201CTAB\u201D for access. \r\n\r\nSelect the new tool and
+    proceed. \r\nREMINDER: Press \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT MOUSE
+    CLICK\u201D to use the item.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -509,7 +509,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Status update:\r \nOrganic energy sources are in need of hydration. \r\nNeeded
-    tool has been placed in the inventory. Press \u201CI\u201D for access. \r\n\nEnergy
+    tool has been placed in the inventory. Press \u201CTAB\u201D for access. \r\n\nEnergy
     sources need to be watered individually. \r\nSelect the new tool and proceed.
     \r\nREMINDER: Press \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT MOUSE CLICK\u201D
     to use the item.\r"
@@ -649,7 +649,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Status update: \n\rLanded on Planet B2C9-A35. \r Ship Energy Level 0%.
     Recharge to continue the voyage. \r\n\nMovement Functionality: ON. Use WASD to
-    move.\n\nNecessary tool has been placed in the inventory. For access, press \"I\".
+    move.\n\nNecessary tool has been placed in the inventory. For access, press \"TAB\".
     Use the mouse to navigate the inventory and click on the tool.\n\nScanning\u2026
     Optimal farming area detected. Proceed towards it.\n\rPress \u200B\u200B\u201CSPACE\u201D/
     \u201CLEFT MOUSE CLICK\u201D to use the item.\r"
@@ -889,8 +889,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Harvested energy sources have been placed in the inventory. \r\n\r\n Press
-    \u201CI\u201D for access and select them.\r\n\r\nCommencing ship recharge. \r\nInteract
-    with the generator to feed it the organic matter.\r"
+    \u201CTAB\u201D for access and select them.\r\n\r\nCommencing ship recharge.
+    \r\nInteract with the generator to feed it the organic matter.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1232,7 +1232,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Status update: \nShip energy levels up.\n\nWarning: Low stamina.\n\nPress
-    \"I\" and deselect ogranic matter.\nThen interact the generator to charge using
+    \"TAB\" and deselect ogranic matter.\nThen interact the generator to charge using
     ship\u2019s energy\r."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
@@ -2251,7 +2251,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Inventory updated. Press \u201CI\u201D for access. \r\n \r\nSelect the
+  m_text: "Inventory updated. Press \u201CTAB\u201D for access. \r\n \r\nSelect the
     seed. When used, it will plant nine crops in a 3x3 grid. Plant these in the selected
     patch of soil.\n\nREMINDER: Press \u200B\u200B\u201CSPACE\u201D/ \u201CLEFT MOUSE
     CLICK\u201D to use the item.\r"

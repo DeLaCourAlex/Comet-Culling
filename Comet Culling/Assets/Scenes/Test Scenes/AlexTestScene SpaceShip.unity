@@ -2008,8 +2008,8 @@ PrefabInstance:
     - target: {fileID: 5738249969380789771, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_text
       value: "Status update: \nShip energy levels up.\n\nWarning: Low stamina.\n\nPress
-        \"I\" and deselect ogranic matter.\nThen interact with the generator to charge
-        using the ship's energy."
+        \"TAB\" and deselect ogranic matter.\nThen interact with the generator to
+        charge using the ship's energy."
       objectReference: {fileID: 0}
     - target: {fileID: 5738249969380789771, guid: 5af69dfe1577baf45bd88e282fa5c602, type: 3}
       propertyPath: m_fontSize
@@ -2246,6 +2246,18 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 7527863383091862404}
+    - target: {fileID: 2164512023685078883, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164512023685078883, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164512023685078883, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 900
+      objectReference: {fileID: 0}
     - target: {fileID: 5374501353388230281, guid: ba6e1f9b74e5ac940b973025923b9e5c, type: 3}
       propertyPath: m_fontSize
       value: 12
