@@ -19,12 +19,13 @@ public class TimeManager : MonoBehaviour
     public static int Day { get; set; }
 
     //Have IRL time affect in-game time by a certain ratio
-    //0.5 seconds irl = 1 minute in-game
+    //Example: 0.5 seconds irl = 1 minute in-game
+
     private float minuteToRealTime = 0.5f;
     private float timer;
 
-    //Max days featured in the playthrough
     private static int MAX_DAYS = 7;
+
 
     void Start()
     {
@@ -33,9 +34,9 @@ public class TimeManager : MonoBehaviour
         Minute = 0;
         Hour = 7;
 
-        timer = minuteToRealTime; //Set timer equivalent
+        timer = minuteToRealTime; //V important: set timer equivalent
         
-        if(DataPermanence.Instance != null) //Set the start-off values to the ones in the data permanence
+        if(DataPermanence.Instance != null) 
         {
             Day = DataPermanence.Instance.day;
             Hour = DataPermanence.Instance.hour;
@@ -48,13 +49,15 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        timer -= Time.deltaTime; //Reduce the timer with deltatime 
+        timer -= Time.deltaTime;
 
         if (DataPermanence.Instance != null)
-        { //Update data permanence's values
+        {
             DataPermanence.Instance.day = Day;
             DataPermanence.Instance.hour = Hour;
             DataPermanence.Instance.mins = Minute;
+            //Debug.Log("Data permanence time: " + DataPermanence.Instance.hour + ":" + DataPermanence.Instance.mins);
+            //Debug.Log("Data permanence day: " + DataPermanence.Instance.day);
         }
 
         if (timer <= 0) //If it's = 0, it means our time has elapsed (from 0.5 to 0)
@@ -68,19 +71,20 @@ public class TimeManager : MonoBehaviour
             {
                 Hour++;
                 Minute = 0;
-                OnHourChanged?.Invoke(); //Likewise with the hours
+                OnHourChanged?.Invoke();
                 if (Hour > 23)
                 {
                     Day++;
                     Hour = 0;
                     Minute = 0;
-                    OnDayChanged?.Invoke(); //And the days
+                    OnDayChanged?.Invoke();
                 }
             }
 
 
-            if (Day > MAX_DAYS) //After day 7, trigger endscene
+            if (Day > MAX_DAYS)
             {
+                //Debug.Log("Reached final day, trigger endscene");
                 SceneChanger.Instance.ChangeScene("End Cutscene", Vector2.zero);
             }
 

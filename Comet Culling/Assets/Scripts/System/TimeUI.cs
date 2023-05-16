@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-//Class to monitor time behavior via UI
+//This is a placeholder class to add time behavior working before we organize all UI into its respective class
 public class TimeUI : MonoBehaviour
 {
-    public TextMeshProUGUI timeText; //Text that'll display the hours and minutes
-    public TextMeshProUGUI dateText; //Text that'll display the days
-
-    //Update both time and date at the start and at each frame
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI dateText;
     private void Start()
     {
+
         UpdateTime();
         UpdateDate();
+
     }
 
     public void Update()
@@ -22,7 +22,7 @@ public class TimeUI : MonoBehaviour
         UpdateDate();
     }
 
-    private void OnEnable() //Update time and date depending on the values updated in the TimeManager class
+    private void OnEnable()
     {
         TimeManager.OnMinuteChanged += UpdateTime;
         TimeManager.OnHourChanged += UpdateTime;
@@ -37,14 +37,20 @@ public class TimeUI : MonoBehaviour
 
     }
 
-    private void UpdateTime() //Updates the minutes and hours' text according to the Time Manager's values
+    private void UpdateTime()
     {
         if(timeText != null)
             timeText.text = $"{TimeManager.Hour:00}:{TimeManager.Minute:00}"; //The 00 is a mask here so the empty string space can be filled w/ a 0
+
     }
-    private void UpdateDate() //Likewise but for the date
+    private void UpdateDate()
     {
+
         if(dateText != null)
             dateText.text = $"Day {TimeManager.Day}";
+
+        //Debug.Log("time in data permanence: " + DataPermanence.Instance.day);
+        //Debug.Log("Time in time manager: " + TimeManager.Day);
+
     }
 }
