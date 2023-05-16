@@ -8,12 +8,25 @@ public class Affinity : MonoBehaviour
 {
     public GameObject AffinityText;
 
-    public bool affinity;
-    [YarnCommand("ToggleAffinity")]
-    public void toggleAffinity(bool affinity_)
+    private DialogueRunner dialogueRunner;
+    private InMemoryVariableStorage variableStorage;
+    public static bool NPCAffinity;
+    public bool getAffinity() { return DataPermanence.Instance.highAffinity; }
+
+
+    public void Start()
     {
-        affinity = affinity_;
+        dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
+        dialogueRunner.AddFunction<bool>("get_Affinity", getAffinity);
+        variableStorage = GameObject.FindObjectOfType<InMemoryVariableStorage>();
+
+
+        //NPCAffinity = DataPermanence.Instance.highAffinity;
+
+        //variableStorage.TryGetValue("$affinity", out NPCAffinity);
+        //variableStorage.SetValue("$affinity", NPCAffinity);
     }
+
 
     //activate affnity text when complete dialogue
     [YarnCommand("HighAffinity")]
@@ -23,9 +36,10 @@ public class Affinity : MonoBehaviour
         {
             AffinityText.SetActive(true);
             DataPermanence.Instance.highAffinity = true;
+            NPCAffinity = true;
             Debug.Log("High affinity");
         }
-     }
+    }
 
 
     [YarnCommand("LowAffinity")]
@@ -35,18 +49,42 @@ public class Affinity : MonoBehaviour
         {
             AffinityText.SetActive(false);
             DataPermanence.Instance.highAffinity = false;
+            NPCAffinity = false;
             Debug.Log("Low affinity");
         }
     }
-    [YarnCommand("GetAffinity")]
-    public bool getAffinity()
-    {
-        return affinity;
 
+    public void Update()
+    {
+
+        if (NPCAffinity == true)
+        {
+            DataPermanence.Instance.highAffinity = true;
+        }
+        if (DataPermanence.Instance.highAffinity == true)
+        {
+            NPCAffinity = true;
+        }
+
+
+        variableStorage.TryGetValue("$affinity", out DataPermanence.Instance.highAffinity);
+        variableStorage.SetValue("$affinity", DataPermanence.Instance.highAffinity);
+       
+        Debug.Log("PERMANENCE AFFINITY IS SET TO: " + DataPermanence.Instance.highAffinity);
+
+
+
+        //DataPermanence.Instance.highAffinity = NPCAffinity;
+        //UpdateAffinity(); 
     }
 
-    private void Update()
-    {
-        Debug.Log("AFFINITY IS SET TO: " + affinity);
-    }
+
+
+
+
+
+
+
+
+
 }

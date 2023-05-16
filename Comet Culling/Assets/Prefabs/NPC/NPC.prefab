@@ -431,6 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AffinityText: {fileID: 1406045457}
+  NPCAffinity: 0
 --- !u!1 &990559408872947080
 GameObject:
   m_ObjectHideFlags: 0
