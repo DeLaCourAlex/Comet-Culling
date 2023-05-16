@@ -3,7 +3,7 @@ tags:
 ---
 <<enableMovement Player false>>
 //If the player had built affinity with Vas
-
+<<DeactivateUI UI>>
 
 <<toggleTalksprite Player true true>>
 
