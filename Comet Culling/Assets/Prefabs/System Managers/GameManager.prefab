@@ -818,7 +818,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Main Menu
+  m_text: MAIN MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3748f8d2d2ce8b847858efa5a279b53a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1174,7 +1174,7 @@ GameObject:
   - component: {fileID: 8822515209618449675}
   - component: {fileID: 6379060228190278827}
   m_Layer: 5
-  m_Name: Game Name
+  m_Name: Paused Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1521,9 +1521,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8216969444946091434, guid: 96d5c89503f5e3a4596ceabbf00ca451, type: 3}
       propertyPath: m_text
-      value: "Harvested energy sources have been placed in the inventory. \r\n\r\n
-        Press \u201CTAB\u201D for access and select them.\r\n\r\nCommencing ship
-        recharge. \r\nInteract with the generator to feed it the organic matter.\r"
+      value: "Harvested energy sources have been placed in the inventory. \r\n\r\nPress
+        \u201CTAB\u201D for access and select them.\r\n\r\nCommencing ship recharge.
+        \r\nInteract with the generator to feed it the organic matter.\r"
       objectReference: {fileID: 0}
     - target: {fileID: 8467945214858204019, guid: 96d5c89503f5e3a4596ceabbf00ca451, type: 3}
       propertyPath: m_text

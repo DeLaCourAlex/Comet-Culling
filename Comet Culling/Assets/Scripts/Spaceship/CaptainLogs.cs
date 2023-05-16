@@ -13,7 +13,7 @@ public class CaptainLogs : MonoBehaviour
     [SerializeField] GameObject background;
 
     //Array of bools that'll determine whether captain log is available or not
-    bool[] isLogAvailable = new bool[7];
+    bool[] isLogAvailable;// = new bool[7];
     //Bool to check if player has read the log of each day
     public bool hasBeenRead; 
     // Bool to check if the player is currently reading a log
@@ -75,14 +75,7 @@ public class CaptainLogs : MonoBehaviour
         {
             if (isLogAvailable[i] && logOpen)
             {
-                // If Vas is at max affinity, gain the secret final captains log
-                if (i == 6 && DataPermanence.Instance.highAffinity)
-                {
-                    i = 7;
-                    isLogAvailable[7] = true;
-                }
-
-                // Otherwise, activate the current available log
+                // Activate the current available log
                 captainsLog[i].SetActive(true);
             } 
 

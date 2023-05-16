@@ -49,8 +49,8 @@ public class TimeUI : MonoBehaviour
         if(dateText != null)
             dateText.text = $"Day {TimeManager.Day}";
 
-        Debug.Log("time in data permanence: " + DataPermanence.Instance.day);
-        Debug.Log("Time in time manager: " + TimeManager.Day);
+        //Debug.Log("time in data permanence: " + DataPermanence.Instance.day);
+        //Debug.Log("Time in time manager: " + TimeManager.Day);
 
     }
 }
