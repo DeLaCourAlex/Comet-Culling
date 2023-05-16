@@ -39,7 +39,7 @@ public class UI_Inventory : MonoBehaviour
     public void OpenInventory()
     {
 
-        
+
         isInventoryVisible = !isInventoryVisible;    // Flip bool value when 'I' is pressed
 
         this.gameObject.SetActive(isInventoryVisible);
@@ -116,13 +116,13 @@ public class UI_Inventory : MonoBehaviour
                 {
                     default:
                     case ItemType.cropA:
-                        itemInfo.SetText("Developed crop A - Lantern Plant \r\nLantern plant can be used to replenish (...) energy to the spaceship. " +
+                        itemInfo.SetText("Lantern Plant \r\nLantern plant can be used to replenish 10% energy to the spaceship. " +
                             "\r\nIt gets its name from its shape, resembling an oil lantern. It attracts pollinators to its large inflorescence by " +
                             "performing a dance using side tendrils. ");
                         break;
 
                     case ItemType.cropB:
-                        itemInfo.SetText(" Taco Plant\r\nTaco plant can be used to replenish (...) energy to the spaceship. \r\nNamed after an ancient Earthian dish consisting of filling inside a corn flour tortilla shell. " +
+                        itemInfo.SetText("Taco Plant\r\nTaco plant can be used to replenish 20% energy to the spaceship. \r\nNamed after an ancient Earthian dish consisting of filling inside a corn flour tortilla shell. " +
                             "Taco plants are carnivorous and attract their prey using bioluminescent appendices covered in a sticky sap. After something touches them, the plant closes and begins to digest the catch. ");
                         break;
 
@@ -131,7 +131,7 @@ public class UI_Inventory : MonoBehaviour
                         break;
 
                     case ItemType.wateringCan:
-                        itemInfo.SetText("Watering Can \r\nUsed to help your crops grow faster. \r\nIt separates hydrogen gas and oxygen gas from the atmosphere, mixes and heats them up in order to create water. \r\nIn short, it uses science to never run out of water!");
+                        itemInfo.SetText("Watering Can \r\nUsed to help your crops grow faster. \r\nIt separates hydrogen gas and oxygen gas from the atmosphere. \r\nIn short, it uses science to never run out of water!");
                         break;
 
                     case ItemType.scythe:
@@ -141,11 +141,11 @@ public class UI_Inventory : MonoBehaviour
                         break;
 
                     case ItemType.seedA:
-                        itemInfo.SetText("This is seed A");
+                        itemInfo.SetText("Lantern plant seeds. Takes half a day to mature if watered.");
                         break;
 
                     case ItemType.seedB:
-                        itemInfo.SetText("This is seed B");
+                        itemInfo.SetText("Taco plant seeds. Takes a day to mature if watered.");
                         break;
 
 
