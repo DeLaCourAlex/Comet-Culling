@@ -2,7 +2,7 @@
 tags:
 ---
 <<declare $affinity = false as Bool>>
-
+<<DeactivateUI UI>>
 <<enableMovement Player false>>
 <<toggleTalksprite Player true true>>
 
@@ -82,6 +82,7 @@ Vas: I’m glad. Here, take these seeds. Hopefully they will help you find them 
     <<jump Quit>>
 -> PR1NC3: No need. I am doing ok on my own. I need to get back to work now.
     <<characterEmotion Player "neutral" PrinceTalksprite>>
+    <<ActivateUI UI>>
     <<set $affinity to false>>
 <<characterEmotion Player "angry" MerchantTalksprite>>
 Vas: If you say so. Take these at least.
