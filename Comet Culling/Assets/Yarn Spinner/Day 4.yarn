@@ -20,6 +20,15 @@ Vas: Of course, how is that going?
 Vas: I wanted to check up on you!  
 -> PR1NC3: Oho, according to my data, that suggests you like me or something.
 
+-> PR1NC3: No need. I am doing ok on my own. I need to get back to work now.
+  <<characterEmotion Player "neutral" PrinceTalksprite>>
+    Vas: If you say so. Take these at least.
+    <<ActivateUI UI>>
+    <<set $affinity to false>>
+    <<characterEmotion Player "angry" MerchantTalksprite>>
+    <<Trade Player TradeItem>>
+    <<jump Quit>>
+
 <<characterEmotion Player "happy" MerchantTalksprite>>
 Vas: Of course I do! You’re my friend and I want to make sure you’re ok.
 
@@ -80,13 +89,7 @@ Vas: I’m glad. Here, take these seeds. Hopefully they will help you find them 
 -> PR1NC3: … Thank you Vas.
     <<set $affinity to true>>
     <<jump Quit>>
--> PR1NC3: No need. I am doing ok on my own. I need to get back to work now.
-    <<characterEmotion Player "neutral" PrinceTalksprite>>
-    <<ActivateUI UI>>
-    <<set $affinity to false>>
-<<characterEmotion Player "angry" MerchantTalksprite>>
-Vas: If you say so. Take these at least.
-  <<Trade Player TradeItem>>
+
 
 <<jump Quit>>
 <<enableMovement Player true>>
