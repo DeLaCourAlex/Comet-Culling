@@ -80,7 +80,6 @@ public class DataPermanence : MonoBehaviour
 
     //NPC VARIABLES
     [HideInInspector] public bool NPCAffinity;
-    Affinity affinity;
 
     //CAPTAIN LOG VARIABLES
     [HideInInspector] public bool screenInteractedToday;
@@ -142,8 +141,6 @@ public class DataPermanence : MonoBehaviour
             {
                 allCrops[i].timeAlive += Time.deltaTime * allCrops[i].wateredMultiplier;
             }
-        
-        //NPCAffinity = affinity; 
     }
 
     // various starting variables depending on if the player starts the game in the tutorial or not
