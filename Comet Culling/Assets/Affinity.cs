@@ -11,14 +11,14 @@ public class Affinity : MonoBehaviour
     private DialogueRunner dialogueRunner;
     private InMemoryVariableStorage variableStorage;
     public static bool NPCAffinity;
-    public bool getAffinity() { return DataPermanence.Instance.highAffinity; }
+    //public bool getAffinity() { return DataPermanence.Instance.highAffinity; }
 
 
     public void Start()
     {
-        dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
-        dialogueRunner.AddFunction<bool>("get_Affinity", getAffinity);
-        variableStorage = GameObject.FindObjectOfType<InMemoryVariableStorage>();
+        //dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
+        //dialogueRunner.AddFunction<bool>("get_Affinity", getAffinity);
+        //variableStorage = GameObject.FindObjectOfType<InMemoryVariableStorage>();
 
 
         //NPCAffinity = DataPermanence.Instance.highAffinity;
@@ -57,20 +57,20 @@ public class Affinity : MonoBehaviour
     public void Update()
     {
 
-        if (NPCAffinity == true)
-        {
-            DataPermanence.Instance.highAffinity = true;
-        }
-        if (DataPermanence.Instance.highAffinity == true)
-        {
-            NPCAffinity = true;
-        }
+        //if (NPCAffinity == true)
+        //{
+        //    DataPermanence.Instance.highAffinity = true;
+        //}
+        //if (DataPermanence.Instance.highAffinity == true)
+        //{
+        //    NPCAffinity = true;
+        //}
 
 
-        variableStorage.TryGetValue("$affinity", out DataPermanence.Instance.highAffinity);
-        variableStorage.SetValue("$affinity", DataPermanence.Instance.highAffinity);
+        //variableStorage.TryGetValue("$affinity", out DataPermanence.Instance.highAffinity);
+        //variableStorage.SetValue("$affinity", DataPermanence.Instance.highAffinity);
        
-        Debug.Log("PERMANENCE AFFINITY IS SET TO: " + DataPermanence.Instance.highAffinity);
+        //Debug.Log("PERMANENCE AFFINITY IS SET TO: " + DataPermanence.Instance.highAffinity);
 
 
 
