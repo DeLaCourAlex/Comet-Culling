@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     // The amount of energy replenished by the two seed types
     int energyCropA = 10;
-    int energyCropB = 15;
+    int energyCropB = 20;
     // Flags if a crop is equipped to feed into the generator
     bool carryCropA;
     bool carryCropB;
