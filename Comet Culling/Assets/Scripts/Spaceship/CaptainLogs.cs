@@ -13,31 +13,28 @@ public class CaptainLogs : MonoBehaviour
     [SerializeField] GameObject background;
 
     //Array of bools that'll determine whether captain log is available or not
-    bool[] isLogAvailable;// = new bool[7];
+    bool[] isLogAvailable;
     //Bool to check if player has read the log of each day
     public bool hasBeenRead; 
     // Bool to check if the player is currently reading a log
     public bool logOpen;
-
+    //Number of available logs
     int availableLogs; 
 
     // Start is called before the first frame update
     void Start()
-    {
+    {//Initialize values from the ones stored in data permanence
         if (DataPermanence.Instance != null)
         {
-            availableLogs = DataPermanence.Instance.availableLogs;
+            availableLogs = DataPermanence.Instance.availableLogs; 
             isLogAvailable = DataPermanence.Instance.isLogAvailable;
             hasBeenRead = DataPermanence.Instance.hasBeenRead;
         }
-            
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
         for (int i = 0; i < 7; ++i) //Go through the array of bools
         {
             if (TimeManager.Day == (i + 1) && hasBeenRead) //If the day number == the index + 1 && it has been read
@@ -69,7 +66,7 @@ public class CaptainLogs : MonoBehaviour
         background.SetActive(logOpen);
     }
 
-    void DisplayLogs()
+    void DisplayLogs() 
     {
         for (int i = 0; i < 7; ++i) //Go through the array of bools
         {

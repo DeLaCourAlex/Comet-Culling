@@ -7,36 +7,23 @@ using Yarn.Unity;
 
 public class Merchent : MonoBehaviour
 {
-
+    
     [SerializeField] GameObject Panel;
     [SerializeField] GameObject Shop;
     [SerializeField] GameObject Dialogue;
-
-    
-    //public DialogueRunner dialogueRunner;
     private DialogueRunner dialogueRunner;
-
-    //[SerializeField] public string StartNode = Yarn.Dialogue.DefaultStartNodeName;
-
-
-    //public PlayerController playerController;
 
     private void Start()
     {
+        //Look for a dialogue runner object in the scene to initialize the member variable to
         dialogueRunner = GameObject.FindObjectOfType<Yarn.Unity.DialogueRunner>();
-        //DayCycle();
-        //gameObject.SetActive(true);
+
     }
 
-    // then we need a function to tell Yarn Spinner to start from {specifiedNodeName}
-    //public string Day2;
-    //public string Day4;
-    //public string Day6;
-    //public string Day6_LA;
-
+    //Methods for each of the yarnspinner nodes
     private void Day2Conversation()
     {
-        dialogueRunner.StartDialogue("TestTalkSprite");
+        dialogueRunner.StartDialogue("Day_2");
     }
     private void Day4Conversation()
     {
@@ -58,6 +45,7 @@ public class Merchent : MonoBehaviour
         //if player is detected 
         if (player_detection)
         {
+            
             Panel.SetActive(true);
             if (Input.GetKeyDown(KeyCode.T))
             {

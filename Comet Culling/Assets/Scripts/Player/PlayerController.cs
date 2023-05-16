@@ -354,9 +354,8 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            //skip tutorial upon key press
-            if (Input.GetKeyDown(KeyCode.Q))
-                SkipOverTutorial();
+        
+
         }
 
         // Move the camera position further above the player if they're near the top of the crop scene
