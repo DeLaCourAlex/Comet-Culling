@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da84dc300022e904e9310f54b3199d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToGrow: 1000
-  timeToGrowWatered: 500
+  timeToGrow: 1440
+  timeToGrowWatered: 720
   energyGiven: 0
   <elementNumber>k__BackingField: 1
 --- !u!61 &-7247453546081994389
