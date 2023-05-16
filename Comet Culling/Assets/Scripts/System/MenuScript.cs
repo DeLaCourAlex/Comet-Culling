@@ -48,8 +48,10 @@ public class MenuScript : MonoBehaviour
         {
             DataPermanence.Instance.tutorialNumber = 12;
             DataPermanence.Instance.spaceshipEnergy = 100;
-        }
             
+            DataPermanence.Instance.seedB = 10;
+            DataPermanence.Instance.seedA = 10;
+        }
 
         DataPermanence.Instance.playerTutorial = tutorial;
     }

@@ -121,14 +121,14 @@ public class DataPermanence : MonoBehaviour
         availableTools = 1;
         playerTutorial = true;
         //highAffinity = true;
-       day = 1;
+        day = 1;
         mins = 0;
         hour = 7;
         sfxVolume = 1;
         musicVolume = 1;
         playerStartPosition = new Vector2(-3, 3);
-        seedA = 10;
-        seedB = 10;
+        //seedA = 10;
+        //seedB = 10;
     }
 
     private void Update()
