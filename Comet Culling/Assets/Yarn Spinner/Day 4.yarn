@@ -24,7 +24,7 @@ Vas: I wanted to check up on you!
 Vas: Of course I do! You’re my friend and I want to make sure you’re ok.
 
 <<characterEmotion Player "sad" MerchantTalksprite>>
-Vas: It pains me to see you alone. I really hope you can be reunited with them.  
+Vas: It pains me to see you alone. I really hope you can be reunited with your friends.   
 
 <<characterEmotion Player "sad" PrinceTalksprite>>
 ->PR1NC3: … 
